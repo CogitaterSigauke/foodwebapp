@@ -41,12 +41,12 @@ Make a webapp that can provide
 * Provide video streaming of cooking sessions 
 
 
-List of Team mates and their roles
+# List of Team mates and their roles
 
-1, Rediet Negash - Project Manager
-2, CogitaterSigauke - Lead programmer
-3, Merry Mekonnen - Product Owner
-4, Pyungkang Hong - Desginer
+*  Rediet Negash - Project Manager
+*  CogitaterSigauke - Lead programmer
+*  Merry Mekonnen - Product Owner
+*  Pyungkang Hong - Desginer
 
 
 
