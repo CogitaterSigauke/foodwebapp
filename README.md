@@ -17,16 +17,14 @@ However, the most possible healthy meal is found by cooking the meal by yourself
 
 Make a web app that can provide
 
- * Recipes that are 
-            * Easy to follow
-            * That uses easily accessible ingredients
-            * That helps you prepare delicious and healthy dishes
-
+* Recipes that are easy to follow
+* That uses easily accessible ingredients
+* That helps you prepare delicious and healthy dishes
 * A platform where a user is able to enter their own signature for food recipes providing an opportunity to 
-            * Benefit the community
-            * Collect points based off of the rates given by the community
-            * Follow food experts and hobbyists and build relationships
-            * To be followed and build a huge network with people.
+* Benefit the community
+* Collect points based off of the rates given by the community
+* Follow food experts and hobbyists and build relationships
+* To be followed and build a huge network with people.
             
             
 # Key Features of the Web App
