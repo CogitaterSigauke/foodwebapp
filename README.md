@@ -10,43 +10,43 @@ However, the most possible healthy meal is found by cooking the meal by yourself
 * Most students don’t have the time to cook
 * Most students don’t know how to cook
 * Some also find it boring and lonely when they do it
-* Most chefs also are eager to share their cooking culinary expertise
-* Marketing firms are looking for media platform to advertise food products
+* Most chefs are also eager to share their cooking culinary expertise
+* Marketing firms are looking for a media platform to advertise food products
 
 # Solution
 
-Make a webapp that can provide
+Make a web app that can provide
 
- 1, Recipes that are 
-            * Easy to follow
-            * That uses easily accessible ingredients
-            * That helps you prepare delicious and healthy dishes
+ * Recipes that are 
+            * Easy to follow
+            * That uses easily accessible ingredients
+            * That helps you prepare delicious and healthy dishes
 
-2,  A way where a user is able to enter their own recipes as a signature providing an opportunity to 
-            * Benefit the community
-            * Collecte points based off of the rates given by the community
-            * Follow food experts and hobbyists and build relationships
-            * To be followed and have a huge community and fame.
-            
-            
+* A platform where a user is able to enter their own signature for food recipes providing an opportunity to 
+            * Benefit the community
+            * Collect points based off of the rates given by the community
+            * Follow food experts and hobbyists and build relationships
+            * To be followed and build a huge network with people.
+            
+            
 # Key Features of the Web App
 
 * Search bar - to allow users to enter ingredients and provide with the list of possible recipes for different dishes.
 * Feedbacks and rating
 * User registration and authentication
-* Chat bot 
+* Chatbot 
 * Point counting system
-* View  and edit Profiles
+* View  and edit Profiles
 * Live comment and follow users 
 * Provide video streaming of cooking sessions 
 
 
-# List of Team mates and their roles
+# List of Teammates and their roles
 
-*  Rediet Negash - Project Manager
-*  CogitaterSigauke - Lead programmer
-*  Merry Mekonnen - Product Owner
-*  Pyungkang Hong - Desginer
+*  Rediet Negash - Project Manager
+*  CogitaterSigauke - Lead programmer
+*  Merry Mekonnen - Product Owner
+*  Pyungkang Hong - Desginer
 
 
 
