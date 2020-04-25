@@ -8,5 +8,8 @@
   },
   "author": "",
   "license": "ISC",
-  "dependencies": {}
+  "dependencies": {
+    "react-google-login": "^5.1.10",
+    "react-router-dom": "^5.1.2"
+  }
 }
