@@ -26,7 +26,10 @@
 // export default App;
 import React from 'react';
 import { render } from '@testing-library/react';
+import axios from 'axios';
 import App from './App';
+axios.defaults.baseURL = 'https://my-recipe-web-app-foodweb.azuremicroservices.io/app';
+
 
 test('renders learn react link', () => {
   const { getByText } = render(<App />);
