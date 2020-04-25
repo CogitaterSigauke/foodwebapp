@@ -21,18 +21,23 @@ Make a web app that can provide
 
 * A platform where a user is able to enter their own signature for food recipes providing an opportunity to benefit the communit, get rewards by collect points based off of the rates given by the community, follow food experts and hobbyists and build relationships with them and also an apportunity to be followed by others and create a fame.
 
-            
-            
+# Project Introduce
+
+* git clone https://github.com/CogitaterSigauke/foodwebapp.git
+* cd react
+* npm install
+* npm start           
+           
 # Key Features of the Web App
 
 * Search bar - to allow users to enter ingredients and provide with the list of possible recipes for making different dishes.
-* Feedbacks and rating - to give users a change to review the recipes that they used. 
-* User registration and authentication 
-* Chatbot 
+* Feedbacks and rating - to give users a change to review the recipes that they used.
+* User registration and authentication
+* Chatbot
 * Point counting system
 * View  and edit Profiles
-* Live comment and follow users 
-* Provide video streaming of cooking sessions 
+* Live comment and follow users
+* Provide video streaming of cooking sessions
 
 
 # List of Teammates and their roles
@@ -41,6 +46,3 @@ Make a web app that can provide
 *  CogitaterSigauke - Lead programmer
 *  Merry Mekonnen - Product Owner
 *  Pyungkang Hong - Desginer
-
-
-
