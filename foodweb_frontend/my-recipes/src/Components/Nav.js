@@ -11,15 +11,15 @@ function Nav() {
   }
   var loggedin;
 
-  if (localStorage.getItem("loggedin") === null) {
-    loggedin = false;
-    localStorage.setItem("loggedin", false);
-  }
-  else {
+  // if (localStorage.getItem("loggedin") === null) {
+  //   loggedin = false;
+  //   localStorage.setItem("loggedin", false);
+  // }
+  // else {
 
-    loggedin = localStorage.getItem('loggedin');
+  //   loggedin = localStorage.getItem('loggedin');
 
-  }
+  // }
 
 
   const logout = () => {
@@ -44,8 +44,8 @@ function Nav() {
           <li>addRecipes</li>
         </Link>
         {
-          !loggedin &&
-          (<div className="nav-links">
+         
+          <div className="nav-links">
             <Link style={navstyle} to="./Components/ProfileComponents/Login">
               <li>Login</li>
             </Link>
@@ -53,19 +53,18 @@ function Nav() {
               <li>SignUp</li>
             </Link>
           </div>
-          )
+          
         }
         {
-          loggedin &&
-          (
-            <div className="nav-links">
-              <Link style={navstyle} to="./Components/ProfileComponents/Profile">
-                <li>Profile</li>
-              </Link>
-              <Link to = "/" onClick={logout} value="LogOut" ><li >Logout</li>
-              </Link>
-            </div>
-          )
+          
+          <div className="nav-links">
+            <Link style={navstyle} to="./Components/ProfileComponents/Profile">
+              <li>Profile</li>
+            </Link>
+            <Link to = "/" onClick={logout} value="LogOut" ><li >Logout</li>
+            </Link>
+          </div>
+         
         }
 
       </ul>
