@@ -24,7 +24,7 @@ Make a web app that can provide
 # Project Introduce
 
 * git clone https://github.com/CogitaterSigauke/foodwebapp.git
-* cd react
+* cd foodwebapp
 * npm install
 * npm start           
            
