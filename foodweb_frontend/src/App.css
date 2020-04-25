@@ -1,38 +1,60 @@
-.App {
-  text-align: center;
-}
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+nav{
   display: flex;
-  flex-direction: column;
+  justify-content:space-around;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+  min-height: 10vh;
+  background: lightslategray;
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
+.nav-links{
+  width: 30%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  list-style:none;
+  
 }
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.cad-n{
+  width: 18rem;
+  float: none;
+  margin: 0 auto;
+  padding: 2rem;
+  
+}
+body{
+  background-color:white;
+}
+.Portfolio{
+  background-color: rgba(114, 149, 223, 0.568);
+  min-height:  500px;
+  border: 1px solid #011f33;
+  text-align: center;
+  width: 90%;
+  margin: 40px auto;
+  font-size: 1.0em;
+}
+#to-do-form input{
+  background-color: reb(27,112,137);
+  border: 0;
+  width: 200px;
+  height: 50px;
+  padding: 0 20px;
+  margin: 20px;
+  font-size: 18px;
+  border-radius: 10px;
+}
+#to-do-form input::placeholder{
+  color: reba(255,255,255,0.5);
+}
+#to-do-form button{
+  height: 50px;
+  width:80px;
+  border-radius: 5px;
+  border: 0;
+  background-color: rgb(64, 108, 150);
+  cursor: pointer;
+  font-weight:bolder;
+  color: #fff;
 }
