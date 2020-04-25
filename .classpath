@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="src" path="foodweb_backend/.mvn/wrapper"/>
+	<classpathentry kind="src" path="foodweb_backend/src/main/java"/>
+	<classpathentry kind="src" path="foodweb_backend/src/test/java"/>
+	<classpathentry kind="src" path="foodweb_frontend/.mvn/wrapper"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
