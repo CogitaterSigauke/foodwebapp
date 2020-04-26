@@ -266,6 +266,27 @@ az webapp up --name <web-app-name> \
 
 * On success, your website url will be printed in the terminal
 * You can also see the url in your azure portal under App Services
+# You can now use your website
+
+
+# Steps To Release A New Version of The Software
+
+* We will check reported github reported issues
+* Fix the bugs for the future release
+* Create a new git feature branch and prevent everyone from merging into master
+* Fix bugs and add features while amking sure to push to the new feature branch
+* Update the software version number in the documentation and release notes
+* Update the readme file to indicate the new features
+* Update version number in the code
+* Run tests after ater very upload to the feature branch
+* Run test on the branch before merging it to master
+* Check that everything is working and no conflicts exists
+* If the software is perfoming as expected, start the deploying process
+* Build the application and run it on the local server
+* We you use live-server for that
+* Run tests to check the links, buttons, and all functionality *(You can forcus on the newly added features)*
+* Deploy the new software 
+* Add release notes on github
 
 # You can now use your website
 
