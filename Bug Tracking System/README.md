@@ -4,17 +4,55 @@ We are using Github Issues for tracking bugs in our project. As we are collabora
 
 Steps to be followed when collaborators find issues and want to report them:
 
-      •	Navigate to the main page of our github project’s repository.
+# Step one: 
+      Navigate to the main page of our github project’s repository as shown in the image below
+
+
+
+![](/Bug%20Tracking%20System/mainpage.jpg)
+
+
+
+# Step two:
+
+      Under our project’s repository name, click on Issues tab.
+
+
+![](https://github.com/CogitaterSigauke/foodwebapp/blob/master/Bug%20Tracking%20System/Issues.jpg)
+
+
+
       
-      •	Under our project’s repository name, click on Issues tab.
+ # Setp three: 
+      Under our project’s repository name, Click New Issue.
+ 
+ 
+ ![](/Bug%20Tracking%20System/issue.jpg)
+
+
+
+
+# Step Four: 
       
-      •	Click New Issue.
+      Type the title and write a detailed description of the issue. Our team highly recommends each team member to take a screenshot of the issue and attach it to the ‘Leave a comment’ text area.
+ 
+ ![](https://github.com/CogitaterSigauke/foodwebapp/blob/master/Bug%20Tracking%20System/issuereport.jpg)
+ 
+ 
+ 
+ 
+ 
+# Setp Five: 
+
+      Before submitting the issue, team members are required to assign the issue to someone and label the issue. 
       
-      •	Type the title and write a detailed description of the issue. Our team highly recommends each team member to take a screenshot of the issue and attach it to the ‘Leave a comment’ text area.
+ ![](https://github.com/CogitaterSigauke/foodwebapp/blob/master/Bug%20Tracking%20System/assigningPeople.jpg)
       
-      •	Before submitting the issue, team members are required to assign the issue to someone and label the issue. 
       
-      •	Click submit. 
+      
+      
+     
+ # step six: Click submit
 
 
 
