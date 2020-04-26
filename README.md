@@ -40,7 +40,9 @@ Make a web app that can provide
 *  CogitaterSigauke - Lead programmer
 *  Merry Mekonnen - Product Owner
 *  Pyungkang Hong - Designer
-
+# Link to where the website is deployed 
+```
+```
 # How To Use This Software
 
 * Clone the repository by using the following command in your terminal:
