@@ -1,4 +1,4 @@
-# Food-web app
+# MyRecipe app
 
 # Problem
 
@@ -40,7 +40,132 @@ Make a web app that can provide
 *  Rediet Negash - Project Manager
 *  CogitaterSigauke - Lead programmer
 *  Merry Mekonnen - Product Owner
-*  Pyungkang Hong - Desginer
+*  Pyungkang Hong - Designer
 
+# How To Use This Software
 
+* Clone the repository by using the following command in your terminal:
+```
+     git clone https://github.com/CogitaterSigauke/foodwebapp.git
+```
+* Or download and unizip the repository on your local machine 
+
+# Setup Database
+
+* You can use any mongodb database but in this project we will be using 
+Azure's Cosmos DB for Mongodb API
+* Create account on Microsoft Azure and log into your portal
+* Search for Cosmos DB and choose Mongodb API when setting up the configurations
+* Choose or create a new resource group, name your database, select location
+and fill out the rest of the settings
+* After creating the database go to the settings and copy the "connection string" - a string that allows you connect to the database- and the username
+
+# Backend Configurations and Setup
+
+* Cd into foodweb_backend/src/main/resources folder
+* Open and edit the application.properties as follows
+spring.data.mongodb.database=<username>
+spring.data.mongodb.uri=<primarySonnectionString>
+(replacing <username> and <primaryConnectionString> with the database username and primary connection string you just copied earlier respectively)
+
+* If you are using your local mongodb replace the above lines with:
+
+spring.data.mongodb.host=localhost
+spring.data.mongodb.port=27017
+
+# Testing Your Backend
+
+* Open your teminal and cd into the foobweb_backend folder
+* Run your backend on your local machine:
+```
+ ./mvnw spring-boot:run
+
+```
+
+* If you did not get any errors you can go on and test it
+* We will use postman application to test the backend server
+* Install (if you don't have it already) and run postman
+* Sent a post request to http://localhost:8080/app/signup with the following payload:
+```
+{
+    "name" : "myName",
+    "userName" : "myUserName",
+    "familyName" : "myFamilyName",
+    "pictureURl" : "myPictureUrl",
+    "email" : "myEmail"
+}
+``` 
+* On success, you should have a response of the same object but with an ID added
+* The backend is now working and you are ready to deploy
+
+# Deploying Your Backend
+
+* You can use any hosting service of your choice but in this project we will use azure
+
+* First make sure you have Azure CLI and Maven installed on your machine
+* open your bash terminal and cd into your foodweb_backend folder
+* login to azure:
+```
+ az login
+```
+* Build your jar file
+```
+ mvn clean package
+```
+* After the web app has been created, start the web app using Maven
+```
+ mvn spring-boot:run
+```
+* If you successfully run the command, you can test the build application using postman 
+* open foodweb_backend/pom.xml and make sure you have the right version of azure
+* The following code has already been configured in this project which you clonned, however, if you couldn't find it, go ahead and add the following plugins to pom.xml file which is found in foodweb_backend/pom.xml directory
+```
+<--------------pom.xml-------------/>
+<plugin>
+    <groupId>com.microsoft.azure</groupId>
+    <artifactId>azure-webapp-maven-plugin</artifactId>
+    <version>1.9.0</version>
+</plugin>
+```
+
+* Configure your auzure
+```
+ mvn azure-webapp:config
+```
+* Choose linux as your operating system
+* Choose java11 for your running environment
+
+* Now you're ready to deploy
+```
+ mvn clean package
+```
+* On success, you can either deploy using option one or option two
+
+* *Option 1) Deploy Using Azure App Services*
+```
+ mvn azure-webapp:deploy
+```
+* On success, you can go to your Azure app services in your portal and see your application deployed
+
+* * Option 2) Deploy Using Azure Spring Cloud*
+On terminal in the backend directory, run the following commands one by one to proceed with deployment
+```
+az extension add --name spring-cloud
+az account list -o table
+az account set --subscription <Name or ID of subscription from the last step>
+az group create --location eastus --name <resource group name>
+*You can choose a different location*
+az spring-cloud create -n <service instance name> -g <resource group name>
+az configure --defaults group=<resource group name>
+az configure --defaults spring-cloud=<service instance name>
+az spring-cloud config-server git set -n <service instance name> --uri https://github.com/Azure-Samples/piggymetrics-config
+az spring-cloud app create --name <foodweb>
+```
+
+ * after clean package, a jar file has been created in the target folder
+ * copy the path of the jar file and use it in the next step
+```
+ az spring-cloud app deploy -n <foodweb> --jar-path <./target/foodweb-0.0.1-SNAPSHOT.jar.jar>
+```
+# Frontend Configurations and Setup
 
