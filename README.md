@@ -19,7 +19,7 @@ Make a web app that can provide
 
 * Recipes that are easy to follow, that uses easily accessible ingredients and that helps the user prepare delicious and healthy meal
 
-* A platform where a user is able to enter their own signature for food recipes providing an opportunity to benefit the communit, get rewards by collect points based off of the rates given by the community, follow food experts and hobbyists and build relationships with them and also an apportunity to be followed by others and create a fame.
+* A platform where a user is able to enter their own signature for food recipes providing an opportunity to benefit the communit, follow food experts and hobbyists and build relationships with them and also an apportunity to be followed by others and create a fame.
 
             
             
@@ -28,8 +28,7 @@ Make a web app that can provide
 * Search bar - to allow users to enter ingredients and provide with the list of possible recipes for making different dishes.
 * Feedbacks and rating - to give users a change to review the recipes that they used. 
 * User registration and authentication 
-* Chatbot 
-* Point counting system
+* ChatBox 
 * View  and edit Profiles
 * Live comment and follow users 
 * Provide video streaming of cooking sessions 
