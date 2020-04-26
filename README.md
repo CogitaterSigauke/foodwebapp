@@ -170,3 +170,97 @@ az spring-cloud app create --name <foodweb>
 ```
 # Frontend Configurations and Setup
 
+* To setup your application cd into foobweb_frontend
+* Run the following commands to install all the dependencies
+```
+npm install
+```
+* This will install all the dependencies
+* Set the url endpoint of your backend server by editing the foodweb_frontend/package.json file.
+
+```
+//package.json
+
+"proxy": "https://backendserver.azuremicroservices.io/app"
+
+```
+*Replace the url with the url of your backend server. You can find it your resource in azure*
+
+* Also edit foodweb_frontend/App.js as follows
+
+```
+//App.js
+axios.defaults.baseURL = 'https://backendserver.azuremicroservices.io/app';
+
+```
+*Replace the url with the url of your backend server. You can find it your resource in azure*
+
+* Setup Google Authentication and coppy your client ID
+* Follow instruction https://developers.google.com/identity/sign-in/web/sign-in
+
+* Open and edit the *Login.js replacing the clientID with your google ClientId
+```
+<GoogleLogin
+
+    clientId="mygoogleclientID.apps.googleusercontent.com"
+    buttonText="Sign in with Google"
+    scope='profile email'
+    width='240'
+    height='50'
+    longtitle='true'
+    theme='dark'
+    onSuccess={handleGoogleResponse}
+    onFailure={handleGoogleResponse}
+    cookiePolicy={"single_host_origin"}
+/>
+
+```
+* To test this, run the frontend application as follows:
+```
+npm start
+```
+* If you still have errors regarding missing dependencies
+* Install them manually as
+```
+npm install <NameOfMissingDependency>
+```
+Example
+```
+npm install axios
+```
+* Now everything should be working. You can test it again 
+
+# Test your frontend
+
+* Make sure you have live-server installed
+* You can install it as follows
+```
+npm install -g live-server
+```
+* Build your application for production
+```
+npm run build
+```
+* Cd into your build folder
+* Fully test the production build application by running it locally 
+* run live-server
+```
+live-server
+``` 
+* Your application will start running on http://localhost:3000 
+
+# Deploy your Application
+
+* Again we will use azure for the deployment
+
+```
+az login
+az webapp up --name <web-app-name> \
+--plan <web-app-service-plan> --resource-group \
+<your-azure-resource-group> --location <uscetral> --html
+
+```
+
+* On success, your website url will be printed in the terminal
+* You can also see the url in your azure portal under App Services
+# You can now use your website
