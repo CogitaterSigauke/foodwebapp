@@ -46,7 +46,7 @@ Make a web app that can provide
 
 * Clone the repository by using the following command in your terminal:
 ```
-    >>> git clone https://github.com/CogitaterSigauke/foodwebapp.git
+     git clone https://github.com/CogitaterSigauke/foodwebapp.git
 ```
 * Or download and unizip the repository on your local machine 
 
@@ -78,7 +78,7 @@ spring.data.mongodb.port=27017
 * Open your teminal and cd into the foobweb_backend folder
 * Run your backend on your local machine:
 ```
->>> ./mvnw spring-boot:run
+ ./mvnw spring-boot:run
 
 ```
 
@@ -104,20 +104,21 @@ spring.data.mongodb.port=27017
 * open your bash terminal and cd into your foodweb_backend folder
 * login to azure:
 ```
->>> az login
+ az login
 ```
 * Build your jar file
 ```
->>> mvn clean package
+ mvn clean package
 ```
 * When the web app has been created, start the web app using Maven
 ```
->>> mvn spring-boot:run
+ mvn spring-boot:run
 ```
 * if successifull you can test again using postman
 * open foodweb_backend/pom.xml and make sure you have the right version of azure
-pom.xml
+
 ```
+<--------------pom.xml-------------/>
 <plugin>
     <groupId>com.microsoft.azure</groupId>
     <artifactId>azure-webapp-maven-plugin</artifactId>
@@ -127,43 +128,42 @@ pom.xml
 
 * Configure your auzure
 ```
->>> mvn azure-webapp:config
+ mvn azure-webapp:config
 ```
 * Choose linux as your oprating system
 * Choose java11 for your running environment
 
 * Now you're ready to deploy
 ```
->>> mvn clean package
+ mvn clean package
 ```
 * On success run
 
-** 1) Deploy Using Azure App Services**
+* *1) Deploy Using Azure App Services*
 ```
->>> mvn azure-webapp:deploy
+ mvn azure-webapp:deploy
 ```
-* On success you can go to your Azure app services in your portal and see your application
-deployed
+* On success you can go to your Azure app services in your portal and see your application deployed
 
-** 2) Deploy Using Azure Spring Cloud**
+* *2) Deploy Using Azure Spring Cloud*
 ```
->>>az extension add --name spring-cloud
->>>az account list -o table
->>>az account set --subscription <Name or ID of subscription from the last 
+az extension add --name spring-cloud
+az account list -o table
+az account set --subscription <Name or ID of subscription from the last 
 step>
->>>az group create --location eastus --name <resource group name>
+az group create --location eastus --name <resource group name>
 *You can choose a different location*
->>>az spring-cloud create -n <service instance name> -g <resource group name>
->>>az configure --defaults group=<resource group name>
->>>az configure --defaults spring-cloud=<service instance name>
->>>az spring-cloud config-server git set -n <service instance name> --uri https://github.com/Azure-Samples/piggymetrics-config
->>>az spring-cloud app create --name <foodweb>
+az spring-cloud create -n <service instance name> -g <resource group name>
+az configure --defaults group=<resource group name>
+az configure --defaults spring-cloud=<service instance name>
+az spring-cloud config-server git set -n <service instance name> --uri https://github.com/Azure-Samples/piggymetrics-config
+az spring-cloud app create --name <foodweb>
 ```
 
  * after clean package, a jar file has been created in the target folder
  * copy the path of the jar file and use it in the next step
 ```
->>> az spring-cloud app deploy -n <foodweb> --jar-path <./target/foodweb-0.0.1-SNAPSHOT.jar.jar>
+ az spring-cloud app deploy -n <foodweb> --jar-path <./target/foodweb-0.0.1-SNAPSHOT.jar.jar>
 ```
 # Frontend Configurations and Setup
 
