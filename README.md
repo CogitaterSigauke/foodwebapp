@@ -86,13 +86,15 @@ spring.data.mongodb.port=27017
 * We will use postman application to test the backend server
 * Install (if you don't have it already) and run postman
 * Sent a post request to http://localhost:8080/app/signup with the following payload:
+```
 {
     "name" : "myName",
     "userName" : "myUserName",
     "familyName" : "myFamilyName",
     "pictureURl" : "myPictureUrl",
     "email" : "myEmail"
-} 
+}
+``` 
 * On success you should have a response of the same object but with an ID added
 * The backend is now working and your're ready to deploy
 
@@ -149,8 +151,7 @@ spring.data.mongodb.port=27017
 ```
 az extension add --name spring-cloud
 az account list -o table
-az account set --subscription <Name or ID of subscription from the last 
-step>
+az account set --subscription <Name or ID of subscription from the last step>
 az group create --location eastus --name <resource group name>
 *You can choose a different location*
 az spring-cloud create -n <service instance name> -g <resource group name>
