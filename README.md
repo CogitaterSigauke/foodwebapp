@@ -128,7 +128,7 @@ spring.data.mongodb.port=27017
 </plugin>
 ```
 
-* Configure your auzure
+* Configure your azure
 ```
  mvn azure-webapp:config
 ```
@@ -147,7 +147,7 @@ spring.data.mongodb.port=27017
 ```
 * On success, you can go to your Azure app services in your portal and see your application deployed
 
-* * Option 2) Deploy Using Azure Spring Cloud*
+* *Option 2) Deploy Using Azure Spring Cloud*
 On terminal in the backend directory, run the following commands one by one to proceed with deployment
 ```
 az extension add --name spring-cloud
