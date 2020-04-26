@@ -10,7 +10,7 @@ Steps to be followed when collaborators find issues and want to report them:
       
       •	Click New Issue.
       
-      •	Type the title and write a detailed description of the issue. Our team highly recommends each team member to take a screenshot of         the issue and attach it to the ‘Leave a comment’ text area.
+      •	Type the title and write a detailed description of the issue. Our team highly recommends each team member to take a screenshot of the issue and attach it to the ‘Leave a comment’ text area.
       
       •	Before submitting the issue, team members are required to assign the issue to someone and label the issue. 
       
