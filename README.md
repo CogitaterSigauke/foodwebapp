@@ -69,10 +69,10 @@ spring.data.mongodb.uri=<primarySonnectionString>
 (replacing <username> and <primarySonnectionString> with the database username and primary connection string you copied elier respectively)
 
 * If you are using your local mongodb replace the above lines with:
-
+```
 spring.data.mongodb.host=localhost
 spring.data.mongodb.port=27017
-
+```
 # Testing Your Backend
 
 * Open your teminal and cd into the foobweb_backend folder
@@ -153,7 +153,9 @@ az extension add --name spring-cloud
 az account list -o table
 az account set --subscription <Name or ID of subscription from the last step>
 az group create --location eastus --name <resource group name>
+```
 *You can choose a different location*
+```
 az spring-cloud create -n <service instance name> -g <resource group name>
 az configure --defaults group=<resource group name>
 az configure --defaults spring-cloud=<service instance name>
