@@ -266,4 +266,19 @@ az webapp up --name <web-app-name> \
 
 * On success, your website url will be printed in the terminal
 * You can also see the url in your azure portal under App Services
+
 # You can now use your website
+
+# Instruction for checking out the latest stable version
+   * Go to our repository main page and click on 'clone or download' button:
+      option_1: Download zip
+      option_2: Copy the web url and head to CMD/Terminal/Git bash on your local machine
+   * If option_2 followed, change to the preferred directory and type 'git clone <web url>'. Then you can
+     access the codes and documents in our repository.
+   * If you have already cloned our repository in the past, you may skip the above steps.
+     You can simply head to the terminal and navigate to where your cloned repository is located, then
+     type 'git type <web url>'. Now you can have a full access to the newly updated version of the website.
+
+
+
+
