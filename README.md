@@ -40,7 +40,7 @@ Make a web app that can provide
 *  Rediet Negash - Project Manager
 *  CogitaterSigauke - Lead programmer
 *  Merry Mekonnen - Product Owner
-*  Pyungkang Hong - Desginer
+*  Pyungkang Hong - Designer
 
 # How To Use This Software
 
