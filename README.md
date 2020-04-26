@@ -58,23 +58,21 @@ Azure's Cosmos DB for Mongodb API
 * Search for Cosmos DB and choose Mongodb API when setting up the configurations
 * Choose or create a new resource group, name your database, select location
 and fill out the rest of the settings
-* After creating the database go to the settings and copy the "connection string" which allows you connect to the database, and copy your primary connection string and username
+* After creating the database go to the settings and copy the "connection string" - a string that allows you connect to the database- and the username
 
 # Backend Configurations and Setup
 
 * Cd into foodweb_backend/src/main/resources folder
-* Open the the application.properties as follows
-```
+* Open and edit the application.properties as follows
 spring.data.mongodb.database=<username>
 spring.data.mongodb.uri=<primarySonnectionString>
-```
-(replacing <username> and <primarySonnectionString> with the database username and primary connection string you copied elier respectively)
+(replacing <username> and <primaryConnectionString> with the database username and primary connection string you just copied earlier respectively)
 
 * If you are using your local mongodb replace the above lines with:
-```
+
 spring.data.mongodb.host=localhost
 spring.data.mongodb.port=27017
-```
+
 # Testing Your Backend
 
 * Open your teminal and cd into the foobweb_backend folder
@@ -97,8 +95,8 @@ spring.data.mongodb.port=27017
     "email" : "myEmail"
 }
 ``` 
-* On success you should have a response of the same object but with an ID added
-* The backend is now working and your're ready to deploy
+* On success, you should have a response of the same object but with an ID added
+* The backend is now working and you are ready to deploy
 
 # Deploying Your Backend
 
@@ -114,13 +112,13 @@ spring.data.mongodb.port=27017
 ```
  mvn clean package
 ```
-* When the web app has been created, start the web app using Maven
+* After the web app has been created, start the web app using Maven
 ```
  mvn spring-boot:run
 ```
-* if successifull you can test again using postman
+* If you successfully run the command, you can test the build application using postman 
 * open foodweb_backend/pom.xml and make sure you have the right version of azure
-
+* The following code has already been configured in this project which you clonned, however, if you couldn't find it, go ahead and add the following plugins to pom.xml file which is found in foodweb_backend/pom.xml directory
 ```
 <--------------pom.xml-------------/>
 <plugin>
@@ -134,30 +132,29 @@ spring.data.mongodb.port=27017
 ```
  mvn azure-webapp:config
 ```
-* Choose linux as your oprating system
+* Choose linux as your operating system
 * Choose java11 for your running environment
 
 * Now you're ready to deploy
 ```
  mvn clean package
 ```
-* On success run
+* On success, you can either deploy using option one or option two
 
-* *1) Deploy Using Azure App Services*
+* *Option 1) Deploy Using Azure App Services*
 ```
  mvn azure-webapp:deploy
 ```
-* On success you can go to your Azure app services in your portal and see your application deployed
+* On success, you can go to your Azure app services in your portal and see your application deployed
 
-* *2) Deploy Using Azure Spring Cloud*
+* * Option 2) Deploy Using Azure Spring Cloud*
+On terminal in the backend directory, run the following commands one by one to proceed with deployment
 ```
 az extension add --name spring-cloud
 az account list -o table
 az account set --subscription <Name or ID of subscription from the last step>
 az group create --location eastus --name <resource group name>
-```
 *You can choose a different location*
-```
 az spring-cloud create -n <service instance name> -g <resource group name>
 az configure --defaults group=<resource group name>
 az configure --defaults spring-cloud=<service instance name>
