@@ -64,8 +64,10 @@ and fill out the rest of the settings
 
 * Cd into foodweb_backend/src/main/resources folder
 * Open the the application.properties as follows
+```
 spring.data.mongodb.database=<username>
 spring.data.mongodb.uri=<primarySonnectionString>
+```
 (replacing <username> and <primarySonnectionString> with the database username and primary connection string you copied elier respectively)
 
 * If you are using your local mongodb replace the above lines with:
