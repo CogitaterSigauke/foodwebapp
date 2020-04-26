@@ -58,7 +58,7 @@ Azure's Cosmos DB for Mongodb API
 * Search for Cosmos DB and choose Mongodb API when setting up the configurations
 * Choose or create a new resource group, name your database, select location
 and fill out the rest of the settings
-* After creating the database go to the settings -> connection string, and copy your primary connection string and username
+* After creating the database go to the settings and copy the "connection string" which allow you connect to the database, and copy your primary connection string and username
 
 # Backend Configurations and Setup
 
