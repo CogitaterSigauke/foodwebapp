@@ -283,3 +283,4 @@ az webapp up --name <web-app-name> \
 * We you use live-server for that
 * Run tests to check the links, buttons, and all functionality *(You can forcus on the newly added features)*
 * Deploy the new software 
+* Add release notes on github
