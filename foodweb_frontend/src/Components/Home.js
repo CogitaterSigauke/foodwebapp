@@ -1,8 +1,9 @@
 import React from 'react';
 import '../App.css';
+import '../style.css'
 import { useHistory } from "react-router-dom";
 import FoodGenerate from './FoodGenerate';
-
+import foodHome from './Good-Foods-home.jpg';
 function Home() {
 
   const history = useHistory();
@@ -27,10 +28,11 @@ function Home() {
       <header className="masthead">
         <div className="container">
           <div className="intro-text">
-            <div className="intro-lead-in">Welcome to our My Recipes</div>
+            <div className="intro-lead-in">Welcome to My Recipes food web
+            <img src={foodHome} />
+            </div>
             <div className="intro-heading text-uppercase">It is nice to meet you!</div>
-           {/* <a className="btn btn-primary btn-xl text-uppercase js-scroll-trigger" href="Quizzes/Quiz">Start Quiz</a> */}
-          </div>
+            </div>
         </div>
       </header>
 

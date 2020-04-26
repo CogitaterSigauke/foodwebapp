@@ -11,15 +11,15 @@ function Nav() {
   }
   var loggedin;
 
-  // if (localStorage.getItem("loggedin") === null) {
-  //   loggedin = false;
-  //   localStorage.setItem("loggedin", false);
-  // }
-  // else {
+  if (localStorage.getItem("loggedin") === null) {
+    loggedin = false;
+    localStorage.setItem("loggedin", false);
+  }
+  else {
 
-  //   loggedin = localStorage.getItem('loggedin');
+    loggedin = localStorage.getItem('loggedin');
 
-  // }
+  }
 
 
   const logout = () => {
@@ -37,34 +37,36 @@ function Nav() {
     <nav >
       <h3>Food Web</h3>
       <ul className="nav-links">
-        <Link style={navstyle} to="/" >
+        <Link style={navstyle} to="/Components/Home" >
           <li>Home</li>
         </Link>
         <Link style={navstyle} to="/Components/RecipeComponents/addRecipe">
           <li>addRecipes</li>
         </Link>
         {
-         
+           !loggedin &&
+           (
         <div className="nav-links">
-          <Link style={navstyle} to="./Components/ProfileComponents/Login">
+          <Link style={navstyle} to="/Components/ProfileComponents/Login">
             <li>Login</li>
           </Link>
-          <Link style={navstyle} to="./Components/ProfileComponents/SignUp">
+          <Link style={navstyle} to="/Components/ProfileComponents/SignUp">
             <li>SignUp</li>
           </Link>
         </div>
-          
+           )
         }
         {
-          
+           loggedin &&
+           (
         <div className="nav-links">
-          <Link style={navstyle} to="./Components/ProfileComponents/Profile">
+          <Link style={navstyle} to="/Components/ProfileComponents/Profile">
             <li>Profile</li>
           </Link>
-          <Link to = "/" onClick={logout} value="LogOut" ><li >Logout</li>
+          <Link to = "/Components/Home" onClick={logout} value="LogOut" ><li >Logout</li>
           </Link>
         </div>
-         
+          )
         }
 
       </ul>

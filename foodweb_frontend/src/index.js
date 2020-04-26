@@ -10,15 +10,17 @@ import Home from './Components/Home';
 import Nav from './Components/Nav';
 import Login from './Components/ProfileComponents/Login';
 import SignUp from './Components/ProfileComponents/SignUp';
-// import Profile from './Components/ProfileComponents/Profile';
+import addRecipe from './Components/RecipeComponents/addRecipe';
+import Profile from './Components/ProfileComponents/Profile';
 ReactDOM.render(
 
   <Router>
       <Nav/>
-      <Route path="/" exact component={Home} />
-      <Route path="./Components/ProfileComponents/Login" exact component={Login} />
-      <Route path="./Components/ProfileComponents/SignUp" exact component={SignUp} />
-      {/* <Route path="./Components/ProfileComponents/Profile" component={Profile} /> */}
+      <Route path="/Components/Home" component={Home} />
+      <Route path="/Components/ProfileComponents/Login" component={Login} />
+      <Route path="/Components/ProfileComponents/SignUp" component={SignUp} />
+      <Route path="/Components/ProfileComponents/Profile" component={Profile} />
+      <Route path="/Components/RecipeComponents/addRecipe" component={addRecipe} />
        
   </Router>, document.getElementById('root')
     

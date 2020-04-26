@@ -59,7 +59,7 @@ function Login() {
   return (
    
     <div className="Login">
-      <h2>This is Login Page</h2>
+     
       <div className="card align-items-center cad-n">
         <img className="card-img-top" src={require('./img/no-img.png')} alt="Card image cap"/>
           <form>

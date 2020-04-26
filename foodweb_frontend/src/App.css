@@ -4,7 +4,7 @@ nav{
   justify-content:space-around;
   align-items: center;
   min-height: 10vh;
-  background: lightslategray;
+  background: yellowgreen;
   color: white;
 }
 
@@ -27,7 +27,18 @@ body{
   background-color:white;
 }
 .Portfolio{
-  background-color: rgba(114, 149, 223, 0.568);
+  background-color: yellow;
+  min-height:  500px;
+  border: 1px solid #011f33;
+  text-align: center;
+  width: 90%;
+  margin: 40px auto;
+  font-size: 1.0em;
+}
+
+
+.addRecipe{
+  background-color: yellowgreen;
   min-height:  500px;
   border: 1px solid #011f33;
   text-align: center;
