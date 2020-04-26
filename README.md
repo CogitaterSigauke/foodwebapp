@@ -1,4 +1,4 @@
-# Food-web app
+# MyRecipe app
 
 # Problem
 
