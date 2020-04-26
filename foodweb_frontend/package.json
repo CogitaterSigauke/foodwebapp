@@ -34,5 +34,8 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "https://my-recipe-web-app-foodweb.azuremicroservices.io/app"
+  "proxy": "https://my-recipe-web-app-foodweb.azuremicroservices.io/app",
+  "engines": {
+    "node": "10.0"
+}
 }
