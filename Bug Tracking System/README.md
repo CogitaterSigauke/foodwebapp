@@ -4,7 +4,8 @@ We are using Github Issues for tracking bugs in our project. As we are collabora
 
 Steps to be followed when collaborators find issues and want to report them:
 
-      •	Navigate to the main page of our project’s repository.
+      •	Navigate to the main page of our github project’s repository.
+      
       
       •	Under our project’s repository name, click on Issues tab.
       
