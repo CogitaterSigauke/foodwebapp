@@ -10,22 +10,32 @@ public class Recipe {
     String id;
     String userId;
     int likesCount = 0;
+    int commentsCount = 0;
+    double rating = 0; //updated everytime a review is posted => the review has recipe id
     String mealType;
     String dietAndHealth;
     String worldCuisine;
     String mealName;
     String description;
-    String imageId;
+    //We will the main recipe image here because we will load often
+    //the other images will be kept in the images collection with this
+    //recipe id as attribute
+    String imageBase64; // A Base64 encoded string of the profile image that was encoded on the frontend.
+    String imageString; // A Base64 encoded string of the profile image that was encoded on the backend.
+    Binary image;       // A BsonBinary to store the profile image as binary data.
+     
     String videoId;
 
-    public Recipe(String userId, String mealType, String dietAndHealth, String worldCuisine, String mealName, String description, String imageId, String videoId) {
+    public Recipe(String userId, String mealType, String dietAndHealth, String worldCuisine, String mealName, String description, String videoId,  String imageBase64, String imageString, Binary image) {
         this.userId = userId;
         this.mealType = mealType;
         this.dietAndHealth = dietAndHealth;
         this.worldCuisine = worldCuisine;
         this.mealName = mealName;
         this.description = description;
-        this.imageId = imageId;
+        this.imageBase64 = imageBase64;
+        this.imageString = imageString;
+        this.image = image;
         this.videoId = videoId;
     }
 
@@ -51,6 +61,14 @@ public class Recipe {
 
     public void setLikesCount(int likesCount) {
         this.likesCount = likesCount;
+    }
+
+    public void setCommentsCount(int commentsCount) {
+        this.commentsCount = commentsCount;
+    }
+
+        public int getCommentsCount() {
+        return commentsCount;
     }
 
     public String getMealType() {
@@ -93,14 +111,6 @@ public class Recipe {
         this.description = description;
     }
 
-    public String getImageId() {
-        return imageId;
-    }
-
-    public void setImageId(String imageId) {
-        this.imageId = imageId;
-    }
-
     public String getVideoId() {
         return videoId;
     }
@@ -109,9 +119,36 @@ public class Recipe {
         this.videoId = videoId;
     }
     
-    
-   
-    
-    
+        public String getImageBase64() {
+        return imageBase64;
+    }
+
+    public void setImageBase64(String imageBase64) {
+        this.imageBase64 = imageBase64;
+    }
+
+    public String getImageString() {
+        return imageString;
+    }
+
+    public void setImageString(String imageString) {
+        this.imageString = imageString;
+    }
+
+    public Binary getImage() {
+        return image;
+    }
+
+    public void setImage(Binary image) {
+        this.image = image;
+    }
+
+    public double getRating() {
+        return rating;
+    }
+
+    public void setRating(int rating) {
+        this.rating = rating;
+    }
     
 }
