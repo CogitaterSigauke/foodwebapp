@@ -3,6 +3,8 @@ package com.app.foodweb.models;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+import java.time.format.DateTimeFormatter;  
+import java.time.LocalDateTime; 
 
 @Document(collection = "message")
 public class Message {
@@ -14,6 +16,7 @@ public class Message {
     String read =  "false"; //message has not been read
     String imageId;
     String videoId;
+    String createdAt;
 
     public Message(String senderUserId, String receiverUserId, String messageText, String imageId, String videoId) {
         this.senderUserId = senderUserId;
@@ -21,9 +24,12 @@ public class Message {
         this.messageText = messageText;
         this.imageId = imageId;
         this.videoId = videoId;
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");  
+        LocalDateTime now = LocalDateTime.now();  
+        this.createdAt = dtf.format(now);
+
     }
-    
-    
+       
 
     public String getId() {
         return id;
@@ -79,6 +85,14 @@ public class Message {
 
     public void setVideoId(String videoId) {
         this.videoId = videoId;
+    }
+    
+    public String getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(String editedAt) { 
+        this.createdAt = editedAt;
     }
     
 }

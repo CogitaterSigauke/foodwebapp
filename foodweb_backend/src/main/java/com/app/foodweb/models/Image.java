@@ -1,22 +1,35 @@
 
 package com.app.foodweb.models;
 
+import org.bson.types.Binary;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+import java.time.format.DateTimeFormatter;  
+import java.time.LocalDateTime;
 
 @Document(collection = "images")
-
 public class Image {
     @Id
     String id;
     String userId;
     String imageCaption;
-    String imageUrl;
+    String imageBase64; // A Base64 encoded string of the profile image that was encoded on the frontend.
+    String imageString; // A Base64 encoded string of the profile image that was encoded on the backend.
+    String type; //message | recipe | post
+    Binary image;
+    String createdAt;
 
-    public Image(String userId, String imageCaption, String imageUrl) {
+    public Image(String userId, String imageCaption, String imageBase64, String imageString, Binary image, String type) {
         this.userId = userId;
         this.imageCaption = imageCaption;
-        this.imageUrl = imageUrl;
+        this.imageBase64 = imageBase64;
+        this.imageString = imageString;
+        this.image = image;
+        this.type = type;
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");  
+        LocalDateTime now = LocalDateTime.now();  
+        this.createdAt = dtf.format(now);
+
     }
 
     public String getId() {
@@ -43,12 +56,43 @@ public class Image {
         this.imageCaption = imageCaption;
     }
 
-    public String getImageUrl() {
-        return imageUrl;
+    public String getImageBase64() {
+        return imageBase64;
     }
 
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
+    public void setImageBase64(String imageBase64) {
+        this.imageBase64 = imageBase64;
+    }
+
+    public String getImageString() {
+        return imageString;
+    }
+
+    public void setImageString(String imageString) {
+        this.imageString = imageString;
+    }
+
+    public Binary getImage() {
+        return image;
+    }
+
+    public void setImage(Binary image) {
+        this.image = image;
     }
     
+    public String getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(String editedAt) { 
+        this.createdAt = editedAt;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) { 
+        this.type = type;
+    }
 }
