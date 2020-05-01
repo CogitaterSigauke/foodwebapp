@@ -21,14 +21,12 @@ public class User {
     String imageBase64; // A Base64 encoded string of the profile image that was encoded on the frontend.
     String imageString; // A Base64 encoded string of the profile image that was encoded on the backend.
     Binary image;       // A BsonBinary to store the profile image as binary data.
-       
-           // A BsonBinary to store the profile image as binary data.
-    public User(String name, String familyName, String email, String pictureUrl){
+     
+    public User(String name, String familyName, String email, String imageBase64, String imageString, Binary image){
 
         this.name = name;
         this.familyName = familyName;
         this.email = email;
-        this.pictureUrl = pictureUrl;
         this.numberOfFollowers = 0;
         this.numberOfFollowing = 0;
         this.numberOfPostedRecipes = 0;
