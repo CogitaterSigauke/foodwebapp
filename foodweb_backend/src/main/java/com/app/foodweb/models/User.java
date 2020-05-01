@@ -13,7 +13,7 @@ public class User {
     String userName = "";
     String familyName;
     String aboutMe;
-    int numberOfFollowers; //we will store these integers there to show them every time 
+    int numberOfFollowers; //we will store these integers there to show them every time
     int numberOfFollowing; //a user is loaded
     int numberOfPostedRecipes;
     int numberOfFavouriteRecipes;
@@ -35,7 +35,7 @@ public class User {
         this.imageString = imageString;
         this.image = image;
         this.active = "true";
-    }   
+    }
 
     public String getId() {
         return id;
@@ -45,7 +45,7 @@ public class User {
         this.id = id;
     }
 
-        public String getName() {
+    public String getName() {
         return name;
     }
 

@@ -1,6 +1,6 @@
 package com.app.foodweb.models;
 
-
+import org.bson.types.Binary;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -23,7 +23,7 @@ public class Recipe {
     String imageBase64; // A Base64 encoded string of the profile image that was encoded on the frontend.
     String imageString; // A Base64 encoded string of the profile image that was encoded on the backend.
     Binary image;       // A BsonBinary to store the profile image as binary data.
-     
+
     String videoId;
 
     public Recipe(String userId, String mealType, String dietAndHealth, String worldCuisine, String mealName, String description, String videoId,  String imageBase64, String imageString, Binary image) {
@@ -118,7 +118,7 @@ public class Recipe {
     public void setVideoId(String videoId) {
         this.videoId = videoId;
     }
-    
+
         public String getImageBase64() {
         return imageBase64;
     }
@@ -150,5 +150,5 @@ public class Recipe {
     public void setRating(int rating) {
         this.rating = rating;
     }
-    
+
 }
