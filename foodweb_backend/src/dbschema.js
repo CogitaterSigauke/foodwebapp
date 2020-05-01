@@ -40,58 +40,35 @@ let db = {
     comments:[
         {
             userName: 'user',
-            ideaId: "jaksdjahgkdaksdhakdgsk",
-            body: 'nice idea',
+            senderId: "1313534123",
+            recipeId: "jaksdjahgkdaksdhakdgsk",
+            commentText: 'nice recipe',
+            likesCount = 0,
             createdAt: "2019-11-24T22:22:16.558Z"
         }        
     ],
-    notifications: [
+    reviews: [
         {
-            recipient: 'user',
-            sender: 'mhamha',
-            read: 'true | false',
-            ideaId: 'jaksjdhakjshdakjshdkauwqueh',
-            type: 'like | comment | register',
-            createdAt: "2019-11-24T22:22:16.558Z"
+            id : "4254GWEFSVA",
+            recipeId : "3245232DSA", 
+            oneStartCount : 0,
+            twoStartCount : 0,
+            threeStartCount : 0,
+            fourStartCount : 0,
+            fiveStartCount : 0
         }
-
-
-    ]
-
-}
-
-const userDetails = {
-    credentials: {
-        email: "newcompanyacc@gmail.com",
-        acccountType: "company",
-        userName: "The New Company",
-        password: "123456789",
-        confirmPassword: "123456789",
-        companyName: "My Company",
-        companySite: "www.newcompany.com",
-        phoneNumber: "07738982323"
-    },
-    likes:[
+    ],
+    recipeLikes: [
         {
-            userName: "user",
+            userName: "user1",
+            userId: "WVWER41242",
             ideaId: "FB0WPpX25ES08N0hAL7NRbuCfyq1"
         },
         {
-            userName: "user",
-            ideaId: "FB0W25ESDFSFAERERAL7NRbuCfyq1"
-        }
-
-    ],
-    comments:[
-        {
-            userName: "user",
-            ideaId: "FB0W25ESDFSFAERERAL7NRbuCfyq1"
-        },
-        {
-            userName: "user",
+            userName: "user2",
+            userId: "SGBSRTBS4343",
             ideaId: "FB0W25ESDFSFAERERAL7NRbuCfyq1"
         }
 
     ]
-
 }

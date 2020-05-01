@@ -9,16 +9,17 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class Review {
     @Id
     String id;
-    String userId;
-    String recipeId;
+    //we don't need userID since reviews are just given to recipes
+    //each recipe will have one review object
+    //we will increase these counts by one every time a riew is given
+    String recipeId; 
     int oneStartCount = 0;
     int twoStartCount = 0;
     int threeStartCount = 0;
     int fourStartCount = 0;
     int fiveStartCount = 0;
 
-    public Review(String userId, String recipeId) {
-        this.userId = userId;
+    public Review(String recipeId) {
         this.recipeId = recipeId;
     }
 
@@ -28,14 +29,6 @@ public class Review {
 
     public void setId(String id) {
         this.id = id;
-    }
-
-    public String getUserId() {
-        return userId;
-    }
-
-    public void setUserId(String userId) {
-        this.userId = userId;
     }
 
     public String getRecipeId() {
@@ -85,8 +78,5 @@ public class Review {
     public void setFiveStartCount(int fiveStartCount) {
         this.fiveStartCount = fiveStartCount;
     }
-    
-    
-    
     
 }
