@@ -3,7 +3,8 @@ package com.app.foodweb.models;
 import org.bson.types.Binary;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
-import java.time.format.DateTimeFormatter;  
+import java.time.format.DateTimeFormatter;
+import java.time.ZoneOffset;
 import java.time.LocalDateTime; 
 
 @Document(collection = "users")
@@ -38,8 +39,9 @@ public class User {
         this.imageString = imageString;
         this.image = image;
         this.active = "true";
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");  
-        LocalDateTime now = LocalDateTime.now();  
+        // DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSXXX") ;//("yyyy/MM/dd HH:mm:ss");  
+        DateTimeFormatter dtf = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
+        LocalDateTime now = LocalDateTime.now(ZoneOffset.UTC);  
         this.createdAt = dtf.format(now);
 
     }   
