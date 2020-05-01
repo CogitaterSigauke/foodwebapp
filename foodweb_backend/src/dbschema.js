@@ -14,7 +14,20 @@ let db = {
             numberOfFavouriteRecipes : 2,
             imageBase64 : "235twergtw5134bv",
             imageString : "evwertqeftbqerc",
-            image : "100101010010111101011" 
+            image : "100101010010111101011",
+            active: "true" //account in use other wise false
+        }
+
+    ],
+    messages: [
+        {
+            id : "245234f",
+            senderUserId : "ATBAEFRA23",
+            receiverUserId : "aerbar34q42314",
+            messageText : "Have you seen my new recipe",
+            read : "false",
+            imageId : "fairegfewy8732",
+            videoId : "FJTUEFKJAYUEWFKAU"
         }
 
     ],

@@ -21,7 +21,7 @@ public class User {
     String imageBase64; // A Base64 encoded string of the profile image that was encoded on the frontend.
     String imageString; // A Base64 encoded string of the profile image that was encoded on the backend.
     Binary image;       // A BsonBinary to store the profile image as binary data.
-     
+    String active;
     public User(String name, String familyName, String email, String imageBase64, String imageString, Binary image){
 
         this.name = name;
@@ -34,6 +34,7 @@ public class User {
         this.imageBase64 = imageBase64;
         this.imageString = imageString;
         this.image = image;
+        this.active = "true";
     }   
 
     public String getId() {
@@ -138,6 +139,14 @@ public class User {
 
     public void setImage(Binary image) {
         this.image = image;
+    }
+
+    public String getActive() {
+        return active;
+    }
+
+    public void setActive(String active) {
+        this.active = active;
     }
 
 }
