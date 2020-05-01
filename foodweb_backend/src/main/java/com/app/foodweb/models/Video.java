@@ -3,6 +3,7 @@ package com.app.foodweb.models;
 
 import java.time.format.DateTimeFormatter;  
 import java.time.LocalDateTime;
+import java.time.ZoneOffset;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -23,8 +24,8 @@ public class Video {
         this.recipeId = recipeId;
         this.videoUrl = videoUrl;
         this.type = type;
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");  
-        LocalDateTime now = LocalDateTime.now();  
+        DateTimeFormatter dtf = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
+        LocalDateTime now = LocalDateTime.now(ZoneOffset.UTC);  
         this.createdAt = dtf.format(now);
 
     }
