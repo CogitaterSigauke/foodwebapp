@@ -11,7 +11,7 @@ public class Message {
     String senderUserId;
     String receiverUserId;
     String messageText;
-    boolean readBoolean = false;
+    String read =  "false"; //message has not been read
     String imageId;
     String videoId;
 
@@ -57,12 +57,12 @@ public class Message {
         this.messageText = messageText;
     }
 
-    public boolean getReadBoolean() {
-        return readBoolean;
+    public String getRead() {
+        return read;
     }
 
-    public void setReadBoolean(boolean readBoolean) {
-        this.readBoolean = readBoolean;
+    public void setRead(String read) {
+        this.read = read;
     }
 
     public String getImageId() {
@@ -80,6 +80,5 @@ public class Message {
     public void setVideoId(String videoId) {
         this.videoId = videoId;
     }
-    
     
 }

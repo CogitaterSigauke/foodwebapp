@@ -9,51 +9,33 @@ public class User {
     @Id
     String id;
     String name;
+    String email;
     String userName = "";
     String familyName;
-    String pictureUrl;
-    String email;
-    int totalNumQuizzesTaken;
-    int totalNumQuestionsTaken;
-    int totalNumCorrectAttemps;
-    
-           // A BsonBinary to store the profile image as binary data.
-    public User(String name, String familyName, String email, String pictureUrl){
+    String aboutMe;
+    int numberOfFollowers; //we will store these integers there to show them every time 
+    int numberOfFollowing; //a user is loaded
+    int numberOfPostedRecipes;
+    int numberOfFavouriteRecipes;
+    //We will store profile image here because we will load often
+    String imageBase64; // A Base64 encoded string of the profile image that was encoded on the frontend.
+    String imageString; // A Base64 encoded string of the profile image that was encoded on the backend.
+    Binary image;       // A BsonBinary to store the profile image as binary data.
+    String active;
+    public User(String name, String familyName, String email, String imageBase64, String imageString, Binary image){
 
         this.name = name;
         this.familyName = familyName;
         this.email = email;
-        this.pictureUrl = pictureUrl;
-        this.totalNumQuizzesTaken = 0;
-        this.totalNumQuestionsTaken = 0;
-        this.totalNumCorrectAttemps = 0;
+        this.numberOfFollowers = 0;
+        this.numberOfFollowing = 0;
+        this.numberOfPostedRecipes = 0;
+        this.numberOfFavouriteRecipes = 0;
+        this.imageBase64 = imageBase64;
+        this.imageString = imageString;
+        this.image = image;
+        this.active = "true";
     }   
-
-    public int getTotalNumCorrectAttemps() {
-        return totalNumCorrectAttemps;
-    }
-
-    public void setTotalNumCorrectAttemps(int totalNumCorrectAttemps) {
-        this.totalNumCorrectAttemps = totalNumCorrectAttemps;
-    }
-
-    public int getTotalNumQuizzesTaken() {
-        return totalNumQuizzesTaken;
-    }
-
-
-    public void setTotalNumQuizzesTaken(int totalNumQuizzesTaken) {
-        this.totalNumQuizzesTaken = totalNumQuizzesTaken;
-    }
-
-    public int getTotalNumQuestionsTaken() {
-        return totalNumQuestionsTaken;
-    }
-
-    public void setTotalNumQuestionsTaken(int totalNumQuestionsTaken) {
-        this.totalNumQuestionsTaken = totalNumQuestionsTaken;
-    }
-
 
     public String getId() {
         return id;
@@ -62,22 +44,29 @@ public class User {
     public void setId(String id) {
         this.id = id;
     }
+
+        public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     public String getUserName() {
         return userName;
     }
 
     public void setUserName(String userName) {
         this.userName = userName;
-    }
-
-
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public String getFamilyName() {
@@ -88,20 +77,76 @@ public class User {
         this.familyName = familyName;
     }
 
-    public String getPictureUrl() {
-        return pictureUrl;
+    public String getAboutMe() {
+        return aboutMe;
     }
 
-    public void setPictureUrl(String pictureUrl) {
-        this.pictureUrl = pictureUrl;
+    public void setAboutMe(String aboutMe) {
+        this.aboutMe = aboutMe;
     }
 
-    public String getEmail() {
-        return email;
+    public int getNumberOfFollowers() {
+        return numberOfFollowers;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setNumberOfFollowers(int numberOfFollowers) {
+        this.numberOfFollowers = numberOfFollowers;
+    }
+
+    public int getNumberOfFollowing() {
+        return numberOfFollowing;
+    }
+
+    public void setNumberOfFollowing(int numberOfFollowing) {
+        this.numberOfFollowing = numberOfFollowing;
+    }
+
+    public int getNumberOfPostedRecipes() {
+        return numberOfPostedRecipes;
+    }
+
+    public void setNumberOfPostedRecipes(int numberOfPostedRecipes) {
+        this.numberOfPostedRecipes = numberOfPostedRecipes;
+    }
+
+    public int getNumberOfFavouriteRecipes() {
+        return numberOfFavouriteRecipes;
+    }
+
+    public void setNumberOfFavouriteRecipes(int numberOfFavouriteRecipes) {
+        this.numberOfFavouriteRecipes = numberOfFavouriteRecipes;
+    }
+
+    public String getImageBase64() {
+        return imageBase64;
+    }
+
+    public void setImageBase64(String imageBase64) {
+        this.imageBase64 = imageBase64;
+    }
+
+    public String getImageString() {
+        return imageString;
+    }
+
+    public void setImageString(String imageString) {
+        this.imageString = imageString;
+    }
+
+    public Binary getImage() {
+        return image;
+    }
+
+    public void setImage(Binary image) {
+        this.image = image;
+    }
+
+    public String getActive() {
+        return active;
+    }
+
+    public void setActive(String active) {
+        this.active = active;
     }
 
 }

@@ -1,11 +1,7 @@
 package com.app.foodweb.controllers;
 
-
 import com.app.foodweb.models.User;
-
-
 import com.app.foodweb.repositories.UserRepository;
-
 
 import org.bson.BsonBinarySubType;
 import org.bson.types.Binary;
@@ -21,15 +17,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.multipart.MultipartFile;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Base64;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
 
 @RestController
 public class UserController {
