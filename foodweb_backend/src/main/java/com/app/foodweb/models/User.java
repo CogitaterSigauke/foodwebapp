@@ -3,6 +3,8 @@ package com.app.foodweb.models;
 import org.bson.types.Binary;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+import java.time.format.DateTimeFormatter;  
+import java.time.LocalDateTime; 
 
 @Document(collection = "users")
 public class User {
@@ -22,6 +24,7 @@ public class User {
     String imageString; // A Base64 encoded string of the profile image that was encoded on the backend.
     Binary image;       // A BsonBinary to store the profile image as binary data.
     String active;
+    String createdAt;
     public User(String name, String familyName, String email, String imageBase64, String imageString, Binary image){
 
         this.name = name;
@@ -35,6 +38,10 @@ public class User {
         this.imageString = imageString;
         this.image = image;
         this.active = "true";
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");  
+        LocalDateTime now = LocalDateTime.now();  
+        this.createdAt = dtf.format(now);
+
     }   
 
     public String getId() {
@@ -45,7 +52,7 @@ public class User {
         this.id = id;
     }
 
-        public String getName() {
+    public String getName() {
         return name;
     }
 
@@ -147,6 +154,14 @@ public class User {
 
     public void setActive(String active) {
         this.active = active;
+    }
+
+    public String getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(String editedAt) { 
+        this.createdAt = editedAt;
     }
 
 }

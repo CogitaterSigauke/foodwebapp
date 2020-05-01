@@ -1,4 +1,3 @@
-
 package com.app.foodweb.models;
 
 import org.springframework.data.annotation.Id;

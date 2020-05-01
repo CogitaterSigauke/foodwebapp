@@ -15,9 +15,17 @@ let db = {
             imageBase64 : "235twergtw5134bv",
             imageString : "evwertqeftbqerc",
             image : "100101010010111101011",
-            active: "true" //account in use other wise false
+            active: "true", //account in use other wise false
+            createdAt: "2019-11-24T22:22:16.558Z"
         }
 
+    ],
+    blockedUsers : [
+        {
+            id : "KJAGDFBALGIUDF",
+            blockerUserId : "ADFVEARDCDAERSS",
+            blockedUserId : "2423vsFGSVsbfgfv"
+        }
     ],
     messages: [
         {
@@ -27,7 +35,8 @@ let db = {
             messageText : "Have you seen my new recipe",
             read : "false",
             imageId : "fairegfewy8732",
-            videoId : "FJTUEFKJAYUEWFKAU"
+            videoId : "FJTUEFKJAYUEWFKAU",
+            createdAt: "2019-11-24T22:22:16.558Z"
         }
 
     ],
@@ -46,12 +55,20 @@ let db = {
             imageBase64 : "AS:21:32",
             imageString : "FVARVAEBAFEA",
             image : "1010101010101111",
-            videoId : "42523523"
+            videoId : "42523523",
+            createdAt: "2019-11-24T22:22:16.558Z"
         }
 
     ],
-    comments:[
+    favorites: [
         {
+            id : "AFVEDRSA2453RVWERV",
+            userId : "FVSAFAVDFAD1541F",
+            recipeId : "VAREVARSAQVDFEFADR"
+        }
+    ],
+    comments:[
+        {   id: "KJHKABDCALFAERVAD",
             userName: 'user',
             senderId: "1313534123",
             recipeId: "jaksdjahgkdaksdhakdgsk",
@@ -60,6 +77,17 @@ let db = {
             createdAt: "2019-11-24T22:22:16.558Z"
         }        
     ],
+    notifications: [
+        {
+            id : "KJGFKGKJLDHLAD",
+            senderUserId: "JKHGKAYHDFKAUYDKIWBD",
+            notifiedUserId : "GKJGHMJGDAUKSDYU",
+            notificationText : "T1 Has sent you a message",
+            type : "like | comment | recipe | message", 
+            isViewed = "false | true"
+        }
+    ],
+    
     reviews: [
         {
             id : "4254GWEFSVA",
@@ -73,15 +101,66 @@ let db = {
     ],
     recipeLikes: [
         {
+            id : "JHFADVAKDHAMJCHAH",
             userName: "user1",
             userId: "WVWER41242",
-            ideaId: "FB0WPpX25ES08N0hAL7NRbuCfyq1"
+            recipeId: "FB0WPpX25ES08N0hAL7NRbuCfyq1"
         },
         {
+            id: "KJHGKSKADGYDU",
             userName: "user2",
             userId: "SGBSRTBS4343",
-            ideaId: "FB0W25ESDFSFAERERAL7NRbuCfyq1"
+            recipeId: "FB0W25ESDFSFAERERAL7NRbuCfyq1"
         }
 
+    ],
+    videoLikes: [
+        {
+            id : "GFJHGFJhgfjgfj",
+            videoId : "KHJGKJHutyfkuysk", 
+            userName : "Tatenda",
+            userId : "KHJGKuykguygkhjl"
+        },
+        {
+            id : "tsdhJFKUYrgFJhgfj",
+            videoId : "KHJGKJHutyfkuysk", 
+            userName : "Tatenda",
+            userId : "Kuyzfgdfgkguygkhjl"
+        }
+
+    ],
+    deactivatedAccounts: [
+        {
+            id : "DAERWRVQ343",
+            userId : "245265WTBSBGF"
+        },
+        {
+            id : "DAERAFBERATBE",
+            userId : "ADBWRSFBDF"
+        }
+    ],
+    images: [
+        {
+            id : "JHGKJHGKGEKCABRV",
+            userId : "JLGIUGLI7TGLIUL",
+            imageCaption : "Best Recipe",
+            imageBase64 : "ADVEB4ACC",
+            imageString : "KJAsJSAKCJDSK",
+            image : "10110100100101",
+            type : "message | recipe | post",
+            createdAt: "2019-11-24T22:22:16.558Z"
+        }
+    ],
+    videos: [
+        {
+            id : "GFJH6568VHGV",
+            userId : "KJHGKUUYVY4",
+            recipeId : "JHGKAYUFKXHJSAV",
+            videoUrl : "https://asure.storage.com",
+            type: "message | recipe | post | liveStream",
+            likesCount : 0,
+            viewsCount : 0,
+            createdAt: "2019-11-24T22:22:16.558Z"
+        }
     ]
 }
