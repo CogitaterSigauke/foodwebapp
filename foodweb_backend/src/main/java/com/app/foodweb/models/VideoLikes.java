@@ -4,17 +4,17 @@ package com.app.foodweb.models;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document(collection = "recipeLikes")
+@Document(collection = "videoLikes")
 
-public class RecipeLikes {
+public class VideoLikes {
     @Id
     String id;
-    String recipeId; 
-    String userName; //userName of the user that has liked the recipe
+    String videoId; 
+    String userName; //userName of the user that has liked the Video
     String userId;   //same user with the above username
 
-    public RecipeLikes(String recipeId, String userId, String userName) {
-        this.recipeId = recipeId;
+    public VideoLikes(String videoId, String userName, String userId) {
+        this.videoId = videoId;
         this.userName = userName;
         this.userId = userId;
     }
@@ -27,12 +27,12 @@ public class RecipeLikes {
         this.id = id;
     }
 
-    public String getRecipeId() {
-        return recipeId;
+    public String getVideoId() {
+        return videoId;
     }
 
-    public void setRecipeId(String recipeId) {
-        this.recipeId = recipeId;
+    public void setVideoId(String videoId) {
+        this.videoId = videoId;
     }
 
     public String getUserName() {

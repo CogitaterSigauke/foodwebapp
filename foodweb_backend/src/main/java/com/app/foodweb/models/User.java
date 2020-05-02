@@ -3,6 +3,9 @@ package com.app.foodweb.models;
 import org.bson.types.Binary;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+import java.time.format.DateTimeFormatter;
+import java.time.ZoneOffset;
+import java.time.LocalDateTime; 
 
 @Document(collection = "users")
 public class User {
@@ -22,6 +25,7 @@ public class User {
     String imageString; // A Base64 encoded string of the profile image that was encoded on the backend.
     Binary image;       // A BsonBinary to store the profile image as binary data.
     String active;
+    String createdAt;
     public User(String name, String familyName, String email, String imageBase64, String imageString, Binary image){
 
         this.name = name;
@@ -35,7 +39,16 @@ public class User {
         this.imageString = imageString;
         this.image = image;
         this.active = "true";
+<<<<<<< HEAD
     }
+=======
+        // DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSXXX") ;//("yyyy/MM/dd HH:mm:ss");  
+        DateTimeFormatter dtf = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
+        LocalDateTime now = LocalDateTime.now(ZoneOffset.UTC);  
+        this.createdAt = dtf.format(now);
+
+    }   
+>>>>>>> 7e06599963565e6a774b1a6225c191f44237bfbe
 
     public String getId() {
         return id;
@@ -147,6 +160,14 @@ public class User {
 
     public void setActive(String active) {
         this.active = active;
+    }
+
+    public String getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(String editedAt) { 
+        this.createdAt = editedAt;
     }
 
 }

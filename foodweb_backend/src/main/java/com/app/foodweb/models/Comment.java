@@ -3,7 +3,8 @@ package com.app.foodweb.models;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import java.time.format.DateTimeFormatter;  
-import java.time.LocalDateTime;     
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;     
 
 @Document(collection = "comments")
 
@@ -25,8 +26,8 @@ public class Comment {
         this.userName = userName;
         this.commentText = commentText;
         this.likesCount = likesCount;
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");  
-        LocalDateTime now = LocalDateTime.now();  
+        DateTimeFormatter dtf = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
+        LocalDateTime now = LocalDateTime.now(ZoneOffset.UTC);  
         this.createdAt = dtf.format(now);
 
     }

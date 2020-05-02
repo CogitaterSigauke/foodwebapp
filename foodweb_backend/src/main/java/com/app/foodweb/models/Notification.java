@@ -10,11 +10,15 @@ public class Notification {
     String id;
     String notifiedUserId;
     String notificationText;
-    boolean isNotificationViewed = false;
-
-    public Notification(String notifiedUserId, String notificationText) {
+    String isViewed = "false";
+    String senderUserId;
+    String type; 
+    
+    public Notification(String notifiedUserId, String senderUserId, String type, String notificationText) {
         this.notifiedUserId = notifiedUserId;
+        this.senderUserId = senderUserId;
         this.notificationText = notificationText;
+        this.type = type;
         
     }
 
@@ -42,12 +46,28 @@ public class Notification {
         this.notificationText = notificationText;
     }
 
-    public boolean isIsNotificationViewed() {
-        return isNotificationViewed;
+    public String getIsViewed() {
+        return isViewed;
     }
 
-    public void setIsNotificationViewed(boolean isNotificationViewed) {
-        this.isNotificationViewed = isNotificationViewed;
+    public void setIsViewed(String isViewed) {
+        this.isViewed = isViewed;
+    }
+    
+    public String getSenderUserId() {
+        return senderUserId;
+    }
+
+    public void setSenderUserId(String senderUserId) {
+        this.senderUserId = senderUserId;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
     
     

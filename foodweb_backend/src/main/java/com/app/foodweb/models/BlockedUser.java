@@ -4,7 +4,7 @@ package com.app.foodweb.models;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document(collection = "blockedUser")
+@Document(collection = "blockedUsers")
 
 public class BlockedUser {
     @Id

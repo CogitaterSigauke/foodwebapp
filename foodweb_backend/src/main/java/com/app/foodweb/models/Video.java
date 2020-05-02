@@ -1,6 +1,9 @@
 
 package com.app.foodweb.models;
 
+import java.time.format.DateTimeFormatter;  
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -11,13 +14,20 @@ public class Video {
     String userId;
     String recipeId;
     String videoUrl;
+    String type; //message | recipe | post | liveStream
     int likesCount = 0;
     int viewsCount = 0;
+    String createdAt;
 
-    public Video(String userId, String recipeId,String videoUrl) {
+    public Video(String userId, String recipeId,String videoUrl, String type) {
         this.userId = userId;
         this.recipeId = recipeId;
         this.videoUrl = videoUrl;
+        this.type = type;
+        DateTimeFormatter dtf = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
+        LocalDateTime now = LocalDateTime.now(ZoneOffset.UTC);  
+        this.createdAt = dtf.format(now);
+
     }
 
     public String getVideoUrl() {
@@ -68,6 +78,22 @@ public class Video {
         this.viewsCount = viewsCount;
     }
     
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public String getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(String editedAt) { 
+        this.createdAt = editedAt;
+    }
+
     
     
 }

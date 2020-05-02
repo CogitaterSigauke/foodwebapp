@@ -1,8 +1,14 @@
 package com.app.foodweb.models;
 
 import org.bson.types.Binary;
+<<<<<<< HEAD
+=======
+import java.time.format.DateTimeFormatter;  
+import java.time.LocalDateTime;
+>>>>>>> 7e06599963565e6a774b1a6225c191f44237bfbe
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+import java.time.ZoneOffset;
 
 @Document(collection = "recipes")
 public class Recipe {
@@ -23,9 +29,13 @@ public class Recipe {
     String imageBase64; // A Base64 encoded string of the profile image that was encoded on the frontend.
     String imageString; // A Base64 encoded string of the profile image that was encoded on the backend.
     Binary image;       // A BsonBinary to store the profile image as binary data.
+<<<<<<< HEAD
 
+=======
+    String createdAt;
+>>>>>>> 7e06599963565e6a774b1a6225c191f44237bfbe
     String videoId;
-
+    
     public Recipe(String userId, String mealType, String dietAndHealth, String worldCuisine, String mealName, String description, String videoId,  String imageBase64, String imageString, Binary image) {
         this.userId = userId;
         this.mealType = mealType;
@@ -37,6 +47,9 @@ public class Recipe {
         this.imageString = imageString;
         this.image = image;
         this.videoId = videoId;
+        DateTimeFormatter dtf = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
+        LocalDateTime now = LocalDateTime.now(ZoneOffset.UTC);  
+        this.createdAt = dtf.format(now);
     }
 
     public String getId() {
@@ -151,4 +164,16 @@ public class Recipe {
         this.rating = rating;
     }
 
+<<<<<<< HEAD
+=======
+    public String getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(String editedAt) { 
+        this.createdAt = editedAt;
+    }
+
+    
+>>>>>>> 7e06599963565e6a774b1a6225c191f44237bfbe
 }
