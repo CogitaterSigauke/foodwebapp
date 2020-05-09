@@ -12,17 +12,18 @@ import Login from './Components/ProfileComponents/Login';
 import SignUp from './Components/ProfileComponents/SignUp';
 import addRecipe from './Components/RecipeComponents/addRecipe';
 import Profile from './Components/ProfileComponents/Profile';
+import RegisterAccount from './Components/ProfileComponents/RegisterAccount';
 import App from './App';
 ReactDOM.render(
 
   <Router>
-      <App/>
-      {/* <Route path="/Components/Home" component={Home} />
+    <Switch>
+      <Route path= "/" exact component={App}/>
       <Route path="/Components/ProfileComponents/Login" component={Login} />
-      <Route path="/Components/ProfileComponents/SignUp" component={SignUp} />
-      <Route path="/Components/ProfileComponents/Profile" component={Profile} />
-      <Route path="/Components/RecipeComponents/addRecipe" component={addRecipe} />
-        */}
+      <Route path="/Components/Home" component={Home}/>
+      <Route path="/Components/ProfileComponents/RegisterAccount" component={RegisterAccount}/>
+
+    </Switch>
   </Router>, document.getElementById('root')
     
 );
@@ -32,3 +33,9 @@ ReactDOM.render(
 // unregister() to register() below. Note this comes with some pitfalls.
 // Learn more about service workers: https://bit.ly/CRA-PWA
 serviceWorker.unregister();
+ {/* <Route path="/Components/Home" component={Home} />
+      <Route path="/Components/ProfileComponents/Login" component={Login} />
+      <Route path="/Components/ProfileComponents/SignUp" component={SignUp} />
+      <Route path="/Components/ProfileComponents/Profile" component={Profile} />
+      <Route path="/Components/RecipeComponents/addRecipe" component={addRecipe} />
+        */}
