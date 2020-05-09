@@ -5,7 +5,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import java.time.format.DateTimeFormatter;
 import java.time.ZoneOffset;
-import java.time.LocalDateTime; 
+import java.time.LocalDateTime;
 
 @Document(collection = "users")
 public class User {
@@ -16,13 +16,13 @@ public class User {
     String userName = "";
     String familyName;
     String aboutMe;
-    int numberOfFollowers; //we will store these integers there to show them every time 
+    int numberOfFollowers; //we will store these integers there to show them every time
     int numberOfFollowing; //a user is loaded
     int numberOfPostedRecipes;
     int numberOfFavouriteRecipes;
     //We will store profile image here because we will load often
     String imageBase64; // A Base64 encoded string of the profile image that was encoded on the frontend.
-    String imageString; // A Base64 encoded string of the profile image that was encoded on the backend.
+    // String imageString; // A Base64 encoded string of the profile image that was encoded on the backend.
     Binary image;       // A BsonBinary to store the profile image as binary data.
     String active;
     String createdAt;
@@ -36,15 +36,15 @@ public class User {
         this.numberOfPostedRecipes = 0;
         this.numberOfFavouriteRecipes = 0;
         this.imageBase64 = imageBase64;
-        this.imageString = imageString;
+        //this.imageString = imageString;
         this.image = image;
         this.active = "true";
-        // DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSXXX") ;//("yyyy/MM/dd HH:mm:ss");  
+        // DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSXXX") ;//("yyyy/MM/dd HH:mm:ss");
         DateTimeFormatter dtf = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
-        LocalDateTime now = LocalDateTime.now(ZoneOffset.UTC);  
+        LocalDateTime now = LocalDateTime.now(ZoneOffset.UTC);
         this.createdAt = dtf.format(now);
 
-    }   
+    }
 
     public String getId() {
         return id;
@@ -134,13 +134,13 @@ public class User {
         this.imageBase64 = imageBase64;
     }
 
-    public String getImageString() {
-        return imageString;
-    }
-
-    public void setImageString(String imageString) {
-        this.imageString = imageString;
-    }
+    // public String getImageString() {
+    //     return imageString;
+    // }
+    //
+    // public void setImageString(String imageString) {
+    //     this.imageString = imageString;
+    // }
 
     public Binary getImage() {
         return image;
@@ -162,7 +162,7 @@ public class User {
         return createdAt;
     }
 
-    public void setCreatedAt(String editedAt) { 
+    public void setCreatedAt(String editedAt) {
         this.createdAt = editedAt;
     }
 

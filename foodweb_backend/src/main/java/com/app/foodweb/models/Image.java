@@ -4,7 +4,7 @@ package com.app.foodweb.models;
 import org.bson.types.Binary;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
-import java.time.format.DateTimeFormatter;  
+import java.time.format.DateTimeFormatter;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 
@@ -13,22 +13,24 @@ public class Image {
     @Id
     String id;
     String userId;
+    String recipeId;
     String imageCaption;
     String imageBase64; // A Base64 encoded string of the profile image that was encoded on the frontend.
-    String imageString; // A Base64 encoded string of the profile image that was encoded on the backend.
+    // String imageString; // A Base64 encoded string of the profile image that was encoded on the backend.
     String type; //message | recipe | post
     Binary image;
     String createdAt;
 
-    public Image(String userId, String imageCaption, String imageBase64, String imageString, Binary image, String type) {
+    public Image(String userId, String recipeId,String imageCaption, String imageBase64, Binary image, String type) {
         this.userId = userId;
+        this.recipeId= recipeId;
         this.imageCaption = imageCaption;
         this.imageBase64 = imageBase64;
-        this.imageString = imageString;
+        //this.imageString = imageString;
         this.image = image;
         this.type = type;
         DateTimeFormatter dtf = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
-        LocalDateTime now = LocalDateTime.now(ZoneOffset.UTC);  
+        LocalDateTime now = LocalDateTime.now(ZoneOffset.UTC);
         this.createdAt = dtf.format(now);
 
     }
@@ -48,7 +50,13 @@ public class Image {
     public void setUserId(String userId) {
         this.userId = userId;
     }
+    public String getRecipeId() {
+        return recipeId;
+    }
 
+    public void setRecipeId(String recipeId) {
+        this.recipeId = recipeId;
+    }
     public String getImageCaption() {
         return imageCaption;
     }
@@ -65,13 +73,13 @@ public class Image {
         this.imageBase64 = imageBase64;
     }
 
-    public String getImageString() {
-        return imageString;
-    }
-
-    public void setImageString(String imageString) {
-        this.imageString = imageString;
-    }
+    // public String getImageString() {
+    //     return imageString;
+    // }
+    //
+    // public void setImageString(String imageString) {
+    //     this.imageString = imageString;
+    // }
 
     public Binary getImage() {
         return image;
@@ -80,12 +88,12 @@ public class Image {
     public void setImage(Binary image) {
         this.image = image;
     }
-    
+
     public String getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(String editedAt) { 
+    public void setCreatedAt(String editedAt) {
         this.createdAt = editedAt;
     }
 
@@ -93,7 +101,7 @@ public class Image {
         return type;
     }
 
-    public void setType(String type) { 
+    public void setType(String type) {
         this.type = type;
     }
 }

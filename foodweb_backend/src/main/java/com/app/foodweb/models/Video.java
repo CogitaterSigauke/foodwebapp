@@ -1,7 +1,8 @@
 
 package com.app.foodweb.models;
 
-import java.time.format.DateTimeFormatter;  
+import org.bson.types.Binary;
+import java.time.format.DateTimeFormatter;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import org.springframework.data.annotation.Id;
@@ -13,29 +14,29 @@ public class Video {
     String id;
     String userId;
     String recipeId;
-    String videoUrl;
+    Binary video;
     String type; //message | recipe | post | liveStream
     int likesCount = 0;
     int viewsCount = 0;
     String createdAt;
 
-    public Video(String userId, String recipeId,String videoUrl, String type) {
+    public Video(String userId, String recipeId,Binary video, String type) {
         this.userId = userId;
         this.recipeId = recipeId;
-        this.videoUrl = videoUrl;
+        this.video = video;
         this.type = type;
         DateTimeFormatter dtf = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
-        LocalDateTime now = LocalDateTime.now(ZoneOffset.UTC);  
+        LocalDateTime now = LocalDateTime.now(ZoneOffset.UTC);
         this.createdAt = dtf.format(now);
 
     }
 
-    public String getVideoUrl() {
-        return videoUrl;
+    public Binary getVideo() {
+        return video;
     }
 
-    public void setVideoUrl(String videoUrl) {
-        this.videoUrl = videoUrl;
+    public void setVideo(Binary video) {
+        this.video = video;
     }
 
     public String getId() {
@@ -77,7 +78,7 @@ public class Video {
     public void setViewsCount(int viewsCount) {
         this.viewsCount = viewsCount;
     }
-    
+
     public String getType() {
         return type;
     }
@@ -90,10 +91,10 @@ public class Video {
         return createdAt;
     }
 
-    public void setCreatedAt(String editedAt) { 
+    public void setCreatedAt(String editedAt) {
         this.createdAt = editedAt;
     }
 
-    
-    
+
+
 }

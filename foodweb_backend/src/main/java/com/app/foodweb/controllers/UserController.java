@@ -162,6 +162,30 @@ public class UserController {
 		}
 
 
+    @RequestMapping(method=RequestMethod.POST, value="app/{user_id}/block/{other_id}")
+		public String blockUser(@PathVariable("user_id") String user_id,@PathVariable("other_id") String other_id){
+           BlockedUser blockerAndBlockedUser = new BlockedUser(user_id,other_id);
+           return "";
+
+		}
+
+		@RequestMapping(method=RequestMethod.POST, value="app/{user_id}/unblock/{other_id}")
+		public String unBlockUser(@PathVariable("user_id") String user_id,@PathVariable("other_id") String other_id){
+			    Iterable<BlockedUser> allBlockedUsers = blockedUserRepository.findAll();
+
+		     	Iterator<BlockedUser> iter = allBlockedUsers.iterator();
+
+			    while(iter.hasNext()){
+						BlockedUser blockuser = iter.next();
+						if(blockuser.getBlockerUserId() == user_id && blockuser.getBlockedUserId() == other_id){
+							   blockedUserRepository.delete(blockuser);
+						}
+					}
+
+				  return "";
+		}
+
+
 	 @RequestMapping(method=RequestMethod.POST, value="app/{id}/image-upload")
     public Optional<User> saveImageToUser(@PathVariable String id, @RequestBody MultipartFile file) {
 		    	Optional<User> optuser = userRepository.findById(id);
@@ -171,13 +195,13 @@ public class UserController {
             User user = optuser.get();
 
             try {
-							// Encoding to a Base64 String
-							String imageBase64String = Base64.getEncoder().encodeToString(file.getBytes());
-							// Now storing it in the format:
-              String imageString = "data:" + file.getContentType() + ";base64," + imageBase64String;
-
-              // Save it on the user
-              user.setImageString(imageString);
+							// // Encoding to a Base64 String
+							// String imageBase64String = Base64.getEncoder().encodeToString(file.getBytes());
+							// // Now storing it in the format:
+              // String imageString = "data:" + file.getContentType() + ";base64," + imageBase64String;
+							//
+              // // Save it on the user
+              // user.setImageString(imageString);
 
 							Binary image = new Binary(BsonBinarySubType.BINARY, file.getBytes());
 
