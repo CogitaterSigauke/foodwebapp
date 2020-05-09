@@ -13,6 +13,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -72,12 +73,12 @@ public class UserController {
 					if(user.getAboutMe() != null){
             u.setAboutMe(user.getAboutMe());
 		      }
-					if(user.getImageBase64() != null){
-            u.setImageBase64(user.getImageBase64());
-		      }
-					if(user.getImage() != null){
-            u.setImage(user.getImage());
-		      }
+					// if(user.getImageBase64() != null){
+          //   u.setImageBase64(user.getImageBase64());
+		      // }
+					// if(user.getImage() != null){
+          //   u.setImage(user.getImage());
+		      // }
 					if(user.getActive() != null){
             u.setActive(user.getActive());
 		      }
@@ -109,6 +110,11 @@ public class UserController {
 	 @RequestMapping(method=RequestMethod.GET, value="app/user/{id}")
 	 public User getUser(@PathVariable String id){
 		       return userRepository.findById(id).get();
+	 }
+
+	 @RequestMapping(method=RequestMethod.GET, value="app/all_users")
+	 public Iterable<User> getAllUsers(){
+		      return userRepository.findAll();
 	 }
 
 	 @RequestMapping(method=RequestMethod.PUT, value="app/deactivate_account/{id}")
@@ -187,40 +193,44 @@ public class UserController {
 
 
 	 @RequestMapping(method=RequestMethod.POST, value="app/{id}/image-upload")
-    public Optional<User> saveImageToUser(@PathVariable String id, @RequestBody MultipartFile file) {
+
+    public Optional<User> saveImageToUser(@PathVariable String id, @RequestParam("file") MultipartFile file) {
 		    	Optional<User> optuser = userRepository.findById(id);
 
 
 					if (optuser.isPresent()) {
             User user = optuser.get();
 
+
             try {
 							// // Encoding to a Base64 String
-							// String imageBase64String = Base64.getEncoder().encodeToString(file.getBytes());
+							String imageBase64String = Base64.getEncoder().encodeToString(file.getBytes());
 							// // Now storing it in the format:
-              // String imageString = "data:" + file.getContentType() + ";base64," + imageBase64String;
+              String imageString = "data:" + file.getContentType() + ";base64," + imageBase64String;
 							//
               // // Save it on the user
-              // user.setImageString(imageString);
-
-							Binary image = new Binary(BsonBinarySubType.BINARY, file.getBytes());
-
-              user.setImage(image);
+               user.setImageString(imageString);
+              //  System.out.println("was cool till here");
+							// Binary image = new Binary(BsonBinarySubType.BINARY, file.getBytes());
+							//
+              // user.setImage(image);
 
 							userRepository.save(user);
 
 							Optional<User> newUser = Optional.of(user);
-
+              System.out.println("Successfully image updated");
               return newUser;
 					} catch (Exception e) {
-							System.out.println("saveImage Exception: " + e);
+							System.out.println("saveImage Exception:" + e);
 
 							Optional<User> newUser = Optional.of(user);
 
               return newUser;
 					}
 			} else {
+				  System.out.println("Couldn't find user");
 					return optuser;
+
 			}
 	}
 

@@ -14,16 +14,16 @@ public class Video {
     String id;
     String userId;
     String recipeId;
-    Binary video;
+    String videoURL;
     String type; //message | recipe | post | liveStream
     int likesCount = 0;
     int viewsCount = 0;
     String createdAt;
 
-    public Video(String userId, String recipeId,Binary video, String type) {
+    public Video(String userId, String recipeId,String video, String type) {
         this.userId = userId;
         this.recipeId = recipeId;
-        this.video = video;
+        this.videoURL = video;
         this.type = type;
         DateTimeFormatter dtf = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
         LocalDateTime now = LocalDateTime.now(ZoneOffset.UTC);
@@ -31,12 +31,12 @@ public class Video {
 
     }
 
-    public Binary getVideo() {
-        return video;
+    public String getVideoURL() {
+        return videoURL;
     }
 
-    public void setVideo(Binary video) {
-        this.video = video;
+    public void setVideoURL(String videoURL) {
+        this.videoURL = videoURL;
     }
 
     public String getId() {

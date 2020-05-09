@@ -15,19 +15,19 @@ public class Image {
     String userId;
     String recipeId;
     String imageCaption;
-    String imageBase64; // A Base64 encoded string of the profile image that was encoded on the frontend.
-    // String imageString; // A Base64 encoded string of the profile image that was encoded on the backend.
+    //String imageBase64; // A Base64 encoded string of the profile image that was encoded on the frontend.
+    String imageString; // A Base64 encoded string of the profile image that was encoded on the backend.
     String type; //message | recipe | post
-    Binary image;
+    //Binary image;
     String createdAt;
 
-    public Image(String userId, String recipeId,String imageCaption, String imageBase64, Binary image, String type) {
+    public Image(String userId, String recipeId,String imageCaption, String imageString,String type) {
         this.userId = userId;
         this.recipeId= recipeId;
         this.imageCaption = imageCaption;
-        this.imageBase64 = imageBase64;
-        //this.imageString = imageString;
-        this.image = image;
+        //this.imageBase64 = imageBase64;
+        this.imageString = imageString;
+        //this.image = image;
         this.type = type;
         DateTimeFormatter dtf = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
         LocalDateTime now = LocalDateTime.now(ZoneOffset.UTC);
@@ -65,29 +65,29 @@ public class Image {
         this.imageCaption = imageCaption;
     }
 
-    public String getImageBase64() {
-        return imageBase64;
-    }
-
-    public void setImageBase64(String imageBase64) {
-        this.imageBase64 = imageBase64;
-    }
-
-    // public String getImageString() {
-    //     return imageString;
+    // public String getImageBase64() {
+    //     return imageBase64;
     // }
     //
-    // public void setImageString(String imageString) {
-    //     this.imageString = imageString;
+    // public void setImageBase64(String imageBase64) {
+    //     this.imageBase64 = imageBase64;
     // }
 
-    public Binary getImage() {
-        return image;
+    public String getImageString() {
+        return imageString;
     }
 
-    public void setImage(Binary image) {
-        this.image = image;
+    public void setImageString(String imageString) {
+        this.imageString = imageString;
     }
+
+    // public Binary getImage() {
+    //     return image;
+    // }
+    //
+    // public void setImage(Binary image) {
+    //     this.image = image;
+    // }
 
     public String getCreatedAt() {
         return createdAt;
