@@ -12,16 +12,17 @@ import Login from './Components/ProfileComponents/Login';
 import SignUp from './Components/ProfileComponents/SignUp';
 import addRecipe from './Components/RecipeComponents/addRecipe';
 import Profile from './Components/ProfileComponents/Profile';
+import App from './App';
 ReactDOM.render(
 
   <Router>
-      <Nav/>
-      <Route path="/Components/Home" component={Home} />
+      <App/>
+      {/* <Route path="/Components/Home" component={Home} />
       <Route path="/Components/ProfileComponents/Login" component={Login} />
       <Route path="/Components/ProfileComponents/SignUp" component={SignUp} />
       <Route path="/Components/ProfileComponents/Profile" component={Profile} />
       <Route path="/Components/RecipeComponents/addRecipe" component={addRecipe} />
-       
+        */}
   </Router>, document.getElementById('root')
     
 );
