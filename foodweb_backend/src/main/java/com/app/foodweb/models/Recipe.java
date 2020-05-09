@@ -1,7 +1,7 @@
 package com.app.foodweb.models;
 
 import org.bson.types.Binary;
-import java.time.format.DateTimeFormatter;  
+import java.time.format.DateTimeFormatter;
 import java.time.LocalDateTime;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -24,11 +24,11 @@ public class Recipe {
     //the other images will be kept in the images collection with this
     //recipe id as attribute
     String imageBase64; // A Base64 encoded string of the profile image that was encoded on the frontend.
-    String imageString; // A Base64 encoded string of the profile image that was encoded on the backend.
+    // String imageString; // A Base64 encoded string of the profile image that was encoded on the backend.
     Binary image;       // A BsonBinary to store the profile image as binary data.
     String createdAt;
     String videoId;
-    
+
     public Recipe(String userId, String mealType, String dietAndHealth, String worldCuisine, String mealName, String description, String videoId,  String imageBase64, String imageString, Binary image) {
         this.userId = userId;
         this.mealType = mealType;
@@ -37,11 +37,11 @@ public class Recipe {
         this.mealName = mealName;
         this.description = description;
         this.imageBase64 = imageBase64;
-        this.imageString = imageString;
+        // this.imageString = imageString;
         this.image = image;
         this.videoId = videoId;
         DateTimeFormatter dtf = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
-        LocalDateTime now = LocalDateTime.now(ZoneOffset.UTC);  
+        LocalDateTime now = LocalDateTime.now(ZoneOffset.UTC);
         this.createdAt = dtf.format(now);
     }
 
@@ -73,7 +73,7 @@ public class Recipe {
         this.commentsCount = commentsCount;
     }
 
-        public int getCommentsCount() {
+    public int getCommentsCount() {
         return commentsCount;
     }
 
@@ -124,7 +124,7 @@ public class Recipe {
     public void setVideoId(String videoId) {
         this.videoId = videoId;
     }
-    
+
         public String getImageBase64() {
         return imageBase64;
     }
@@ -133,13 +133,13 @@ public class Recipe {
         this.imageBase64 = imageBase64;
     }
 
-    public String getImageString() {
-        return imageString;
-    }
-
-    public void setImageString(String imageString) {
-        this.imageString = imageString;
-    }
+    // public String getImageString() {
+    //     return imageString;
+    // }
+    //
+    // public void setImageString(String imageString) {
+    //     this.imageString = imageString;
+    // }
 
     public Binary getImage() {
         return image;
@@ -161,9 +161,9 @@ public class Recipe {
         return createdAt;
     }
 
-    public void setCreatedAt(String editedAt) { 
+    public void setCreatedAt(String editedAt) {
         this.createdAt = editedAt;
     }
 
-    
+
 }
