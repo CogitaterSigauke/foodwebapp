@@ -9,7 +9,6 @@ class AddRecipe extends React.Component{
    
   }
 
-
 render() {
   return ( 
     <div className = "AddRecipe">
