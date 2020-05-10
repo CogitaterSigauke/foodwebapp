@@ -22,11 +22,11 @@ public class User {
     int numberOfFavouriteRecipes;
     //We will store profile image here because we will load often
     String imageBase64; // A Base64 encoded string of the profile image that was encoded on the frontend.
-    // String imageString; // A Base64 encoded string of the profile image that was encoded on the backend.
+    String imageString; // A Base64 encoded string of the profile image that was encoded on the backend.
     Binary image;       // A BsonBinary to store the profile image as binary data.
     String active;
     String createdAt;
-    public User(String name, String familyName, String email, String imageBase64, String imageString, Binary image){
+    public User(String name, String familyName, String email, String imageString){
 
         this.name = name;
         this.familyName = familyName;
@@ -35,9 +35,9 @@ public class User {
         this.numberOfFollowing = 0;
         this.numberOfPostedRecipes = 0;
         this.numberOfFavouriteRecipes = 0;
-        this.imageBase64 = imageBase64;
-        //this.imageString = imageString;
-        this.image = image;
+        //this.imageBase64 = imageBase64;
+        this.imageString = imageString;
+        //this.image = image;
         this.active = "true";
         // DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSXXX") ;//("yyyy/MM/dd HH:mm:ss");
         DateTimeFormatter dtf = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
@@ -126,29 +126,29 @@ public class User {
         this.numberOfFavouriteRecipes = numberOfFavouriteRecipes;
     }
 
-    public String getImageBase64() {
-        return imageBase64;
-    }
-
-    public void setImageBase64(String imageBase64) {
-        this.imageBase64 = imageBase64;
-    }
-
-    // public String getImageString() {
-    //     return imageString;
+    // public String getImageBase64() {
+    //     return imageBase64;
     // }
     //
-    // public void setImageString(String imageString) {
-    //     this.imageString = imageString;
+    // public void setImageBase64(String imageBase64) {
+    //     this.imageBase64 = imageBase64;
     // }
 
-    public Binary getImage() {
-        return image;
+    public String getImageString() {
+        return imageString;
     }
 
-    public void setImage(Binary image) {
-        this.image = image;
+    public void setImageString(String imageString) {
+        this.imageString = imageString;
     }
+
+    // public Binary getImage() {
+    //     return image;
+    // }
+    //
+    // public void setImage(Binary image) {
+    //     this.image = image;
+    // }
 
     public String getActive() {
         return active;
