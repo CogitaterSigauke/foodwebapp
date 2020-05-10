@@ -55,25 +55,25 @@ public class RecipeController {
 
     VideoRepository videoRepository;
 
-    SearchClient client = 
+    SearchClient client =
       DefaultSearchClient.create("2RJQDQ5U0W", "d050b5c7676c0b34f05785f1213f6a79");
     SearchIndex<RecipeImage> index = client.initIndex("recipes", RecipeImage.class);
 
 		@RequestMapping(method=RequestMethod.POST, value="app/user/add/recipe/{id}")
     public Recipe save(@PathVariable String id,@RequestBody Recipe recipe) {
-      
+
 				  recipeRepository.save(recipe);
 
           // UPDATE INDEX
           RecipeImage recipeImage = new RecipeImage(
-            recipe.getId(), 
+            recipe.getId(),
             recipe.getUserName(),
-            recipe.getMealType(), 
-            recipe.getDietAndHealth(), 
-            recipe.getWorldCuisine(), 
-            recipe.getMealName(), 
-            recipe.getCreatedAt(), 
-            recipe.getImageString()); 
+            recipe.getMealType(),
+            recipe.getDietHealth(),
+            recipe.getWorldCuisine(),
+            recipe.getMealName(),
+            recipe.getCreatedAt(),
+            recipe.getImageString());
           index.saveObject(recipeImage);
           return recipe;
     }
@@ -88,8 +88,8 @@ public class RecipeController {
  					if(recipe.getMealType() != null){
              r.setMealType(recipe.getMealType());
  		      }
- 					if(recipe.getDietAndHealth() != null){
-             r.setDietAndHealth(recipe.getDietAndHealth());
+ 					if(recipe.getDietHealth() != null){
+             r.setDietHealth(recipe.getDietHealth());
  		      }
  					if(recipe.getWorldCuisine() != null){
              r.setWorldCuisine(recipe.getWorldCuisine());
@@ -97,18 +97,18 @@ public class RecipeController {
  					if(recipe.getDescription() != null){
              r.setDescription(recipe.getDescription());
  		      }
- 					
+
  					recipeRepository.save(r);
            // UPDATE INDEX
           RecipeImage recipeImage = new RecipeImage(
-            r.getId(), 
+            r.getId(),
             r.getUserName(),
-            r.getMealType(), 
-            r.getDietAndHealth(), 
-            r.getWorldCuisine(), 
-            r.getMealName(), 
-            r.getCreatedAt(), 
-            r.getImageString()); 
+            r.getMealType(),
+            r.getDietHealth(),
+            r.getWorldCuisine(),
+            r.getMealName(),
+            r.getCreatedAt(),
+            r.getImageString());
           index.saveObject(recipeImage);
           return r;
 
@@ -119,7 +119,7 @@ public class RecipeController {
 				 Recipe recipe = recipeRepository.findById(recipe_id).get();
 				 //A recipe can only be deleted by its owner.
 		 		 if(recipe.getUserId().equals(user_id)){
-            
+
             String objectID = recipe.getId();
 		        recipeRepository.delete(recipe);
             index.deleteObject(objectID);
@@ -146,49 +146,27 @@ public class RecipeController {
           return worldCuisine;
       }
 
-   @RequestMapping(method=RequestMethod.GET, value="app/meal_type/{mealType}")
-   public ArrayList<Recipe> getAllRecipesByMealType(@PathVariable String mealType ){
-       ArrayList<Recipe> recipes = new ArrayList<Recipe>();
-       Iterable<Recipe> allRecipes = recipeRepository.findAll();
-       Iterator<Recipe> iter = allRecipes.iterator();
-       while(iter.hasNext()){
-              Recipe recipe = iter.next();
-              if(recipe.getMealType() == mealType){
-                recipes.add(recipe);
-              }
-       }
-       return recipes;
-  }
+      @RequestMapping(method=RequestMethod.GET, value="app/meal_type/{mealType}")
+      public List<Recipe> getAllRecipesByMealType(@PathVariable String mealType ){
+          List<Recipe> r = recipeRepository.findByMealType(mealType);
+          return r;
 
-
-  @RequestMapping(method=RequestMethod.GET, value="app/diet_and_health/{diet_and_health}")
-  public ArrayList<Recipe> getAllRecipesByDietAndHealth(@PathVariable String diet_and_health ){
-      ArrayList<Recipe> recipes = new ArrayList<Recipe>();
-      Iterable<Recipe> allRecipes = recipeRepository.findAll();
-      Iterator<Recipe> iter = allRecipes.iterator();
-      while(iter.hasNext()){
-             Recipe recipe = iter.next();
-             if(recipe.getDietAndHealth() == diet_and_health){
-               recipes.add(recipe);
-             }
-      }
-      return recipes;
- }
-
-
- @RequestMapping(method=RequestMethod.GET, value="app/world_cuisine/{world_cuisine}")
- public ArrayList<Recipe> getAllRecipesByWorldCuisine(@PathVariable String world_cuisine ){
-     ArrayList<Recipe> recipes = new ArrayList<Recipe>();
-     Iterable<Recipe> allRecipes = recipeRepository.findAll();
-     Iterator<Recipe> iter = allRecipes.iterator();
-     while(iter.hasNext()){
-            Recipe recipe = iter.next();
-            if(recipe.getWorldCuisine() == world_cuisine){
-              recipes.add(recipe);
-            }
      }
-     return recipes;
-}
+
+
+     @RequestMapping(method=RequestMethod.GET, value="app/diet_and_health/{dietHealth}")
+     public List<Recipe> getAllRecipesByDietAndHealth(@PathVariable String dietHealth ){
+         List<Recipe> r = recipeRepository.findByDietHealth(dietHealth);
+         return r;
+
+    }
+
+
+    @RequestMapping(method=RequestMethod.GET, value="app/world_cuisine/{worldCuisine}")
+    public List<Recipe> getAllRecipesByWorldCuisine(@PathVariable String worldCuisine ){
+         List<Recipe> r = recipeRepository.findByWorldCuisine(worldCuisine);
+         return r;
+   }
 
 @RequestMapping(method=RequestMethod.POST, value="app/recipe-photo-upload/{recipe_id}")
  public Optional<Recipe> saveImageToRecipe (@PathVariable("recipe_id") String recipe_id,@RequestBody MultipartFile file) {
@@ -204,17 +182,17 @@ public class RecipeController {
            String imageString = "data:" + file.getContentType() + ";base64," + imageBase64String;
            recipe.setImageString(imageString);
            recipeRepository.save(recipe);
-          
+
             // UPDATE INDEX
            RecipeImage recipeImage = new RecipeImage(
-            recipe.getId(), 
+            recipe.getId(),
             userRepository.findById(recipe.getUserId()).get().getUserName(),
-            recipe.getMealType(), 
-            recipe.getDietAndHealth(), 
-            recipe.getWorldCuisine(), 
-            recipe.getMealName(), 
-            recipe.getCreatedAt(), 
-            recipe.getImageString()); 
+            recipe.getMealType(),
+            recipe.getDietHealth(),
+            recipe.getWorldCuisine(),
+            recipe.getMealName(),
+            recipe.getCreatedAt(),
+            recipe.getImageString());
            index.saveObject(recipeImage);
 
            Optional<Recipe> newRecipe = Optional.of(recipe);
@@ -327,6 +305,13 @@ public Iterable<Recipe> getAllRecipes(){
 //                 }
 //
 //  }
+
+
+@RequestMapping(method=RequestMethod.GET, value="app/user/{user_id}/all_recipes")
+public List<Recipe> getAllRecipesByUser(@PathVariable String user_id){
+       List<Recipe> r = recipeRepository.findByUserId(user_id);
+       return r;
+}
 
 
 
