@@ -1,8 +1,21 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
+class Home extends React.Component{
+
+  constructor(props) {
+    super(props);
+    // this.state = {value: ''};
+
+    // this.handleChange = this.handleChange.bind(this);
+    // this.handleSubmit = this.handleSubmit.bind(this);
+    
+}
 
 
-function Home() {
+
+
+
+render() {
   return (
     <div className="Home">
      
@@ -286,10 +299,12 @@ function Home() {
                   <i className="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
                   Activity Log
                 </a>
-                <a className="dropdown-item" href="#">
-                  <i className="fas fa-glass-cheers fa-sm fa-fw mr-2 text-gray-400"></i>
-                  Add Recipe
-                </a>
+                <Link to = "/Components/ProfileComponents/AddRecipe">
+                  <p className="dropdown-item">
+                    <i className="fas fa-glass-cheers fa-sm fa-fw mr-2 text-gray-400"></i>
+                    Add Recipe
+                  </p>
+                </Link>
                 <div className="dropdown-divider"></div>
                 <Link to= "/">
                   <p className="dropdown-item"  data-toggle="modal" data-target="#logoutModal">
@@ -353,5 +368,6 @@ function Home() {
 
     </div>
   );
+}
 }
 export default Home;
