@@ -186,7 +186,7 @@ public class RecipeController {
             // UPDATE INDEX
            RecipeImage recipeImage = new RecipeImage(
             recipe.getId(),
-            userRepository.findById(recipe.getUserId()).get().getUserName(),
+            recipe.getUserName(),
             recipe.getMealType(),
             recipe.getDietHealth(),
             recipe.getWorldCuisine(),
