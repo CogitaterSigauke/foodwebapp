@@ -1,6 +1,5 @@
 package com.app.foodweb.models;
 
-import org.bson.types.Binary;
 import java.time.format.DateTimeFormatter;
 import java.time.LocalDateTime;
 import org.springframework.data.annotation.Id;
@@ -12,33 +11,30 @@ public class Recipe {
     @Id
     String id;
     String userId;
+    String userName;
     int likesCount = 0;
     int commentsCount = 0;
-    double rating = 0; //updated everytime a review is posted => the review has recipe id
+    double rating = 0;
     String mealType;
-    String dietAndHealth;
+    String dietHealth;
     String worldCuisine;
     String mealName;
     String description;
-    //We will the main recipe image here because we will load often
-    //the other images will be kept in the images collection with this
-    //recipe id as attribute
-    //String imageBase64; // A Base64 encoded string of the profile image that was encoded on the frontend.
-    String imageString; // A Base64 encoded string of the profile image that was encoded on the backend.
-    //Binary image;       // A BsonBinary to store the profile image as binary data.
+    String imageString; // A Base64 encoded string of the profile image that was encoded on the frontend.
     String createdAt;
     String videoId;
 
-    public Recipe(String userId, String mealType, String dietAndHealth, String worldCuisine, String mealName, String description, String videoId,String imageString) {
+    public Recipe(String userName, String userId, String mealType,
+    String dietHealth, String worldCuisine, String mealName,
+    String description, String videoId,String imageString) {
         this.userId = userId;
+        this.userName = userName;
         this.mealType = mealType;
-        this.dietAndHealth = dietAndHealth;
+        this.dietHealth = dietHealth;
         this.worldCuisine = worldCuisine;
         this.mealName = mealName;
         this.description = description;
-        //this.imageBase64 = imageBase64;
-        this.imageString = imageString;
-        //this.image = image;
+        this.imageString = imageString; //BASE 64 STRING ENCODED FROM THE CLIENT SIDE
         this.videoId = videoId;
         DateTimeFormatter dtf = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
         LocalDateTime now = LocalDateTime.now(ZoneOffset.UTC);
@@ -59,6 +55,14 @@ public class Recipe {
 
     public void setUserId(String userId) {
         this.userId = userId;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     public int getLikesCount() {
@@ -85,12 +89,12 @@ public class Recipe {
         this.mealType = mealType;
     }
 
-    public String getDietAndHealth() {
-        return dietAndHealth;
+    public String getDietHealth() {
+        return dietHealth;
     }
 
-    public void setDietAndHealth(String dietAndHealth) {
-        this.dietAndHealth = dietAndHealth;
+    public void setDietHealth(String dietHealth) {
+        this.dietHealth = dietHealth;
     }
 
     public String getWorldCuisine() {
@@ -125,14 +129,6 @@ public class Recipe {
         this.videoId = videoId;
     }
 
-    //     public String getImageBase64() {
-    //     return imageBase64;
-    // }
-    //
-    // public void setImageBase64(String imageBase64) {
-    //     this.imageBase64 = imageBase64;
-    // }
-
     public String getImageString() {
         return imageString;
     }
@@ -140,14 +136,6 @@ public class Recipe {
     public void setImageString(String imageString) {
         this.imageString = imageString;
     }
-
-    // public Binary getImage() {
-    //     return image;
-    // }
-    //
-    // public void setImage(Binary image) {
-    //     this.image = image;
-    // }
 
     public double getRating() {
         return rating;
@@ -164,6 +152,5 @@ public class Recipe {
     public void setCreatedAt(String editedAt) {
         this.createdAt = editedAt;
     }
-
 
 }

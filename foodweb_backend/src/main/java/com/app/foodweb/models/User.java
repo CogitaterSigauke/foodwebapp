@@ -13,7 +13,7 @@ public class User {
     String id;
     String name;
     String email;
-    String userName = "";
+    String userName;
     String familyName;
     String aboutMe;
     int numberOfFollowers; //we will store these integers there to show them every time
@@ -26,10 +26,11 @@ public class User {
     Binary image;       // A BsonBinary to store the profile image as binary data.
     String active;
     String createdAt;
-    public User(String name, String familyName, String email, String imageString){
+    public User(String name, String userName, String familyName, String email, String imageString){
 
         this.name = name;
         this.familyName = familyName;
+        this.userName = userName;
         this.email = email;
         this.numberOfFollowers = 0;
         this.numberOfFollowing = 0;
