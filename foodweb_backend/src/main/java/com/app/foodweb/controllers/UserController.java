@@ -8,8 +8,6 @@ import com.app.foodweb.repositories.BlockedUserRepository;
 import org.bson.BsonBinarySubType;
 import org.bson.types.Binary;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -24,6 +22,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.Base64;
 import java.util.Optional;
 
+import java.util.List;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -36,15 +35,14 @@ public class UserController {
 
 		BlockedUserRepository blockedUserRepository;
 
-    @RequestMapping(method=RequestMethod.POST, value="app/home")
+    @RequestMapping(method=RequestMethod.POST, value="app/user/save")
     public User save(@RequestBody User user) {
-        userRepository.save(user);
+			  userRepository.save(user);
         return user;
     }
 
     @RequestMapping(method=RequestMethod.POST, value="app/signup")
     public User signup(@RequestBody User user){
-
         if(userRepository.existsByEmail(user.getEmail())){
             User userD = userRepository.findByEmail(user.getEmail());
             return userD;
@@ -73,12 +71,6 @@ public class UserController {
 					if(user.getAboutMe() != null){
             u.setAboutMe(user.getAboutMe());
 		      }
-					// if(user.getImageBase64() != null){
-          //   u.setImageBase64(user.getImageBase64());
-		      // }
-					// if(user.getImage() != null){
-          //   u.setImage(user.getImage());
-		      // }
 					if(user.getActive() != null){
             u.setActive(user.getActive());
 		      }
@@ -146,75 +138,39 @@ public class UserController {
 	 }
 
     @RequestMapping(method=RequestMethod.GET, value="app/{id}/blocked_users")
-    public Map<String, String> getBlockedUsers(@PathVariable String id){
+    public List<BlockedUser> getBlockedUsers(@PathVariable String id){
+       List<BlockedUser> blockerAndBlocked = blockedUserRepository.findByBlockerUserId(id);
+			 return blockerAndBlocked;
 
-			  //blocked users' names with their user_ids
-        Map<String,String> blockedUsersNamesWithIds = new HashMap<String,String>();
-
-			  Iterable<BlockedUser> allBlockedUsers = blockedUserRepository.findAll();
-
-				Iterator<BlockedUser> iter = allBlockedUsers.iterator();
-
-				while(iter.hasNext()){
-	             BlockedUser blockuser = iter.next();
-							 if(blockuser.getBlockerUserId().equals(id)){
-								 String blockedUserName = userRepository.findById(blockuser.getBlockedUserId()).get().getUserName();
-								 blockedUsersNamesWithIds.put(blockedUserName,blockuser.getBlockedUserId());
-							 }
-        }
-
-				return blockedUsersNamesWithIds;
 
 		}
 
 
     @RequestMapping(method=RequestMethod.POST, value="app/{user_id}/block/{other_id}")
-		public String blockUser(@PathVariable("user_id") String user_id,@PathVariable("other_id") String other_id){
-           BlockedUser blockerAndBlockedUser = new BlockedUser(user_id,other_id);
-           return "";
+		public BlockedUser blockUser(@RequestBody BlockedUser user){
+           blockedUserRepository.save(user);
+           return user;
 
 		}
 
-		@RequestMapping(method=RequestMethod.POST, value="app/{user_id}/unblock/{other_id}")
-		public String unBlockUser(@PathVariable("user_id") String user_id,@PathVariable("other_id") String other_id){
-			    Iterable<BlockedUser> allBlockedUsers = blockedUserRepository.findAll();
-
-		     	Iterator<BlockedUser> iter = allBlockedUsers.iterator();
-
-			    while(iter.hasNext()){
-						BlockedUser blockuser = iter.next();
-						if(blockuser.getBlockerUserId() == user_id && blockuser.getBlockedUserId() == other_id){
-							   blockedUserRepository.delete(blockuser);
-						}
-					}
-
+		@RequestMapping(method=RequestMethod.DELETE, value="app/{user_id}/unblock/{other_id}")
+		public String unBlockUser(@RequestBody BlockedUser user){
+			    blockedUserRepository.delete(user);
 				  return "";
 		}
 
 
 	 @RequestMapping(method=RequestMethod.POST, value="app/{id}/image-upload")
-
     public Optional<User> saveImageToUser(@PathVariable String id, @RequestParam("file") MultipartFile file) {
 		    	Optional<User> optuser = userRepository.findById(id);
-
-
 					if (optuser.isPresent()) {
             User user = optuser.get();
-
-
             try {
 							// // Encoding to a Base64 String
 							String imageBase64String = Base64.getEncoder().encodeToString(file.getBytes());
 							// // Now storing it in the format:
               String imageString = "data:" + file.getContentType() + ";base64," + imageBase64String;
-							//
-              // // Save it on the user
-               user.setImageString(imageString);
-              //  System.out.println("was cool till here");
-							// Binary image = new Binary(BsonBinarySubType.BINARY, file.getBytes());
-							//
-              // user.setImage(image);
-
+              user.setImageString(imageString);
 							userRepository.save(user);
 
 							Optional<User> newUser = Optional.of(user);
@@ -234,37 +190,7 @@ public class UserController {
 			}
 	}
 
-	/*
-	@RequestMapping(method=RequestMethod.POST, value="app/message")
-	public User sendMessage(@RequestBody User user){}
 
-	@RequestMapping(method=RequestMethod.POST, value="app/add_review")
-	public User giveReview(@RequestBody User user){}
-
-	@RequestMapping(method=RequestMethod.POST, value="app/add_comment")
-	public User giveComment(@RequestBody User user){}
-
-	@RequestMapping(method=RequestMethod.POST, value="app/add_recipe")
-	public User addRecipe(@RequestBody User user){}
-
-	@RequestMapping(method=RequestMethod.POST, value="app/get_messages")
-	public User getAllMessages(@RequestBody User user){}
-
-	@RequestMapping(method=RequestMethod.POST, value="app/get_notifications")
-	public User getAllNotifications(@RequestBody User user){}
-
-	@RequestMapping(method=RequestMethod.POST, value="app/get_followers_list")
-	public User getAllFollowers(@RequestBody User user){}
-
-	@RequestMapping(method=RequestMethod.POST, value="app/get_followings_list")
-	public User getAllFollowings(@RequestBody User user){}
-
-	@RequestMapping(method=RequestMethod.POST, value="app/go_live")
-	public User startLiveStreaming(@RequestBody User user){}
-
-	@RequestMapping(method=RequestMethod.POST, value="app/block_user")
-	public User blockUser(@RequestBody User user){}
-	*/
 
 
 

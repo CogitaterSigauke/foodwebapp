@@ -8,8 +8,10 @@ import java.time.format.DateTimeFormatter;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 
+
 @Document(collection = "images")
 public class Image {
+
     @Id
     String id;
     String userId;

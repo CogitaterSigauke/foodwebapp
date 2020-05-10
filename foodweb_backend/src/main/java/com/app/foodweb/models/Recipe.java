@@ -16,7 +16,7 @@ public class Recipe {
     int commentsCount = 0;
     double rating = 0; //updated everytime a review is posted => the review has recipe id
     String mealType;
-    String dietAndHealth;
+    String dietHealth;
     String worldCuisine;
     String mealName;
     String description;
@@ -29,10 +29,10 @@ public class Recipe {
     String createdAt;
     String videoId;
 
-    public Recipe(String userId, String mealType, String dietAndHealth, String worldCuisine, String mealName, String description, String videoId,String imageString) {
+    public Recipe(String userId, String mealType, String dietHealth, String worldCuisine, String mealName, String description, String videoId,String imageString) {
         this.userId = userId;
         this.mealType = mealType;
-        this.dietAndHealth = dietAndHealth;
+        this.dietHealth = dietHealth;
         this.worldCuisine = worldCuisine;
         this.mealName = mealName;
         this.description = description;
@@ -85,12 +85,12 @@ public class Recipe {
         this.mealType = mealType;
     }
 
-    public String getDietAndHealth() {
-        return dietAndHealth;
+    public String getDietHealth() {
+        return dietHealth;
     }
 
-    public void setDietAndHealth(String dietAndHealth) {
-        this.dietAndHealth = dietAndHealth;
+    public void setDietHealth(String dietHealth) {
+        this.dietHealth = dietHealth;
     }
 
     public String getWorldCuisine() {
