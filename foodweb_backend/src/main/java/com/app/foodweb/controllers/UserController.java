@@ -1,9 +1,18 @@
 package com.app.foodweb.controllers;
 
+//ALGOLIA
+
+import com.algolia.search.*;
+
+//FOODWEB
+
 import com.app.foodweb.models.User;
+import com.app.foodweb.models.UserImage;
 import com.app.foodweb.models.BlockedUser;
 import com.app.foodweb.repositories.UserRepository;
 import com.app.foodweb.repositories.BlockedUserRepository;
+
+//SPRING BOOT
 
 import org.bson.BsonBinarySubType;
 import org.bson.types.Binary;
@@ -17,19 +26,23 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.multipart.MultipartFile;
 
+//JAVA
+
 import java.util.Base64;
 import java.util.Optional;
-
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
 @RestController
 public class UserController {
+	
+	SearchClient client = 
+    DefaultSearchClient.create("2RJQDQ5U0W", "d050b5c7676c0b34f05785f1213f6a79");
+    SearchIndex<UserImage> index = client.initIndex("users", UserImage.class);
 
 	@Autowired
     UserRepository userRepository;
@@ -39,6 +52,13 @@ public class UserController {
     @RequestMapping(method=RequestMethod.POST, value="app/home")
     public User save(@RequestBody User user) {
         userRepository.save(user);
+		UserImage userImage = new UserImage(
+			user.getName(),
+			user.getFamilyName(),
+			user.getUserName(), 
+			user.getImageString(), 
+			user.getId());
+		index.saveObject(userImage);
         return user;
     }
 
@@ -73,16 +93,18 @@ public class UserController {
 					if(user.getAboutMe() != null){
             u.setAboutMe(user.getAboutMe());
 		      }
-					// if(user.getImageBase64() != null){
-          //   u.setImageBase64(user.getImageBase64());
-		      // }
-					// if(user.getImage() != null){
-          //   u.setImage(user.getImage());
-		      // }
-					if(user.getActive() != null){
+
+				if(user.getActive() != null){
             u.setActive(user.getActive());
 		      }
 					userRepository.save(u);
+			UserImage userImage = new UserImage(
+				user.getName(),
+				user.getFamilyName(),
+				user.getUserName(), 
+				user.getImageString(), 
+				user.getId());
+			index.saveObject(userImage);
           return u;
 
 	 }
@@ -97,6 +119,7 @@ public class UserController {
 		 userRepository.save(u);
 		 return u;
 	 }
+
 
 	 @RequestMapping(method=RequestMethod.PUT, value="app/{id}/unfollow")
 	 public User unFollowUser(@PathVariable String id){
@@ -119,28 +142,46 @@ public class UserController {
 
 	 @RequestMapping(method=RequestMethod.PUT, value="app/deactivate_account/{id}")
 	 public User deactivateAccount(@PathVariable String id){
-					 Optional<User> optuser = userRepository.findById(id);
-					 User u = optuser.get();
-					 u.setActive("false");
-					 userRepository.save(u);
-					 return u;
+		Optional<User> optuser = userRepository.findById(id);
+		User user = optuser.get();
+		user.setActive("false");
+		userRepository.save(user);
+		String objectID = user.getId();
+		index.deleteObject(objectID);
+		return user;
 	 }
 
 	 @RequestMapping(method=RequestMethod.PUT, value="app/activate_account/{id}")
 	 public User activateAccount(@PathVariable String id){
-					 Optional<User> optuser = userRepository.findById(id);
-					 User u = optuser.get();
-					 u.setActive("true");
-					 userRepository.save(u);
-					 return u;
+		Optional<User> optuser = userRepository.findById(id);
+		User user = optuser.get();
+		user.setActive("true");
+		userRepository.save(user);
+
+		//ADD TO INDEX
+		UserImage userImage = new UserImage(
+		user.getName(),
+		user.getFamilyName(),
+		user.getUserName(), 
+		user.getImageString(), 
+		user.getId());
+		index.saveObject(userImage);
+		return user;
 	 }
 
 
 	 @RequestMapping(method=RequestMethod.DELETE, value="app/delete_account/{id}")
 	 public String deleteAccount(@PathVariable String id){
 		 Optional<User> optuser = userRepository.findById(id);
-		 User u = optuser.get();
-     userRepository.delete(u);
+		 User user = optuser.get();
+		System.out.println(user.getUserName());
+		//DELETE FROM INDEX IF EXIST
+		 if(user.getActive().equals("true")){
+			String objectID = user.getId();
+			index.deleteObject(objectID);
+		 }
+
+     	userRepository.delete(user);
      return "";
 
 	 }
@@ -207,13 +248,9 @@ public class UserController {
 							String imageBase64String = Base64.getEncoder().encodeToString(file.getBytes());
 							// // Now storing it in the format:
               String imageString = "data:" + file.getContentType() + ";base64," + imageBase64String;
-							//
-              // // Save it on the user
+
                user.setImageString(imageString);
-              //  System.out.println("was cool till here");
-							// Binary image = new Binary(BsonBinarySubType.BINARY, file.getBytes());
-							//
-              // user.setImage(image);
+            
 
 							userRepository.save(user);
 
