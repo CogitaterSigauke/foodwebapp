@@ -325,10 +325,12 @@ render() {
             
               <div className="dropdown no-arrow mb-4">
                 <button className="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+
                   <span className="icon text-white-50">
                     <i className="fas fa-plus"></i>
                   </span>
                     <span className="text">Meal Type </span> 
+
                 </button>
                 <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
                   <a className="dropdown-item" href="#">Breakfast</a>
@@ -343,10 +345,12 @@ render() {
              
               <div className="dropdown no-arrow mb-4">
                 <button className="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+
                   <span className="icon text-white-50">
                     <i className="fas fa-plus"></i>
                   </span>
                     <span className="text">Dish Type </span> 
+
                 </button>
                 <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
                   <a className="dropdown-item" href="#">Main Dish</a>
@@ -358,10 +362,12 @@ render() {
         
               <div className="dropdown no-arrow mb-4">
                 <button className="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+
                   <span className="icon text-white-50">
                     <i className="fas fa-plus"></i>
                   </span>
                     <span className="text">World Cuisine </span> 
+
                 </button>
                 <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
                   <a className="dropdown-item" href="#">Ethiopian</a>
