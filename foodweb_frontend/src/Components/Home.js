@@ -299,7 +299,7 @@ render() {
                   <i className="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
                   Activity Log
                 </a>
-                <Link to = "/Components/ProfileComponents/AddRecipe">
+                <Link to = "/Components/RecipeComponents/AddRecipe">
                   <p className="dropdown-item">
                     <i className="fas fa-glass-cheers fa-sm fa-fw mr-2 text-gray-400"></i>
                     Add Recipe

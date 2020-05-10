@@ -24,7 +24,7 @@ ReactDOM.render(
       <Route path="/Components/ProfileComponents/Login" component={Login} />
       <Route path="/Components/Home" component={Home}/>
       <Route path="/Components/ProfileComponents/RegisterAccount" component={RegisterAccount}/>
-      <Route path="/Components/ProfileComponents/AddRecipe" component={AddRecipe}/>
+      <Route path="/Components/RecipeComponents/AddRecipe" component={AddRecipe}/>
 
     </Switch>
   </Router>, document.getElementById('root')
@@ -36,9 +36,3 @@ ReactDOM.render(
 // unregister() to register() below. Note this comes with some pitfalls.
 // Learn more about service workers: https://bit.ly/CRA-PWA
 serviceWorker.unregister();
- {/* <Route path="/Components/Home" component={Home} />
-      <Route path="/Components/ProfileComponents/Login" component={Login} />
-      <Route path="/Components/ProfileComponents/SignUp" component={SignUp} />
-      <Route path="/Components/ProfileComponents/Profile" component={Profile} />
-      <Route path="/Components/RecipeComponents/addRecipe" component={addRecipe} />
-        */}
