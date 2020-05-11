@@ -54,9 +54,9 @@ render() {
         <div id="collapseTwo" className="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
           <div className="bg-white py-2 collapse-inner rounded">
             <h6 className="collapse-header">Drinks Menu</h6>
-            <a className="collapse-item" href="buttons.html">Cocktail</a>
-            <a className="collapse-item" href="cards.html">Hot Drinks</a>
-            <a className="collapse-item" href="cards.html">Smoothies</a>
+            <a className="collapse-item" href="">Cocktail</a>
+            <a className="collapse-item" href="">Hot Drinks</a>
+            <a className="collapse-item" href="">Smoothies</a>
           </div>
         </div>
       </li>
@@ -69,10 +69,10 @@ render() {
         <div id="collapseUtilities" className="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
           <div className="bg-white py-2 collapse-inner rounded">
             <h6 className="collapse-header">Sweet's Menu</h6>
-            <a className="collapse-item" href="utilities-color.html">Ice Creams</a>
-            <a className="collapse-item" href="utilities-border.html">Cakes</a>
-            <a className="collapse-item" href="utilities-animation.html">Cookies</a>
-            <a className="collapse-item" href="utilities-animation.html">Fruits</a>
+            <a className="collapse-item" href="">Ice Creams</a>
+            <a className="collapse-item" href="">Cakes</a>
+            <a className="collapse-item" href="">Cookies</a>
+            <a className="collapse-item" href="">Fruits</a>
             
           </div>
         </div>
@@ -86,12 +86,12 @@ render() {
         <div id="collapseUtilities" className="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
           <div className="bg-white py-2 collapse-inner rounded">
             <h6 className="collapse-header">Countries</h6>
-            <a className="collapse-item" href="utilities-color.html">Ethiopian</a>
-            <a className="collapse-item" href="utilities-border.html">Indian</a>
-            <a className="collapse-item" href="utilities-animation.html">Chinese</a>
-            <a className="collapse-item" href="utilities-animation.html">Italian</a>
-            <a className="collapse-item" href="utilities-animation.html">Mexican</a>
-            <a className="collapse-item" href="utilities-animation.html">American</a>
+            <a className="collapse-item" href="">Ethiopian</a>
+            <a className="collapse-item" href="">Indian</a>
+            <a className="collapse-item" href="">Chinese</a>
+            <a className="collapse-item" href="">Italian</a>
+            <a className="collapse-item" href="">Mexican</a>
+            <a className="collapse-item" href="">American</a>
             
           </div>
         </div>
@@ -111,20 +111,20 @@ render() {
         <div id="collapsePages" className="collapse show" aria-labelledby="headingPages" data-parent="#accordionSidebar">
           <div className="bg-white py-2 collapse-inner rounded">
             <h6 className="collapse-header">Main Dishes</h6>
-            <a className="collapse-item active" href="login.html">Breakfast</a>
-            <a className="collapse-item active" href="register.html">Lunch</a>
-            <a className="collapse-item active" href="forgot-password.html">Dinner</a>
+            <a className="collapse-item active" href="">Breakfast</a>
+            <a className="collapse-item active" href="">Lunch</a>
+            <a className="collapse-item active" href="">Dinner</a>
             <div className="collapse-divider"></div>
             <h6 className="collapse-header">Side Dishes</h6>
-            <a className="collapse-item active" href="404.html">Vegetable</a>
-            <a className="collapse-item active" href="blank.html">Grain</a>
-            <a className="collapse-item active" href="blank.html">Seasonal</a>
+            <a className="collapse-item active" href="">Vegetable</a>
+            <a className="collapse-item active" href="">Grain</a>
+            <a className="collapse-item active" href="">Seasonal</a>
           </div>
         </div>
       </li>
 
       <li className="nav-item">
-        <a className="nav-link" href="charts.html">
+        <a className="nav-link" href="">
           <i className="fas fa-hand-holding-heart"></i>
           <span>Dite And Health</span></a>
       </li>
@@ -327,10 +327,93 @@ render() {
                 {/* card one */}
                 <div className="col-lg-4 col-md-6 mb-4">
                   <div className="card border-0 shadow">
-                    <img src="http://placehold.it/500x350" className="card-img-top" alt="..."/>
+                    <img src="https://mdbootstrap.com/img/Photos/Horizontal/Food/full%20page/9.jpg" className="card-img-top" alt="..."/>
                     <div className="card-body text-center">
                       <h4 className="card-title">
-                          <a href="#">Item One</a>
+                          <a href="#">Recipe One</a>
+                      </h4>
+                      <h6><a className="fas fa-user" href="#">Contact Owner</a></h6>
+                      <p className="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!</p>
+                    </div>
+                    <div className="card-footer">
+                        <small className="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
+                    </div>
+                  </div>
+                </div>
+
+
+
+                <div className="col-lg-4 col-md-6 mb-4">
+                  <div className="card border-0 shadow">
+                    <img src="https://mdbootstrap.com/img/Photos/Horizontal/Food/full%20page/8.jpg" className="card-img-top" alt="..."/>
+                    <div className="card-body text-center">
+                      <h4 className="card-title">
+                          <a href="#">Recipe two</a>
+                      </h4>
+                      <h6><a className="fas fa-user" href="#">Contact Owner</a></h6>
+                      <p className="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!</p>
+                    </div>
+                    <div className="card-footer">
+                        <small className="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
+                    </div>
+                  </div>
+                </div>
+
+
+                <div className="col-lg-4 col-md-6 mb-4">
+                  <div className="card border-0 shadow">
+                    <img src="https://mdbootstrap.com/img/Photos/Horizontal/Food/full%20page/3.jpg" className="card-img-top" alt="..."/>
+                    <div className="card-body text-center">
+                      <h4 className="card-title">
+                          <a href="#">Recipe three</a>
+                      </h4>
+                      <h6><a className="fas fa-user" href="#">Contact Owner</a></h6>
+                      <p className="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!</p>
+                    </div>
+                    <div className="card-footer">
+                        <small className="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="col-lg-4 col-md-6 mb-4">
+                  <div className="card border-0 shadow">
+                    <img src="https://mdbootstrap.com/img/Photos/Horizontal/Food/full%20page/10.jpg" className="card-img-top" alt="..."/>
+                    <div className="card-body text-center">
+                      <h4 className="card-title">
+                          <a href="#">Recipe four</a>
+                      </h4>
+                      <h6><a className="fas fa-user" href="#">Contact Owner</a></h6>
+                      <p className="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!</p>
+                    </div>
+                    <div className="card-footer">
+                        <small className="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="col-lg-4 col-md-6 mb-4">
+                  <div className="card border-0 shadow">
+                    <img src="https://mdbootstrap.com/img/Photos/Horizontal/Food/full%20page/7.jpg" className="card-img-top" alt="..."/>
+                    <div className="card-body text-center">
+                      <h4 className="card-title">
+                          <a href="#">Recipe five</a>
+                      </h4>
+                      <h6><a className="fas fa-user" href="#">Contact Owner</a></h6>
+                      <p className="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!</p>
+                    </div>
+                    <div className="card-footer">
+                        <small className="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="col-lg-4 col-md-6 mb-4">
+                  <div className="card border-0 shadow">
+                    <img src="https://mdbootstrap.com/img/Photos/Horizontal/Food/full%20page/5.jpg" className="card-img-top" alt="..."/>
+                    <div className="card-body text-center">
+                      <h4 className="card-title">
+                          <a href="#">Recipe six</a>
                       </h4>
                       <h6><a className="fas fa-user" href="#">Contact Owner</a></h6>
                       <p className="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!</p>

@@ -1,10 +1,7 @@
-
-
-
 import React, { Component } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-import FileBase64 from 'react-file-base64'; // Install with npm install react-file-base64 - https://www.npmjs.com/package/react-file-base64
+import FileBase64 from 'react-file-base64'; 
 
 class RegisterAccount extends Component {
 
@@ -14,7 +11,8 @@ class RegisterAccount extends Component {
             name: '',
             familyName: '',
             userName: '',
-            email: ''
+            email: '',
+            imageString: ''
            
         };
     }
@@ -70,11 +68,6 @@ class RegisterAccount extends Component {
         const {name, familyName, userName, email} = this.state;
         return (
             <div className = "RegisterAccount">
-            {/* <h2>This is addRecipe Page</h2>
-            {/* <img src={Logo} /> */}
-            {/* <img src={recipeCard} /> */} */}
-    
-    
             <div className="container">
     
                 <div className="card o-hidden border-0 shadow-lg my-5">
@@ -101,43 +94,16 @@ class RegisterAccount extends Component {
                                             </div>
                                           
                                         </div>
-                                        <div className="form-group">
-                                            <input type="email" className="form-control form-control-user" id="exampleInputEmail" name = "email" value={email} onChange={this.onChange}  placeholder="Email Address"/>
-                                        </div>
+                                        
                                         <div className="form-group row">
-                                            {/* <div className="col-sm-6">
-                                                <input type="text" className="form-control form-control-user" id="exampleLastName" value={name} onChange={this.onChange}  placeholder="userName "/>
-                                            </div>
+                                            
                                             <div className="col-sm-6">
                                                 <textarea type="text" className="form-control form-control-user" id="exampleLastName" value={name} onChange={this.onChange} placeholder="about Me "/>
-                                            </div> */}
-                                            {/* <div className="col-sm-6 mb-3 mb-sm-0">
-                                                <input type="password" className="form-control form-control-user" id="exampleInputPassword" placeholder="Password"/>
                                             </div>
-    
-                                            <div className="col-sm-6">
-                                                <input type="password" className="form-control form-control-user" id="exampleRepeatPassword" placeholder="Repeat Password"/>
-                                            </div> */}
                                         </div>
-                                        {/* <div className="form-group">
-                                        <label htmlFor="imageString"></label>
-                                            <FileBase64 onDone={this.getBase64File.bind(this)}/>
-                                        </div> */}
-                                        {/* <div className="form-group">
-                                            <label htmlFor="image"></label>
-                                            <input type="file" onChange={this.fileSelectedHandler}/>
-                                        </div>   */}
-                                        {/* <Link to= "/Components/ProfileComponents/Login">  */}
-    
                                             <button  type="submit" className="btn btn-primary btn-user btn-block">
                                                 Register Account
                                             </button>
-                                        {/* </Link> */}
-                                        <hr/>
-                                        {/* <a href="index.html" className="btn btn-google btn-user btn-block">
-                                            <i className="fab fa-google fa-fw"></i> Register with Google
-                                        </a> */}
-                                       
                                     </form>
                                     <hr/>
                                     
@@ -155,55 +121,6 @@ class RegisterAccount extends Component {
     
             </div>
         </div>
-
-
-
-
-
-
-
-
-//             <div className="container">
-//                 <div className="panel panel-default">
-//                     <div className="panel-heading">
-//                         <h3 className="panel-title">
-//                             ADD User
-//                         </h3>
-//                     </div>
-//                     <div className="panel-body">
-                        
-//                         <form onSubmit={this.onSubmit}>
-//                             <div className="form-group">
-//                                 <label htmlFor="name">Name:</label>
-//                                 <input type="text" className="form-control" name="name" value={name} onChange={this.onChange} placeholder="Name" />
-//                             </div>
-                           
-//                             <div className="form-group">
-//                                 <label htmlFor="phone">FamilyName:</label>
-//                                 <input type="text" className="form-control" name="familyName" value={familyName} onChange={this.onChange} placeholder="family Name" />
-//                             </div>
-//                             <div className="form-group">
-//                                 <label htmlFor="email">User Name:</label>
-//                                 <input type="text" className="form-control" name="userName" value={userName} onChange={this.onChange} placeholder="userName " />
-//                             </div>
-//                             <div className="form-group">
-//                                 <label htmlFor="email">Email:</label>
-//                                 <input type="email" className="form-control" name="email" value={email} onChange={this.onChange} placeholder="Email Address" />
-//                             </div>
-// {/*                            
-//                             <div className="form-group">
-//                                 <label htmlFor="imageString">Profile Picture </label>
-//                                 <FileBase64 onDone={this.getBase64File.bind(this)}/>
-//                             </div> */}
-//                             {/* <div className="form-group">
-//                                 <label htmlFor="image">Profile Picture (Sending as FormData):</label>
-//                                 <input type="file" onChange={this.fileSelectedHandler}/>
-//                             </div> */}
-//                             <button type="submit" className="btn btn-success">Submit</button>
-//                         </form>
-//                     </div>
-//                 </div>
-//             </div>
         );
     }
 }

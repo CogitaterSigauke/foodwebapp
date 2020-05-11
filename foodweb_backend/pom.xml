@@ -85,17 +85,12 @@
               </resource> 
             </resources> 
           </deployment>  
-          <deploymentSlot>
-            <name>my-recipe-app-slot</name>
-            <configurationSource></configurationSource>
-          </deploymentSlot>
+          <deploymentSlot> 
+            <name>my-recipe-app-slot</name>  
+            <configurationSource></configurationSource> 
+          </deploymentSlot> 
         </configuration> 
       </plugin> 
     </plugins> 
   </build> 
 </project>
-<plugin>
-    <groupId>com.microsoft.azure</groupId>
-    <artifactId>azure-webapp-maven-plugin</artifactId>
-    <version>1.9.0</version>
-</plugin>

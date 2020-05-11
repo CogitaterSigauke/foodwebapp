@@ -14,7 +14,7 @@ import AddRecipe from './Components/RecipeComponents/AddRecipe';
 import Recipe from './Components/RecipeComponents/Recipe';
 import Profile from './Components/ProfileComponents/Profile';
 import RegisterAccount from './Components/ProfileComponents/RegisterAccount';
-import Signup2 from './Components/ProfileComponents/Signup2';
+import SignUp from './Components/ProfileComponents/SignUp';
 import App from './App';
 
 ReactDOM.render(

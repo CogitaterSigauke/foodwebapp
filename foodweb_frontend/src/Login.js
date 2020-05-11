@@ -96,11 +96,14 @@ return (
                               </p>
                             </Link>   */}
                           <hr/>
-                          <p href="index.html" className="btn btn-google btn-user btn-block">
-                            <i className="fab fa-google fa-fw"></i> Login with Google
-                          </p>
+                          <Link to="/Components/Home">
+                            <p  className="btn btn-google btn-user btn-block">
+                              <i className="fab fa-google fa-fw"></i> Login with Google
+                            </p>
+                          </Link>
+                          
                         
-                          <GoogleLogin
+                          {/* <GoogleLogin
 
                             clientId="181796502496-d4n1skjr6tq9trd0mp0dp3gdlaasm3hp.apps.googleusercontent.com"
                             buttonText="Sign in with Google"
@@ -113,7 +116,7 @@ return (
                             onSuccess={handleGoogleResponse}
                             onFailure={handleGoogleResponse}
                             cookiePolicy={"single_host_origin"}
-                        />
+                        /> */}
                          
                         </form>
                         <hr/>
@@ -144,43 +147,3 @@ return (
 );
 }
 export default Login;
-
- /* <div classNameName="card align-items-center cad-n">
-        <img classNameName="card-img-top" src={require('./img/no-img.png')} alt="Card image cap"/>
-          <form>
-
-            <p>Sign in with your social media account </p>
-            <GoogleLogin
-
-              clientId="181796502496-d4n1skjr6tq9trd0mp0dp3gdlaasm3hp.apps.googleusercontent.com"
-              buttonText="Sign in with Google"
-              scope='profile email'
-              width='240'
-              height='50'
-              longtitle='true'
-              theme='dark'
- 
-              onSuccess={handleGoogleResponse}
-              onFailure={handleGoogleResponse}
-              cookiePolicy={"single_host_origin"}
-          />
-
-
-          </form>
-      </div>  
-      
-      <div classNameName="align-items-center cad-n">
-
-        <br />
-        dont have an account ? <br />
-        Sign up to <Link to="/SignUp"> create account</Link>
-         <br />
-        <br />
-        {errors.general && (
-          <p>
-            {errors.general}
-          </p>
-        )}
-
-      </div> */
-    

@@ -16,7 +16,7 @@ render() {
 
   <ul className="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
-  <a className="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+  <a className="sidebar-brand d-flex align-items-center justify-content-center" href="">
     <div className="sidebar-brand-icon rotate-n-15">
       <i className="fas fa-blender"></i>
     </div>
@@ -26,7 +26,7 @@ render() {
   <hr className="sidebar-divider my-0"/>
 
   <li className="nav-item">
-    <a className="nav-link" href="index.html">
+    <a className="nav-link" href="">
       <i className="fas fa-fw fa-tachometer-alt"></i>
       <span>Recipe Cards</span></a>
   </li>
@@ -45,9 +45,9 @@ render() {
     <div id="collapseTwo" className="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
       <div className="bg-white py-2 collapse-inner rounded">
         <h6 className="collapse-header">Drinks Menu</h6>
-        <a className="collapse-item" href="buttons.html">Cocktail</a>
-        <a className="collapse-item" href="cards.html">Hot Drinks</a>
-        <a className="collapse-item" href="cards.html">Smoothies</a>
+        <a className="collapse-item" href="">Cocktail</a>
+        <a className="collapse-item" href="">Hot Drinks</a>
+        <a className="collapse-item" href="">Smoothies</a>
       </div>
     </div>
   </li>
@@ -60,10 +60,10 @@ render() {
     <div id="collapseUtilities" className="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
       <div className="bg-white py-2 collapse-inner rounded">
         <h6 className="collapse-header">Sweet's Menu</h6>
-        <a className="collapse-item" href="utilities-color.html">Ice Creams</a>
-        <a className="collapse-item" href="utilities-border.html">Cakes</a>
-        <a className="collapse-item" href="utilities-animation.html">Cookies</a>
-        <a className="collapse-item" href="utilities-animation.html">Fruits</a>
+        <a className="collapse-item" href="">Ice Creams</a>
+        <a className="collapse-item" href="">Cakes</a>
+        <a className="collapse-item" href="">Cookies</a>
+        <a className="collapse-item" href="">Fruits</a>
         
       </div>
     </div>
@@ -77,12 +77,12 @@ render() {
     <div id="collapseUtilities" className="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
       <div className="bg-white py-2 collapse-inner rounded">
         <h6 className="collapse-header">Countries</h6>
-        <a className="collapse-item" href="utilities-color.html">Ethiopian</a>
-        <a className="collapse-item" href="utilities-border.html">Indian</a>
-        <a className="collapse-item" href="utilities-animation.html">Chinese</a>
-        <a className="collapse-item" href="utilities-animation.html">Italian</a>
-        <a className="collapse-item" href="utilities-animation.html">Mexican</a>
-        <a className="collapse-item" href="utilities-animation.html">American</a>
+        <a className="collapse-item" href="">Ethiopian</a>
+        <a className="collapse-item" href="">Indian</a>
+        <a className="collapse-item" href="">Chinese</a>
+        <a className="collapse-item" href="">Italian</a>
+        <a className="collapse-item" href="">Mexican</a>
+        <a className="collapse-item" href="">American</a>
         
       </div>
     </div>
@@ -102,20 +102,20 @@ render() {
     <div id="collapsePages" className="collapse show" aria-labelledby="headingPages" data-parent="#accordionSidebar">
       <div className="bg-white py-2 collapse-inner rounded">
         <h6 className="collapse-header">Main Dishes</h6>
-        <a className="collapse-item active" href="login.html">Breakfast</a>
-        <a className="collapse-item active" href="register.html">Lunch</a>
-        <a className="collapse-item active" href="forgot-password.html">Dinner</a>
+        <a className="collapse-item active" href="">Breakfast</a>
+        <a className="collapse-item active" href="">Lunch</a>
+        <a className="collapse-item active" href="forgot-">Dinner</a>
         <div className="collapse-divider"></div>
         <h6 className="collapse-header">Side Dishes</h6>
-        <a className="collapse-item active" href="404.html">Vegetable</a>
-        <a className="collapse-item active" href="blank.html">Grain</a>
-        <a className="collapse-item active" href="blank.html">Seasonal</a>
+        <a className="collapse-item active" href="">Vegetable</a>
+        <a className="collapse-item active" href="">Grain</a>
+        <a className="collapse-item active" href="">Seasonal</a>
       </div>
     </div>
   </li>
 
   <li className="nav-item">
-    <a className="nav-link" href="charts.html">
+    <a className="nav-link" href="">
       <i className="fas fa-hand-holding-heart"></i>
       <span>Dite And Health</span></a>
   </li>
@@ -384,7 +384,7 @@ render() {
                   <span className="icon text-white-50">
                     <i className="fas fa-plus"></i>
                   </span>
-                    <span class="text">Seasonal </span> 
+                    <span className="text">Seasonal </span> 
                 </button>
                 <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
                   <a className="dropdown-item" href="#">Yes</a>
