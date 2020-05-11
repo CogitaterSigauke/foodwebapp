@@ -64,13 +64,16 @@ const UserContent = () =>
 
 const RecipeContent = () =>
  <div>
+   <div className="row">
    <Hits hitComponent={RecipeHit}/>
+   </div>
+   
  </div>
 
 
 const RecipeHit = ({hit}) => 
   
-  <div className="row">
+  <div>
     {/* card one */}
 
     <div className="hit col-lg-4 col-md-6 mb-4">
@@ -98,6 +101,10 @@ class App extends Component{
 
   return (
 
+    <InstantSearch
+    searchClient={searchClient}
+    indexName="recipes"
+    >
     <div className="App">
       <div id="wrapper">
 
@@ -222,7 +229,7 @@ class App extends Component{
             <i className="fa fa-bars"></i>
           </button>
         {/* Search Bar */}
-          <form className="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+          {/* <form className="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
             <div className="input-group">
               <input type="text" className="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2"/>
               <div className="input-group-append">
@@ -231,8 +238,22 @@ class App extends Component{
                 </button>
               </div>
             </div>
-          </form>
+          </form> */}
           {/* nav bar  */}
+
+
+                <header>
+                  <div className="input-group">
+                  < SearchBox translations={{placeholder: 'Search for Recipes'}}/>
+                  </div>
+                </header>
+
+          
+
+         
+
+         
+
           <ul className="navbar-nav ml-auto">
 
             <li className="nav-item dropdown no-arrow d-sm-none">
@@ -268,35 +289,15 @@ class App extends Component{
 
             {/* TEST InstantSearch */}
 
-            <div className="row">
+            
+            
 
-              <InstantSearch
-                searchClient={searchClient}
-                indexName="users"
-              >
-                <header>
-                  <SearchBox translations={{placeholder: 'Search for Users'}}/>
-                </header>
                 <main>
-                  <Sidebar/><br/>
-                  <UserContent/>
-                </main>
-              </InstantSearch>
-              <br/><br/><br/>
-              <InstantSearch
-                searchClient={searchClient}
-                indexName="recipes"
-              >
-                <header>
-                  <SearchBox translations={{placeholder: 'Search for Recipes'}}/>
-                </header>
-                <main>
-                  <Sidebar/><br/><br/><br/>
+                  
                   <RecipeContent/>
+                  
                 </main>
-              </InstantSearch>
-            </div>
-
+            
 
             {/* END InstantSearch */}
 
@@ -431,6 +432,8 @@ class App extends Component{
 
 
     </div>
+
+    </InstantSearch>
   );
   }
 }
