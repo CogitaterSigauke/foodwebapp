@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom';
 import { useHistory } from "react-router-dom";
 
 
+
 function Login(props) {
 
   const [errors, setErrors] = useState("");
@@ -22,7 +23,7 @@ function Login(props) {
       token: `Bearer ${res.tokenId}`
     }
 
-    axios.post('/signup', userData)
+    axios.post('/app/user/save', userData)
       .then(response => {
 
         console.log('======response======');
@@ -32,7 +33,7 @@ function Login(props) {
         console.log(response.data);
         localStorage.setItem('loggedin', true);
         console.log(response);
-        history.push('/');
+        history.push('/Components/Home');
         window.location.reload(false); 
        
         localStorage.setItem("username", response.data.name);
@@ -77,27 +78,42 @@ return (
                           <h1 className="h4 text-gray-900 mb-4">Welcome Back!</h1>
                         </div>
                         <form className="user">
-                          <div className="form-group">
+                          {/* <div className="form-group">
                             <input type="email" className="form-control form-control-user" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="Enter Email Address..."/>
                           </div>
                           <div className="form-group">
                             <input type="password" className="form-control form-control-user" id="exampleInputPassword" placeholder="Password"/>
-                          </div>
+                          </div> */}
                           <div className="form-group">
                             {/* <div className="custom-control custom-checkbox small">
                               <input type="checkbox" className="custom-control-input" id="customCheck"/>
                               <label className="custom-control-label" for="customCheck">Remember Me</label>
                             </div> */}
                           </div>
-                            <Link to= "/Components/Home">
+                            {/* <Link to= "/Components/Home">
                               <p  className="btn btn-primary btn-user btn-block">
                                 Login
                               </p>
-                            </Link>  
+                            </Link>   */}
                           <hr/>
-                          <a href="index.html" className="btn btn-google btn-user btn-block">
+                          <p href="index.html" className="btn btn-google btn-user btn-block">
                             <i className="fab fa-google fa-fw"></i> Login with Google
-                          </a>
+                          </p>
+                        
+                          <GoogleLogin
+
+                            clientId="181796502496-d4n1skjr6tq9trd0mp0dp3gdlaasm3hp.apps.googleusercontent.com"
+                            buttonText="Sign in with Google"
+                            scope='profile email'
+                            width='240'
+                            height='50'
+                            longtitle='true'
+                            theme='dark'
+              
+                            onSuccess={handleGoogleResponse}
+                            onFailure={handleGoogleResponse}
+                            cookiePolicy={"single_host_origin"}
+                        />
                          
                         </form>
                         <hr/>
@@ -107,7 +123,11 @@ return (
                              <p className="small">Don't have account? Create an Account!</p>
                             </Link>
                           </div>
-                        
+                          {errors.general && (
+                            <p>
+                              {errors.general}
+                            </p>
+                          )}
                       </div>
                     </div>
                   </div>
@@ -125,7 +145,7 @@ return (
 }
 export default Login;
 
- {/* <div classNameName="card align-items-center cad-n">
+ /* <div classNameName="card align-items-center cad-n">
         <img classNameName="card-img-top" src={require('./img/no-img.png')} alt="Card image cap"/>
           <form>
 
@@ -162,5 +182,5 @@ export default Login;
           </p>
         )}
 
-      </div> */}
+      </div> */
     

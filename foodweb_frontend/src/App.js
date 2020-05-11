@@ -188,7 +188,7 @@ function App() {
             
 
             <div className="topbar-divider d-none d-sm-block"></div>
-            <Link  to="/Components/ProfileComponents/Login">
+            <Link  to="/Login">
               <li>Log In</li>
               {/* <li className="nav-item dropdown no-arrow mx-1" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
                 <a className="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

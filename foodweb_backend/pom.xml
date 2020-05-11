@@ -36,17 +36,17 @@
           <artifactId>junit-vintage-engine</artifactId> 
         </exclusion> 
       </exclusions> 
-    </dependency>
-    <dependency>
-      <groupId>com.algolia</groupId>
-      <artifactId>algoliasearch-core</artifactId>
-      <version>3.6.1</version>
-    </dependency>
-    <dependency>
-      <groupId>com.algolia</groupId>
-      <artifactId>algoliasearch-apache</artifactId>
-      <version>3.6.1</version>
-    </dependency>
+    </dependency>  
+    <dependency> 
+      <groupId>com.algolia</groupId>  
+      <artifactId>algoliasearch-core</artifactId>  
+      <version>3.6.1</version> 
+    </dependency>  
+    <dependency> 
+      <groupId>com.algolia</groupId>  
+      <artifactId>algoliasearch-apache</artifactId>  
+      <version>3.6.1</version> 
+    </dependency> 
   </dependencies>  
   <build> 
     <plugins> 
@@ -58,35 +58,44 @@
         <groupId>com.microsoft.azure</groupId>  
         <artifactId>azure-webapp-maven-plugin</artifactId>  
         <version>1.9.0</version>  
-        <configuration>
-          <schemaVersion>V2</schemaVersion>
-          <resourceGroup>cogiportifolio</resourceGroup>
-          <appName>my-recipe-app</appName>
-          <pricingTier>P1v2</pricingTier>
-          <region>centralus</region>
-          <appSettings>
-						<property>
-							<name>JAVA_OPTS</name>
-							<value>-Dserver.port=80</value>
-						</property>
-					</appSettings>
-          <runtime>
-            <os>linux</os>
-            <javaVersion>java11</javaVersion>
-            <webContainer>java11</webContainer>
-          </runtime>
-          <deployment>
-            <resources>
-              <resource>
-                <directory>${project.basedir}/target</directory>
-                <includes>
-                  <include>*.jar</include>
-                </includes>
-              </resource>
-            </resources>
-          </deployment>
-        </configuration>
+        <configuration> 
+          <schemaVersion>V2</schemaVersion>  
+          <resourceGroup>cogiportifolio</resourceGroup>  
+          <appName>my-recipe-app</appName>  
+          <pricingTier>P1v2</pricingTier>  
+          <region>centralus</region>  
+          <appSettings> 
+            <property> 
+              <name>JAVA_OPTS</name>  
+              <value>-Dserver.port=80</value> 
+            </property> 
+          </appSettings>  
+          <runtime> 
+            <os>linux</os>  
+            <javaVersion>java11</javaVersion>  
+            <webContainer>java11</webContainer> 
+          </runtime>  
+          <deployment> 
+            <resources> 
+              <resource> 
+                <directory>${project.basedir}/target</directory>  
+                <includes> 
+                  <include>*.jar</include> 
+                </includes> 
+              </resource> 
+            </resources> 
+          </deployment>  
+          <deploymentSlot>
+            <name>my-recipe-app-slot</name>
+            <configurationSource></configurationSource>
+          </deploymentSlot>
+        </configuration> 
       </plugin> 
     </plugins> 
   </build> 
 </project>
+<plugin>
+    <groupId>com.microsoft.azure</groupId>
+    <artifactId>azure-webapp-maven-plugin</artifactId>
+    <version>1.9.0</version>
+</plugin>
