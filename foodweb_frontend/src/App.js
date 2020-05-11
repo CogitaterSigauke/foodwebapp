@@ -1,3 +1,8 @@
+
+import React from 'react';
+
+import { Link } from 'react-router-dom';
+
 // // import React from 'react';
 // // import logo from './logo.svg';
 // // import './App.css';
@@ -22,6 +27,7 @@ import {
 } from 'react-instantsearch-dom';
 
 import { Link } from 'react-router-dom'
+>>>>>>> 146eeca03c5886b0130eadb08469a24185480d64
 
 // apiKey=""
 //                 appId=""
@@ -93,10 +99,7 @@ class App extends Component{
   return (
 
     <div className="App">
-     
-
-     {/* fas fa-blender, 	fas fa-cocktail, fas fa-coffee, 	fas fa-cookie-bite , fas fa-glass-cheers*/}
-    <div id="wrapper">
+      <div id="wrapper">
 
     <ul className="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
@@ -129,9 +132,9 @@ class App extends Component{
         <div id="collapseTwo" className="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
           <div className="bg-white py-2 collapse-inner rounded">
             <h6 className="collapse-header">Drinks Menu</h6>
-            <a className="collapse-item" href="buttons.html">Cocktail</a>
-            <a className="collapse-item" href="cards.html">Hot Drinks</a>
-            <a className="collapse-item" href="cards.html">Smoothies</a>
+            <a className="collapse-item" href="">Cocktail</a>
+            <a className="collapse-item" href="">Hot Drinks</a>
+            <a className="collapse-item" href="">Smoothies</a>
           </div>
         </div>
       </li>
@@ -172,12 +175,7 @@ class App extends Component{
         </div>
       </li>
 
-      {/* <hr className="sidebar-divider"/>
-
-      <div className="sidebar-heading">
-        Main Dish
-      </div> */}
-
+     
       <li className="nav-item active">
         <a className="nav-link" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true" aria-controls="collapsePages">
           <i className="fas fa-fw fas fa-blender"></i>
@@ -186,9 +184,9 @@ class App extends Component{
         <div id="collapsePages" className="collapse show" aria-labelledby="headingPages" data-parent="#accordionSidebar">
           <div className="bg-white py-2 collapse-inner rounded">
             <h6 className="collapse-header">Main Dishes</h6>
-            <a className="collapse-item active" href="login.html">Breakfast</a>
-            <a className="collapse-item active" href="register.html">Lunch</a>
-            <a className="collapse-item active" href="forgot-password.html">Dinner</a>
+            <a className="collapse-item active" href="">Breakfast</a>
+            <a className="collapse-item active" href="">Lunch</a>
+            <a className="collapse-item active" href="">Dinner</a>
             <div className="collapse-divider"></div>
             <h6 className="collapse-header">Side Dishes</h6>
             <a className="collapse-item active" href="404.html">Vegetable</a>
@@ -199,7 +197,7 @@ class App extends Component{
       </li>
 
       <li className="nav-item">
-        <a className="nav-link" href="charts.html">
+        <a className="nav-link" href="">
           <i className="fas fa-hand-holding-heart"></i>
           <span>Dite And Health</span></a>
       </li>
@@ -255,30 +253,10 @@ class App extends Component{
               </div>
             </li>
           
-                 {/* Register Button */}
-            {/* <li className="nav-item dropdown no-arrow mx-1">
-              <a className="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <i className="fas fa-bell fa-fw"></i>
-                
-              </a>
-             
-            </li> */}
-
-            
-
             <div className="topbar-divider d-none d-sm-block"></div>
-            <Link  to="/Components/ProfileComponents/Login">
+            <Link  to="/Login">
               <li>Log In</li>
-              {/* <li className="nav-item dropdown no-arrow mx-1" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
-                <a className="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  <span className="mr-2 d-none d-lg-inline text-gray-600 small">Log In</span>
-                  <img className="img-profile rounded-circle" src="https://source.unsplash.com/QAB-WJcbgJk/60x60"/>
-                </a>
-              
-              </li> */}
             </Link>
-            
-
           </ul>
 
         </nav>
@@ -327,10 +305,45 @@ class App extends Component{
                 {/* card one */}
                 <div className="col-lg-4 col-md-6 mb-4">
                   <div className="card border-0 shadow">
-                    <img src="http://placehold.it/500x350" className="card-img-top" alt="..."/>
+                    <img src="https://mdbootstrap.com/img/Photos/Horizontal/Food/full%20page/9.jpg" className="card-img-top" alt="..."/>
                     <div className="card-body text-center">
                       <h4 className="card-title">
-                          <a href="#">Item One</a>
+                          <a href="#">Recipe One</a>
+                      </h4>
+                      <h6><a className="fas fa-user" href="#">Contact Owner</a></h6>
+                      <p className="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!</p>
+                    </div>
+                    <div className="card-footer">
+                        <small className="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
+                    </div>
+                  </div>
+                </div>
+
+
+
+                <div className="col-lg-4 col-md-6 mb-4">
+                  <div className="card border-0 shadow">
+                    <img src="https://mdbootstrap.com/img/Photos/Horizontal/Food/full%20page/8.jpg" className="card-img-top" alt="..."/>
+                    <div className="card-body text-center">
+                      <h4 className="card-title">
+                          <a href="#">Recipe two</a>
+                      </h4>
+                      <h6><a className="fas fa-user" href="#">Contact Owner</a></h6>
+                      <p className="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!</p>
+                    </div>
+                    <div className="card-footer">
+                        <small className="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
+                    </div>
+                  </div>
+                </div>
+
+
+                <div className="col-lg-4 col-md-6 mb-4">
+                  <div className="card border-0 shadow">
+                    <img src="https://mdbootstrap.com/img/Photos/Horizontal/Food/full%20page/3.jpg" className="card-img-top" alt="..."/>
+                    <div className="card-body text-center">
+                      <h4 className="card-title">
+                          <a href="#">Recipe three</a>
                       </h4>
                       <h6><a className="fas fa-user" href="#">Contact Owner</a></h6>
                       <p className="card-text">Cogi Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!</p>
@@ -342,13 +355,61 @@ class App extends Component{
                   </div>
                 </div>
 
+                <div className="col-lg-4 col-md-6 mb-4">
+                  <div className="card border-0 shadow">
+                    <img src="https://mdbootstrap.com/img/Photos/Horizontal/Food/full%20page/10.jpg" className="card-img-top" alt="..."/>
+                    <div className="card-body text-center">
+                      <h4 className="card-title">
+                          <a href="#">Recipe four</a>
+                      </h4>
+                      <h6><a className="fas fa-user" href="#">Contact Owner</a></h6>
+                      <p className="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!</p>
+                    </div>
+                    <div className="card-footer">
+                        <small className="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
+                    </div>
+                  </div>
+                </div>
+
+
+                <div className="col-lg-4 col-md-6 mb-4">
+                  <div className="card border-0 shadow">
+                    <img src="https://mdbootstrap.com/img/Photos/Horizontal/Food/full%20page/7.jpg" className="card-img-top" alt="..."/>
+                    <div className="card-body text-center">
+                      <h4 className="card-title">
+                          <a href="#">Recipe five</a>
+                      </h4>
+                      <h6><a className="fas fa-user" href="#">Contact Owner</a></h6>
+                      <p className="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!</p>
+                    </div>
+                    <div className="card-footer">
+                        <small className="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="col-lg-4 col-md-6 mb-4">
+                  <div className="card border-0 shadow">
+                    <img src="https://mdbootstrap.com/img/Photos/Horizontal/Food/full%20page/5.jpg" className="card-img-top" alt="..."/>
+                    <div className="card-body text-center">
+                      <h4 className="card-title">
+                          <a href="#">Recipe six</a>
+                      </h4>
+                      <h6><a className="fas fa-user" href="#">Contact Owner</a></h6>
+                      <p className="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!</p>
+                    </div>
+                    <div className="card-footer">
+                        <small className="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
+                    </div>
+                  </div>
+                </div>
+
+               
 
 
 
               </div>
             </div>   
-           {/* <h1 className= "-4 text-gray-800">Blank Page</h1> */}
-
         </div>
 
       </div>
@@ -378,36 +439,3 @@ class App extends Component{
 
 
 export default App;
-// //         <img src={logo} className="App-logo" alt="logo" />
-
-
-
-// //         <p>
-// //           Edit <code>src/App.js</code> and save to reload.
-// //         </p>
-// //         <a
-// //           className="App-link"
-// //           href="https://reactjs.org"
-// //           target="_blank"
-// //           rel="noopener noreferrer"
-// //         >
-// //           Learn React
-// //         </a>
-// //       </header>
-// //     </div>
-// //   );
-// // }
-
-// // export default App;
-// import React from 'react';
-// import { render } from '@testing-library/react';
-// import axios from 'axios';
-// import App from './App';
-// axios.defaults.baseURL = 'https://my-recipe-web-app-foodweb.azuremicroservices.io/app';
-
-
-// test('renders learn react link', () => {
-//   const { getByText } = render(<App />);
-//   const linkElement = getByText(/learn react/i);
-//   expect(linkElement).toBeInTheDocument();
-// });
