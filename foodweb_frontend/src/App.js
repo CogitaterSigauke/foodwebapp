@@ -6,92 +6,13 @@
 // //   return (
 // //     <div className="App">
 // //       <header className="App-header">
+import React from 'react';
 
-import algoliasearch from 'algoliasearch/lite';
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import {
-  InstantSearch,
-  Hits,
-  SearchBox,
-  Pagination,
-  Highlight,
-  ClearRefinements,
-  RefinementList,
-  Configure,
-} from 'react-instantsearch-dom';
 
 import { Link } from 'react-router-dom'
 
-// apiKey=""
-//                 appId=""
-
-const searchClient = algoliasearch(
-  '2RJQDQ5U0W',
-  '2c9dd00a80a65a207001e057e93e81e5'
-);
-
-const Hit = ({hit}) => 
-  <div className="hit">
-    <div>
-      ${hit.name}
-    </div>
-    <div>
-      ${hit.familyName}
-    </div>
-    <div>
-      ${hit.userNname}
-    </div>
-  </div>
-
-const Sidebar = () => 
-
-  <div>
-
-  </div>
-
-const UserContent = () => 
-
-  <div>
-      <Hits hitComponent={Hit}/>
-  </div>
-
-const RecipeContent = () =>
- <div>
-   <Hits hitComponent={RecipeHit}/>
- </div>
-
-
-const RecipeHit = ({hit}) => 
-  
-  <div className="row">
-    {/* card one */}
-
-    <div className="hit col-lg-4 col-md-6 mb-4">
-      <div className="card border-0 shadow">
-          <img src={hit.imageString} className="card-img-top" alt="..."/>
-          <div className="card-body text-center">
-              <h4 className="card-title">
-                <a href="#">${hit.mealType}</a>
-              </h4>
-              <h6><a className="fas fa-user" href="#">${hit.userName}</a></h6>
-              <p className="card-text">${hit.objectID}</p>
-          </div>
-          <div className="card-footer">
-              <small className="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
-          </div>
-        </div>
-      </div>
-  </div>
-
-
-class App extends Component{
-  
-  
-  render() {
-
+function App() {
   return (
-
     <div className="App">
      
 
@@ -287,42 +208,6 @@ class App extends Component{
 
         <div className="container-fluid">
           <div className="container">
-
-            {/* TEST InstantSearch */}
-
-            <div className="row">
-
-              <InstantSearch
-                searchClient={searchClient}
-                indexName="users"
-              >
-                <header>
-                  <SearchBox translations={{placeholder: 'Search for Users'}}/>
-                </header>
-                <main>
-                  <Sidebar/><br/>
-                  <UserContent/>
-                </main>
-              </InstantSearch>
-              <br/><br/><br/>
-              <InstantSearch
-                searchClient={searchClient}
-                indexName="recipes"
-              >
-                <header>
-                  <SearchBox translations={{placeholder: 'Search for Recipes'}}/>
-                </header>
-                <main>
-                  <Sidebar/><br/><br/><br/>
-                  <RecipeContent/>
-                </main>
-              </InstantSearch>
-            </div>
-
-
-            {/* END InstantSearch */}
-
-
               <div className="row">
                 {/* card one */}
                 <div className="col-lg-4 col-md-6 mb-4">
@@ -333,16 +218,13 @@ class App extends Component{
                           <a href="#">Item One</a>
                       </h4>
                       <h6><a className="fas fa-user" href="#">Contact Owner</a></h6>
-                      <p className="card-text">Cogi Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!</p>
+                      <p className="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!</p>
                     </div>
-                    
                     <div className="card-footer">
                         <small className="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
                     </div>
                   </div>
                 </div>
-
-
 
 
               </div>
@@ -371,11 +253,7 @@ class App extends Component{
 
     </div>
   );
-  }
 }
-
-
-
 
 export default App;
 // //         <img src={logo} className="App-logo" alt="logo" />
