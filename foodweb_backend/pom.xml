@@ -15,7 +15,7 @@
   <name>foodweb</name>  
   <description>Demo project for Spring Boot</description>  
   <properties> 
-    <java.version>11</java.version> 
+    <java.version>1.8</java.version> 
   </properties>  
   <dependencies> 
     <dependency> 
@@ -36,7 +36,17 @@
           <artifactId>junit-vintage-engine</artifactId> 
         </exclusion> 
       </exclusions> 
-    </dependency> 
+    </dependency>
+    <dependency>
+      <groupId>com.algolia</groupId>
+      <artifactId>algoliasearch-core</artifactId>
+      <version>3.6.1</version>
+    </dependency>
+    <dependency>
+      <groupId>com.algolia</groupId>
+      <artifactId>algoliasearch-apache</artifactId>
+      <version>3.6.1</version>
+    </dependency>
   </dependencies>  
   <build> 
     <plugins> 

@@ -1,11 +1,16 @@
 package com.app.foodweb.controllers;
 
+<<<<<<< HEAD
 
 import com.app.foodweb.models.User;
 
 
 import com.app.foodweb.repositories.UserRepository;
 
+=======
+import com.app.foodweb.models.Video;
+import com.app.foodweb.repositories.VideoRepository;
+>>>>>>> 2b513dcfed2bff45f7437a5214f2f8d01a16c904
 
 import org.bson.BsonBinarySubType;
 import org.bson.types.Binary;
@@ -22,6 +27,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.multipart.MultipartFile;
 
+<<<<<<< HEAD
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Base64;
@@ -57,4 +63,12 @@ public class VideoController {
     }
  
             
+=======
+@RestController
+public class VideoController {
+	
+	
+ 
+                
+>>>>>>> 2b513dcfed2bff45f7437a5214f2f8d01a16c904
 }
