@@ -10,7 +10,7 @@ on:
 
 jobs:
   build-and-deploy:
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
 
     steps:
     - uses: actions/checkout@master
@@ -18,7 +18,7 @@ jobs:
     - name: Set up Java version
       uses: actions/setup-java@v1
       with:
-        java-version: '8'
+        java-version: '11'
 
     - name: Build with Maven
       run: mvn clean install
@@ -28,5 +28,5 @@ jobs:
       with:
         app-name: 'myrecipesfood'
         slot-name: 'production'
-        publish-profile: ${{ secrets.AzureAppService_PublishProfile_2ed2636e99eb4baaae82c7c143fb2ac8 }}
+        publish-profile: ${{ secrets.AzureAppService_PublishProfile_ae0b4e1d160e47ee8c1c76b54c2c3bda }}
         package: '${{ github.workspace }}/target/*.jar'
