@@ -51,7 +51,8 @@ public class UserController {
 		BlockedUserRepository blockedUserRepository;
 
 
-
+  
+    //users sign-up route
     @RequestMapping(method=RequestMethod.POST, value="app/signup")
     public User signup(@RequestBody User user){
 
@@ -70,7 +71,7 @@ public class UserController {
             return user;
     }
 
-
+         //users profile information update route
 	 @RequestMapping(method=RequestMethod.PUT, value="app/edit_profile/{id}")
 	 public User updateProfile(@PathVariable String id, @RequestBody User user){
           Optional<User> optuser = userRepository.findById(id);
@@ -107,7 +108,7 @@ public class UserController {
 	 }
 
 
-
+         //when users start following another user, the number of users they follow automatically gets updated
 	 @RequestMapping(method=RequestMethod.PUT, value="app/{id}/follow")
 	 public User followUser(@PathVariable String id){
 		 Optional<User> optuser = userRepository.findById(id);
@@ -117,7 +118,7 @@ public class UserController {
 		 return u;
 	 }
 
-
+        //when users unfollow other users, the number of users they follow automatically gets updated
 	 @RequestMapping(method=RequestMethod.PUT, value="app/{id}/unfollow")
 	 public User unFollowUser(@PathVariable String id){
 		 Optional<User> optuser = userRepository.findById(id);
@@ -127,16 +128,18 @@ public class UserController {
 		 return u;
 	 }
 
+	 //finding users by their unique id
 	 @RequestMapping(method=RequestMethod.GET, value="app/user/{id}")
 	 public User getUser(@PathVariable String id){
 		       return userRepository.findById(id).get();
 	 }
 
+	//route to find all registered users
 	 @RequestMapping(method=RequestMethod.GET, value="app/all_users")
 	 public Iterable<User> getAllUsers(){
 		      return userRepository.findAll();
 	 }
-
+         //route to deactivate users' account
 	 @RequestMapping(method=RequestMethod.PUT, value="app/deactivate_account/{id}")
 	 public User deactivateAccount(@PathVariable String id){
 		Optional<User> optuser = userRepository.findById(id);
@@ -147,7 +150,7 @@ public class UserController {
 		index.deleteObject(objectID);
 		return user;
 	 }
-
+         // activating an account that was deactivated
 	 @RequestMapping(method=RequestMethod.PUT, value="app/activate_account/{id}")
 	 public User activateAccount(@PathVariable String id){
 		Optional<User> optuser = userRepository.findById(id);
@@ -166,7 +169,7 @@ public class UserController {
 		return user;
 	 }
 
-
+         //deleting account
 	 @RequestMapping(method=RequestMethod.DELETE, value="app/delete_account/{id}")
 	 public String deleteAccount(@PathVariable String id){
 		 Optional<User> optuser = userRepository.findById(id);
