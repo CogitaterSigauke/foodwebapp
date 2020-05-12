@@ -12,7 +12,7 @@ function Login() {
   const [errors, setErrors] = useState("");
   const history = useHistory();
 
-  
+
   const handleGoogleResponse = (res) => {
     console.log(res.profileObj);
 
@@ -33,8 +33,8 @@ function Login() {
         localStorage.setItem('loggedin', true);
         console.log(response);
         history.push('/');
-        window.location.reload(false); 
-       
+        window.location.reload(false);
+
         localStorage.setItem("username", response.data.name);
         localStorage.setItem("email", response.data.email);
         localStorage.setItem("totalNumCorrectAttemps", response.data.totalNumCorrectAttemps);
@@ -43,8 +43,8 @@ function Login() {
       })
       .catch((err) => {
         console.log(`======response.data=====`);
-          setErrors(err.response.data);
-          console.log(`Errors: {errors}`);
+        setErrors(err.response.data);
+        console.log(`Errors: {errors}`);
 
 
       })
@@ -60,35 +60,35 @@ function Login() {
     <div className="Login">
 
       <div className="card align-items-center cad-n">
-        <img className="card-img-top" src={require('./img/no-img.png')} alt="Card image cap"/>
-          <form>
+        <img className="card-img-top" src={require('./img/no-img.png')} alt="Card image cap" />
+        <form>
 
-            <p>Sign in with your social media account </p>
-            <GoogleLogin
+          <p>Sign in with your social media account </p>
+          <GoogleLogin
 
-              clientId="181796502496-d4n1skjr6tq9trd0mp0dp3gdlaasm3hp.apps.googleusercontent.com"
-              buttonText="Sign in with Google"
-              scope='profile email'
-              width='240'
-              height='50'
-              longtitle='true'
-              theme='dark'
- 
-              onSuccess={handleGoogleResponse}
-              onFailure={handleGoogleResponse}
-              cookiePolicy={"single_host_origin"}
+            clientId="181796502496-d4n1skjr6tq9trd0mp0dp3gdlaasm3hp.apps.googleusercontent.com"
+            buttonText="Sign in with Google"
+            scope='profile email'
+            width='240'
+            height='50'
+            longtitle='true'
+            theme='dark'
+
+            onSuccess={handleGoogleResponse}
+            onFailure={handleGoogleResponse}
+            cookiePolicy={"single_host_origin"}
           />
 
 
-          </form>
-      </div>  
-      
+        </form>
+      </div>
+
       <div className="align-items-center cad-n">
 
         <br />
         dont have an account ? <br />
         Sign up to <Link to="/SignUp"> create account</Link>
-         <br />
+        <br />
         <br />
         {errors.general && (
           <p>
@@ -99,7 +99,7 @@ function Login() {
       </div>
     </div>
 
-  
+
   );
 }
 

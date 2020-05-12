@@ -1,6 +1,5 @@
 package com.app.foodweb.models;
 
-import org.bson.types.Binary;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import java.time.format.DateTimeFormatter;
@@ -11,6 +10,23 @@ import java.time.LocalDateTime;
 public class User {
     @Id
     String id;
+<<<<<<< HEAD
+    String profilePicId = "";
+    String aboutMe = "";
+    int messageCount = 0;
+    int notificationCount = 0;
+    boolean deactivatedAccount = false;
+
+    public User() {   
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+=======
     String name;
     String email;
     String userName;
@@ -73,12 +89,19 @@ public class User {
 
     public String getUserName() {
         return userName;
+>>>>>>> 2b513dcfed2bff45f7437a5214f2f8d01a16c904
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public String getProfilePicId() {
+        return profilePicId;
     }
 
+<<<<<<< HEAD
+    public void setProfilePicId(String profilePicId) {
+        this.profilePicId = profilePicId;
+    }
+
+=======
     public String getFamilyName() {
         return familyName;
     }
@@ -87,6 +110,7 @@ public class User {
         this.familyName = familyName;
     }
 
+>>>>>>> 2b513dcfed2bff45f7437a5214f2f8d01a16c904
     public String getAboutMe() {
         return aboutMe;
     }
@@ -95,6 +119,30 @@ public class User {
         this.aboutMe = aboutMe;
     }
 
+<<<<<<< HEAD
+    public int getMessageCount() {
+        return messageCount;
+    }
+
+    public void setMessageCount(int messageCount) {
+        this.messageCount = messageCount;
+    }
+
+    public int getNotificationCount() {
+        return notificationCount;
+    }
+
+    public void setNotificationCount(int notificationCount) {
+        this.notificationCount = notificationCount;
+    }
+
+    public boolean isDeactivatedAccount() {
+        return deactivatedAccount;
+    }
+
+    public void setDeactivatedAccount(boolean deactivatedAccount) {
+        this.deactivatedAccount = deactivatedAccount;
+=======
     public int getNumberOfFollowers() {
         return numberOfFollowers;
     }
@@ -165,6 +213,10 @@ public class User {
 
     public void setCreatedAt(String editedAt) {
         this.createdAt = editedAt;
+>>>>>>> 2b513dcfed2bff45f7437a5214f2f8d01a16c904
     }
+    
+    
+    
 
 }

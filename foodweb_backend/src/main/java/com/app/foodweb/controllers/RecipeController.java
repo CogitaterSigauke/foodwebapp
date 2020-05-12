@@ -1,3 +1,13 @@
+<<<<<<< HEAD
+package com.app.foodweb.controllers;
+
+
+import com.app.foodweb.models.User;
+
+
+import com.app.foodweb.repositories.UserRepository;
+
+=======
 
 package com.app.foodweb.controllers;
 
@@ -18,6 +28,7 @@ import com.app.foodweb.models.Image;
 import com.app.foodweb.models.Video;
 
 //SPRING
+>>>>>>> 2b513dcfed2bff45f7437a5214f2f8d01a16c904
 
 import org.bson.BsonBinarySubType;
 import org.bson.types.Binary;
@@ -30,6 +41,19 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+<<<<<<< HEAD
+
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Base64;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+=======
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -40,10 +64,37 @@ import java.util.Iterator;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+>>>>>>> 2b513dcfed2bff45f7437a5214f2f8d01a16c904
 import java.util.Optional;
 
 @RestController
 public class RecipeController {
+<<<<<<< HEAD
+	
+	@Autowired
+    RecipeRepository recipeRepository;
+    	
+    @RequestMapping(method=RequestMethod.POST, value="app/home")
+    public User save(@RequestBody User user) {
+        recipeRepository.save(user);
+        return user;
+    }
+
+    @RequestMapping(method=RequestMethod.POST, value="app/signup")
+    public User signup(@RequestBody User user){
+
+        if(recipeRepository.existsByEmail(user.getEmail())){
+            User userD = recipeRepository.findByEmail(user.getEmail());
+            return userD;
+        }
+            recipeRepository.save(user);
+            return user;
+        
+
+    }
+ 
+            
+=======
 
     @Autowired
 
@@ -362,4 +413,5 @@ public List<Recipe> getAllRecipesByUser(@PathVariable String user_id){
 
 
 
+>>>>>>> 2b513dcfed2bff45f7437a5214f2f8d01a16c904
 }
