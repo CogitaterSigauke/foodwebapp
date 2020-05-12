@@ -13,6 +13,8 @@ However, the most possible healthy meal is found by cooking the meal by yourself
 * Most chefs are also eager to share their cooking culinary expertise
 * Marketing firms are looking for a media platform to advertise food products
 
+
+
 # Solution
 
 Make a web app that can provide
@@ -21,17 +23,17 @@ Make a web app that can provide
 
 * A platform where a user is able to enter their own signature for food recipes providing an opportunity to benefit the communit, follow food experts and hobbyists and build relationships with them and also an apportunity to be followed by others and create a fame.
 
-            
-            
+           
+           
 # Key Features of the Web App
 
 * Search bar - to allow users to enter ingredients and provide with the list of possible recipes for making different dishes.
-* Feedbacks and rating - to give users a change to review the recipes that they used. 
-* User registration and authentication 
-* ChatBox 
+* Feedbacks and rating - to give users a change to review the recipes that they used.
+* User registration and authentication
+* ChatBox
 * View  and edit Profiles
-* Live comment and follow users 
-* Provide video streaming of cooking sessions 
+* Live comment and follow users
+* Provide video streaming of cooking sessions
 
 
 # List of Teammates and their roles
@@ -40,7 +42,7 @@ Make a web app that can provide
 *  CogitaterSigauke - Lead programmer
 *  Merry Mekonnen - Product Owner
 *  Pyungkang Hong - Designer
-# Link to where the website is deployed 
+# Link to where the website is deployed
 ```
 https://frontend-my-recipe-web-app.azurewebsites.net/
 
@@ -51,11 +53,11 @@ https://frontend-my-recipe-web-app.azurewebsites.net/
 ```
      git clone https://github.com/CogitaterSigauke/foodwebapp.git
 ```
-* Or download and unizip the repository on your local machine 
+* Or download and unizip the repository on your local machine
 
 # Setup Database
 
-* You can use any mongodb database but in this project we will be using 
+* You can use any mongodb database but in this project we will be using
 Azure's Cosmos DB for Mongodb API
 * Create account on Microsoft Azure and log into your portal
 * Search for Cosmos DB and choose Mongodb API when setting up the configurations
@@ -98,7 +100,7 @@ spring.data.mongodb.port=27017
     "pictureURl" : "myPictureUrl",
     "email" : "myEmail"
 }
-``` 
+```
 * On success, you should have a response of the same object but with an ID added
 * The backend is now working and you are ready to deploy
 
@@ -120,7 +122,7 @@ spring.data.mongodb.port=27017
 ```
  mvn spring-boot:run
 ```
-* If you successfully run the command, you can test the build application using postman 
+* If you successfully run the command, you can test the build application using postman
 * open foodweb_backend/pom.xml and make sure you have the right version of azure
 * The following code has already been configured in this project which you clonned, however, if you couldn't find it, go ahead and add the following plugins to pom.xml file which is found in foodweb_backend/pom.xml directory
 ```
@@ -231,7 +233,7 @@ Example
 ```
 npm install axios
 ```
-* Now everything should be working. You can test it again 
+* Now everything should be working. You can test it again
 
 # Test your frontend
 
@@ -245,12 +247,12 @@ npm install -g live-server
 npm run build
 ```
 * Cd into your build folder
-* Fully test the production build application by running it locally 
+* Fully test the production build application by running it locally
 * run live-server
 ```
 live-server
-``` 
-* Your application will start running on http://localhost:3000 
+```
+* Your application will start running on http://localhost:3000
 
 # Deploy your Application
 
@@ -285,14 +287,14 @@ az webapp up --name <web-app-name> \
 * Build the application and run it on the local server
 * You can use live-server for that
 * Run tests to check the links, buttons, and all functionality *(You can focus on the newly added features)*
-* Deploy the new software 
+* Deploy the new software
 * Add release notes on github
 
 # Instruction for checking out the latest stable version
 
 * Go to our repository main page and click on 'clone or download' button:
      option_1: Download zip
-     
+
      option_2: Copy the web url and head to CMD/Terminal/Git bash on your local machine
 * If option_2 followed, change to the preferred directory and type 'git clone <web url>'. Then you can
      access the codes and documents in our repository.
@@ -302,15 +304,11 @@ az webapp up --name <web-app-name> \
 
 
 # Key areas to set up in Test Environment
-  
+
   For the test environment, a key area to set up includes
-  
+
 * Front-end running environment
 
 * Database server
 
 * Client operating system
-
-
-
-
