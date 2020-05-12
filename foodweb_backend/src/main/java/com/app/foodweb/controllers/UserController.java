@@ -49,18 +49,7 @@ public class UserController {
 
 		BlockedUserRepository blockedUserRepository;
 
-    @RequestMapping(method=RequestMethod.POST, value="app/home")
-    public User save(@RequestBody User user) {
-        userRepository.save(user);
-		UserImage userImage = new UserImage(
-			user.getName(),
-			user.getFamilyName(),
-			user.getUserName(), 
-			user.getImageString(), 
-			user.getId());
-		index.saveObject(userImage);
-        return user;
-    }
+  
 
     @RequestMapping(method=RequestMethod.POST, value="app/signup")
     public User signup(@RequestBody User user){
@@ -70,6 +59,13 @@ public class UserController {
             return userD;
         }
             userRepository.save(user);
+	    UserImage userImage = new UserImage(
+			user.getName(),
+			user.getFamilyName(),
+			user.getUserName(), 
+			user.getImageString(), 
+			user.getId());
+		index.saveObject(userImage);
             return user;
     }
 
