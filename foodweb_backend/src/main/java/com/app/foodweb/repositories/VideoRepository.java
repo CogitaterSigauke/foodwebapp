@@ -9,4 +9,7 @@ public interface VideoRepository extends CrudRepository<Video, String> {
     @Override
     void delete(Video deleted);
 
+    List<Video> findByRecipeId(String recipeId);
+
+
     }
