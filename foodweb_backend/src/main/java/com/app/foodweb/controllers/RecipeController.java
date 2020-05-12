@@ -146,49 +146,28 @@ public class RecipeController {
           return worldCuisine;
       }
 
-   @RequestMapping(method=RequestMethod.GET, value="app/meal_type/{mealType}")
-   public ArrayList<Recipe> getAllRecipesByMealType(@PathVariable String mealType ){
-       ArrayList<Recipe> recipes = new ArrayList<Recipe>();
-       Iterable<Recipe> allRecipes = recipeRepository.findAll();
-       Iterator<Recipe> iter = allRecipes.iterator();
-       while(iter.hasNext()){
-              Recipe recipe = iter.next();
-              if(recipe.getMealType() == mealType){
-                recipes.add(recipe);
-              }
-       }
-       return recipes;
-  }
+      @RequestMapping(method=RequestMethod.GET, value="app/meal_type/{mealType}")
+      public List<Recipe> getAllRecipesByMealType(@PathVariable String mealType ){
+          List<Recipe> r = recipeRepository.findByMealType(mealType);
+          return r;
 
-
-  @RequestMapping(method=RequestMethod.GET, value="app/diet_and_health/{diet_and_health}")
-  public ArrayList<Recipe> getAllRecipesByDietAndHealth(@PathVariable String diet_and_health ){
-      ArrayList<Recipe> recipes = new ArrayList<Recipe>();
-      Iterable<Recipe> allRecipes = recipeRepository.findAll();
-      Iterator<Recipe> iter = allRecipes.iterator();
-      while(iter.hasNext()){
-             Recipe recipe = iter.next();
-             if(recipe.getDietAndHealth() == diet_and_health){
-               recipes.add(recipe);
-             }
-      }
-      return recipes;
- }
-
-
- @RequestMapping(method=RequestMethod.GET, value="app/world_cuisine/{world_cuisine}")
- public ArrayList<Recipe> getAllRecipesByWorldCuisine(@PathVariable String world_cuisine ){
-     ArrayList<Recipe> recipes = new ArrayList<Recipe>();
-     Iterable<Recipe> allRecipes = recipeRepository.findAll();
-     Iterator<Recipe> iter = allRecipes.iterator();
-     while(iter.hasNext()){
-            Recipe recipe = iter.next();
-            if(recipe.getWorldCuisine() == world_cuisine){
-              recipes.add(recipe);
-            }
      }
-     return recipes;
-}
+
+
+     @RequestMapping(method=RequestMethod.GET, value="app/diet_and_health/{dietHealth}")
+     public List<Recipe> getAllRecipesByDietAndHealth(@PathVariable String dietHealth ){
+         List<Recipe> r = recipeRepository.findByDietHealth(dietHealth);
+         return r;
+
+    }
+
+
+    @RequestMapping(method=RequestMethod.GET, value="app/world_cuisine/{worldCuisine}")
+    public List<Recipe> getAllRecipesByWorldCuisine(@PathVariable String worldCuisine ){
+         List<Recipe> r = recipeRepository.findByWorldCuisine(worldCuisine);
+         return r;
+   }
+
 
 @RequestMapping(method=RequestMethod.POST, value="app/recipe-photo-upload/{recipe_id}")
  public Optional<Recipe> saveImageToRecipe (@PathVariable("recipe_id") String recipe_id,@RequestBody MultipartFile file) {
