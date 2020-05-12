@@ -55,25 +55,25 @@ public class RecipeController {
 
     VideoRepository videoRepository;
 
-    SearchClient client = 
+    SearchClient client =
       DefaultSearchClient.create("2RJQDQ5U0W", "d050b5c7676c0b34f05785f1213f6a79");
     SearchIndex<RecipeImage> index = client.initIndex("recipes", RecipeImage.class);
 
 		@RequestMapping(method=RequestMethod.POST, value="app/user/add/recipe/{id}")
     public Recipe save(@PathVariable String id,@RequestBody Recipe recipe) {
-      
+
 				  recipeRepository.save(recipe);
 
           // UPDATE INDEX
           RecipeImage recipeImage = new RecipeImage(
-            recipe.getId(), 
+            recipe.getId(),
             recipe.getUserName(),
-            recipe.getMealType(), 
-            recipe.getDietAndHealth(), 
-            recipe.getWorldCuisine(), 
-            recipe.getMealName(), 
-            recipe.getCreatedAt(), 
-            recipe.getImageString()); 
+            recipe.getMealType(),
+            recipe.getDietAndHealth(),
+            recipe.getWorldCuisine(),
+            recipe.getMealName(),
+            recipe.getCreatedAt(),
+            recipe.getImageString());
           index.saveObject(recipeImage);
           return recipe;
     }
@@ -97,18 +97,18 @@ public class RecipeController {
  					if(recipe.getDescription() != null){
              r.setDescription(recipe.getDescription());
  		      }
- 					
+
  					recipeRepository.save(r);
            // UPDATE INDEX
           RecipeImage recipeImage = new RecipeImage(
-            r.getId(), 
+            r.getId(),
             r.getUserName(),
-            r.getMealType(), 
-            r.getDietAndHealth(), 
-            r.getWorldCuisine(), 
-            r.getMealName(), 
-            r.getCreatedAt(), 
-            r.getImageString()); 
+            r.getMealType(),
+            r.getDietAndHealth(),
+            r.getWorldCuisine(),
+            r.getMealName(),
+            r.getCreatedAt(),
+            r.getImageString());
           index.saveObject(recipeImage);
           return r;
 
@@ -119,7 +119,7 @@ public class RecipeController {
 				 Recipe recipe = recipeRepository.findById(recipe_id).get();
 				 //A recipe can only be deleted by its owner.
 		 		 if(recipe.getUserId().equals(user_id)){
-            
+
             String objectID = recipe.getId();
 		        recipeRepository.delete(recipe);
             index.deleteObject(objectID);
@@ -204,17 +204,17 @@ public class RecipeController {
            String imageString = "data:" + file.getContentType() + ";base64," + imageBase64String;
            recipe.setImageString(imageString);
            recipeRepository.save(recipe);
-          
+
             // UPDATE INDEX
            RecipeImage recipeImage = new RecipeImage(
-            recipe.getId(), 
+            recipe.getId(),
             userRepository.findById(recipe.getUserId()).get().getUserName(),
-            recipe.getMealType(), 
-            recipe.getDietAndHealth(), 
-            recipe.getWorldCuisine(), 
-            recipe.getMealName(), 
-            recipe.getCreatedAt(), 
-            recipe.getImageString()); 
+            recipe.getMealType(),
+            recipe.getDietAndHealth(),
+            recipe.getWorldCuisine(),
+            recipe.getMealName(),
+            recipe.getCreatedAt(),
+            recipe.getImageString());
            index.saveObject(recipeImage);
 
            Optional<Recipe> newRecipe = Optional.of(recipe);
@@ -233,100 +233,133 @@ public class RecipeController {
    }
 }
 
- @RequestMapping(method=RequestMethod.GET, value="app/recipe/{recipe_id}/see_more_photos")
- public ArrayList<Image> getAllRecipesPhotos(@PathVariable String recipe_id){
-        ArrayList<Image> photos = new ArrayList<Image>();
-        Iterable<Image> allPhotos = imageRepository.findAll();
-        Iterator<Image> iter = allPhotos.iterator();
-        while(iter.hasNext()){
-           Image photo = iter.next();
-           if(photo.getRecipeId() == recipe_id){
-             photos.add(photo);
-           }
-       }
-       return photos;
+@RequestMapping(method=RequestMethod.GET, value="app/recipe/{recipe_id}/see_more_photos")
+public List<Image> getAllRecipesPhotos(@PathVariable String recipe_id){
+      List<Image> photos = imageRepository.findByRecipeId(recipe_id);
+      return photos;
 }
 
 @RequestMapping(method=RequestMethod.GET, value="app/recipe/{recipe_id}/see_more_videos")
-public ArrayList<Video> getAllRecipesVideos(@PathVariable String recipe_id){
-       ArrayList<Video> videos = new ArrayList<Video>();
-       Iterable<Video> allVideos = videoRepository.findAll();
-       Iterator<Video> iter = allVideos.iterator();
-       while(iter.hasNext()){
-          Video video = iter.next();
-          if(video.getRecipeId() == recipe_id){
-            videos.add(video);
-          }
-      }
-      return videos;
+public List<Video> getAllRecipesVideos(@PathVariable String recipe_id){
+     List<Video> videos = videoRepository.findByRecipeId(recipe_id);
+     return videos;
 }
 
 @RequestMapping(method=RequestMethod.GET, value="app/recipe/{recipe_id}")
 public Recipe getRecipe(@PathVariable String recipe_id){
-        return recipeRepository.findById(recipe_id).get();
+       return recipeRepository.findById(recipe_id).get();
 }
 
 @RequestMapping(method=RequestMethod.GET, value="app/all_recipes")
 public Iterable<Recipe> getAllRecipes(){
-       return recipeRepository.findAll();
+      return recipeRepository.findAll();
 }
 
-// @RequestMapping(method=RequestMethod.POST, value="app/user/{user_id}/recipe-additional_photos&videos-upload/{recipe_id}")
-//  public Optional<Recipe> addPhotosAndVideosToRecipe (@PathVariable
-//             String recipe_id,@PathVariable
-//                        String user_id, @RequestBody MultipartFile[] files) {
-//                    //Optional<User> optuser = userRepository.findById(user_id);
-//                    Optional<Recipe> optrecipe = recipeRepository.findById(recipe_id);
-//                    if (optrecipe.isPresent()) {
-//                      Recipe recipe = optrecipe.get();
-//                      try {
-//                          System.out.println("SHOW ME "+ files.length);
-//                     //  if(recipe.getUserId() == user_id){
-//                           for(MultipartFile file: files){
-//
-//                                 String mimeType = file.getContentType();
-//                                 String type = mimeType.split("/")[0];
-//
-//                                if(type.equalsIgnoreCase("image")){
-//
-//                                    String imageBase64String = Base64.getEncoder().encodeToString(file.getBytes());
-//
-//                                    String imageString = "data:" + file.getContentType() + ";base64," + imageBase64String;
-//
-//                                    Image photo = new Image(user_id,recipe_id,"",imageString,"recipe_more_photos");
-//
-//                                      //System.out.println("NOW "+photo.getId());
-//                                    imageRepository.save(photo);
-//
-//                                    System.out.println("SUCCESS");
-//                                }
-//                                else if(type.equalsIgnoreCase("video")){
-//                                    String videoBase64String = Base64.getEncoder().encodeToString(file.getBytes());
-//                                    String videoString = "data:" + file.getContentType() + ";base64," + videoBase64String;
-//                                    Video video = new Video(user_id,recipe_id,videoString,"recipe_more_videos");
-//                                    videoRepository.save(video);
-//                                }
-//                                else{
-//                                  System.out.println("unsupported format found!");
-//                                }}
-//                        Optional<Recipe> newRecipe = Optional.of(recipe);
-//                        return newRecipe;
-//                   // }
-//                     //return optrecipe;
-//                  }
-//                     catch (Exception e) {
-//                        System.out.println("saveImage Exception: " + e);
-//
-//                        Optional<Recipe> newRecipe = Optional.of(recipe);
-//
-//                        return newRecipe;
-//                    }
-//                 }
-//                 else{
-//                    return optrecipe;
-//                 }
-//
-//  }
+@RequestMapping(method=RequestMethod.POST, value="app/user/{user_id}/recipe-additional_photos-upload/{recipe_id}",
+               consumes = "application/json")
+public Optional<Recipe> addPhotosToRecipe (@PathVariable
+           String recipe_id,@PathVariable
+                      String user_id,@RequestBody Image[] images, @RequestBody MultipartFile[] files) {
+                  //Optional<User> optuser = userRepository.findById(user_id);
+                  Optional<Recipe> optrecipe = recipeRepository.findById(recipe_id);
+                 if(files.length == images.length){
+                  if (optrecipe.isPresent()) {
+                    Recipe recipe = optrecipe.get();
+                    try {
+                       //System.out.println("SHOW ME files"+ files.length);
+                       //System.out.println("SHOW ME images"+ images.length);
+                      if(recipe.getUserId() == user_id){
+                        int i = 0;
+                         for(MultipartFile file: files){
+
+                             String imageBase64String = Base64.getEncoder().encodeToString(file.getBytes());
+
+                             String imageString = "data:" + file.getContentType() + ";base64," + imageBase64String;
+
+                             images[i].setImageString(imageString);
+
+                             imageRepository.save(images[i]);
+
+                             i++;
+                           }}
+                              //  String mimeType = file.getContentType();
+                              //  String type = mimeType.split("/")[0];
+                              //if(type.equalsIgnoreCase("image")){
+
+                      Optional<Recipe> newRecipe = Optional.of(recipe);
+                      return newRecipe;
+                 // }
+                   //return optrecipe;
+                }
+                   catch (Exception e) {
+                      System.out.println("saveImage Exception: " + e);
+
+                      Optional<Recipe> newRecipe = Optional.of(recipe);
+
+                      return newRecipe;
+                  }
+               }
+               else{
+                  return optrecipe;
+               }}
+               System.out.println("No image found");
+               return null;
+
+}
+
+
+@RequestMapping(method=RequestMethod.POST, value="app/user/{user_id}/recipe-additional_videos-upload/{recipe_id}")
+ public Optional<Recipe> addVideosToRecipe (@PathVariable
+            String recipe_id,@PathVariable
+                       String user_id,@RequestBody Video[] videos, @RequestBody MultipartFile[] files) {
+
+                   Optional<Recipe> optrecipe = recipeRepository.findById(recipe_id);
+                   if(videos.length == files.length){
+                   if (optrecipe.isPresent()) {
+                     Recipe recipe = optrecipe.get();
+                     try {
+
+                       if(recipe.getUserId() == user_id){
+                         int i = 0;
+                          for(MultipartFile file: files){
+
+                               String videoBase64String = Base64.getEncoder().encodeToString(file.getBytes());
+                               String videoString = "data:" + file.getContentType() + ";base64," + videoBase64String;
+                               videos[i].setVideoURL(videoString);
+                               videoRepository.save(videos[i]);
+
+                               i++;
+
+                           }
+
+                               }
+                       Optional<Recipe> newRecipe = Optional.of(recipe);
+                       return newRecipe;
+                  // }
+                    //return optrecipe;
+                 }
+                    catch (Exception e) {
+                       System.out.println("saveImage Exception: " + e);
+
+                       Optional<Recipe> newRecipe = Optional.of(recipe);
+
+                       return newRecipe;
+                   }
+                }
+                else{
+                   return optrecipe;
+                }}
+                System.out.println("No video found");
+                return null;
+
+ }
+
+
+@RequestMapping(method=RequestMethod.GET, value="app/user/{user_id}/all_recipes")
+public List<Recipe> getAllRecipesByUser(@PathVariable String user_id){
+      List<Recipe> r = recipeRepository.findByUserId(user_id);
+      return r;
+}
 
 
 
