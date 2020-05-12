@@ -1,16 +1,100 @@
-import React from 'react';
+import React,  { Component }  from 'react';
 import ReactDom from 'react-dom';
 import {Link} from 'react-router-dom';
-
+import FileBase64 from 'react-file-base64'; 
+import axios from 'axios';
+import { useHistory } from "react-router-dom";
 class AddRecipe extends React.Component{
 
   constructor(props) {
     super(props);
-   
+
+    this.state = {
+        userName :'',
+        mealType :'',
+        dietAndHealth: '',
+        worldCuisine: '',
+        mealName :'',
+        description: '',
+        imageString:'https://mdbootstrap.com/img/Photos/Horizontal/Food/full%20page/9.jpg', //BASE 64 STRING ENCODED FROM THE CLIENT SIDE
+        videoId :'',
+      
+      };
   }
 
 
+  onChange = (e) => {
+    const state = this.state
+    state[e.target.name] = e.target.value;
+    this.setState(state);
+}
+
+fileSelectedHandler = (e) => {
+    console.log("Selected file of size: " + e.target.files[0].size);
+    this.setState({
+        image: e.target.files[0],
+    })
+}
+
+    // This is called after the user inputs an image in the FileBase64 input and its base64 string is encoded in the base64 property.
+getBase64File(file) {
+    console.log("Uploaded image converted to base 64 " + file.base64);
+    debugger;
+    this.setState({
+        imageString: file.base64
+    })
+}
+
+onSubmit = (e) => {
+    e.preventDefault();
+    // id=  localStorage.getItem("id");
+    const { userName, mealType, dietAndHealth, worldCuisine, mealName, description, imageString, videoId } = this.state;
+
+    axios.post('/user/add/recipe/+this.props.match.params.id', {userName, mealType, dietAndHealth, worldCuisine, mealName, description, imageString, videoId })
+        .then((result) => {
+            console.log("After Posting new Contact - returned data: " + result.data);
+            const recipeID = result.data.id;
+
+            // // Only upload the image if it exists
+            // if( imageString != null ) {
+            //     const fd = new FormData();
+            //     fd.append('file', imageString);
+            //     axios.post('/' + contactID + '/image-upload', fd)
+            //         .then((result) => {
+            //             console.log("Finished image upload");
+            //             this.props.history.push("/");
+            //         });
+            // }
+            // else {
+            //     this.props.history.push("/");
+            // }
+            console.log('======response.data======');
+            console.log(result.data);
+            alert("Successfuly saved");
+            this.props.history.push("/Home")
+        })
+        .catch((err) => {
+          console.log(`======response.data=====`);
+            // setErrors(err.result.data);
+            console.log(`Errors: {errors}`);
+  
+  
+        })
+        .catch((err) => {
+  
+          // setErrors(err.result.data);
+          console.log(`Errors: {errors}`);
+        });
+        ;
+
+   
+}
+
+
 render() {
+
+  const { userName, mealType, dietAndHealth, worldCuisine, mealName, description, imageString, videoId } = this.state;
+
   return ( 
     <div className = "AddRecipe">
         <div id="wrapper">
@@ -263,7 +347,7 @@ render() {
                 <div className="status-indicator bg-success"></div>
               </div>
               <div>
-                <div className="text-truncate">Am I a good boy? The reason I ask is because someone told me that people say this to all dogs, even if they aren't good...</div>
+                <div className="text-truncate">Am I a good boy? The reason I ask is because someone told me that people say to all dogs even if they aren't good...</div>
                 <div className="small text-gray-500">Chicken the Dog · 2w</div>
               </div>
             </a>
@@ -317,9 +401,50 @@ render() {
       <div className="container">
 
       <h1 className="h3 mb-4 text-gray-800">ADD YOUR RECIPE HERE</h1>
-           
+      <div className="row">
+        <div className="col-sm-6"> 
+        <form onSubmit={this.onSubmit}>
 
+        <div className="form-group">
+            <label htmlFor="userName">userName:</label>
+            <input type="text" className="form-control " name="userName" value={userName} onChange={this.onChange} placeholder="Name" />
+        </div>
+        <div className="form-group">
+            <label htmlFor="mealType">mealType:</label>
+            <input type="text" className="form-control" name="mealType" value={mealType} onChange={this.onChange} placeholder="mealType" />
+        </div>
+        <div className="form-group">
+            <label htmlFor="dietAndHealth">dietAndHealth:</label>
+            <input type="text" className="form-control" name="dietAndHealth" value={dietAndHealth} onChange={this.onChange} placeholder="dietAndHealth" />
+        </div>
+        <div className="form-group">
+            <label htmlFor="worldCuisine">worldCuisine:</label>
+            <input type="text" className="form-control" name="worldCuisine" value={worldCuisine} onChange={this.onChange} placeholder="worldCuisine" />
+        </div>
+       
+        <div className="form-group">
+            <label htmlFor="mealName">mealName:</label>
+            <input type="text" className="form-control" name="mealName" value={mealName} onChange={this.onChange} placeholder="mealName" />
+        </div>
+        <div className="form-group">
+            <label htmlFor="description">description:</label>
+            <input type="text" className="form-control" name="description" value={description} onChange={this.onChange} placeholder="description" />
+        </div>
+        {/* <div className="form-group">
+            <label htmlFor="imageBase64"></label>
+            <FileBase64 onDone={this.getBase64File.bind(this)}/>
+        </div> */}
+        {/* <div className="form-group">
+            <label htmlFor="image">Profile Picture (Sending as FormData):</label>
+            <input type="file" onChange={this.fileSelectedHandler}/>
+        </div> */}
+        <button type="submit" className="btn btn-success">Submit</button>
+       
+    </form>
+        </div>
+        
           <div className="column">
+          <h1 className="h3 mb-4 text-gray-800">OR PICK HERE(coming soon)</h1>
             {/* card one */}
             <form>
             
@@ -385,7 +510,7 @@ render() {
                   <span className="icon text-white-50">
                     <i className="fas fa-plus"></i>
                   </span>
-                    <span class="text">Seasonal </span> 
+                    <span className="text">Seasonal </span> 
                 </button>
                 <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
                   <a className="dropdown-item" href="#">Yes</a>
@@ -415,7 +540,8 @@ render() {
               <textarea  rows="10" cols="40" className="form-control form-control-user" id="exampleFirstName" placeholder="Enter the Steps here in detail..."/>
                 <input type="file" id="myFile" name="filename"/>
                 <input type="submit"/>
-            </form>                         
+            </form>  
+            </div>                       
            </div>
         </div>   
       </div>

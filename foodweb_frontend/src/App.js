@@ -52,15 +52,16 @@ const Sidebar = () =>
 
 const UserContent = () => 
 
-  <div>
+  <div  >
       <Hits hitComponent={Hit}/>
   </div>
 
 const RecipeContent = () =>
- <div>
-   <div className="row">
+  <div >
+ 
+ 
    <Hits hitComponent={RecipeHit}/>
-   </div>
+   
    
  </div>
 
@@ -69,16 +70,16 @@ const RecipeHit = ({hit}) =>
   
   <div>
     {/* card one */}
-
+  
     <div className="hit col-lg-4 col-md-6 mb-4">
       <div className="card border-0 shadow">
           <img src={hit.imageString} className="card-img-top" alt="..."/>
           <div className="card-body text-center">
               <h4 className="card-title">
-                <a href="#">${hit.mealType}</a>
+                <a href="#">{hit.mealType}</a>
               </h4>
-              <h6><a className="fas fa-user" href="#">${hit.userName}</a></h6>
-              <p className="card-text">${hit.objectID}</p>
+              <h6><a className="fas fa-user" href="#">{hit.userName}</a></h6>
+              <p className="card-text">{hit.objectID}</p>
           </div>
           <div className="card-footer">
               <small className="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
@@ -102,7 +103,7 @@ class App extends Component{
     <div className="App">
      
 
-     {/* fas fa-blender, 	fas fa-cocktail, fas fa-coffee, 	fas fa-cookie-bite , fas fa-glass-cheers*/}
+    
     <div id="wrapper">
 
     <ul className="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
@@ -136,9 +137,9 @@ class App extends Component{
         <div id="collapseTwo" className="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
           <div className="bg-white py-2 collapse-inner rounded">
             <h6 className="collapse-header">Drinks Menu</h6>
-            <a className="collapse-item" href="buttons.html">Cocktail</a>
-            <a className="collapse-item" href="cards.html">Hot Drinks</a>
-            <a className="collapse-item" href="cards.html">Smoothies</a>
+            <a className="collapse-item" href="">Cocktail</a>
+            <a className="collapse-item" href="">Hot Drinks</a>
+            <a className="collapse-item" href="">Smoothies</a>
           </div>
         </div>
       </li>
@@ -151,10 +152,10 @@ class App extends Component{
         <div id="collapseUtilities" className="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
           <div className="bg-white py-2 collapse-inner rounded">
             <h6 className="collapse-header">Sweet's Menu</h6>
-            <a className="collapse-item" href="utilities-color.html">Ice Creams</a>
-            <a className="collapse-item" href="utilities-border.html">Cakes</a>
-            <a className="collapse-item" href="utilities-animation.html">Cookies</a>
-            <a className="collapse-item" href="utilities-animation.html">Fruits</a>
+            <a className="collapse-item" href="">Ice Creams</a>
+            <a className="collapse-item" href="">Cakes</a>
+            <a className="collapse-item" href="">Cookies</a>
+            <a className="collapse-item" href="">Fruits</a>
             
           </div>
         </div>
@@ -168,22 +169,18 @@ class App extends Component{
         <div id="collapseUtilities" className="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
           <div className="bg-white py-2 collapse-inner rounded">
             <h6 className="collapse-header">Countries</h6>
-            <a className="collapse-item" href="utilities-color.html">Ethiopian</a>
-            <a className="collapse-item" href="utilities-border.html">Indian</a>
-            <a className="collapse-item" href="utilities-animation.html">Chinese</a>
-            <a className="collapse-item" href="utilities-animation.html">Italian</a>
-            <a className="collapse-item" href="utilities-animation.html">Mexican</a>
-            <a className="collapse-item" href="utilities-animation.html">American</a>
+            <a className="collapse-item" href="">Ethiopian</a>
+            <a className="collapse-item" href="">Indian</a>
+            <a className="collapse-item" href="">Chinese</a>
+            <a className="collapse-item" href="">Italian</a>
+            <a className="collapse-item" href="">Mexican</a>
+            <a className="collapse-item" href="">American</a>
             
           </div>
         </div>
       </li>
 
-      {/* <hr className="sidebar-divider"/>
-
-      <div className="sidebar-heading">
-        Main Dish
-      </div> */}
+  
 
       <li className="nav-item active">
         <a className="nav-link" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true" aria-controls="collapsePages">
@@ -193,20 +190,20 @@ class App extends Component{
         <div id="collapsePages" className="collapse show" aria-labelledby="headingPages" data-parent="#accordionSidebar">
           <div className="bg-white py-2 collapse-inner rounded">
             <h6 className="collapse-header">Main Dishes</h6>
-            <a className="collapse-item active" href="login.html">Breakfast</a>
-            <a className="collapse-item active" href="register.html">Lunch</a>
-            <a className="collapse-item active" href="forgot-password.html">Dinner</a>
+            <a className="collapse-item active" href="">Breakfast</a>
+            <a className="collapse-item active" href="">Lunch</a>
+            <a className="collapse-item active" href="">Dinner</a>
             <div className="collapse-divider"></div>
             <h6 className="collapse-header">Side Dishes</h6>
-            <a className="collapse-item active" href="404.html">Vegetable</a>
-            <a className="collapse-item active" href="blank.html">Grain</a>
-            <a className="collapse-item active" href="blank.html">Seasonal</a>
+            <a className="collapse-item active" href="">Vegetable</a>
+            <a className="collapse-item active" href="">Grain</a>
+            <a className="collapse-item active" href="">Seasonal</a>
           </div>
         </div>
       </li>
 
       <li className="nav-item">
-        <a className="nav-link" href="charts.html">
+        <a className="nav-link" href="">
           <i className="fas fa-hand-holding-heart"></i>
           <span>Dite And Health</span></a>
       </li>
@@ -233,24 +230,26 @@ class App extends Component{
         {/* Search Bar */}
           {/* <form className="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
             <div className="input-group">
-              <input type="text" className="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2"/>
+              <input type="text" className="form-control bg-light border-0 small" placeholder="Search for Ingredients..." aria-label="Search" aria-describedby="basic-addon2"/>
               <div className="input-group-append">
-                <button className="btn btn-primary" type="button">
-                  <i className="fas fa-search fa-sm"></i>
-                </button>
+                <header>
+                  <div >
+                  < SearchBox translations={{placeholder: 'Search for Recipes'}} showLoadingIndicator autoFocus defaultRefinement="Coffee" />
+                  </div>
+                </header>
               </div>
-            </div>
-          </form> */}
+            </div> */}
+          {/* </form> */}
           {/* nav bar  */}
 
 
-                <header>
+               <header>
                   <div className="input-group">
-                  < SearchBox translations={{placeholder: 'Search for Recipes'}}/>
+                  < SearchBox translations={{placeholder: 'Search for Recipes'}} showLoadingIndicator autoFocus defaultRefinement="Coffee"/>
                   </div>
-                </header>
+                </header> 
 
-          
+           
 
          
 
@@ -287,8 +286,8 @@ class App extends Component{
 
             
 
-            <div className="topbar-divider d-none d-sm-block"></div>
-            <Link  to="/Components/ProfileComponents/Login">
+            {/* <div className="topbar-divider d-none d-sm-block"></div> */}
+            <Link  to="/Login">
               <li>Log In</li>
               {/* <li className="nav-item dropdown no-arrow mx-1" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
                 <a className="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -315,9 +314,9 @@ class App extends Component{
             
 
                 <main>
-                  
+               
                   <RecipeContent/>
-                  
+              
                 </main>
             
 
@@ -329,6 +328,38 @@ class App extends Component{
                 <div className="col-lg-4 col-md-6 mb-4">
                   <div className="card border-0 shadow">
                     <img src="http://placehold.it/500x350" className="card-img-top" alt="..."/>
+                    <div className="card-body text-center">
+                      <h4 className="card-title">
+                          <a href="#">Item One</a>
+                      </h4>
+                      <h6><a className="fas fa-user" href="#">Contact Owner</a></h6>
+                      <p className="card-text">Cogi Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!</p>
+                    </div>
+                    
+                    <div className="card-footer">
+                        <small className="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
+                    </div>
+                  </div>
+                </div>
+                <div className="col-lg-4 col-md-6 mb-4">
+                  <div className="card border-0 shadow">
+                    <img src="https://mdbootstrap.com/img/Photos/Horizontal/Food/full%20page/8.jpg" className="card-img-top" alt="..."/>
+                    <div className="card-body text-center">
+                      <h4 className="card-title">
+                          <a href="#">Item One</a>
+                      </h4>
+                      <h6><a className="fas fa-user" href="#">Contact Owner</a></h6>
+                      <p className="card-text">Cogi Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!</p>
+                    </div>
+                    
+                    <div className="card-footer">
+                        <small className="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
+                    </div>
+                  </div>
+                </div>
+                <div className="col-lg-4 col-md-6 mb-4">
+                  <div className="card border-0 shadow">
+                    <img src="https://mdbootstrap.com/img/Photos/Horizontal/Food/full%20page/11.jpg" className="card-img-top" alt="..."/>
                     <div className="card-body text-center">
                       <h4 className="card-title">
                           <a href="#">Item One</a>

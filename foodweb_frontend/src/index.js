@@ -6,24 +6,25 @@ import './index.css';
 // import App from './App';
 import * as serviceWorker from './serviceWorker';
 
-import Home from './Components/Home';
-import Login from './Components/ProfileComponents/Login';
+import Home from './Home';
+import Login from './Login';
 
-import AddRecipe from './Components/RecipeComponents/AddRecipe';
-import Profile from './Components/ProfileComponents/Profile';
-import RegisterAccount from './Components/ProfileComponents/RegisterAccount';
+import AddRecipe from './AddRecipe';
+import Profile from './Profile';
+import RegisterAccount from './RegisterAccount';
 import App from './App';
 
 ReactDOM.render(
 
 
   <Router>
+  
     <Switch>
       <Route path= "/" exact component={App}/>      
-      <Route path="/Components/ProfileComponents/Login" component={Login} />
-      <Route path="/Components/Home" component={Home}/>
-      <Route path="/Components/ProfileComponents/RegisterAccount" component={RegisterAccount}/>
-      <Route path="/Components/RecipeComponents/AddRecipe" component={AddRecipe}/>
+      <Route path="/Login" component={Login} />
+      <Route path="/Home" component={Home}/>
+      <Route path="/RegisterAccount" component={RegisterAccount}/>
+      <Route path="/AddRecipe" component={AddRecipe}/>
 
     </Switch>
 
