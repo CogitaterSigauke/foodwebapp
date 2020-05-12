@@ -1,3 +1,7 @@
+https://myrecipesappfoodagain.scm.azurewebsites.net:443/myrecipesappfoodagain.git
+https://myrecipesappfoodagain.scm.azurewebsites.net:443/myrecipesappfoodagain.git
+awaigmrGmu8FbvgPqG3PhQk4DLZupnWBPbxdryrKed49CdnefBshM6nQktiT
+
 # Food-web app
 
 # Problem
