@@ -37,6 +37,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
+@CrossOrigin
 @RestController
 public class UserController {
 	
