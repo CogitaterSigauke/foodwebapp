@@ -38,10 +38,10 @@ function Login() {
         history.push('/Home');
         window.location.reload(false); 
        
-        localStorage.setItem("username", response.data.name);
-        localStorage.setItem("email", response.data.email);
-        localStorage.setItem("totalNumCorrectAttemps", response.data.totalNumCorrectAttemps);
-        localStorage.setItem("id", response.data.id);
+        // localStorage.setItem("username", response.data.name);
+        // localStorage.setItem("email", response.data.email);
+        // localStorage.setItem("totalNumCorrectAttemps", response.data.totalNumCorrectAttemps);
+        // localStorage.setItem("id", response.data.id);
         
       })
       .catch((err) => {

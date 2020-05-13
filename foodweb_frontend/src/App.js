@@ -7,9 +7,15 @@
 // //     <div className="App">
 // //       <header className="App-header">
 
+
+
 import algoliasearch from 'algoliasearch/lite';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import axios from 'axios';
+
+import { Link } from 'react-router-dom'
+
 import {
   InstantSearch,
   Hits,
@@ -21,7 +27,8 @@ import {
   Configure,
 } from 'react-instantsearch-dom';
 
-import { Link } from 'react-router-dom'
+
+axios.defaults.baseURL = 'https://primary:wUi8KxKin1N8UEplHFd6hltkx4fZEWBwk6T2HsxFNvJlUettM7mJXppQ0cenBrpi@new-my-recipes-app.test.azuremicroservices.io/myrecipesapp/default/app';
 
 // apiKey=""
 //                 appId=""
