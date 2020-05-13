@@ -1,4 +1,4 @@
-# MyRecipe app
+# MyRecipes app
 
 # Problem
 
@@ -42,9 +42,18 @@ Make a web app that can provide
 *  CogitaterSigauke - Lead programmer
 *  Merry Mekonnen - Product Owner
 *  Pyungkang Hong - Designer
+
 # Link to where the website is deployed
 ```
-https://frontend-my-recipe-web-app.azurewebsites.net/
+https://my-recipes-web-app.azurewebsites.net/
+
+```
+# Link to bug Reporting system
+
+```
+- this link shows a step by step guide to how a bug can be reported
+
+https://github.com/CogitaterSigauke/foodwebapp/tree/master/Bug%20Tracking%20System
 
 ```
 # How To Use This Software
@@ -53,18 +62,22 @@ https://frontend-my-recipe-web-app.azurewebsites.net/
 ```
      git clone https://github.com/CogitaterSigauke/foodwebapp.git
 ```
-* Or download and unizip the repository on your local machine
+* Or download and unzip the repository on your local machine
 
 # Setup Database
 
 * You can use any mongodb database but in this project we will be using
 Azure's Cosmos DB for Mongodb API
+      Link to azure cosmos/MongoDB 
+          https://azure.microsoft.com/en-us/features/azure-portal/
+          
 * Create account on Microsoft Azure and log into your portal
 * Search for Cosmos DB and choose Mongodb API when setting up the configurations
 * Choose or create a new resource group, name your database, select location
 and fill out the rest of the settings
 * After creating the database go to the settings and copy the "connection string" - a string that allows you connect to the database- and the username
-#The following instructions are intended to work on Linux envrionment although some of them do work on other OS
+
+# The following instructions are intended to work on Linux envrionment although some of them do work on other OS
 
 # Backend Configurations and Setup
 
@@ -181,21 +194,21 @@ az spring-cloud app create --name <foodweb>
 npm install
 ```
 * This will install all the dependencies
-* Set the url endpoint of your backend server by editing the foodweb_frontend/package.json file.
+* Set the url endpoint of your backend server by editing the foodweb_frontend/package.json and foodweb_frontend/src/App.js  file.
 
 ```
 //package.json
 
-"proxy": "https://backendserver.azuremicroservices.io/app"
+"proxy": "https://new-my-recipes-app-myrecipesapp.azuremicroservices.io/app"
 
 ```
 *Replace the url with the url of your backend server. You can find it your resource in azure*
 
-* Also edit foodweb_frontend/App.js as follows
+* Also edit foodweb_frontend/src/App.js as follows
 
 ```
 //App.js
-axios.defaults.baseURL = 'https://backendserver.azuremicroservices.io/app';
+axios.defaults.baseURL = 'https://new-my-recipes-app-myrecipesapp.azuremicroservices.io/app';
 
 ```
 *Replace the url with the url of your backend server. You can find it your resource in azure*
@@ -205,9 +218,8 @@ axios.defaults.baseURL = 'https://backendserver.azuremicroservices.io/app';
 
 * Open and edit the *Login.js replacing the clientID with your google ClientId
 ```
-<GoogleLogin
-
-    clientId="mygoogleclientID.apps.googleusercontent.com"
+ <GoogleLogin
+    clientId="181796502496-pnorfraij4g9q8re7t52kqttdb3gkkss.apps.googleusercontent.com"
     buttonText="Sign in with Google"
     scope='profile email'
     width='240'
@@ -215,7 +227,7 @@ axios.defaults.baseURL = 'https://backendserver.azuremicroservices.io/app';
     longtitle='true'
     theme='dark'
     onSuccess={handleGoogleResponse}
-    onFailure={handleGoogleResponse}
+    onFailure={handleGoogleResponseFailure}
     cookiePolicy={"single_host_origin"}
 />
 
@@ -224,7 +236,9 @@ axios.defaults.baseURL = 'https://backendserver.azuremicroservices.io/app';
 ```
 npm start
 ```
-* If you still have errors regarding missing dependencies
+* If you still have errors regarding missing dependencies. However, if the error is related to whitelisting a client Id from google to allow redirection of a crediential to another page, configure on your Developer coseol on  google APIs and Services
+
+
 * Install them manually as
 ```
 npm install <NameOfMissingDependency>
@@ -265,7 +279,6 @@ az webapp up --name <web-app-name> \
 <your-azure-resource-group> --location <uscetral> --html
 
 ```
-
 * On success, your website url will be printed in the terminal
 * You can also see the url in your azure portal under App Services
 # You can now use your website
