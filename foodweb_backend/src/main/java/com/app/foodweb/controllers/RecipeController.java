@@ -77,7 +77,7 @@ public class RecipeController {
           index.saveObject(recipeImage);
           return recipe;
     }
-
+                //update recipe info
 		@RequestMapping(method=RequestMethod.PUT, value="app/edit_recipe/{id}")
  	 public Recipe updateRecipe(@PathVariable String id, @RequestBody Recipe recipe){
           Recipe r = recipeRepository.findById(id).get();
@@ -113,7 +113,7 @@ public class RecipeController {
           return r;
 
  	 }
-
+                //delete a recipe. recipe is deleted only by the owner of the recipe
 		@RequestMapping(method=RequestMethod.DELETE, value="app/{user_id}/delete_recipe/{recipe_id}")
  	  public String deleteRecipe(@PathVariable String user_id,@PathVariable String recipe_id){
 				 Recipe recipe = recipeRepository.findById(recipe_id).get();
@@ -127,25 +127,25 @@ public class RecipeController {
          }
 				 return "ERROR: authorization";
  	 }
-
+    //these are the meal types users are expected to select from while filing in recipe insertion form
     @RequestMapping(method=RequestMethod.GET, value="app/meal_type")
     public List<String> getAllMealType(){
            List<String> mealTypes = Arrays.asList("Appetizers & Snacks", "Breakfast & Brunch","Desserts","Dinner","Drinks");
            return mealTypes;
     }
-
+    //these are the diet_and_health options users are expected to select from while filing in recipe insertion form
     @RequestMapping(method=RequestMethod.GET, value="app/diet_and_health")
     public List<String> getAllDietAndHealth(){
            List<String>  dietAndHealth = Arrays.asList("Diabetic","Gluten Free","Healthy","Low Calorie","Low Fat");
            return dietAndHealth;
     }
-
+    //these are the world_cuisine options users are expected to select from while filing in recipe insertion form
     @RequestMapping(method=RequestMethod.GET, value="app/world_cuisine")
     public List<String> getAllWorldCuisine(){
           List<String> worldCuisine = Arrays.asList("Asian","Indian","Italian","Low Calorie","Mexican","African");
           return worldCuisine;
       }
-
+      //finding recipes which are of a specific meal type
       @RequestMapping(method=RequestMethod.GET, value="app/meal_type/{mealType}")
       public List<Recipe> getAllRecipesByMealType(@PathVariable String mealType ){
           List<Recipe> r = recipeRepository.findByMealType(mealType);
@@ -153,7 +153,7 @@ public class RecipeController {
 
      }
 
-
+      //finding recipes which are of a specific dietAndHealth option
      @RequestMapping(method=RequestMethod.GET, value="app/diet_and_health/{dietHealth}")
      public List<Recipe> getAllRecipesByDietAndHealth(@PathVariable String dietHealth ){
          List<Recipe> r = recipeRepository.findByDietHealth(dietHealth);
@@ -161,14 +161,14 @@ public class RecipeController {
 
     }
 
-
+     //finding recipes which are of a specific world_cuisine option
     @RequestMapping(method=RequestMethod.GET, value="app/world_cuisine/{worldCuisine}")
     public List<Recipe> getAllRecipesByWorldCuisine(@PathVariable String worldCuisine ){
          List<Recipe> r = recipeRepository.findByWorldCuisine(worldCuisine);
          return r;
    }
 
-
+// uploading a photo for a recipe.This photo is going to be a display picture for the recipe.
 @RequestMapping(method=RequestMethod.POST, value="app/recipe-photo-upload/{recipe_id}")
  public Optional<Recipe> saveImageToRecipe (@PathVariable("recipe_id") String recipe_id,@RequestBody MultipartFile file) {
        //Optional<User> optuser = userRepository.findById(user_id);
@@ -211,29 +211,29 @@ public class RecipeController {
        return optrecipe;
    }
 }
-
+//find additional photos of a recipe by recipe'id
 @RequestMapping(method=RequestMethod.GET, value="app/recipe/{recipe_id}/see_more_photos")
 public List<Image> getAllRecipesPhotos(@PathVariable String recipe_id){
       List<Image> photos = imageRepository.findByRecipeId(recipe_id);
       return photos;
 }
-
+//find videos associated with the recipe by recipe'id
 @RequestMapping(method=RequestMethod.GET, value="app/recipe/{recipe_id}/see_more_videos")
 public List<Video> getAllRecipesVideos(@PathVariable String recipe_id){
      List<Video> videos = videoRepository.findByRecipeId(recipe_id);
      return videos;
 }
-
+// find recipe by id
 @RequestMapping(method=RequestMethod.GET, value="app/recipe/{recipe_id}")
 public Recipe getRecipe(@PathVariable String recipe_id){
        return recipeRepository.findById(recipe_id).get();
 }
-
+// get all the recipes that are registered
 @RequestMapping(method=RequestMethod.GET, value="app/all_recipes")
 public Iterable<Recipe> getAllRecipes(){
       return recipeRepository.findAll();
 }
-
+//upload additional recipe photos only by the recipe owner
 @RequestMapping(method=RequestMethod.POST, value="app/user/{user_id}/recipe-additional_photos-upload/{recipe_id}",
                consumes = "application/json")
 public Optional<Recipe> addPhotosToRecipe (@PathVariable
@@ -286,7 +286,7 @@ public Optional<Recipe> addPhotosToRecipe (@PathVariable
 
 }
 
-
+//upload additional recipe videos only by the recipe owner
 @RequestMapping(method=RequestMethod.POST, value="app/user/{user_id}/recipe-additional_videos-upload/{recipe_id}")
  public Optional<Recipe> addVideosToRecipe (@PathVariable
             String recipe_id,@PathVariable
@@ -333,7 +333,7 @@ public Optional<Recipe> addPhotosToRecipe (@PathVariable
 
  }
 
-
+//find all recipes which are registered under a specific user
 @RequestMapping(method=RequestMethod.GET, value="app/user/{user_id}/all_recipes")
 public List<Recipe> getAllRecipesByUser(@PathVariable String user_id){
       List<Recipe> r = recipeRepository.findByUserId(user_id);
