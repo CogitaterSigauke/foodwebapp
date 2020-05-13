@@ -12,7 +12,6 @@ let db = {
             numberOfFollowing : 100,
             numberOfPostedRecipe : 40,
             numberOfFavouriteRecipes : 2,
-            imageBase64 : "235twergtw5134bv",
             imageString : "evwertqeftbqerc",
             image : "100101010010111101011",
             active: "true", //account in use other wise false
@@ -48,7 +47,7 @@ let db = {
             commentsCount : 0,
             rating : 4.5,
             mealType : "tea",
-            dietAndHealth : "health",
+            dietHealth : "health",
             worldCuisine : "African",
             mealName : "lunch",
             description : "you can eat this any time",
