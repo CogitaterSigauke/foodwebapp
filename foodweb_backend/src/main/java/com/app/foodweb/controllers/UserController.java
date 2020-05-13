@@ -185,7 +185,7 @@ public class UserController {
      return "";
 
 	 }
-
+         //route to find all blocked users by the user
 	 @RequestMapping(method=RequestMethod.GET, value="app/{id}/blocked_users")
 	 public List<BlockedUser> getBlockedUsers(@PathVariable String id){
 			List<BlockedUser> blockerAndBlocked = blockedUserRepository.findByBlockerUserId(id);
@@ -194,21 +194,21 @@ public class UserController {
 
 	 }
 
-
+         //route to block a user. When a user is blocked, user and the blocked user get associated with a new id and stored in BlockedUser repository
 	 @RequestMapping(method=RequestMethod.POST, value="app/{user_id}/block/{other_id}")
 	 public BlockedUser blockUser(@RequestBody BlockedUser user){
 					blockedUserRepository.save(user);
 					return user;
 
 	 }
-
+         //route to unblocked a blocked user. it is removing the association held between the blocker and blocked user.
 	 @RequestMapping(method=RequestMethod.DELETE, value="app/{user_id}/unblock/{other_id}")
 	 public String unBlockUser(@RequestBody BlockedUser user){
 				 blockedUserRepository.delete(user);
 				 return "";
 	 }
 
-
+        //saving user's profile image in database in the form of image-string
 	@RequestMapping(method=RequestMethod.POST, value="app/{id}/image-upload")
 	 public Optional<User> saveImageToUser(@PathVariable String id, @RequestParam("file") MultipartFile file) {
 				 Optional<User> optuser = userRepository.findById(id);
