@@ -12,6 +12,9 @@ function Login() {
   const [errors, setErrors] = useState("");
   const history = useHistory();
 
+  const handleGoogleResponseFaliure = (res)=>{
+    console.log("Failed");
+  }
   
   const handleGoogleResponse = (res) => {
     console.log(res.profileObj);
@@ -86,24 +89,21 @@ function Login() {
           </p> */}
             <p><br/><br/><br/>  </p>
             <GoogleLogin
-
-              clientId="181796502496-d4n1skjr6tq9trd0mp0dp3gdlaasm3hp.apps.googleusercontent.com"
+              clientId="181796502496-pnorfraij4g9q8re7t52kqttdb3gkkss.apps.googleusercontent.com"
               buttonText="Sign in with Google"
               scope='profile email'
               width='240'
               height='50'
               longtitle='true'
               theme='dark'
- 
               onSuccess={handleGoogleResponse}
-              onFailure={handleGoogleResponse}
+              onFailure={handleGoogleResponseFailure}
               cookiePolicy={"single_host_origin"}
           />
 
 
           </form>
           <hr/>
-                        
                         <div className="text-center">
                           <Link to= "/Login">
                             <p className="small" >Don't have an account? SignUp</p>
@@ -121,14 +121,7 @@ function Login() {
               </div>
             </div>
           </div>
-
     </div>
-   
-
-   
-   
-    
-
    </div>
   
   );

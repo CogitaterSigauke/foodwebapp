@@ -28,7 +28,7 @@ import {
 } from 'react-instantsearch-dom';
 
 
-axios.defaults.baseURL = 'https://primary:wUi8KxKin1N8UEplHFd6hltkx4fZEWBwk6T2HsxFNvJlUettM7mJXppQ0cenBrpi@new-my-recipes-app.test.azuremicroservices.io/myrecipesapp/default/app';
+axios.defaults.baseURL = 'https://new-my-recipes-app-myrecipesapp.azuremicroservices.io/app';
 
 // apiKey=""
 //                 appId=""
