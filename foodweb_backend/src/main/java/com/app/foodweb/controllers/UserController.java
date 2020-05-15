@@ -38,6 +38,7 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.List;
 
+@CrossOrigin
 @RestController
 public class UserController {
 

@@ -10,6 +10,7 @@
 import algoliasearch from 'algoliasearch/lite';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import axios from 'axios';
 import {
   InstantSearch,
   Hits,
@@ -25,7 +26,11 @@ import { Link } from 'react-router-dom'
 
 // apiKey=""
 //                 appId=""
+axios.defaults.baseURL = "https://new-my-recipes-app-myrecipesapp.azuremicroservices.io/app";
+// axios.defaults.baseURL = 'https://my-recipe-web-app-foodweb.azuremicroservices.io/app';
 
+
+// axios.defaults.baseURL = 'https://primary:wUi8KxKin1N8UEplHFd6hltkx4fZEWBwk6T2HsxFNvJlUettM7mJXppQ0cenBrpi@new-my-recipes-app.test.azuremicroservices.io/myrecipesapp/default/app';
 const searchClient = algoliasearch(
   '2RJQDQ5U0W',
   '2c9dd00a80a65a207001e057e93e81e5'
