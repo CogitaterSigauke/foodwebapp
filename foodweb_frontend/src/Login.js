@@ -97,7 +97,6 @@ function Login() {
               height='50'
               longtitle='true'
               theme='dark'
- 
               onSuccess={handleGoogleResponse}
               onFailure={handleGoogleResponseFailure}
               cookiePolicy={"single_host_origin"}
@@ -133,7 +132,6 @@ function Login() {
 
           </form>
           <hr/>
-                        
                         <div className="text-center">
                           <Link to= "/Login">
                             <p className="small" >Don't have an account? SignUp</p>
@@ -151,14 +149,7 @@ function Login() {
               </div>
             </div>
           </div>
-
     </div>
-   
-
-   
-   
-    
-
    </div>
   
   );
