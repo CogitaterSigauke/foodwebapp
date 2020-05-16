@@ -11,9 +11,6 @@ public interface RecipeRepository extends CrudRepository<Recipe, String> {
 
     List<Recipe> findByMealType(String mealType);
 
-
-    // List<Recipe> findByMealType(String mealType);
-    //
      List<Recipe> findByDietHealth(String dietHealth);
     //
      List<Recipe> findByWorldCuisine(String worldCuisine);
