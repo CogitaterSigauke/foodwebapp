@@ -13,6 +13,7 @@ import com.app.foodweb.models.BlockedUser;
 import com.app.foodweb.repositories.UserRepository;
 import com.app.foodweb.repositories.BlockedUserRepository;
 import com.app.foodweb.repositories.FavoriteRepository;
+
 //SPRING BOOT
 
 import org.bson.BsonBinarySubType;
@@ -53,6 +54,7 @@ public class UserController {
 		BlockedUserRepository blockedUserRepository;
 
     FavoriteRepository favoriteRepository;
+
 
     //users sign-up route
     @RequestMapping(method=RequestMethod.POST, value="app/signup")
@@ -243,7 +245,7 @@ public class UserController {
 
 //add a recipe to myFavorite list
 @RequestMapping(method=RequestMethod.POST, value="app/add_recipe_to_myfaorite")
-public Favorite addRecipeToMyFavoriteRecipeList(Favorite recipe){
+public Favorite addRecipeToMyFavoriteRecipeList(@RequestBody Favorite recipe){
     favoriteRepository.save(recipe);
 		return recipe;
 }
@@ -259,13 +261,14 @@ public List<Favorite> getAllMyFavoriteRecipeList(String userId){
 public String removeRecipeFromMyFavoriteList(@PathVariable String userId,
                                          @PathVariable String recipeId){
 	     List<Favorite> optFavorite = favoriteRepository.findByUserIdAndRecipeId(userId,recipeId);
-       if(optFavorite.size() > 0){
+       if(!optFavorite.isEmpty()){
 				 favoriteRepository.delete(optFavorite.get(0));
 				 return "";
 			 }
 			 return "Error! This recipe is not found under user's favorite list!";
 
 }
+
 
 
 

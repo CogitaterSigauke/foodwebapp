@@ -19,7 +19,6 @@ import com.app.foodweb.models.Image;
 import com.app.foodweb.models.Video;
 import com.app.foodweb.models.Review;
 
-
 //SPRING
 
 import org.bson.BsonBinarySubType;
@@ -345,8 +344,6 @@ public List<Recipe> getAllRecipesByUser(@PathVariable String user_id){
       List<Recipe> r = recipeRepository.findByUserId(user_id);
       return r;
 }
-
-
 
 
 
