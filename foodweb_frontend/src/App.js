@@ -28,11 +28,15 @@ import {
 } from 'react-instantsearch-dom';
 
 
-axios.defaults.baseURL = 'https://new-my-recipes-app-myrecipesapp.azuremicroservices.io/app';
+// axios.defaults.baseURL = 'https://new-my-recipes-app-myrecipesapp.azuremicroservices.io/app';
 
 // apiKey=""
 //                 appId=""
+axios.defaults.baseURL = "https://new-my-recipes-app-myrecipesapp.azuremicroservices.io/app";
+// axios.defaults.baseURL = 'https://my-recipe-web-app-foodweb.azuremicroservices.io/app';
 
+
+// axios.defaults.baseURL = 'https://primary:wUi8KxKin1N8UEplHFd6hltkx4fZEWBwk6T2HsxFNvJlUettM7mJXppQ0cenBrpi@new-my-recipes-app.test.azuremicroservices.io/myrecipesapp/default/app';
 const searchClient = algoliasearch(
   '2RJQDQ5U0W',
   '2c9dd00a80a65a207001e057e93e81e5'
@@ -80,10 +84,10 @@ const RecipeHit = ({hit}) =>
   
     <div className="hit col-lg-4 col-md-6 mb-4">
       <div className="card border-0 shadow">
-          <img src={hit.imageString} className="card-img-top" alt="..."/>
+          <Link to={`/recipe/${hit.objectID}`}><img src={hit.imageString} className="card-img-top" alt="..."/></Link>
           <div className="card-body text-center">
               <h4 className="card-title">
-                <a href="#">{hit.mealType}</a>
+                <a href="#">{hit.mealName}</a>
               </h4>
               <h6><a className="fas fa-user" href="#">{hit.userName}</a></h6>
               <p className="card-text">{hit.objectID}</p>
@@ -403,11 +407,6 @@ class App extends Component{
     </div>
 
   </div>
-
-
-
-
-
     </div>
 
     </InstantSearch>

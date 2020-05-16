@@ -12,10 +12,11 @@ function Login() {
   const [errors, setErrors] = useState("");
   const history = useHistory();
 
-  const handleGoogleResponseFaliure = (res)=>{
-    console.log("Failed");
+  const handleGoogleResponseFailure = (res) => {
+    console.log("=============FAILURE================");
+    console.log(res);
+    console.log("=============FAILURE================");
   }
-  
   const handleGoogleResponse = (res) => {
     console.log(res.profileObj);
 
@@ -36,28 +37,27 @@ function Login() {
 
         console.log('======response.data======');
         console.log(response.data);
-        localStorage.setItem('loggedin', true);
+        // localStorage.setItem('loggedin', true);
         console.log(response);
         history.push('/Home');
         window.location.reload(false); 
-       
-        // localStorage.setItem("username", response.data.name);
-        // localStorage.setItem("email", response.data.email);
-        // localStorage.setItem("totalNumCorrectAttemps", response.data.totalNumCorrectAttemps);
-        // localStorage.setItem("id", response.data.id);
+ 
         
       })
       .catch((err) => {
         console.log(`======response.data=====`);
-          setErrors(err.response.data);
+          // setErrors(err.response.data);
+          console.log(err);
           console.log(`Errors: {errors}`);
 
 
       })
       .catch((err) => {
 
-        setErrors(err.response.data);
+        // setErrors(err.response.data);
+        
         console.log(`Errors: {errors}`);
+        console.log(err);
       });
   };
 
@@ -88,8 +88,36 @@ function Login() {
             <i className="fab fa-google fa-fw">  </i>
           </p> */}
             <p><br/><br/><br/>  </p>
-            <GoogleLogin
+            {/* <GoogleLogin
+
+              clientId="181796502496-d4n1skjr6tq9trd0mp0dp3gdlaasm3hp.apps.googleusercontent.com"
+              buttonText="Sign in with Google"
+              scope='profile email'
+              width='240'
+              height='50'
+              longtitle='true'
+              theme='dark'
+              onSuccess={handleGoogleResponse}
+              onFailure={handleGoogleResponseFailure}
+              cookiePolicy={"single_host_origin"}
+          /> */}
+	  {/*
+          <GoogleLogin
               clientId="181796502496-pnorfraij4g9q8re7t52kqttdb3gkkss.apps.googleusercontent.com"
+              buttonText="Sign in with Google"
+              scope='profile email'
+              width='240'
+              height='50'
+              longtitle='true'
+              theme='dark'
+              onSuccess={handleGoogleResponse}
+              onFailure={handleGoogleResponseFailure}
+              cookiePolicy={"single_host_origin"}
+          /> */}
+
+
+         <GoogleLogin
+              clientId="181796502496-ao4ccf9jjp5p5mgfol6ov6cc35dvqe9r.apps.googleusercontent.com"
               buttonText="Sign in with Google"
               scope='profile email'
               width='240'

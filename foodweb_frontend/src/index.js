@@ -13,19 +13,22 @@ import AddRecipe from './AddRecipe';
 import Profile from './Profile';
 import RegisterAccount from './RegisterAccount';
 import App from './App';
-
+import Recipe from './Recipe';
+import SideBar from './SideBar';
+import ChatBox from './ChatBox';
 ReactDOM.render(
 
 
   <Router>
-  
+    {/* <ChatBox/> */}
     <Switch>
       <Route path= "/" exact component={App}/>      
-      <Route path="/Login" component={Login} />
+      <Route path="/Login" component={Login}/>
       <Route path="/Home" component={Home}/>
       <Route path="/RegisterAccount" component={RegisterAccount}/>
       <Route path="/AddRecipe" component={AddRecipe}/>
-
+      <Route path="/Recipe/:id" component={Recipe}/> 
+    
     </Switch>
 
   </Router>, document.getElementById('root')
