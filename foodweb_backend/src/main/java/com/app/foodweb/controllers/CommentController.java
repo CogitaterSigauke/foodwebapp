@@ -26,8 +26,10 @@ public class CommentController {
     @Autowired
     UserRepository userRepository;
 
+    @Autowired
     RecipeRepository recipeRepository;
 
+    @Autowired
     CommentRepository commentRepository;
 
     //add a comment to a recipe

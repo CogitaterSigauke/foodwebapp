@@ -49,13 +49,15 @@ import java.util.Optional;
 public class RecipeController {
 
     @Autowired
-
 		RecipeRepository recipeRepository;
 
+    @Autowired
 		UserRepository userRepository;
 
+    @Autowired
     ImageRepository imageRepository;
 
+    @Autowired
     VideoRepository videoRepository;
 
     ReviewRepository reviewRepository;
@@ -64,8 +66,8 @@ public class RecipeController {
       DefaultSearchClient.create("2RJQDQ5U0W", "d050b5c7676c0b34f05785f1213f6a79");
     SearchIndex<RecipeImage> index = client.initIndex("recipes", RecipeImage.class);
 
-		@RequestMapping(method=RequestMethod.POST, value="app/user/add/recipe/{id}")
-    public Recipe save(@PathVariable String id,@RequestBody Recipe recipe) {
+		@RequestMapping(method=RequestMethod.POST, value="app/user/add/recipe")
+    public Recipe saveRecipe(@RequestBody Recipe recipe) {
 
 				  recipeRepository.save(recipe);
 
