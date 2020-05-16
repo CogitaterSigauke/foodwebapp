@@ -1,9 +1,55 @@
 .button {
-    border-radius: 12px;
+  border-radius: 12px;
+background-color: rgb(235, 185, 21); 
+border: none;
+color: white;
+padding: 10px 32px;
+text-align: center;
+text-decoration: none;
+display: inline-block;
+font-size: 16px;
+margin: 4px 2px;
+cursor: pointer;
+}
+
+.button3 {width: 100%;}
+
+.button1 {
+  border-radius: 12px;
+  background-color: rgb(64, 150, 14); 
+border: none;
+color: white;
+padding: 10px 32px;
+text-align: center;
+text-decoration: none;
+display: inline-block;
+font-size: 16px;
+margin: 4px 2px;
+cursor: pointer;
+/* left: 10; */
+}
+
+.button5{
+  border-radius: 12px;
   background-color: rgb(235, 185, 21); 
   border: none;
   color: white;
-  padding: 10px 32px;
+  padding: 4px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  margin-bottom: padding;
+  
+}
+.Block {
+  border-radius: 12px;
+  background-color: rgb(64, 150, 14); 
+  border: none;
+  color: white;
+  padding: 15px 32px;
   text-align: center;
   text-decoration: none;
   display: inline-block;
@@ -11,125 +57,94 @@
   margin: 4px 2px;
   cursor: pointer;
 }
-
-.button3 {width: 100%;}
-
-.button1 {
-    border-radius: 12px;
-    background-color: rgb(64, 150, 14); 
+.block{
+  border-radius: 12px;
+  width:120pt;height:30pt;
+  background-color: rgb(185, 17, 17); 
   border: none;
   color: white;
-  padding: 10px 32px;
+  padding: 15px 32px;
   text-align: center;
   text-decoration: none;
   display: inline-block;
   font-size: 16px;
   margin: 4px 2px;
   cursor: pointer;
-  }
-.button2{
-    border-radius: 12px;
-    background-color: rgb(64, 150, 14); 
-    border: none;
-    color: white;
-    padding: 10px 32px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    margin: 4px 2px;
-    cursor: pointer;
+}
+.Unblock{
+  border-radius: 12px;
+  width:120pt;height:30pt;
+  background-color: rgb(18, 55, 179); 
+  border: none;
+  color: white;
+  padding: 10px 32px;
+  text-align: center;
+  text-decoration: none;
+  /* display: inline-block; */
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+.Box{
+  width:120pt;height:30pt;
+  border-radius: 12px;
+  background-color: rgb(59, 194, 218); 
+  border: none;
+  color: white;
+  padding: 10px 32px;
+  text-align: center;
+  text-decoration: none;
+  /* display: inline-block; */
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  ;
+  
+}
+.Box2{
+  width:120pt;height:30pt;
+  border-radius: 12px;
+  background-color: lightgray; 
+  border: none;
+  color: white;
+  padding: 10px 32px;
+  text-align: center;
+  text-decoration: none;
+  /* display: inline-block; */
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+.SearchBar{
+  width: 430px;
+  margin: 0 auto;
+  background-color: #F7CAC9;
+  font-family: 'Raleway', sans-serif;
+}
+.parent{
+  margin: auto;
+width: 50%;
 
-  }
-  .button5{
-    border-radius: 12px;
-    background-color: rgb(235, 185, 21); 
-    border: none;
-    color: white;
-    padding: 4px 32px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    margin: 4px 2px;
-    cursor: pointer;
-  }
-  .Block {
-    border-radius: 12px;
-    background-color: rgb(64, 150, 14); 
-    border: none;
-    color: white;
-    padding: 15px 32px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    margin: 4px 2px;
-    cursor: pointer;
-  }
-  .block{
-    border-radius: 12px;
-    background-color: rgb(185, 17, 17); 
-    border: none;
-    color: white;
-    padding: 15px 32px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    margin: 4px 2px;
-    cursor: pointer;
-  }
-  .Unblock{
-    border-radius: 12px;
-    background-color: rgb(18, 55, 179); 
-    border: none;
-    color: white;
-    padding: 10px 32px;
-    text-align: center;
-    text-decoration: none;
-    /* display: inline-block; */
-    font-size: 16px;
-    margin: 4px 2px;
-    cursor: pointer;
-  }
-  .Box{
-    border-radius: 12px;
-    background-color: rgb(59, 194, 218); 
-    border: none;
-    color: white;
-    padding: 10px 32px;
-    text-align: center;
-    text-decoration: none;
-    /* display: inline-block; */
-    font-size: 16px;
-    margin: 4px 2px;
-    cursor: pointer;
-    ;
-    
-  }
-  .Box2{
-    border-radius: 12px;
-    background-color: lightgray; 
-    border: none;
-    color: white;
-    padding: 10px 32px;
-    text-align: center;
-    text-decoration: none;
-    /* display: inline-block; */
-    font-size: 16px;
-    margin: 4px 2px;
-    cursor: pointer;
-  }
-  .SearchBar{
-    width: 430px;
-    margin: 0 auto;
-    background-color: #F7CAC9;
-    font-family: 'Raleway', sans-serif;
-  }
-  .parent{
-    margin: auto;
-  width: 50%;
+padding: 10px;
+}
+#header{
+  /* height:70px; */
+  /* width:100%; */
+  top: 0;
+  /* height: 200px; */
+}
+#footer{
+  position:absolute;
 
-  padding: 10px;
-  }
+  bottom:0;
+
+  width:100%;
+
+  height:40px; 
+}
+
+img.relative{
+  position: absolute;
+  left: 300px;
+  top: 50px;
+}

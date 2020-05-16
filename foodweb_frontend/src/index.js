@@ -12,6 +12,9 @@ import Login from './Components/ProfileComponents/Login';
 import AddRecipe from './Components/RecipeComponents/AddRecipe';
 import Profile from './Components/ProfileComponents/Profile';
 import RegisterAccount from './Components/ProfileComponents/RegisterAccount';
+import Block from './Components/ProfileComponents/Block';
+import EditProfile from './Components/ProfileComponents/EditProfile';
+// import Profile from './Components/ProfileComponents/Profile';
 import App from './App';
 
 ReactDOM.render(
@@ -19,16 +22,20 @@ ReactDOM.render(
 
   <Router>
     <Switch>
-      <Route path= "/" exact component={App}/>      
+      <Route path="/" exact component={App} />
       <Route path="/Components/ProfileComponents/Login" component={Login} />
-      <Route path="/Components/Home" component={Home}/>
-      <Route path="/Components/ProfileComponents/RegisterAccount" component={RegisterAccount}/>
-      <Route path="/Components/RecipeComponents/AddRecipe" component={AddRecipe}/>
+      <Route path="/Components/Home" component={Home} />
+      <Route path="/Components/ProfileComponents/RegisterAccount" component={RegisterAccount} />
+      <Route path="/Components/RecipeComponents/AddRecipe" component={AddRecipe} />
+      {/* 여기 블락,프로파일,에딧프로파일,팔로잉 */}
+      <Route path="/Components/ProfileComponents/Block" component={Block} />
+      <Route path="/Components/ProfileComponents/EditProfile" component={EditProfile} />
+      <Route path="/Components/ProfileComponents/Profile" component={Profile} />
 
     </Switch>
 
   </Router>, document.getElementById('root')
-    
+
 );
 
 // <Route path= "/" exact component={App}/>
