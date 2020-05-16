@@ -37,7 +37,7 @@ class Profile extends Component {
             <button class="button1" type="button">Add recipe</button>
           </Link>
           <Link to="/">
-            <button class="button1" type="button">Log Out</button>
+            <button class="button2" type="button">Log Out</button>
           </Link>
         </div><br></br><br></br>
         {/* 이게 바디  */}
