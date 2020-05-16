@@ -11,11 +11,14 @@ import com.app.foodweb.repositories.RecipeRepository;
 import com.app.foodweb.repositories.UserRepository;
 import com.app.foodweb.repositories.ImageRepository;
 import com.app.foodweb.repositories.VideoRepository;
+import com.app.foodweb.repositories.ReviewRepository;
 import com.app.foodweb.models.Recipe;
 import com.app.foodweb.models.RecipeImage;
 import com.app.foodweb.models.User;
 import com.app.foodweb.models.Image;
 import com.app.foodweb.models.Video;
+import com.app.foodweb.models.Review;
+
 
 //SPRING
 
@@ -55,6 +58,8 @@ public class RecipeController {
     ImageRepository imageRepository;
 
     VideoRepository videoRepository;
+
+    ReviewRepository reviewRepository;
 
     SearchClient client =
       DefaultSearchClient.create("2RJQDQ5U0W", "d050b5c7676c0b34f05785f1213f6a79");
@@ -340,6 +345,10 @@ public List<Recipe> getAllRecipesByUser(@PathVariable String user_id){
       List<Recipe> r = recipeRepository.findByUserId(user_id);
       return r;
 }
+
+
+
+
 
 
 
