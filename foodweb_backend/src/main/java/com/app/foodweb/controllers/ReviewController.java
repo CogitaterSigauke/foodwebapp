@@ -24,11 +24,12 @@ import java.util.Optional;
 public class ReviewController {
 
     @Autowired
-
 		RecipeRepository recipeRepository;
 
+    @Autowired
 		UserRepository userRepository;
 
+    @Autowired
     ReviewRepository reviewRepository;
 
 

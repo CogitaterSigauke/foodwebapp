@@ -48,11 +48,13 @@ public class UserController {
     DefaultSearchClient.create("2RJQDQ5U0W", "d050b5c7676c0b34f05785f1213f6a79");
     SearchIndex<UserImage> index = client.initIndex("users", UserImage.class);
 
-	@Autowired
+	  @Autowired
     UserRepository userRepository;
 
+		@Autowired
 		BlockedUserRepository blockedUserRepository;
 
+    @Autowired
     FavoriteRepository favoriteRepository;
 
 
@@ -244,10 +246,10 @@ public class UserController {
  }
 
 //add a recipe to myFavorite list
-@RequestMapping(method=RequestMethod.POST, value="app/add_recipe_to_myfaorite")
-public Favorite addRecipeToMyFavoriteRecipeList(@RequestBody Favorite recipe){
-    favoriteRepository.save(recipe);
-		return recipe;
+@RequestMapping(method=RequestMethod.POST, value="app/add_recipe_to_myfavorite")
+public Favorite addRecipeToMyFavoriteRecipeList(@RequestBody Favorite favorite){
+    favoriteRepository.save(favorite);
+		return favorite;
 }
 
 //get all myfavorite recipes
