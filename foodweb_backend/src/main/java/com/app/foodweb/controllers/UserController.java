@@ -7,10 +7,12 @@ import com.algolia.search.*;
 //FOODWEB
 
 import com.app.foodweb.models.User;
+import com.app.foodweb.models.Favorite;
 import com.app.foodweb.models.UserImage;
 import com.app.foodweb.models.BlockedUser;
 import com.app.foodweb.repositories.UserRepository;
 import com.app.foodweb.repositories.BlockedUserRepository;
+import com.app.foodweb.repositories.FavoriteRepository;
 
 //SPRING BOOT
 
@@ -52,7 +54,8 @@ public class UserController {
 		BlockedUserRepository blockedUserRepository;
 
 
-  
+    FavoriteRepository favoriteRepository;
+
     //users sign-up route
     @RequestMapping(method=RequestMethod.POST, value="app/signup")
     public User signup(@RequestBody User user){
@@ -195,6 +198,78 @@ public class UserController {
 
 	 }
 
+    //route to block a user. When a user is blocked, user and the blocked user get associated with a new id and stored in BlockedUser repository
+	 @RequestMapping(method=RequestMethod.POST, value="app/{user_id}/block/{other_id}")
+	 public BlockedUser blockUser(@RequestBody BlockedUser user){
+					blockedUserRepository.save(user);
+					return user;
+
+	 }
+  //route to unblock a blocked user. it is removing the association held between the blocker and blocked user.
+	 @RequestMapping(method=RequestMethod.DELETE, value="app/{user_id}/unblock/{other_id}")
+	 public String unBlockUser(@RequestBody BlockedUser user){
+				 blockedUserRepository.delete(user);
+				 return "";
+	 }
+
+        //saving user's profile image in database in the form of image-string
+	@RequestMapping(method=RequestMethod.POST, value="app/{id}/image-upload")
+	 public Optional<User> saveImageToUser(@PathVariable String id, @RequestParam("file") MultipartFile file) {
+				 Optional<User> optuser = userRepository.findById(id);
+				 if (optuser.isPresent()) {
+					 User user = optuser.get();
+					 try {
+						 // // Encoding to a Base64 String
+						 String imageBase64String = Base64.getEncoder().encodeToString(file.getBytes());
+						 // // Now storing it in the format:
+						 String imageString = "data:" + file.getContentType() + ";base64," + imageBase64String;
+						 user.setImageString(imageString);
+						 userRepository.save(user);
+
+						 Optional<User> newUser = Optional.of(user);
+						 System.out.println("Successfully image updated");
+						 return newUser;
+				 } catch (Exception e) {
+						 System.out.println("saveImage Exception:" + e);
+
+						 Optional<User> newUser = Optional.of(user);
+
+						 return newUser;
+				 }
+		 } else {
+				 System.out.println("Couldn't find user");
+				 return optuser;
+
+		 }
+ }
+
+//add a recipe to myFavorite list
+@RequestMapping(method=RequestMethod.POST, value="app/add_recipe_to_myfaorite")
+public Favorite addRecipeToMyFavoriteRecipeList(@RequestBody Favorite recipe){
+    favoriteRepository.save(recipe);
+		return recipe;
+}
+
+//get all myfavorite recipes
+@RequestMapping(method=RequestMethod.GET, value="app/{userId}/get_all_myfavorite_recipes")
+public List<Favorite> getAllMyFavoriteRecipeList(String userId){
+       return favoriteRepository.findByUserId(userId);
+}
+
+
+//remove a recipe from myfavorite recipe List
+@RequestMapping(method=RequestMethod.DELETE, value="app/{userId}/myFavorite/remove/{recipeId}")
+public String removeRecipeFromMyFavoriteList(@PathVariable String userId,
+                                         @PathVariable String recipeId){
+	     List<Favorite> optFavorite = favoriteRepository.findByUserIdAndRecipeId(userId,recipeId);
+       if(!optFavorite.isEmpty()){
+				 favoriteRepository.delete(optFavorite.get(0));
+				 return "";
+			 }
+			 return "Error! This recipe is not found under user's favorite list!";
+
+
+}
          //route to block a user. When a user is blocked, user and the blocked user get associated with a new id and stored in BlockedUser repository
 	 @RequestMapping(method=RequestMethod.POST, value="app/{user_id}/block/{other_id}")
 	 public BlockedUser blockUser(@RequestBody BlockedUser user){
