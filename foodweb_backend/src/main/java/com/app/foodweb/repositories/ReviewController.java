@@ -11,6 +11,7 @@ import com.app.foodweb.models.Review;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +34,7 @@ public class ReviewController {
 
     //give a review to a recipe
     @RequestMapping(method=RequestMethod.POST, value="app/add_review/{recipeid}")
-    public int giveReviewToRecipe(@PathVariable String recipeId,int starcount,Review review){
+    public int giveReviewToRecipe(@PathVariable String recipeId,int starcount,@RequestBody Review review){
           //check if a recipe already has one review object associated with it
           List<Review> reviews = reviewRepository.findByRecipeId(recipeId);
           if(!reviews.isEmpty()){
