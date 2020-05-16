@@ -33,8 +33,8 @@ public class ReviewController {
 
 
     //give a review to a recipe
-    @RequestMapping(method=RequestMethod.POST, value="app/add_review/{recipeid}")
-    public int giveReviewToRecipe(@PathVariable String recipeId,int starcount,@RequestBody Review review){
+    @RequestMapping(method=RequestMethod.POST, value="app/add_review/{recipeid}/{starcount}")
+    public int giveReviewToRecipe(@PathVariable String recipeId,@PathVariable int starcount,@RequestBody Review review){
           //check if a recipe already has one review object associated with it
           List<Review> reviews = reviewRepository.findByRecipeId(recipeId);
           if(!reviews.isEmpty()){
