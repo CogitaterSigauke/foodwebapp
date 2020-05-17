@@ -1,23 +1,23 @@
 import React, { Component } from 'react'
 import './Block.css';
 import { Link } from 'react-router-dom';
-import axios from 'axios';
 
 
-class Profile extends Component {
+
+class Following extends Component {
 
     state = {
-        id: '',
-        name: '',
-        eamil: '',
-        userName: '',
-        familyName: '',
-        aboutMe: '',
-        posts: []
-    };
+        users: [{ name: 'User_1' }, { name: 'User_2' }, { name: 'User_3' }],
+        blocked: ['User_2', 'User_3']
+    }
 
     User = (name) => {
 
+        const check = true;
+        return <div style={{ display: 'flex' }}>
+            <p>{name}</p>
+            {check ? <div> <button class="block">Block</button></div> : <div><button class="Unblock">Unblock</button></div>}
+        </div>
     }
 
     SearchBar = () => {
@@ -26,20 +26,6 @@ class Profile extends Component {
 
     Button = () => {
         return <button></button>
-    }
-    componentDidMount = () => {
-        this.getBlogPost();
-    };
-    getBlogPost = () => {
-        axios.get('/users')
-            .then((response) => {
-                const data = response.data;
-                this.setState({ posts: data });
-                console.log("Data Has been Recieved!!");
-            })
-            .catch(() => {
-                alert("Erro data!!");
-            });
     }
 
     render() {
@@ -58,7 +44,7 @@ class Profile extends Component {
                         <button class="button1" type="button">Add recipe</button>
                     </Link>
                     <Link to="/">
-                        <button class="button2" type="button">Log Out</button>
+                        <button class="button1" type="button">Log Out</button>
                     </Link>
                 </div><br></br><br></br>
                 {/* 이게 바디  */}
@@ -87,6 +73,7 @@ class Profile extends Component {
                                 < SearchBox translations={{ placeholder: 'Search for Recipes' }} />
                             </div>
                         </header> */}
+                        {users.map(e => this.User(e.name))}
                     </div>
                 </div>
 
@@ -104,4 +91,4 @@ class Profile extends Component {
 }
 
 
-export default Profile
+export default Following
