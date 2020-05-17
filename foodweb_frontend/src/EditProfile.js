@@ -9,29 +9,30 @@ import { Link } from 'react-router-dom';
 
 class EditProfile extends Component {
     state = {
-        email: "",
+        AboutMe: "",
         password: "",
-        name: ""
+        NewPassword: "",
+        Input: ""
     }
     componentDidMount() {
 
         this.setState({
-            name: localStorage.getItem("username"),
-            email: localStorage.getItem("email"),
-            password: localStorage.getItem("totalNumCorrectAttemps")
+            Input: localStorage.getItem("Input"),
+            AboutMe: localStorage.getItem("AboutMe"),
+            password: localStorage.getItem("totalNumCorrectAttemps"),
+            NewPassword: localStorage.getItem("NewPassword")
         })
 
     }
     onPressSubmit = (e) => {
-
         e.preventDefault()
 
         console.log(this.state.password)
-
         this.setState({
-            email: "",
+            AboutMe: "",
             password: "",
-            name: ""
+            Input: "",
+            NewPassword: ""
         })
     }
     onKeyPress = (e) => {
@@ -53,11 +54,11 @@ class EditProfile extends Component {
         return <button></button>
     }
     onSubmit = (e) => {
-        // e.preventDefault();
-        const { id } = this.state;
-        axios.put('/app/edit_profile/{id}')
+        e.preventDefault();
+        const { AboutMe, password, NewPassword, Input } = this.state;
+        axios.put('/app/edit_profile/+this.props.match.params.AboutMe', { AboutMe, password, NewPassword, Input })
             .then((response) => {
-                const data = response.data;
+                const data = response.AboutMe;
                 this.setState({ posts: data });
                 console.log("Data Has been Recieved!!");
                 this.props.history.push("/Home")
@@ -71,10 +72,8 @@ class EditProfile extends Component {
 
     render() {
         const { users } = this.state
-        const { email, password, name } = this.state
+        const { AboutMe, password, Input, NewPassword } = this.state
         // [{ name: 'User_1' }, { name: 'User_2' }, { name: 'User_3' }]
-
-
         return (
             <div>
                 {/* 이게 해더 */}
@@ -113,18 +112,19 @@ class EditProfile extends Component {
                                     <form onSubmit={this.onSubmit}>
                                         <legend>Profile </legend>
                                         <form id="to-do-form" onSubmit={this.onPressSubmit}>
+
                                             <dt>Input</dt>
+                                            {/* <dd>{Input}</dd> */}
+                                            <input type="text" placeholder="Type your Name" value={Input} onChange={this.onKeyPress} name={'Input'} />
 
-                                            <dt>Email</dt><input type="text" placeholder="Type Your Email" value={email} onChange={this.onKeyPress} name={'email'} />
-                                            <dd>{email}</dd>
+                                            {/* <dd>{AboutMe}</dd> */}
+                                            <dt>About Me</dt>
+                                            <input type="text" placeholder="Type About Me" value={AboutMe} onChange={this.onKeyPress} name={'AboutMe'} />
 
-                                            <dt>Name</dt>
-                                            <input type="text" placeholder="Type your Name" value={name} onChange={this.onKeyPress} name={'name'} />
-                                            <dd>{name}</dd>
                                             <dt>New Password</dt>
                                             <input type="password" placeholder="Type Your password" value={password} onChange={this.onKeyPress} name={'password'} />
                                             <dt>Confirm password</dt>
-                                            <input type="password" placeholder="Confirm password" value={password} onChange={this.onKeyPress} name={'password'} />
+                                            <input type="password" placeholder="Confirm password" value={NewPassword} onChange={this.onKeyPress} name={'NewPassword'} />
                                             <dt></dt>
                                             <button type="Submit">Submit</button>
                                         </form>

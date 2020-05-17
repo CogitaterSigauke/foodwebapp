@@ -16,6 +16,7 @@ class Profile extends Component {
             userName: '',
             familyName: '',
             aboutMe: '',
+            imageString: '',
             // numberOfFollowers: 0 ,
             posts: []
         };
@@ -38,7 +39,7 @@ class Profile extends Component {
     getBlogPost = (e) => {
         // e.preventDefault();
         const { id } = this.state;
-        axios.get('/user/+this.props.match.params.id', { id })
+        axios.get('/app/user/+this.getId', { id })
             .then((response) => {
                 const data = response.data.id;
                 this.setState({ posts: data });
