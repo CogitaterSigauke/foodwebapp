@@ -48,7 +48,7 @@ public class MessageController {
         return message;
     }
 
-    //returns the most recent messages    		
+    //primary user is the user who is requesting for the messages  		
     @RequestMapping(method=RequestMethod.GET, value="app/message/{primaryUserId}/{secondaryUserId}")
     public List<Message> getRecentMessages(@PathVariable String primaryUserId, @PathVariable String secondaryUserId) {
        
