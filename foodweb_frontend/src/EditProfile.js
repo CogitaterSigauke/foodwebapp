@@ -52,6 +52,22 @@ class EditProfile extends Component {
     Button = () => {
         return <button></button>
     }
+    onSubmit = (e) => {
+        // e.preventDefault();
+        const { id } = this.state;
+        axios.put('/app/edit_profile/{id}')
+            .then((response) => {
+                const data = response.data;
+                this.setState({ posts: data });
+                console.log("Data Has been Recieved!!");
+                this.props.history.push("/Home")
+            })
+            .catch((msg) => {
+                console.log(msg)
+                alert("Erro data!!");
+            });
+    }
+
 
     render() {
         const { users } = this.state
@@ -94,29 +110,28 @@ class EditProfile extends Component {
                         <div className="Portfolio">
                             <div className="align-items-Right cad-n">
                                 <fieldset>
-                                    <legend>Profile </legend>
-                                    <form id="to-do-form" onSubmit={this.onPressSubmit}>
-                                        <dt>Input</dt>
+                                    <form onSubmit={this.onSubmit}>
+                                        <legend>Profile </legend>
+                                        <form id="to-do-form" onSubmit={this.onPressSubmit}>
+                                            <dt>Input</dt>
 
-                                        <dt>Email</dt><input type="text" placeholder="Type Your Email" value={email} onChange={this.onKeyPress} name={'email'} />
-                                        <dd>{email}</dd>
+                                            <dt>Email</dt><input type="text" placeholder="Type Your Email" value={email} onChange={this.onKeyPress} name={'email'} />
+                                            <dd>{email}</dd>
 
-                                        <dt>Name</dt>
-                                        <input type="text" placeholder="Type your Name" value={name} onChange={this.onKeyPress} name={'name'} />
-                                        <dd>{name}</dd>
-                                        <dt>New Password</dt>
-                                        <input type="password" placeholder="Type Your password" value={password} onChange={this.onKeyPress} name={'password'} />
-                                        <dt>Confirm password</dt>
-                                        <input type="password" placeholder="Confirm password" value={password} onChange={this.onKeyPress} name={'password'} />
-                                        <dt></dt>
+                                            <dt>Name</dt>
+                                            <input type="text" placeholder="Type your Name" value={name} onChange={this.onKeyPress} name={'name'} />
+                                            <dd>{name}</dd>
+                                            <dt>New Password</dt>
+                                            <input type="password" placeholder="Type Your password" value={password} onChange={this.onKeyPress} name={'password'} />
+                                            <dt>Confirm password</dt>
+                                            <input type="password" placeholder="Confirm password" value={password} onChange={this.onKeyPress} name={'password'} />
+                                            <dt></dt>
+                                            <button type="Submit">Submit</button>
+                                        </form>
                                     </form>
                                 </fieldset>
                             </div>
 
-                            <header>
-                                <button type="Edit">Edit</button>
-
-                            </header>
 
 
 

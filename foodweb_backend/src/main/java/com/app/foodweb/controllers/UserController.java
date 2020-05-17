@@ -133,18 +133,20 @@ public class UserController {
 		 userRepository.save(u);
 		 return u;
 	 }
-
-	 //finding users by their unique id
+	//한글
+	//finding users by their unique id
 	 @RequestMapping(method=RequestMethod.GET, value="app/user/{id}")
 	 public User getUser(@PathVariable String id){
 		       return userRepository.findById(id).get();
 	 }
 
 	//route to find all registered users
+	//한글
 	 @RequestMapping(method=RequestMethod.GET, value="app/all_users")
 	 public Iterable<User> getAllUsers(){
 		      return userRepository.findAll();
 	 }
+
          //route to deactivate users' account
 	 @RequestMapping(method=RequestMethod.PUT, value="app/deactivate_account/{id}")
 	 public User deactivateAccount(@PathVariable String id){
