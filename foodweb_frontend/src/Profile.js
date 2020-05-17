@@ -39,7 +39,7 @@ class Profile extends Component {
     getBlogPost = (e) => {
         // e.preventDefault();
         const { id } = this.state;
-        axios.get('/app/user/+this.getId', { id })
+        axios.get('/user/' + this.props.match.params.id)
             .then((response) => {
                 const data = response.data.id;
                 this.setState({ posts: data });

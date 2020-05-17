@@ -53,14 +53,34 @@ class EditProfile extends Component {
     Button = () => {
         return <button></button>
     }
+    componentDidMount = () => {
+        this.getBlogPost();
+    };
+    getBlogPost = (e) => {
+        // e.preventDefault();
+        const { id } = this.state;
+        axios.get('/app/user/' + this.props.match.params.id)
+            .then((response) => {
+                const data = response.data.id;
+                this.setState({ posts: data });
+                console.log("Data Has been Recieved!!");
+            })
+            .catch((msg) => {
+                console.log(msg)
+                alert("Erro data!!");
+            });
+    }
     onSubmit = (e) => {
         e.preventDefault();
         const { AboutMe, password, NewPassword, Input } = this.state;
-        axios.put('/app/edit_profile/+this.props.match.params.AboutMe', { AboutMe, password, NewPassword, Input })
+        axios.put('/app/edit_profile/+this.props.match.params.id', { AboutMe, password, NewPassword, Input })
             .then((response) => {
-                const data = response.AboutMe;
+                const data = response.data.id;
                 this.setState({ posts: data });
                 console.log("Data Has been Recieved!!");
+                //다시넣어줌 데이타에
+                this.getBlogPost();
+                alert("Success")
                 this.props.history.push("/Home")
             })
             .catch((msg) => {
