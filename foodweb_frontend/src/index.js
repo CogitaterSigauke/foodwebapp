@@ -15,12 +15,13 @@ import RegisterAccount from './RegisterAccount';
 import App from './App';
 import Recipe from './Recipe';
 import SideBar from './SideBar';
+
 import ChatBox from './ChatBox';
 ReactDOM.render(
 
 
   <Router>
-    {/* <ChatBox/> */}
+    {/* <Home/> */}
     <Switch>
       <Route path= "/" exact component={App}/>      
       <Route path="/Login" component={Login}/>
@@ -28,7 +29,7 @@ ReactDOM.render(
       <Route path="/RegisterAccount" component={RegisterAccount}/>
       <Route path="/AddRecipe" component={AddRecipe}/>
       <Route path="/Recipe/:id" component={Recipe}/> 
-    
+      <Route path="/ChatBox" component={ChatBox}/>
     </Switch>
 
   </Router>, document.getElementById('root')
