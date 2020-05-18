@@ -10,13 +10,18 @@ import Home from './Home';
 import Login from './Login';
 
 import AddRecipe from './AddRecipe';
-import Profile from './Profile';
+
 import RegisterAccount from './RegisterAccount';
 import App from './App';
 import Recipe from './Recipe';
 import SideBar from './SideBar';
 
 import ChatBox from './ChatBox';
+import Block from './Block';
+import EditProfile from './EditProfile';
+import Following from './Following';
+import Profile from './Profile';
+
 ReactDOM.render(
 
 
@@ -33,7 +38,7 @@ ReactDOM.render(
     </Switch>
 
   </Router>, document.getElementById('root')
-    
+
 );
 
 
