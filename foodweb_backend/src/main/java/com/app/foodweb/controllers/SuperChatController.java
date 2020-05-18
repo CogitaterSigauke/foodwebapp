@@ -1,7 +1,7 @@
 package com.app.foodweb.controllers;
 
-import com.app.foodweb.models.Message;
-import com.app.foodweb.repositories.MessageRepository;
+import com.app.foodweb.models.SuperChat;
+import com.app.foodweb.repositories.SuperChatRepository;
 
 //SPRING BOOT
 
@@ -34,39 +34,37 @@ import java.time.LocalDateTime;
 
 @CrossOrigin
 @RestController
-public class MessageController {
+public class SuperChatController {
 	
     @Autowired
-	MessageRepository messageRepository;
+	SuperChatRepository superChatRepository;
 
   
     
-    @RequestMapping(method=RequestMethod.POST, value="app/message")
-    public Message sentMessage(@RequestBody Message message) {
+    @RequestMapping(method=RequestMethod.POST, value="app/superchat")
+    public SuperChat sentsuperChat(@RequestBody SuperChat superChat) {
 
-		messageRepository.save(message);
-        return message;
+		superChatRepository.save(superChat);
+        return superChat;
     }
 
-    //primary user is the user who is requesting for the messages  		
-    @RequestMapping(method=RequestMethod.GET, value="app/message/{primaryUserId}/{secondaryUserId}")
-    public List<Message> getRecentMessages(@PathVariable String primaryUserId, @PathVariable String secondaryUserId) {
+    //primary user is the user who is requesting for the superChats  		
+    @RequestMapping(method=RequestMethod.GET, value="app/superchat/{recipeId}")
+    public List<SuperChat> getRecentSuperChats(@PathVariable String recipeId) {
        
-	List<Message> messages = messageRepository.findMessages(primaryUserId, secondaryUserId);
-    messages.sort((Message m1, Message m2)->LocalDateTime.parse(m2.getCreatedAt()).compareTo(LocalDateTime.parse(m1.getCreatedAt())));
-        return messages;
+	List<SuperChat> superChats = superChatRepository.findSuperChats(recipeId);
+    superChats.sort((SuperChat m1, SuperChat m2)->LocalDateTime.parse(m2.getCreatedAt()).compareTo(LocalDateTime.parse(m1.getCreatedAt())));
+        return superChats;
     }
 
-    @RequestMapping(method=RequestMethod.DELETE, value="app/message/{messageId}")
-	public Map<String,String> deleteMessage(@PathVariable String messageId){
+    @RequestMapping(method=RequestMethod.DELETE, value="app/superChat/{superChatId}")
+	public Map<String,String> deleteSuperChat(@PathVariable String superChatId){
                 
-        Message message = messageRepository.findById(messageId).get();
-        messageRepository.delete(message);
+        SuperChat superChat = superChatRepository.findById(superChatId).get();
+        superChatRepository.delete(superChat);
         Map<String,String> res = new HashMap<String, String>();
 	    res.put("status","success");
         return res;
-	 }
-
-     
+	 } 
                 
 }
