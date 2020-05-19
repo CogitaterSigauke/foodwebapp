@@ -9,4 +9,5 @@ public interface ReviewRepository extends CrudRepository<Review, String> {
     @Override
     void delete(Review deleted);
 
+    Review findByRecipeId(String recipeId);
     }

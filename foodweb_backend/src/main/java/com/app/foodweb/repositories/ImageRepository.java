@@ -9,4 +9,7 @@ public interface ImageRepository extends CrudRepository<Image, String> {
     @Override
     void delete(Image deleted);
 
+    List<Image> findByRecipeId(String recipeId);
+
+    
     }

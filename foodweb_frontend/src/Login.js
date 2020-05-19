@@ -1,0 +1,152 @@
+import React, { useState } from 'react';
+import GoogleLogin from "react-google-login";
+
+import axios from 'axios';
+import { Link } from 'react-router-dom';
+
+import { useHistory } from "react-router-dom";
+
+
+function Login() {
+
+  const [errors, setErrors] = useState("");
+  const history = useHistory();
+
+  const handleGoogleResponseFailure = (res) => {
+    console.log("=============FAILURE================");
+    console.log(res);
+    console.log("=============FAILURE================");
+  }
+
+
+  /*
+    - 호출 성공
+    - Google 호출 (Request)
+    - 호출 -> 응답 (Response) 
+    
+    res = Response, 즉 응답
+
+  */
+
+  const handleGoogleResponse = (res) => {
+
+    console.log(res)
+
+    const { name, email, familyName, imageUrl, name: userName } = res.profileObj
+
+    const userData = {
+      name,
+      email,
+      familyName,
+      imageString: imageUrl,
+      userName: userName
+    }
+
+    axios.post('/signup', userData)
+      .then(response => {
+        const { id } = response.data
+        localStorage.setItem('loggedin', true);
+        localStorage.setItem('user_id', id);
+        history.push('/Home');
+        window.location.reload(false);
+
+      })
+      .catch((err) => {
+      })
+  };
+
+
+  return (
+    <div className="Login">
+      <div className="container">
+
+
+        <div className="row justify-content-center">
+
+          <div className="col-xl-10 col-lg-12 col-md-9">
+
+            <div className="card o-hidden border-0 shadow-lg my-5">
+              <div className="card-body p-0">
+
+                <div className="row">
+                  <div className="col-lg-6 d-none d-lg-block bg-login-image"></div>
+                  <div className="col-lg-6">
+                    <div className="p-5">
+                      <div className="text-center">
+                        <h1 className="h4 text-gray-900 mb-4">Login Here</h1>
+                      </div>
+                      {/* <div className="card align-items-center cad-n">
+        <img className="card-img-top" src={require('./img/no-img.png')} alt="Card image cap"/> */}
+                      <form className="user">
+                        {/* <p href="index.html" className="btn btn-google btn-user btn-block">
+            <i className="fab fa-google fa-fw">  </i>
+          </p> */}
+                        <p><br /><br /><br />  </p>
+                        {/* <GoogleLogin
+
+              clientId="181796502496-d4n1skjr6tq9trd0mp0dp3gdlaasm3hp.apps.googleusercontent.com"
+              buttonText="Sign in with Google"
+              scope='profile email'
+              width='240'
+              height='50'
+              longtitle='true'
+              theme='dark'
+              onSuccess={handleGoogleResponse}
+              onFailure={handleGoogleResponseFailure}
+              cookiePolicy={"single_host_origin"}
+          /> */}
+                        {/*
+          <GoogleLogin
+              clientId="181796502496-pnorfraij4g9q8re7t52kqttdb3gkkss.apps.googleusercontent.com"
+              buttonText="Sign in with Google"
+              scope='profile email'
+              width='240'
+              height='50'
+              longtitle='true'
+              theme='dark'
+              onSuccess={handleGoogleResponse}
+              onFailure={handleGoogleResponseFailure}
+              cookiePolicy={"single_host_origin"}
+          /> */}
+
+
+                        <GoogleLogin
+                          clientId="181796502496-ao4ccf9jjp5p5mgfol6ov6cc35dvqe9r.apps.googleusercontent.com"
+                          buttonText="Sign in with Google"
+                          scope='profile email'
+                          width='240'
+                          height='50'
+                          longtitle='true'
+                          theme='dark'
+                          onSuccess={handleGoogleResponse}
+                          onFailure={handleGoogleResponseFailure}
+                          cookiePolicy={"single_host_origin"}
+                        />
+
+
+                      </form>
+                      <hr />
+                      <div className="text-center">
+                        <Link to="/Login">
+                          <p className="small" >Don't have an account? SignUp</p>
+                        </Link>
+                      </div>
+                      {errors.general && (
+                        <p>
+                          {errors.general}
+                        </p>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  );
+}
+
+export default Login;

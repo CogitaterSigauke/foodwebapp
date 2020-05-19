@@ -9,4 +9,5 @@ public interface BlockedUserRepository extends CrudRepository<BlockedUser, Strin
     @Override
     void delete(BlockedUser deleted);
 
+    List<BlockedUser> findByBlockerUserId(String blockerUserId);
     }

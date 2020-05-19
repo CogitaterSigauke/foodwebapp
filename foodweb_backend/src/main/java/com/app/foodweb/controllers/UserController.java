@@ -7,10 +7,12 @@ import com.algolia.search.*;
 //FOODWEB
 
 import com.app.foodweb.models.User;
+import com.app.foodweb.models.Favorite;
 import com.app.foodweb.models.UserImage;
 import com.app.foodweb.models.BlockedUser;
 import com.app.foodweb.repositories.UserRepository;
 import com.app.foodweb.repositories.BlockedUserRepository;
+import com.app.foodweb.repositories.FavoriteRepository;
 
 //SPRING BOOT
 
@@ -36,112 +38,118 @@ import java.util.Optional;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.List;
 
+@CrossOrigin
 @RestController
 public class UserController {
-	
-	SearchClient client = 
-    DefaultSearchClient.create("2RJQDQ5U0W", "d050b5c7676c0b34f05785f1213f6a79");
-    SearchIndex<UserImage> index = client.initIndex("users", UserImage.class);
+
+	SearchClient client =
+	DefaultSearchClient.create("2RJQDQ5U0W", "d050b5c7676c0b34f05785f1213f6a79");
+	SearchIndex<UserImage> index = client.initIndex("users", UserImage.class);
 
 	@Autowired
-    UserRepository userRepository;
+	UserRepository userRepository;
 
-		BlockedUserRepository blockedUserRepository;
+	@Autowired
+	BlockedUserRepository blockedUserRepository;
 
-    @RequestMapping(method=RequestMethod.POST, value="app/home")
-    public User save(@RequestBody User user) {
-        userRepository.save(user);
+	@Autowired
+	FavoriteRepository favoriteRepository;
+
+
+	//users sign-up route
+	@RequestMapping(method=RequestMethod.POST, value="app/signup")
+	public User signup(@RequestBody User user){
+
+		if(userRepository.existsByEmail(user.getEmail())){
+			User userD = userRepository.findByEmail(user.getEmail());
+			return userD;
+		}
+		userRepository.save(user);
 		UserImage userImage = new UserImage(
-			user.getName(),
-			user.getFamilyName(),
-			user.getUserName(), 
-			user.getImageString(), 
-			user.getId());
+		user.getName(),
+		user.getFamilyName(),
+		user.getUserName(),
+		user.getImageString(),
+		user.getId());
 		index.saveObject(userImage);
-        return user;
-    }
+		return user;
+	}
 
-    @RequestMapping(method=RequestMethod.POST, value="app/signup")
-    public User signup(@RequestBody User user){
+	//users profile information update route
+	@RequestMapping(method=RequestMethod.PUT, value="app/edit_profile/{id}")
+	public User updateProfile(@PathVariable String id, @RequestBody User user){
+		Optional<User> optuser = userRepository.findById(id);
+		User u = optuser.get();
+		if(user.getName() != null){
+			u.setName(user.getName());
+		}
+		if(user.getEmail() != null){
+			u.setEmail(user.getEmail());
+		}
+		if(user.getUserName() != null){
+			u.setUserName(user.getUserName());
+		}
+		if(user.getFamilyName() != null){
+			u.setFamilyName(user.getFamilyName());
+		}
+		if(user.getAboutMe() != null){
+			u.setAboutMe(user.getAboutMe());
+		}
 
-        if(userRepository.existsByEmail(user.getEmail())){
-            User userD = userRepository.findByEmail(user.getEmail());
-            return userD;
-        }
-            userRepository.save(user);
-            return user;
-    }
+		if(user.getActive() != null){
+			u.setActive(user.getActive());
+		}
+		userRepository.save(u);
+		// UserImage userImage = new UserImage(
+		// 	user.getName(),
+		// 	user.getFamilyName(),
+		// 	user.getUserName(),
+		// 	user.getImageString(),
+		// 	user.getId());
+		// index.saveObject(userImage);
+		return u;
 
-
-	 @RequestMapping(method=RequestMethod.PUT, value="app/edit_profile/{id}")
-	 public User updateProfile(@PathVariable String id, @RequestBody User user){
-          Optional<User> optuser = userRepository.findById(id);
-					User u = optuser.get();
-					if(user.getName() != null){
-            u.setName(user.getName());
-		      }
-					if(user.getEmail() != null){
-            u.setEmail(user.getEmail());
-		      }
-					if(user.getUserName() != null){
-            u.setUserName(user.getUserName());
-		      }
-					if(user.getFamilyName() != null){
-            u.setFamilyName(user.getFamilyName());
-		      }
-					if(user.getAboutMe() != null){
-            u.setAboutMe(user.getAboutMe());
-		      }
-
-				if(user.getActive() != null){
-            u.setActive(user.getActive());
-		      }
-					userRepository.save(u);
-			UserImage userImage = new UserImage(
-				user.getName(),
-				user.getFamilyName(),
-				user.getUserName(), 
-				user.getImageString(), 
-				user.getId());
-			index.saveObject(userImage);
-          return u;
-
-	 }
+	}
 
 
+	//when users start following another user, the number of users they follow automatically gets updated
+	@RequestMapping(method=RequestMethod.PUT, value="app/{id}/follow")
+	public User followUser(@PathVariable String id){
+		Optional<User> optuser = userRepository.findById(id);
+		User u = optuser.get();
+		u.setNumberOfFollowing(u.getNumberOfFollowing() + 1);
+		userRepository.save(u);
+		return u;
+	}
 
-	 @RequestMapping(method=RequestMethod.PUT, value="app/{id}/follow")
-	 public User followUser(@PathVariable String id){
-		 Optional<User> optuser = userRepository.findById(id);
-	   User u = optuser.get();
-		 u.setNumberOfFollowing(u.getNumberOfFollowing() + 1);
-		 userRepository.save(u);
-		 return u;
-	 }
+	//when users unfollow other users, the number of users they follow automatically gets updated
+	@RequestMapping(method=RequestMethod.PUT, value="app/{id}/unfollow")
+	public User unFollowUser(@PathVariable String id){
+		Optional<User> optuser = userRepository.findById(id);
+		User u = optuser.get();
+		u.setNumberOfFollowing(u.getNumberOfFollowing() - 1);
+		userRepository.save(u);
+		return u;
+	}
+	//한글
+	//finding users by their unique id
+	@RequestMapping(method=RequestMethod.GET, value="app/user/{id}")
+	public User getUser(@PathVariable String id){
+		return userRepository.findById(id).get();
+	}
 
+	//route to find all registered users
+	//한글
+	@RequestMapping(method=RequestMethod.GET, value="app/all_users")
+	public Iterable<User> getAllUsers(){
+		return userRepository.findAll();
+	}
 
-	 @RequestMapping(method=RequestMethod.PUT, value="app/{id}/unfollow")
-	 public User unFollowUser(@PathVariable String id){
-		 Optional<User> optuser = userRepository.findById(id);
-		 User u = optuser.get();
-		 u.setNumberOfFollowing(u.getNumberOfFollowing() - 1);
-		 userRepository.save(u);
-		 return u;
-	 }
-
-	 @RequestMapping(method=RequestMethod.GET, value="app/user/{id}")
-	 public User getUser(@PathVariable String id){
-		       return userRepository.findById(id).get();
-	 }
-
-	 @RequestMapping(method=RequestMethod.GET, value="app/all_users")
-	 public Iterable<User> getAllUsers(){
-		      return userRepository.findAll();
-	 }
-
-	 @RequestMapping(method=RequestMethod.PUT, value="app/deactivate_account/{id}")
-	 public User deactivateAccount(@PathVariable String id){
+	//route to deactivate users' account
+	@RequestMapping(method=RequestMethod.PUT, value="app/deactivate_account/{id}")
+	public User deactivateAccount(@PathVariable String id){
 		Optional<User> optuser = userRepository.findById(id);
 		User user = optuser.get();
 		user.setActive("false");
@@ -149,10 +157,10 @@ public class UserController {
 		String objectID = user.getId();
 		index.deleteObject(objectID);
 		return user;
-	 }
-
-	 @RequestMapping(method=RequestMethod.PUT, value="app/activate_account/{id}")
-	 public User activateAccount(@PathVariable String id){
+	}
+	// activating an account that was deactivated
+	@RequestMapping(method=RequestMethod.PUT, value="app/activate_account/{id}")
+	public User activateAccount(@PathVariable String id){
 		Optional<User> optuser = userRepository.findById(id);
 		User user = optuser.get();
 		user.setActive("true");
@@ -162,166 +170,151 @@ public class UserController {
 		UserImage userImage = new UserImage(
 		user.getName(),
 		user.getFamilyName(),
-		user.getUserName(), 
-		user.getImageString(), 
+		user.getUserName(),
+		user.getImageString(),
 		user.getId());
 		index.saveObject(userImage);
 		return user;
-	 }
-
-
-	 @RequestMapping(method=RequestMethod.DELETE, value="app/delete_account/{id}")
-	 public String deleteAccount(@PathVariable String id){
-		 Optional<User> optuser = userRepository.findById(id);
-		 User user = optuser.get();
-		System.out.println(user.getUserName());
-		//DELETE FROM INDEX IF EXIST
-		 if(user.getActive().equals("true")){
-			String objectID = user.getId();
-			index.deleteObject(objectID);
-		 }
-
-     	userRepository.delete(user);
-     return "";
-
-	 }
-
-    @RequestMapping(method=RequestMethod.GET, value="app/{id}/blocked_users")
-    public Map<String, String> getBlockedUsers(@PathVariable String id){
-
-			  //blocked users' names with their user_ids
-        Map<String,String> blockedUsersNamesWithIds = new HashMap<String,String>();
-
-			  Iterable<BlockedUser> allBlockedUsers = blockedUserRepository.findAll();
-
-				Iterator<BlockedUser> iter = allBlockedUsers.iterator();
-
-				while(iter.hasNext()){
-	             BlockedUser blockuser = iter.next();
-							 if(blockuser.getBlockerUserId().equals(id)){
-								 String blockedUserName = userRepository.findById(blockuser.getBlockedUserId()).get().getUserName();
-								 blockedUsersNamesWithIds.put(blockedUserName,blockuser.getBlockedUserId());
-							 }
-        }
-
-				return blockedUsersNamesWithIds;
-
-		}
-
-
-    @RequestMapping(method=RequestMethod.POST, value="app/{user_id}/block/{other_id}")
-		public String blockUser(@PathVariable("user_id") String user_id,@PathVariable("other_id") String other_id){
-           BlockedUser blockerAndBlockedUser = new BlockedUser(user_id,other_id);
-           return "";
-
-		}
-
-		@RequestMapping(method=RequestMethod.POST, value="app/{user_id}/unblock/{other_id}")
-		public String unBlockUser(@PathVariable("user_id") String user_id,@PathVariable("other_id") String other_id){
-			    Iterable<BlockedUser> allBlockedUsers = blockedUserRepository.findAll();
-
-		     	Iterator<BlockedUser> iter = allBlockedUsers.iterator();
-
-			    while(iter.hasNext()){
-						BlockedUser blockuser = iter.next();
-						if(blockuser.getBlockerUserId() == user_id && blockuser.getBlockedUserId() == other_id){
-							   blockedUserRepository.delete(blockuser);
-						}
-					}
-
-				  return "";
-		}
-
-
-	 @RequestMapping(method=RequestMethod.POST, value="app/{id}/image-upload")
-
-    public Optional<User> saveImageToUser(@PathVariable String id, @RequestParam("file") MultipartFile file) {
-		    	Optional<User> optuser = userRepository.findById(id);
-
-
-					if (optuser.isPresent()) {
-            User user = optuser.get();
-
-
-            try {
-							// // Encoding to a Base64 String
-							String imageBase64String = Base64.getEncoder().encodeToString(file.getBytes());
-							// // Now storing it in the format:
-              String imageString = "data:" + file.getContentType() + ";base64," + imageBase64String;
-
-               user.setImageString(imageString);
-            
-
-							userRepository.save(user);
-
-							Optional<User> newUser = Optional.of(user);
-              System.out.println("Successfully image updated");
-              return newUser;
-					} catch (Exception e) {
-							System.out.println("saveImage Exception:" + e);
-
-							Optional<User> newUser = Optional.of(user);
-
-              return newUser;
-					}
-			} else {
-				  System.out.println("Couldn't find user");
-					return optuser;
-
-			}
 	}
 
-	/*
-	@RequestMapping(method=RequestMethod.POST, value="app/message")
-	public User sendMessage(@RequestBody User user){}
+	//deleting account
+	@RequestMapping(method=RequestMethod.DELETE, value="app/delete_account/{id}")
+	public String deleteAccount(@PathVariable String id){
+		Optional<User> optuser = userRepository.findById(id);
+		User user = optuser.get();
+		System.out.println(user.getUserName());
+		//DELETE FROM INDEX IF EXIST
+		if(user.getActive().equals("true")){
+			String objectID = user.getId();
+			index.deleteObject(objectID);
+		}
 
-	@RequestMapping(method=RequestMethod.POST, value="app/add_review")
-	public User giveReview(@RequestBody User user){}
+		userRepository.delete(user);
+		return "";
 
-	@RequestMapping(method=RequestMethod.POST, value="app/add_comment")
-	public User giveComment(@RequestBody User user){}
-
-	@RequestMapping(method=RequestMethod.POST, value="app/add_recipe")
-	public User addRecipe(@RequestBody User user){}
-
-	@RequestMapping(method=RequestMethod.POST, value="app/get_messages")
-	public User getAllMessages(@RequestBody User user){}
-
-	@RequestMapping(method=RequestMethod.POST, value="app/get_notifications")
-	public User getAllNotifications(@RequestBody User user){}
-
-	@RequestMapping(method=RequestMethod.POST, value="app/get_followers_list")
-	public User getAllFollowers(@RequestBody User user){}
-
-	@RequestMapping(method=RequestMethod.POST, value="app/get_followings_list")
-	public User getAllFollowings(@RequestBody User user){}
-
-	@RequestMapping(method=RequestMethod.POST, value="app/go_live")
-	public User startLiveStreaming(@RequestBody User user){}
-
-	@RequestMapping(method=RequestMethod.POST, value="app/block_user")
-	public User blockUser(@RequestBody User user){}
-	*/
+	}
+	//route to find all blocked users by the user
+	@RequestMapping(method=RequestMethod.GET, value="app/{id}/blocked_users")
+	public List<BlockedUser> getBlockedUsers(@PathVariable String id){
+		List<BlockedUser> blockerAndBlocked = blockedUserRepository.findByBlockerUserId(id);
+		return blockerAndBlocked;
 
 
+	}
+
+	//route to block a user. When a user is blocked, user and the blocked user get associated with a new id and stored in BlockedUser repository
+	@RequestMapping(method=RequestMethod.POST, value="app/{user_id}/block/{other_id}")
+	public BlockedUser blockUser(@RequestBody BlockedUser user){
+		blockedUserRepository.save(user);
+		return user;
+
+	}
+	//route to unblock a blocked user. it is removing the association held between the blocker and blocked user.
+	@RequestMapping(method=RequestMethod.DELETE, value="app/{user_id}/unblock/{other_id}")
+	public String unBlockUser(@RequestBody BlockedUser user){
+		blockedUserRepository.delete(user);
+		return "";
+	}
+
+	//         //saving user's profile image in database in the form of image-string
+	// 	@RequestMapping(method=RequestMethod.POST, value="app/{id}/image-upload")
+	// 	 public Optional<User> saveImageToUser(@PathVariable String id, @RequestParam("file") MultipartFile file) {
+	// 				 Optional<User> optuser = userRepository.findById(id);
+	// 				 if (optuser.isPresent()) {
+	// 					 User user = optuser.get();
+	// 					 try {
+	// 						 // // Encoding to a Base64 String
+	// 						 String imageBase64String = Base64.getEncoder().encodeToString(file.getBytes());
+	// 						 // // Now storing it in the format:
+	// 						 String imageString = "data:" + file.getContentType() + ";base64," + imageBase64String;
+	// 						 user.setImageString(imageString);
+	// 						 userRepository.save(user);
+
+	// 						 Optional<User> newUser = Optional.of(user);
+	// 						 System.out.println("Successfully image updated");
+	// 						 return newUser;
+	// 				 } catch (Exception e) {
+	// 						 System.out.println("saveImage Exception:" + e);
+
+	// 						 Optional<User> newUser = Optional.of(user);
+
+	// 						 return newUser;
+	// 				 }
+	// 		 } else {
+	// 				 System.out.println("Couldn't find user");
+	// 				 return optuser;
+
+	// 		 }
+	//  }
+
+	//add a recipe to myFavorite list
+	@RequestMapping(method=RequestMethod.POST, value="app/add_recipe_to_myfavorite")
+	public Favorite addRecipeToMyFavoriteRecipeList(@RequestBody Favorite favorite){
+		favoriteRepository.save(favorite);
+		return favorite;
+	}
+
+	//get all myfavorite recipes
+	@RequestMapping(method=RequestMethod.GET, value="app/{userId}/get_all_myfavorite_recipes")
+	public List<Favorite> getAllMyFavoriteRecipeList(String userId){
+		return favoriteRepository.findByUserId(userId);
+	}
 
 
+	//remove a recipe from myfavorite recipe List
+	@RequestMapping(method=RequestMethod.DELETE, value="app/{userId}/myFavorite/remove/{recipeId}")
+	public String removeRecipeFromMyFavoriteList(@PathVariable String userId,
+	@PathVariable String recipeId){
+		List<Favorite> optFavorite = favoriteRepository.findByUserIdAndRecipeId(userId,recipeId);
+		if(!optFavorite.isEmpty()){
+			favoriteRepository.delete(optFavorite.get(0));
+			return "";
+		}
+		return "Error! This recipe is not found under user's favorite list!";
 
 
+	}
+	//      //route to block a user. When a user is blocked, user and the blocked user get associated with a new id and stored in BlockedUser repository
+	//  @RequestMapping(method=RequestMethod.POST, value="app/{user_id}/block/{other_id}")
+	//  public BlockedUser blockUser(@RequestBody BlockedUser user){
+	// 				blockedUserRepository.save(user);
+	// 				return user;
 
+	//  }
+	//      //route to unblocked a blocked user. it is removing the association held between the blocker and blocked user.
+	//  @RequestMapping(method=RequestMethod.DELETE, value="app/{user_id}/unblock/{other_id}")
+	//  public String unBlockUser(@RequestBody BlockedUser user){
+	// 			 blockedUserRepository.delete(user);
+	// 			 return "";
+	//  }
 
+	//saving user's profile image in database in the form of image-string
+	@RequestMapping(method=RequestMethod.POST, value="app/{id}/image-upload")
+	public Optional<User> saveImageToUser(@PathVariable String id, @RequestParam("file") MultipartFile file) {
+		Optional<User> optuser = userRepository.findById(id);
+		if (optuser.isPresent()) {
+			User user = optuser.get();
+			try {
+				// // Encoding to a Base64 String
+				String imageBase64String = Base64.getEncoder().encodeToString(file.getBytes());
+				// // Now storing it in the format:
+				String imageString = "data:" + file.getContentType() + ";base64," + imageBase64String;
+				user.setImageString(imageString);
+				userRepository.save(user);
 
+				Optional<User> newUser = Optional.of(user);
+				System.out.println("Successfully image updated");
+				return newUser;
+			} catch (Exception e) {
+				System.out.println("saveImage Exception:" + e);
 
+				Optional<User> newUser = Optional.of(user);
 
+				return newUser;
+			}
+		} else {
+			System.out.println("Couldn't find user");
+			return optuser;
 
-
-
-
-
-
-
-
-
-
-
-}
+		}
+	}}
