@@ -29,42 +29,42 @@ import java.util.List;
 import java.util.Map;
 import java.util.HashMap;
 import java.util.Comparator;
-import java.time.LocalDateTime; 
+import java.time.LocalDateTime;
 
 
 @CrossOrigin
 @RestController
 public class SuperChatController {
-	
-    @Autowired
+
+	@Autowired
 	SuperChatRepository superChatRepository;
 
-  
-    
-    @RequestMapping(method=RequestMethod.POST, value="app/superchat")
-    public SuperChat sentsuperChat(@RequestBody SuperChat superChat) {
+
+
+	@RequestMapping(method=RequestMethod.POST, value="app/superchat")
+	public SuperChat sentsuperChat(@RequestBody SuperChat superChat) {
 
 		superChatRepository.save(superChat);
-        return superChat;
-    }
+		return superChat;
+	}
 
-    //primary user is the user who is requesting for the superChats  		
-    @RequestMapping(method=RequestMethod.GET, value="app/superchat/{recipeId}")
-    public List<SuperChat> getRecentSuperChats(@PathVariable String recipeId) {
-       
-	List<SuperChat> superChats = superChatRepository.findSuperChats(recipeId);
-    superChats.sort((SuperChat m1, SuperChat m2)->LocalDateTime.parse(m2.getCreatedAt()).compareTo(LocalDateTime.parse(m1.getCreatedAt())));
-        return superChats;
-    }
+	//primary user is the user who is requesting for the superChats
+	@RequestMapping(method=RequestMethod.GET, value="app/superchat/{recipeId}")
+	public List<SuperChat> getRecentSuperChats(@PathVariable String recipeId) {
 
-    @RequestMapping(method=RequestMethod.DELETE, value="app/superChat/{superChatId}")
+		List<SuperChat> superChats = superChatRepository.findSuperChats(recipeId);
+		superChats.sort((SuperChat m1, SuperChat m2)->LocalDateTime.parse(m2.getCreatedAt()).compareTo(LocalDateTime.parse(m1.getCreatedAt())));
+		return superChats;
+	}
+
+	@RequestMapping(method=RequestMethod.DELETE, value="app/superChat/{superChatId}")
 	public Map<String,String> deleteSuperChat(@PathVariable String superChatId){
-                
-        SuperChat superChat = superChatRepository.findById(superChatId).get();
-        superChatRepository.delete(superChat);
-        Map<String,String> res = new HashMap<String, String>();
-	    res.put("status","success");
-        return res;
-	 } 
-                
+
+		SuperChat superChat = superChatRepository.findById(superChatId).get();
+		superChatRepository.delete(superChat);
+		Map<String,String> res = new HashMap<String, String>();
+		res.put("status","success");
+		return res;
+	}
+
 }
