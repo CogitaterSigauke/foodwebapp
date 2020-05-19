@@ -29,44 +29,44 @@ import java.util.List;
 import java.util.Map;
 import java.util.HashMap;
 import java.util.Comparator;
-import java.time.LocalDateTime; 
+import java.time.LocalDateTime;
 
 
 @CrossOrigin
 @RestController
 public class MessageController {
-	
-    @Autowired
+
+	@Autowired
 	MessageRepository messageRepository;
 
-  
-    
-    @RequestMapping(method=RequestMethod.POST, value="app/message")
-    public Message sentMessage(@RequestBody Message message) {
+
+
+	@RequestMapping(method=RequestMethod.POST, value="app/message")
+	public Message sentMessage(@RequestBody Message message) {
 
 		messageRepository.save(message);
-        return message;
-    }
+		return message;
+	}
 
-    //primary user is the user who is requesting for the messages  		
-    @RequestMapping(method=RequestMethod.GET, value="app/message/{primaryUserId}/{secondaryUserId}")
-    public List<Message> getRecentMessages(@PathVariable String primaryUserId, @PathVariable String secondaryUserId) {
-       
-	List<Message> messages = messageRepository.findMessages(primaryUserId, secondaryUserId);
-    messages.sort((Message m1, Message m2)->LocalDateTime.parse(m2.getCreatedAt()).compareTo(LocalDateTime.parse(m1.getCreatedAt())));
-        return messages;
-    }
+	//primary user is the user who is requesting for the messages
+	@RequestMapping(method=RequestMethod.GET, value="app/message/{primaryUserId}/{secondaryUserId}")
+	public List<Message> getRecentMessages(@PathVariable String primaryUserId, @PathVariable String secondaryUserId) {
 
-    @RequestMapping(method=RequestMethod.DELETE, value="app/message/{messageId}")
+		List<Message> messages = messageRepository.findMessages(primaryUserId, secondaryUserId);
+		messages.sort((Message m1, Message m2)->LocalDateTime.parse(m2.getCreatedAt()).compareTo(LocalDateTime.parse(m1.getCreatedAt())));
+		return messages;
+	}
+
+	@RequestMapping(method=RequestMethod.DELETE, value="app/message/{messageId}")
 	public Map<String,String> deleteMessage(@PathVariable String messageId){
-                
-        Message message = messageRepository.findById(messageId).get();
-        messageRepository.delete(message);
-        Map<String,String> res = new HashMap<String, String>();
-	    res.put("status","success");
-        return res;
-	 }
 
-     
-                
+		Message message = messageRepository.findById(messageId).get();
+		messageRepository.delete(message);
+		Map<String,String> res = new HashMap<String, String>();
+		res.put("status","success");
+		return res;
+	}
+
+
+
 }
