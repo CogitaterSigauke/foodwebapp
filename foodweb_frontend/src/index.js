@@ -10,10 +10,10 @@ import Home from './Components/Home';
 import Login from './Components/ProfileComponents/Login';
 
 import AddRecipe from './Components/RecipeComponents/AddRecipe';
-import Profile from './Components/ProfileComponents/Profile';
+import Profile from '/Profile';
 import RegisterAccount from './Components/ProfileComponents/RegisterAccount';
 import Block from './Components/ProfileComponents/Block';
-import EditProfile from './Components/ProfileComponents/EditProfile';
+import EditProfile from '/EditProfile';
 // import Profile from './Components/ProfileComponents/Profile';
 import App from './App';
 
@@ -29,8 +29,8 @@ ReactDOM.render(
       <Route path="/Components/RecipeComponents/AddRecipe" component={AddRecipe} />
       {/* 여기 블락,프로파일,에딧프로파일,팔로잉 */}
       <Route path="/Components/ProfileComponents/Block" component={Block} />
-      <Route path="/Components/ProfileComponents/EditProfile" component={EditProfile} />
-      <Route path="/Components/ProfileComponents/Profile" component={Profile} />
+      <Route path="/EditProfile/:id" component={EditProfile} />
+      <Route path="/Profile/:id" component={Profile} />
 
     </Switch>
 

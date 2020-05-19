@@ -45,10 +45,11 @@ function Login() {
     axios.post('/signup', userData)
       .then(response => {
         const { id } = response.data
+
         localStorage.setItem('loggedin', true);
         localStorage.setItem('user_id', id);
         history.push('/Home');
-        window.location.reload(false);
+        // window.location.reload(false);
 
       })
       .catch((err) => {
