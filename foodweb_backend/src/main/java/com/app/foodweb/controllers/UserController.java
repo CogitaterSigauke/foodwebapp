@@ -102,13 +102,13 @@ public class UserController {
             u.setActive(user.getActive());
 		      }
 					userRepository.save(u);
-			UserImage userImage = new UserImage(
-				user.getName(),
-				user.getFamilyName(),
-				user.getUserName(),
-				user.getImageString(),
-				user.getId());
-			index.saveObject(userImage);
+			// UserImage userImage = new UserImage(
+			// 	user.getName(),
+			// 	user.getFamilyName(),
+			// 	user.getUserName(),
+			// 	user.getImageString(),
+			// 	user.getId());
+			// index.saveObject(userImage);
           return u;
 
 	 }

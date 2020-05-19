@@ -5,7 +5,6 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "reviews")
-
 public class Review {
     @Id
     String id;
@@ -21,6 +20,10 @@ public class Review {
 
     public Review(String recipeId) {
         this.recipeId = recipeId;
+    }
+
+    public Review() {
+
     }
 
 
@@ -90,4 +93,7 @@ public class Review {
       return max;
     }
 
+   public int getNumberOfReviews(){
+     return this.oneStartCount+this.twoStartCount+this.threeStartCount+this.fourStartCount+this.fiveStartCount;
+   }
 }
