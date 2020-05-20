@@ -64,6 +64,7 @@ const RecipeHit = ({ hit }) =>
 
     <div className="hit col-lg-4 col-md-6 mb-4">
       <div className="card border-0 shadow">
+
         <img src={hit.imageString} className="card-img-top" alt="..." />
         <div className="card-body text-center">
           <h4 className="card-title">
@@ -74,6 +75,7 @@ const RecipeHit = ({ hit }) =>
         </div>
         <div className="card-footer">
           <small className="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
+
         </div>
       </div>
     </div>

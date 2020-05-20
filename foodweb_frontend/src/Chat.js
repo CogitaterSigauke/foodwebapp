@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import './ChatBox.css';
 import {Link}  from 'react-router-dom';
+
 // import Nav from './Nav';
+
 import axios from 'axios';
 
 
@@ -11,7 +13,9 @@ class Chat extends Component{
         super(props);
     
             this.state = {
+
                 currentUser: '5ec2bdf2eef504193203e329',
+
                 message:{
                     senderUserId: '5ec2bdf2eef504193203e329',
                     receiverUserId: '5ec2c007eef504193203e32a',
@@ -21,6 +25,7 @@ class Chat extends Component{
                 },
 
                 Messages: [{  messageText: 'Hi there', },{  messageText: 'Hi Redi'},{  messageText: 'Hi cogi'}]
+
             };
       }
 
@@ -36,6 +41,7 @@ class Chat extends Component{
         axios.get('/message/5ec2bdf2eef504193203e329/5ec2c007eef504193203e32a')
             .then(messages => {
                 this.setState({ Messages: messages.data });
+
 
                 console.log(this.state.message);
                 console.log(this.state.Messages);
@@ -160,6 +166,8 @@ class Chat extends Component{
 
                         <div className="chat-panel">
                             {
+
+
                             this.state.Messages.map((message)=>(
                 
                                 <div className="row no-gutters">
@@ -187,6 +195,7 @@ class Chat extends Component{
 
                                         
                                 
+
                                 </div>
                                 
                                 ))
@@ -271,5 +280,6 @@ export default Chat;
 //     </div>
     
 //     ))
+
 // }
 
