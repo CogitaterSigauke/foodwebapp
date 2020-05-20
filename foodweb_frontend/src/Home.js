@@ -33,9 +33,9 @@ class Home extends React.Component{
       Hits: hits
     });
 
-<<<<<<< HEAD
+
   });
-=======
+
 const RecipeContent = () =>
   <div >
  
@@ -67,7 +67,7 @@ const RecipeHit = ({hit}) =>
         </div>
       </div>
   </div>
->>>>>>> 28b785f404e18a10d88ec4260dca07d29bf06c36
+
 
   }
 
