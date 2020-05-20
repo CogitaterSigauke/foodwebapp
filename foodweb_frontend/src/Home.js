@@ -33,7 +33,41 @@ class Home extends React.Component{
       Hits: hits
     });
 
+<<<<<<< HEAD
   });
+=======
+const RecipeContent = () =>
+  <div >
+ 
+ 
+   <Hits hitComponent={RecipeHit}/>
+   
+   
+ </div>
+
+
+const RecipeHit = ({hit}) => 
+  
+  <div>
+    {/* card one */}
+  
+    <div className="hit col-lg-4 col-md-6 mb-4">
+      <div className="card border-0 shadow">
+          <Link to={`/recipe/${hit.objectID}`}><img src={hit.imageString} className="card-img-top" alt="..."/></Link>
+          <div className="card-body text-center">
+              <h4 className="card-title">
+                <a href="#">{hit.mealName}</a>
+              </h4>
+              <h6><a className="fas fa-user" href="#">{hit.userName}</a></h6>
+              <p className="card-text">{hit.objectID}</p>
+          </div>
+          <div className="card-footer">
+              <small className="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
+          </div>
+        </div>
+      </div>
+  </div>
+>>>>>>> 28b785f404e18a10d88ec4260dca07d29bf06c36
 
   }
 

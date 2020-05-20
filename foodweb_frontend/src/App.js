@@ -26,13 +26,12 @@ axios.defaults.baseURL = "http://localhost:8080/app";
 
 
 // axios.defaults.baseURL = 'https://primary:wUi8KxKin1N8UEplHFd6hltkx4fZEWBwk6T2HsxFNvJlUettM7mJXppQ0cenBrpi@new-my-recipes-app.test.azuremicroservices.io/myrecipesapp/default/app';
-
-
 const searchClient = algoliasearch(
   '2RJQDQ5U0W',
   '2c9dd00a80a65a207001e057e93e81e5'
 );
 
+<<<<<<< HEAD
 // -----------START CUSTOMIZED SEARCH--------------
 
 let index = '';
@@ -41,6 +40,8 @@ index = searchClient.initIndex('recipes');
 
 class App extends Component{
   
+=======
+>>>>>>> 28b785f404e18a10d88ec4260dca07d29bf06c36
 
   state = {
         value: "",
@@ -52,14 +53,40 @@ class App extends Component{
 
 //  =================QUERY===================
 
+<<<<<<< HEAD
     index.search(this.state.query).then(({hits}) => {
       console.log(hits);
       this.setState({
         Hits: hits
       });
+=======
+const RecipeHit = ({hit}) => 
+  
+  <div>
+    {/* card one */}
+  
+    <div className="hit col-lg-4 col-md-6 mb-4">
+      <div className="card border-0 shadow" >
+          {/* <Link to={`/recipe/${hit.objectID}`}><img src={hit.imageString} className="card-img-top" alt="..."/></Link> */}
+          <img src={hit.imageString} className="card-img-top"  alt="..."/>
+          <div className="card-body text-center">
+              <h4 className="card-title">
+                <a href="#">{hit.mealName}</a>
+              </h4>
+              <h6><a className="fas fa-user" href="#">{hit.userName}</a></h6>
+              <p className="card-text">{hit.mealType}</p>
+          </div>
+          <div className="card-footer">
+              <small className="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
+          </div>
+        </div>
+      </div>
+  </div>
+>>>>>>> 28b785f404e18a10d88ec4260dca07d29bf06c36
 
     });
   
+<<<<<<< HEAD
   }
 
   componentDidMount(){
@@ -78,11 +105,21 @@ class App extends Component{
 
   }
 
+=======
+  
+>>>>>>> 28b785f404e18a10d88ec4260dca07d29bf06c36
   render() {
 
   return (
 
+<<<<<<< HEAD
 
+=======
+    <InstantSearch
+    searchClient={searchClient}
+    indexName="recipes"
+    >
+>>>>>>> 28b785f404e18a10d88ec4260dca07d29bf06c36
     <div className="App">
      
 
@@ -211,6 +248,7 @@ class App extends Component{
             <i className="fa fa-bars"></i>
           </button>
 
+<<<<<<< HEAD
 
               <div className="input-group">
                 <form class="form-inline">
@@ -219,6 +257,18 @@ class App extends Component{
                     aria-label="Search" value={this.state.value} onChange={this.handleChange}/>
                 </form>         
               </div>
+=======
+               <header>
+                  <div className="input-group">
+                  < SearchBox translations={{placeholder: 'Search for Recipes'}} showLoadingIndicator autoFocus defaultRefinement="Coffee"/>
+                  </div>
+                </header> 
+
+           
+
+         
+
+>>>>>>> 28b785f404e18a10d88ec4260dca07d29bf06c36
          
 
           <ul className="navbar-nav ml-auto">
@@ -314,7 +364,43 @@ class App extends Component{
 
 
 export default App;
+<<<<<<< HEAD
 
 
 
 
+=======
+// //         <img src={logo} className="App-logo" alt="logo" />
+
+
+
+// //         <p>
+// //           Edit <code>src/App.js</code> and save to reload.
+// //         </p>
+// //         <a
+// //           className="App-link"
+// //           href="https://reactjs.org"
+// //           target="_blank"
+// //           rel="noopener noreferrer"
+// //         >
+// //           Learn React
+// //         </a>
+// //       </header>
+// //     </div>
+// //   );
+// // }
+
+// // export default App;
+// import React from 'react';
+// import { render } from '@testing-library/react';
+// import axios from 'axios';
+// import App from './App';
+// axios.defaults.baseURL = 'https://my-recipe-web-app-foodweb.azuremicroservices.io/app';
+
+
+// test('renders learn react link', () => {
+//   const { getByText } = render(<App />);
+//   const linkElement = getByText(/learn react/i);
+//   expect(linkElement).toBeInTheDocument();
+// });
+>>>>>>> 28b785f404e18a10d88ec4260dca07d29bf06c36
