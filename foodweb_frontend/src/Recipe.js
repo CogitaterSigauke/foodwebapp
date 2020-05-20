@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import './recipe.css';
+import Rating from './Rating';
 
 
 class Recipe extends Component {
@@ -9,7 +10,12 @@ class Recipe extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            Recipe: {}
+            Recipe: {},
+            Review: {
+                comment: '',
+                // rating: '',
+            },
+            LoadedComents: {}
         };
     }
 
@@ -20,8 +26,11 @@ class Recipe extends Component {
                 this.setState({ Recipe: res.data });
                 console.log(this.state.Recipe);
             });
-        axios.get('/test').then(res => {
-            console.log(res.data);
+        axios.get('/get_all_comments/'+this.props.match.params.id)
+            .then(commments => {
+            this.setState({LoadedComents: commments.data });
+            console.log("Loaded Comments");
+            console.log(this.state.LoadedComents);
         });
     }
     
@@ -34,8 +43,45 @@ class Recipe extends Component {
 
 
     // }
+
+    
+    onChange = (e) => {
+        const state = this.state.Review
+        state[e.target.name] = e.target.value;
+        this.setState(state);
+    }
+
+    postReviw = (e) => {
+        e.preventDefault();
+        // id=  localStorage.getItem("id");
+        const { comment } = this.state.Review;
+        debugger;
+        axios.post('/add_comment_to_recipe/'+this.props.match.params.id,  {commentText: comment})
+          .then((result) => {
+            console.log("After Posting new Contact - returned data: " + result.data);
+            console.log('======response.data======');
+            console.log(result.data);
+            alert("Successfuly saved");
+            this.props.history.push("/Home")
+          })
+          .catch((err) => {
+            console.log(`======response.data=====`);
+            // setErrors(err.result.data);
+            console.log(`Errors: {errors}`);
+          })
+          .catch((err) => {
+    
+            // setErrors(err.result.data);
+            console.log(`Errors: {errors}`);
+          });
+        ;
+    
+    
+      }
+    
     
     render() {
+        const { comment } = this.state.Review;
         return (         
         <div id="wrapper">
             <ul id  = "recipeUl" className="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
@@ -399,47 +445,47 @@ class Recipe extends Component {
                         </div>
                     </section>
             </div>
-            <div class="container">
-                <h2 class="text-center">Reviews and Comments</h2>
+            <div className="container">
+                <h2 className="text-center">Reviews and Comments</h2>
                 
-                <div class="card">
-                    <form>
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-md-2">
-                                    <img src="https://image.ibb.co/jw55Ex/def_face.jpg" class="img img-rounded img-fluid"/>
-                                    <p class="text-secondary text-center">15 Minutes Ago</p>
+                <div className="card">
+                    <form onSubmit={this.postReviw}>
+                        <div className="card-body">
+                            <div className="row">
+                                <div className="col-md-2">
+                                    <img src="https://image.ibb.co/jw55Ex/def_face.jpg" className="img img-rounded img-fluid"/>
+                                    <p className="text-secondary text-center">15 Minutes Ago</p>
                                 </div>
-                                <div class="col-md-10">
+                                <div className="col-md-10">
                                     <p>
-                                        <a class="float-left" href="https://maniruzzaman-akash.blogspot.com/p/contact.html"><strong>Maniruzzaman Akash</strong></a>
-                                        <span class="float-right"><i class="text-warning fa fa-star"></i></span>
-                                        <span class="float-right"><i class="text-warning fa fa-star"></i></span>
-                                        <span class="float-right"><i class="text-warning fa fa-star"></i></span>
-                                        <span class="float-right"><i class="text-warning fa fa-star"></i></span>
+                                        <a className="float-left" href="https://maniruzzaman-akash.blogspot.com/p/contact.html"><strong>Maniruzzaman Akash</strong></a>
+                                        <span className="float-right"><i className="text-warning fa fa-star"></i></span>
+                                        <span className="float-right"><i className="text-warning fa fa-star"></i></span>
+                                        <span className="float-right"><i className="text-warning fa fa-star"></i></span>
+                                        <span className="float-right"><i className="text-warning fa fa-star"></i></span>
 
                                 </p>
-                                <div class="clearfix"></div>
+                                <div className="clearfix"></div>
                                     <p>Lorem Ipsum is simply dummy text of the pr make  but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
                                     <p>
-                                        <a class="float-right btn btn-outline-primary ml-2"> <i class="fa fa-reply"></i> Reply</a>
-                                        <a class="float-right btn text-white btn-danger"> <i class="fa fa-heart"></i> Like</a>
+                                        <a className="float-right btn btn-outline-primary ml-2"> <i className="fa fa-reply"></i> Reply</a>
+                                        <a className="float-right btn text-white btn-danger"> <i className="fa fa-heart"></i> Like</a>
                                 </p>
                                 </div>
                             </div>
-                                <div class="card card-inner">
-                                    <div class="card-body">
-                                        <div class="row">
-                                            <div class="col-md-2">
-                                                <img src="https://image.ibb.co/jw55Ex/def_face.jpg" class="img img-rounded img-fluid"/>
-                                                <p class="text-secondary text-center">15 Minutes Ago</p>
+                                <div className="card card-inner">
+                                    <div className="card-body">
+                                        <div className="row">
+                                            <div className="col-md-2">
+                                                <img src="https://image.ibb.co/jw55Ex/def_face.jpg" className="img img-rounded img-fluid"/>
+                                                <p className="text-secondary text-center">15 Minutes Ago</p>
                                             </div>
-                                            <div class="col-md-10">
+                                            <div className="col-md-10">
                                                 <p><a href="https://maniruzzaman-akash.blogspot.com/p/contact.html"><strong>Maniruzzaman Akash</strong></a></p>
                                                 <p>Lorem Ipsum is simply dummy text of the pr make  but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
                                                 <p>
-                                                    <a class="float-right btn btn-outline-primary ml-2">  <i class="fa fa-reply"></i> Reply</a>
-                                                    <a class="float-right btn text-white btn-danger"> <i class="fa fa-heart"></i> Like</a>
+                                                    <a className="float-right btn btn-outline-primary ml-2">  <i className="fa fa-reply"></i> Reply</a>
+                                                    <a className="float-right btn text-white btn-danger"> <i className="fa fa-heart"></i> Like</a>
                                                 </p>
                                             </div>
                                         </div>
@@ -447,13 +493,17 @@ class Recipe extends Component {
                                 </div>
                             </div>
                             <div className="text-right">
-                                <textarea  rows="3" cols="30" className="form-control form-control-user" id="exampleFirstName" placeholder="Leave a comment"/>
-                    
-                               
-                                <div class="rating">
+                                <textarea  rows="3" cols="30" type="text" className="form-control" name="comment" value={comment} onChange={this.onChange} placeholder="Leave a comment" />
+                      
+                                {/* <textarea  rows="3" cols="30" className="form-control form-control-user" value = {comment} placeholder="Leave a comment"/> */}
+                                <Rating/>
+                                
+{/*                             
+                                <div className="rating">
                                 <span>☆</span><span>☆</span><span>☆</span><span>☆</span><span>☆</span>
-                                </div>
-                                <input className="btn btn-success btn-green" type="submit"/>
+                                </div> */}
+                                <button type="submit" className="btn btn-success">Submit Review</button>
+                               
                                 {/* <a className="btn btn-success btn-green" href="#reviews-anchor" id="open-review-box">Leave a Review</a> */}
                           </div>
                        
