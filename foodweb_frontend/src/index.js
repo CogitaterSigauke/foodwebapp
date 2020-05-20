@@ -10,38 +10,37 @@ import Home from './Home';
 import Login from './Login';
 
 import AddRecipe from './AddRecipe';
-
+import Profile from './Profile';
 import RegisterAccount from './RegisterAccount';
-import App from './App';
-import Recipe from './Recipe';
-import SideBar from './SideBar';
-
-import ChatBox from './ChatBox';
 import Block from './Block';
 import EditProfile from './EditProfile';
-import Following from './Following';
-import Profile from './Profile';
+// import Profile from './Components/ProfileComponents/Profile';
+import App from './App';
 
 ReactDOM.render(
 
 
   <Router>
-    {/* <Recipe/> */}
+
     <Switch>
-      <Route path= "/" exact component={App}/>      
-      <Route path="/Login" component={Login}/>
-      <Route path="/Home" component={Home}/>
-      <Route path="/RegisterAccount" component={RegisterAccount}/>
-      <Route path="/AddRecipe" component={AddRecipe}/>
-      <Route path="/Recipe/:id" component={Recipe}/> 
-      <Route path="/ChatBox" component={ChatBox}/>
+      <Route path="/" exact component={App} />
+      <Route path="/Login" component={Login} />
+      <Route path="/Home" component={Home} />
+      <Route path="/RegisterAccount" component={RegisterAccount} />
+      <Route path="/AddRecipe" component={AddRecipe} />
+      {/* 여기 블락,프로파일,에딧프로파일,팔로잉 */}
+      <Route path="/Block" component={Block} />
+      <Route path="/EditProfile/:id" component={EditProfile} />
+      <Route path="/Profile/:id" component={Profile} />
+
+
     </Switch>
 
   </Router>, document.getElementById('root')
 
 );
 
-
+// <Route path= "/" exact component={App}/>
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
