@@ -30,6 +30,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.multipart.MultipartFile;
@@ -53,57 +54,54 @@ public class ImageController {
   @Autowired
   RecipeRepository recipeRepository;
 
-  //upload additional recipe photos only by the recipe owner
-  @RequestMapping(method=RequestMethod.POST, value="app/user/{user_id}/recipe-additional_photos-upload/{recipe_id}",
-  consumes = "application/json")
-  public Optional<Recipe> addPhotosToRecipe (@PathVariable
-                                      String recipe_id,@PathVariable String user_id,@RequestBody Image[] images, @RequestBody MultipartFile[] files) {
-    //Optional<User> optuser = userRepository.findById(user_id);
+
+  @RequestMapping(method=RequestMethod.POST, value="app/user/{user_id}/recipe-additional_photos-upload/{recipe_id}")
+  public List<Image> addPhotosToRecipe (@PathVariable
+                                      String recipe_id,@PathVariable String user_id,@RequestParam("captions") String[] captions, @RequestParam("files") MultipartFile[] files) {
+
+    List<Image> createdImages = new ArrayList<Image>();
     Optional<Recipe> optrecipe = recipeRepository.findById(recipe_id);
-    if(files.length == images.length){
+
+    if(files.length == captions.length){
       if (optrecipe.isPresent()) {
         Recipe recipe = optrecipe.get();
         try {
-          //System.out.println("SHOW ME files"+ files.length);
-          //System.out.println("SHOW ME images"+ images.length);
-          if(recipe.getUserId() == user_id){
+
             int i = 0;
-            for(MultipartFile file: files){
+            for(MultipartFile file:files){
 
               String imageBase64String = Base64.getEncoder().encodeToString(file.getBytes());
 
               String imageString = "data:" + file.getContentType() + ";base64," + imageBase64String;
 
-              images[i].setImageString(imageString);
+              Image imagenew = new Image(user_id,recipe_id,captions[i],imageString,"recipe");
 
-              imageRepository.save(images[i]);
+              imageRepository.save(imagenew);
 
+              createdImages.add(imagenew);
               i++;
-            }}
-            //  String mimeType = file.getContentType();
-            //  String type = mimeType.split("/")[0];
-            //if(type.equalsIgnoreCase("image")){
+            }
 
-            Optional<Recipe> newRecipe = Optional.of(recipe);
-            return newRecipe;
-            // }
-            //return optrecipe;
+            return createdImages;
+
           }
           catch (Exception e) {
             System.out.println("saveImage Exception: " + e);
 
             Optional<Recipe> newRecipe = Optional.of(recipe);
 
-            return newRecipe;
+            return createdImages;
           }
         }
         else{
-          return optrecipe;
+          return createdImages;
         }}
         System.out.println("No image found");
-        return null;
+        return createdImages;
 
       }
+
+
 
       //find additional photos of a recipe by recipe'id
       @RequestMapping(method=RequestMethod.GET, value="app/recipe/{recipe_id}/see_more_photos")

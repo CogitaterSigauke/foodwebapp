@@ -30,6 +30,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.multipart.MultipartFile;
@@ -53,56 +54,59 @@ public class VideoController {
 	@Autowired
 	RecipeRepository recipeRepository;
 
-	//upload additional recipe videos only by the recipe owner
-	@RequestMapping(method=RequestMethod.POST, value="app/user/{user_id}/recipe-additional_videos-upload/{recipe_id}")
-	public Optional<Recipe> addVideosToRecipe (@PathVariable
-	                      String recipe_id,@PathVariable String user_id,@RequestBody Video[] videos, @RequestBody MultipartFile[] files) {
 
-		Optional<Recipe> optrecipe = recipeRepository.findById(recipe_id);
-		if(videos.length == files.length){
-			if (optrecipe.isPresent()) {
-				Recipe recipe = optrecipe.get();
-				try {
 
-					if(recipe.getUserId() == user_id){
-						int i = 0;
-						for(MultipartFile file: files){
+    //upload additional recipe videos only by the recipe owner
+		@RequestMapping(method=RequestMethod.POST, value="app/user/{user_id}/recipe-additional_videoa-upload/{recipe_id}")
+	  public List<Video> addVideosToRecipe (@PathVariable
+	                                      String recipe_id,@PathVariable String user_id,@RequestParam("files") MultipartFile[] files) {
 
-							String videoBase64String = Base64.getEncoder().encodeToString(file.getBytes());
-							String videoString = "data:" + file.getContentType() + ";base64," + videoBase64String;
-							videos[i].setVideoURL(videoString);
-							videoRepository.save(videos[i]);
+	    List<Video> createdVideos = new ArrayList<Video>();
+	    Optional<Recipe> optrecipe = recipeRepository.findById(recipe_id);
 
-							i++;
+	    if(files.length > 0){
+	      if (optrecipe.isPresent()) {
+	        Recipe recipe = optrecipe.get();
+	        try {
 
-						}
+	            for(MultipartFile file:files){
 
-					}
-					Optional<Recipe> newRecipe = Optional.of(recipe);
-					return newRecipe;
-					// }
-					//return optrecipe;
-				}
-				catch (Exception e) {
-					System.out.println("saveImage Exception: " + e);
+	              String videoBase64String = Base64.getEncoder().encodeToString(file.getBytes());
 
-					Optional<Recipe> newRecipe = Optional.of(recipe);
+	              String videoString = "data:" + file.getContentType() + ";base64," + videoBase64String;
 
-					return newRecipe;
-				}
-			}
-			else{
-				return optrecipe;
-			}}
-			System.out.println("No video found");
-			return null;
+	              Video newVideo = new Video(user_id,recipe_id,videoString,"recipe");
 
-		}
+	              videoRepository.save(newVideo);
+
+	              createdVideos.add(newVideo);
+
+	            }
+
+	            return createdVideos;
+
+	          }
+	          catch (Exception e) {
+	            System.out.println("saveVideo Exception: " + e);
+
+	            Optional<Recipe> newRecipe = Optional.of(recipe);
+
+	            return createdVideos;
+	          }
+	        }
+	        else{
+	          return createdVideos;
+	        }}
+	        System.out.println("No video found");
+	        return createdVideos;
+
+	      }
+
 
 
 		//find videos associated with the recipe by recipe'id
 		@RequestMapping(method=RequestMethod.GET, value="app/recipe/{recipe_id}/see_more_videos")
-		public List<Video> getAllRecipesVideos(@PathVariable String recipe_id){
+		public List<Video> getAllRecipesPhotos(@PathVariable String recipe_id){
 			List<Video> videos = videoRepository.findByRecipeId(recipe_id);
 			return videos;
 		}

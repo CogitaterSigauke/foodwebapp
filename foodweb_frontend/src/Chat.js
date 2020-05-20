@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import './ChatBox.css';
 import {Link}  from 'react-router-dom';
-import Nav from './Nav';
+
+// import Nav from './Nav';
+
 import axios from 'axios';
 
 
@@ -11,6 +13,9 @@ class Chat extends Component{
         super(props);
     
             this.state = {
+
+                currentUser: '5ec2bdf2eef504193203e329',
+
                 message:{
                     senderUserId: '5ec2bdf2eef504193203e329',
                     receiverUserId: '5ec2c007eef504193203e32a',
@@ -18,8 +23,9 @@ class Chat extends Component{
                     imageId: '',
                     videoId: '',
                 },
-                
-                Messages: [{  messageText: 'Hi there'},{  messageText: 'Hi Redi'},{  messageText: 'Hi cogi'}]
+
+                Messages: [{  messageText: 'Hi there', },{  messageText: 'Hi Redi'},{  messageText: 'Hi cogi'}]
+
             };
       }
 
@@ -35,6 +41,8 @@ class Chat extends Component{
         axios.get('/message/5ec2bdf2eef504193203e329/5ec2c007eef504193203e32a')
             .then(messages => {
                 this.setState({ Messages: messages.data });
+
+
                 console.log(this.state.message);
                 console.log(this.state.Messages);
             });
@@ -158,14 +166,36 @@ class Chat extends Component{
 
                         <div className="chat-panel">
                             {
-                            this.state.Messages.map(({messageText})=>(
+
+
+                            this.state.Messages.map((message)=>(
+                
                                 <div className="row no-gutters">
-                                    <div className="col-md-3">
-                                        <div className="chat-bubble chat-bubble--left">
-                                            {messageText}
-                                        </div>  
+                                    
+                                    {/* chat box logic */}
+                                        {(this.state.currentUser==message.senderUserId)
+                                        && (
+                                            <div className="col-md-3">
+                                                <div className="chat-bubble chat-bubble--left">
+                                                    {message.messageText}
+                                                </div> 
+                                            </div>
+                                        )
+                                        }
+
+                                        {(this.state.currentUser==message.receiverUserId)
+                                        && (
+                                            <div className="col-md-3 offset-md-9">
+                                                <div className="chat-bubble chat-bubble--right">
+                                                    {message.messageText}
+                                                </div> 
+                                            </div>
+                                        )
+                                        }
+
                                         
-                                    </div>
+                                
+
                                 </div>
                                 
                                 ))
@@ -250,4 +280,6 @@ export default Chat;
 //     </div>
     
 //     ))
+
 // }
+

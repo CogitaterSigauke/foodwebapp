@@ -58,7 +58,7 @@ public class MessageController {
     public String getRecentMessages(@PathVariable String primaryUserId, @PathVariable String secondaryUserId) {
        
 	List<Message> messages = messageRepository.findMessages(primaryUserId, secondaryUserId);
-    messages.sort((Message m1, Message m2)->LocalDateTime.parse(m2.getCreatedAt()).compareTo(LocalDateTime.parse(m1.getCreatedAt())));
+    messages.sort((Message m1, Message m2)->LocalDateTime.parse(m1.getCreatedAt()).compareTo(LocalDateTime.parse(m2.getCreatedAt())));
         
         Gson gson = new Gson();
         String messagesJson = gson.toJson(messages);
