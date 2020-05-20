@@ -1,17 +1,29 @@
 import React, { Component } from 'react'
 import './Block.css';
 import { Link } from 'react-router-dom';
-
+import axios from 'axios';
 
 
 class Block extends Component {
-
-    state = {
-        users: [{ name: 'User_1' }, { name: 'User_2' }, { name: 'User_3' }],
-        blocked: ['User_2', 'User_3']
+    constructor(props) {
+        super(props);
+        this.state = {
+            id: '',
+            blckerUserId: '',
+            blockedUserId: '',
+            users: [{ name: 'User_1' }, { name: 'User_2' }, { name: 'User_3' }],
+            // blocked: ['User_2', 'User_3']
+        }
     }
-
+    //Blocking a User
     User = (name) => {
+
+        // var su = this.blckerUserId.getInstance();
+        // su.blockUser(name, function (name, error) {
+        //     if (error) {
+        //         return;
+        //     }
+        // });
 
         const check = true;
         return <div style={{ display: 'flex' }}>
@@ -21,11 +33,43 @@ class Block extends Component {
     }
 
     SearchBar = () => {
+        // Retrieving all blocked users
+        // var sb = blckerUserId.getInstance();
+        // var blockedUserlistQuery = sb.createBlockedUserListQuery();
+        // blockedUserlistQuery.next(function (users, error) {
+        //     if (error) {
+        //         return;
+        //     }
+        // });
         return <input type="text" id="fname" name="fname" />
     }
 
     Button = () => {
         return <button></button>
+    }
+
+    getBlocked = () => {
+        ///app/{user_id}/block/{other_id}
+        axios.post("/app/{user_id}/block/{other_id}")
+            .then((response) => {
+                const data = response.data;
+                this.setState({ posts: data });
+                console.log("Data Has been Recieved!!");
+            })
+            .catch(() => {
+                alert("Erro data!!");
+            });
+    }
+    getBlock = () => {
+        axios.get("/app/{id}/blocked_users")
+            .then((response) => {
+                const data = response.data;
+                this.setState({ posts: data });
+                console.log("Data Has been Recieved!!");
+            })
+            .catch(() => {
+                alert("Erro data!!");
+            });
     }
 
     render() {

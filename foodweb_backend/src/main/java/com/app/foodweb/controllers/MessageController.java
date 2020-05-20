@@ -34,22 +34,23 @@ import java.util.List;
 import java.util.Map;
 import java.util.HashMap;
 import java.util.Comparator;
-import java.time.LocalDateTime; 
+import java.time.LocalDateTime;
 
 
 @CrossOrigin
 @RestController
 public class MessageController {
-	
-    @Autowired
+
+	@Autowired
 	MessageRepository messageRepository;
 
-  
-    
-    @RequestMapping(method=RequestMethod.POST, value="app/message")
-    public Message sentMessage(@RequestBody Message message) {
+
+
+	@RequestMapping(method=RequestMethod.POST, value="app/message")
+	public Message sentMessage(@RequestBody Message message) {
 
 		messageRepository.save(message);
+
         return message;
     }
 
@@ -67,15 +68,16 @@ public class MessageController {
     }
 
     @RequestMapping(method=RequestMethod.DELETE, value="app/message/{messageId}")
-	public Map<String,String> deleteMessage(@PathVariable String messageId){
-                
-        Message message = messageRepository.findById(messageId).get();
-        messageRepository.delete(message);
-        Map<String,String> res = new HashMap<String, String>();
-	    res.put("status","success");
-        return res;
-	 }
 
-     
-                
+	public Map<String,String> deleteMessage(@PathVariable String messageId){
+
+		Message message = messageRepository.findById(messageId).get();
+		messageRepository.delete(message);
+		Map<String,String> res = new HashMap<String, String>();
+		res.put("status","success");
+		return res;
+	}
+
+
+
 }

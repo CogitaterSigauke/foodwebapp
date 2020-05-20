@@ -33,23 +33,23 @@ public class CommentController {
     CommentRepository commentRepository;
 
     //add a comment to a recipe
-    @RequestMapping(method=RequestMethod.POST, value="app/add_comment_to_recipe")
-    public Comment addCommentToRecipe(@RequestBody Comment comment){
+    @RequestMapping(method=RequestMethod.POST, value="app/add_comment_to_recipe/{recipeId}")
+    public Comment addCommentToRecipe(@PathVariable String recipeId,@RequestBody Comment comment){
         commentRepository.save(comment);
     		return comment;
     }
 
     //delete a comment from a recipe
-    @RequestMapping(method=RequestMethod.DELETE, value="app/user/{userId}/recipe/{recipeId}/delete_comment")
-    public String removeCommentFromRecipe(@PathVariable String userId,@PathVariable String recipeId){
-        List<Comment> comment = commentRepository.findBySenderIdAndRecipeId(userId,recipeId);
-        commentRepository.delete(comment.get(0));
+    @RequestMapping(method=RequestMethod.DELETE, value="app/user/{userId}/recipe/{recipeId}/time/{createdAt}/delete_comment")
+    public String removeCommentFromRecipe(@PathVariable String userId,@PathVariable String recipeId,@PathVariable String createdAt){
+        Comment comment = commentRepository.findBySenderIdAndRecipeIdAndCreatedAt(userId,recipeId,createdAt);
+        commentRepository.delete(comment);
     		return "";
     }
 
     //get all recipe's comments
     @RequestMapping(method=RequestMethod.GET, value="app/get_all_comments/{recipeId}")
-    public List<Comment> addCommentToRecipe(@PathVariable String recipeId){
+    public List<Comment> getRecipeComment(@PathVariable String recipeId){
         return commentRepository.findByRecipeId(recipeId);
     }
 
