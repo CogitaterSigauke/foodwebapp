@@ -114,7 +114,7 @@ class Profile extends Component {
                                             <div><button className="profile-edit-btn" type="button">My Recipes</button></div>
                                         </Link>
                                         <br></br>
-                                        <Link to="/Block">
+                                        <Link to={`/Block/${id}`}>
                                             <div><button className="profile-edit-btn" type="button">Block User</button></div>
                                         </Link>
                                         <br></br>

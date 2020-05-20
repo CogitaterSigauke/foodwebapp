@@ -67,8 +67,10 @@ class Block extends Component {
             });
     }
     getBlock = () => {
-        axios.get("/app/{id}/blocked_users")
+        const { id } = this.props.match.params
+        axios.get(`/app/${id}/blocked_users`)
             .then((response) => {
+                alert("Block");
                 const data = response.data;
                 this.setState({ posts: data });
                 console.log("Data Has been Recieved!!");
@@ -82,7 +84,7 @@ class Block extends Component {
 
         // [{ name: 'User_1' }, { name: 'User_2' }, { name: 'User_3' }]
         const { users } = this.state
-
+        const id = localStorage.getItem('user_id')
         return (
             // <InstantSearch
             //     searchClient={searchClient}
@@ -92,7 +94,7 @@ class Block extends Component {
             <section className="row-section">
                 <div className="container">
                     <div className="row">
-                        <h2 className="text-center"><span>My Friends</span> Following<i className="fa fa-heart"></i> Follower</h2>
+                        <h2 className="text-center"><span>{id} Friends</span> Following<i className="fa fa-heart"></i> Follower</h2>
                     </div>
                     {/* <header>
                             <div className="input-group">
