@@ -37,13 +37,5 @@
       "last 1 safari version"
     ]
   },
-<<<<<<< HEAD
-  "proxy": "http://localhost:8080/app",
-  "devDependencies": {
-    "babel-plugin-module-resolver": "^4.0.0"
-  }
-}
-=======
   "proxy": "http://localhost:8080/app"
 }
->>>>>>> f758a0fea11c974b05f12a08e735b10997658e0e

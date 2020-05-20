@@ -114,6 +114,10 @@ class Profile extends Component {
                                             <div><button className="profile-edit-btn" type="button">My Recipes</button></div>
                                         </Link>
                                         <br></br>
+                                        <Link to="/Block">
+                                            <div><button className="profile-edit-btn" type="button">Block User</button></div>
+                                        </Link>
+                                        <br></br>
                                         <Link to="/Setting">
                                             <div><button className="profile-edit-btn" type="button">Setting</button></div>
                                         </Link>

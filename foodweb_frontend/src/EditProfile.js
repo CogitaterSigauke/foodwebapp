@@ -22,12 +22,14 @@ class EditProfile extends Component {
 
         axios.get(`/user/${id}`)
             .then((response) => {
-                const { name, email, aboutMe, familyName, imageString, userName } = response.data
-
+                const { name, email, aboutMe, familyName, imageString, userName, id } = response.data
+                // alert("Success Bring User Info");
                 console.log(response.data)
-
+                console.log("Success Bring User Info");
                 this.setState({
-                    name, email, aboutMe, familyName, id, userName
+                    name, email, aboutMe, familyName, userName
+                    // email: localStorage.getItem("username"), aboutMe: localStorage.getItem("username"),
+                    // familyName: localStorage.getItem("username"), userName: localStorage.getItem("username")
                 })
             })
             .catch((msg) => {
@@ -49,15 +51,13 @@ class EditProfile extends Component {
     }
     onKeyPress = (e) => {
         this.setState({
-            [e.target.name]: e.target.value
+            // [e.target.name]: e.target.value
+            // name: e.target.value,
+            familyName: e.target.familyName,
+            userName: e.target.userName,
+            aboutMe: e.target.aboutMe,
         })
     }
-
-    // 여기서부터 
-    User = (name) => {
-
-    }
-
     SearchBar = () => {
         return <input type="text" id="fname" name="fname" />
     }
@@ -69,18 +69,21 @@ class EditProfile extends Component {
 
     onSubmit = (e) => {
         e.preventDefault();
+
         const { name, aboutMe, userName, familyName } = this.state;
         axios.put(`/edit_profile/${this.props.match.params.id}`, { name, familyName, aboutMe, userName })
             .then((response) => {
                 console.log(response.data)
+                // this.setState({
+                //     name: localStorage.getItem("")
+                // })
                 alert("UPDATED!!");
                 // const data = response.data.id;
                 // this.setState({ posts: data });
-                // console.log("Data Has been Recieved!!");
                 // //다시넣어줌 데이타에
                 // this.getBlogPost();
                 // alert("Success")
-                // this.props.history.push("/Home")
+                this.props.history.push("/Home")
             })
             .catch((msg) => {
                 console.log(msg)
@@ -91,7 +94,10 @@ class EditProfile extends Component {
 
     render() {
         const { users } = this.state
+        const id = localStorage.getItem('user_id')
         const { name, familyName, userName, aboutMe } = this.state
+        console.log(name)
+        console.log(userName)
         // [{ name: 'User_1' }, { name: 'User_2' }, { name: 'User_3' }]
         return (
 
@@ -103,7 +109,8 @@ class EditProfile extends Component {
                         {/* <!-- form user info --> */}
                         <div className="card">
                             <div className="card-header">
-                                <h4 className="mb-0">User Information</h4>
+                                <h4 className="mb-0">{name} Information</h4>
+                                <h4> Hello, {name}</h4>
                             </div>
 
 
