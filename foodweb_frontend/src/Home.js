@@ -64,10 +64,10 @@ const RecipeHit = ({hit}) =>
   
     <div className="hit col-lg-4 col-md-6 mb-4">
       <div className="card border-0 shadow">
-          <img src={hit.imageString} className="card-img-top" alt="..."/>
+          <Link to={`/recipe/${hit.objectID}`}><img src={hit.imageString} className="card-img-top" alt="..."/></Link>
           <div className="card-body text-center">
               <h4 className="card-title">
-                <a href="#">{hit.mealType}</a>
+                <a href="#">{hit.mealName}</a>
               </h4>
               <h6><a className="fas fa-user" href="#">{hit.userName}</a></h6>
               <p className="card-text">{hit.objectID}</p>

@@ -37,62 +37,11 @@ axios.defaults.baseURL = "http://localhost:8080/app";
 
 
 // axios.defaults.baseURL = 'https://primary:wUi8KxKin1N8UEplHFd6hltkx4fZEWBwk6T2HsxFNvJlUettM7mJXppQ0cenBrpi@new-my-recipes-app.test.azuremicroservices.io/myrecipesapp/default/app';
-
-
 const searchClient = algoliasearch(
   '2RJQDQ5U0W',
   '2c9dd00a80a65a207001e057e93e81e5'
 );
 
-// -----------START CUSTOMIZED SEARCH--------------
-
-let index = '';
-let query = '';
-let hits = [];
-
-
-index = searchClient.initIndex('recipes');
-index.search({ query }).then(console.log);
-
-async function search() {
-
-  console.log("=================QUERY===================");
-
-  console.log(query);
-  const result = await index.search(query);
-  hits = result.hits;
-
-  console.log("=================HITS===================");
-  console.log(hits);
-  console.log("=================HITS==END=================");
-
-}
-
-
-const Hit = ({hit}) => 
-  <div className="hit">
-    <div>
-      ${hit.name}
-    </div>
-    <div>
-      ${hit.familyName}
-    </div>
-    <div>
-      ${hit.userNname}
-    </div>
-  </div>
-
-const Sidebar = () => 
-
-  <div>
-
-  </div>
-
-const UserContent = () => 
-
-  <div  >
-      <Hits hitComponent={Hit}/>
-  </div>
 
 
 const RecipeContent = () =>
@@ -111,14 +60,15 @@ const RecipeHit = ({hit}) =>
     {/* card one */}
   
     <div className="hit col-lg-4 col-md-6 mb-4">
-      <div className="card border-0 shadow">
-          <Link to={`/recipe/${hit.objectID}`}><img src={hit.imageString} className="card-img-top" alt="..."/></Link>
+      <div className="card border-0 shadow" >
+          {/* <Link to={`/recipe/${hit.objectID}`}><img src={hit.imageString} className="card-img-top" alt="..."/></Link> */}
+          <img src={hit.imageString} className="card-img-top"  alt="..."/>
           <div className="card-body text-center">
               <h4 className="card-title">
                 <a href="#">{hit.mealName}</a>
               </h4>
               <h6><a className="fas fa-user" href="#">{hit.userName}</a></h6>
-              <p className="card-text">{hit.objectID}</p>
+              <p className="card-text">{hit.mealType}</p>
           </div>
           <div className="card-footer">
               <small className="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
@@ -130,25 +80,10 @@ const RecipeHit = ({hit}) =>
 
 class App extends Component{
   
-  constructor() {
-
-    super();
-    this.state = {value : ''};
-
-  }
-
-  handleChange = (e) =>{
-
-    this.setState({value: e.target.value});
-    query = e.target.value;
-    search();
-
-  }
-
+  
   render() {
 
   return (
-
 
     <InstantSearch
     searchClient={searchClient}
@@ -295,16 +230,6 @@ class App extends Component{
             </div> */}
           {/* </form> */}
           {/* nav bar  */}
-
-
-              <p> CUSTOMIZED SEARCH</p>
-
-              <div>
-                <br/>
-                <input type="text" name="search" placeholder="search" value={this.state.value} onChange={this.handleChange}/> 
-              
-              </div>
-
 
 
                <header>
@@ -504,30 +429,3 @@ export default App;
 //   const linkElement = getByText(/learn react/i);
 //   expect(linkElement).toBeInTheDocument();
 // });
-
-
-// let searchClient2 ='';
-// let index = '';
-// let query = '';
-// let hits = [];
-
-
-// onMount(() => {
-
-//   searchClient2 = algoliasearch(
-//     '2RJQDQ5U0W',
-//     '2c9dd00a80a65a207001e057e93e81e5'
-//   );
-
-//   index = searchClient2.initIndex('recipes');
-
-//   index.search({ query }).then(console.log);
-
-// });
-
-
-
-
-
-
-
