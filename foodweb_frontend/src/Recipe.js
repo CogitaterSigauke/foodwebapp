@@ -16,6 +16,7 @@ class Recipe extends Component {
                 // rating: '',
             },
             LoadedComments: {}
+
         };
     }
 
@@ -28,9 +29,11 @@ class Recipe extends Component {
             });
         axios.get('/get_all_comments/'+this.props.match.params.id)
             .then(commments => {
+
             this.setState({LoadedComments: commments.data });
             console.log("Loaded Comments");
             console.log(this.state.LoadedComments);
+
         });
       
   
@@ -54,18 +57,22 @@ class Recipe extends Component {
     }
 
     postReview = (e) => {
+
         e.preventDefault();
         // id=  localStorage.getItem("id");
         const { comment } = this.state.Review;
         debugger;
+
        // const recipeId = this.params.props.id;
         axios.post('/add_comment_to_recipe/'+this.props.match.params.id,  {commentText: comment, recipeId: this.props.match.params.id})
+
           .then((result) => {
             console.log("After Posting new Contact - returned data: " + result.data);
             console.log('======response.data======');
             console.log(result.data);
+
             console.log(this.props.match.params.id);
-            
+
             alert("Successfuly saved");
             this.props.history.push("/Home")
           })
@@ -79,14 +86,14 @@ class Recipe extends Component {
             // setErrors(err.result.data);
             console.log(`Errors: {errors}`);
           });
-         
+
+
     
       }
     
     
     render() {
         const { comment } = this.state.Review;
-      
 
         return (         
         <div id="wrapper">
@@ -455,6 +462,7 @@ class Recipe extends Component {
                 <h2 className="text-center">Reviews and Comments</h2>
                 
                 <div className="card">
+
                     <form onSubmit={this.postReview}>
                         <div className="card-body">
                             <div className="row">
