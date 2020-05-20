@@ -197,7 +197,6 @@ class App extends Component{
             <i className="fa fa-bars"></i>
           </button>
 
-
               <div className="input-group">
                 <form class="form-inline">
                   <i class="fas fa-search" aria-hidden="true"></i>

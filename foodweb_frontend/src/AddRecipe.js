@@ -8,7 +8,6 @@ class AddRecipe extends React.Component {
 
   constructor(props) {
     super(props);
-
     this.state = {
       userName: '',
       mealType: '',
@@ -17,7 +16,7 @@ class AddRecipe extends React.Component {
       mealName: '',
       description: '',
       imageString: 'https://mdbootstrap.com/img/Photos/Horizontal/Food/full%20page/9.jpg', //BASE 64 STRING ENCODED FROM THE CLIENT SIDE
-      videoId: '',
+      videoId: ''
 
     };
   }
@@ -37,20 +36,20 @@ class AddRecipe extends React.Component {
   }
 
   // This is called after the user inputs an image in the FileBase64 input and its base64 string is encoded in the base64 property.
-  getBase64File(file) {
-    console.log("Uploaded image converted to base 64 " + file.base64);
-    debugger;
-    this.setState({
-      imageString: file.base64
-    })
-  }
+  // getBase64File(file) {
+  //   console.log("Uploaded image converted to base 64 " + file.base64);
+  //   debugger;
+  //   this.setState({
+  //     imageString: file.base64
+  //   })
+  // }
 
   onSubmit = (e) => {
     e.preventDefault();
     // id=  localStorage.getItem("id");
     const { userName, mealType, dietAndHealth, worldCuisine, mealName, description, imageString, videoId } = this.state;
 
-    axios.post('/user/add/recipe/+this.props.match.params.id', { userName, mealType, dietAndHealth, worldCuisine, mealName, description, imageString, videoId })
+    axios.post('/user/add/recipe/', { userName, mealType, dietAndHealth, worldCuisine, mealName, description, imageString, videoId })
       .then((result) => {
         console.log("After Posting new Contact - returned data: " + result.data);
         const recipeID = result.data.id;
@@ -120,7 +119,7 @@ class AddRecipe extends React.Component {
 
             <div className="sidebar-heading">
               Menu
-  </div>
+            </div>
 
             <li className="nav-item">
               <a className="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
