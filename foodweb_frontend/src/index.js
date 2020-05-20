@@ -26,7 +26,7 @@ ReactDOM.render(
 
 
   <Router>
-    {/* <Home/> */}
+    {/* <Recipe/> */}
     <Switch>
       <Route path= "/" exact component={App}/>      
       <Route path="/Login" component={Login}/>

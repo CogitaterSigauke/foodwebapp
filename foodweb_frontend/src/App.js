@@ -32,7 +32,7 @@ import {
 
 // apiKey=""
 //                 appId=""
-axios.defaults.baseURL = "https://new-my-recipes-app-myrecipesapp.azuremicroservices.io/app";
+// axios.defaults.baseURL = "https://new-my-recipes-app-myrecipesapp.azuremicroservices.io/app";
 // axios.defaults.baseURL = 'https://my-recipe-web-app-foodweb.azuremicroservices.io/app';
 
 
@@ -42,30 +42,7 @@ const searchClient = algoliasearch(
   '2c9dd00a80a65a207001e057e93e81e5'
 );
 
-const Hit = ({hit}) => 
-  <div className="hit">
-    <div>
-      ${hit.name}
-    </div>
-    <div>
-      ${hit.familyName}
-    </div>
-    <div>
-      ${hit.userNname}
-    </div>
-  </div>
 
-const Sidebar = () => 
-
-  <div>
-
-  </div>
-
-const UserContent = () => 
-
-  <div  >
-      <Hits hitComponent={Hit}/>
-  </div>
 
 const RecipeContent = () =>
   <div >
