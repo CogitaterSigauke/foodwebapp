@@ -12,4 +12,6 @@ public interface CommentRepository extends CrudRepository<Comment, String> {
     List<Comment> findByRecipeId(String recipeId);
 
     List<Comment> findBySenderIdAndRecipeId(String senderId, String recipeId);
+
+    Comment findBySenderIdAndRecipeIdAndCreatedAt(String senderId, String recipeId,String createdAt);
     }
