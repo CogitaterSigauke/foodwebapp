@@ -1,32 +1,9 @@
-// // import React from 'react';
-// // import logo from './logo.svg';
-// // import './App.css';
-
-// // function App() {
-// //   return (
-// //     <div className="App">
-// //       <header className="App-header">
-
-
-
 import algoliasearch from 'algoliasearch/lite';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
 
 import { Link } from 'react-router-dom'
-
-import {
-  InstantSearch,
-  Hits,
-  SearchBox,
-  Pagination,
-  Highlight,
-  ClearRefinements,
-  RefinementList,
-  Configure,
-} from 'react-instantsearch-dom';
-
 
 // axios.defaults.baseURL = 'https://new-my-recipes-app-myrecipesapp.azuremicroservices.io/app';
 
@@ -43,52 +20,55 @@ const searchClient = algoliasearch(
 );
 
 
-
-const RecipeContent = () =>
-  <div >
- 
- 
-   <Hits hitComponent={RecipeHit}/>
-   
-   
- </div>
+// -----------START CUSTOMIZED SEARCH--------------
 
 
-const RecipeHit = ({hit}) => 
-  
-  <div>
-    {/* card one */}
-  
-    <div className="hit col-lg-4 col-md-6 mb-4">
-      <div className="card border-0 shadow" >
-          {/* <Link to={`/recipe/${hit.objectID}`}><img src={hit.imageString} className="card-img-top" alt="..."/></Link> */}
-          <img src={hit.imageString} className="card-img-top"  alt="..."/>
-          <div className="card-body text-center">
-              <h4 className="card-title">
-                <a href="#">{hit.mealName}</a>
-              </h4>
-              <h6><a className="fas fa-user" href="#">{hit.userName}</a></h6>
-              <p className="card-text">{hit.mealType}</p>
-          </div>
-          <div className="card-footer">
-              <small className="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
-          </div>
-        </div>
-      </div>
-  </div>
+let index = searchClient.initIndex('recipes');
 
 
 class App extends Component{
   
+
+  state = {
+        value: "",
+        Hits: [],
+        query: ""
+  };
+
+  search() {
+
+//  =================QUERY===================
+
+    index.search(this.state.query).then(({hits}) => {
+      console.log(hits);
+      this.setState({
+        Hits: hits
+      });
+
+    });
   
+  }
+
+  componentDidMount(){
+    //load hits on start
+    this.search();
+  }
+
+  handleChange = (e) =>{
+
+    this.setState({
+      value: e.target.value,
+      query: e.target.value
+    });
+
+    this.search();
+
+  }
+
   render() {
 
   return (
 
-    <InstantSearch
-    searchClient={searchClient}
-    indexName="recipes"
-    >
     <div className="App">
      
 
@@ -216,33 +196,15 @@ class App extends Component{
           <button id="sidebarToggleTop" className="btn btn-link d-md-none rounded-circle mr-3">
             <i className="fa fa-bars"></i>
           </button>
-        {/* Search Bar */}
-          {/* <form className="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
-            <div className="input-group">
-              <input type="text" className="form-control bg-light border-0 small" placeholder="Search for Ingredients..." aria-label="Search" aria-describedby="basic-addon2"/>
-              <div className="input-group-append">
-                <header>
-                  <div >
-                  < SearchBox translations={{placeholder: 'Search for Recipes'}} showLoadingIndicator autoFocus defaultRefinement="Coffee" />
-                  </div>
-                </header>
+
+
+              <div className="input-group">
+                <form class="form-inline">
+                  <i class="fas fa-search" aria-hidden="true"></i>
+                  <input class="form-control form-control-sm ml-3 w-75" type="text" placeholder="Search"
+                    aria-label="Search" value={this.state.value} onChange={this.handleChange}/>
+                </form>         
               </div>
-            </div> */}
-          {/* </form> */}
-          {/* nav bar  */}
-
-
-               <header>
-                  <div className="input-group">
-                  < SearchBox translations={{placeholder: 'Search for Recipes'}} showLoadingIndicator autoFocus defaultRefinement="Coffee"/>
-                  </div>
-                </header> 
-
-           
-
-         
-
-         
 
           <ul className="navbar-nav ml-auto">
 
@@ -253,7 +215,7 @@ class App extends Component{
               <div className="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in" aria-labelledby="searchDropdown">
                 <form className="form-inline mr-auto w-100 navbar-search">
                   <div className="input-group">
-                    <input type="text" className="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2"/>
+                    <input type="text" className="form-control bg-light border-0 small" placeholder="Search for..rrrrrrrrr." aria-label="Search" aria-describedby="basic-addon2"/>
                     <div className="input-group-append">
                       <button className="btn btn-primary" type="button">
                         <i className="fas fa-search fa-sm"></i>
@@ -264,27 +226,12 @@ class App extends Component{
               </div>
             </li>
           
-                 {/* Register Button */}
-            {/* <li className="nav-item dropdown no-arrow mx-1">
-              <a className="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <i className="fas fa-bell fa-fw"></i>
-                
-              </a>
-             
-            </li> */}
-
             
 
             {/* <div className="topbar-divider d-none d-sm-block"></div> */}
             <Link  to="/Login">
               <li>Log In</li>
-              {/* <li className="nav-item dropdown no-arrow mx-1" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
-                <a className="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  <span className="mr-2 d-none d-lg-inline text-gray-600 small">Log In</span>
-                  <img className="img-profile rounded-circle" src="https://source.unsplash.com/QAB-WJcbgJk/60x60"/>
-                </a>
-              
-              </li> */}
+           
             </Link>
             
 
@@ -297,78 +244,34 @@ class App extends Component{
         <div className="container-fluid">
           <div className="container">
 
-            {/* TEST InstantSearch */}
-
-            
-            
-
-                <main>
-               
-                  <RecipeContent/>
-              
-                </main>
-            
-
-            {/* END InstantSearch */}
-
 
               <div className="row">
                 {/* card one */}
-                <div className="col-lg-4 col-md-6 mb-4">
-                  <div className="card border-0 shadow">
-                    <img src="http://placehold.it/500x350" className="card-img-top" alt="..."/>
-                    <div className="card-body text-center">
-                      <h4 className="card-title">
-                          <a href="#">Item One</a>
-                      </h4>
-                      <h6><a className="fas fa-user" href="#">Contact Owner</a></h6>
-                      <p className="card-text">Cogi Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!</p>
-                    </div>
-                    
-                    <div className="card-footer">
-                        <small className="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
-                    </div>
-                  </div>
-                </div>
-                <div className="col-lg-4 col-md-6 mb-4">
-                  <div className="card border-0 shadow">
-                    <img src="https://mdbootstrap.com/img/Photos/Horizontal/Food/full%20page/8.jpg" className="card-img-top" alt="..."/>
-                    <div className="card-body text-center">
-                      <h4 className="card-title">
-                          <a href="#">Item One</a>
-                      </h4>
-                      <h6><a className="fas fa-user" href="#">Contact Owner</a></h6>
-                      <p className="card-text">Cogi Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!</p>
-                    </div>
-                    
-                    <div className="card-footer">
-                        <small className="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
-                    </div>
-                  </div>
-                </div>
-                <div className="col-lg-4 col-md-6 mb-4">
-                  <div className="card border-0 shadow">
-                    <img src="https://mdbootstrap.com/img/Photos/Horizontal/Food/full%20page/11.jpg" className="card-img-top" alt="..."/>
-                    <div className="card-body text-center">
-                      <h4 className="card-title">
-                          <a href="#">Item One</a>
-                      </h4>
-                      <h6><a className="fas fa-user" href="#">Contact Owner</a></h6>
-                      <p className="card-text">Cogi Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!</p>
-                    </div>
-                    
-                    <div className="card-footer">
-                        <small className="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
-                    </div>
-                  </div>
-                </div>
 
-
-
+                
+                {
+                    this.state.Hits.map((hit)=>(
+                      <div className="col-lg-4 col-md-6 mb-4">
+                        <div className="card border-0 shadow">
+                          <img src={hit.imageString} className="card-img-top" alt="..."/>
+                          <div className="card-body text-center">
+                            <h4 className="card-title">
+                                <a href="#">{hit.mealName}</a>
+                            </h4>
+                    <h6><a className="fas fa-user" href="#">{hit.userName}</a></h6>
+                    <p className="card-text">{hit.dietAndHealth}</p>
+                          </div>
+                          <div className="card-footer">
+                              <small className="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
+                          </div>
+                        </div>
+                      </div> 
+                    ))
+                }
 
               </div>
             </div>   
-           {/* <h1 className= "-4 text-gray-800">Blank Page</h1> */}
+         
 
         </div>
 
@@ -387,45 +290,9 @@ class App extends Component{
   </div>
     </div>
 
-    </InstantSearch>
+
   );
   }
 }
 
-
-
-
 export default App;
-// //         <img src={logo} className="App-logo" alt="logo" />
-
-
-
-// //         <p>
-// //           Edit <code>src/App.js</code> and save to reload.
-// //         </p>
-// //         <a
-// //           className="App-link"
-// //           href="https://reactjs.org"
-// //           target="_blank"
-// //           rel="noopener noreferrer"
-// //         >
-// //           Learn React
-// //         </a>
-// //       </header>
-// //     </div>
-// //   );
-// // }
-
-// // export default App;
-// import React from 'react';
-// import { render } from '@testing-library/react';
-// import axios from 'axios';
-// import App from './App';
-// axios.defaults.baseURL = 'https://my-recipe-web-app-foodweb.azuremicroservices.io/app';
-
-
-// test('renders learn react link', () => {
-//   const { getByText } = render(<App />);
-//   const linkElement = getByText(/learn react/i);
-//   expect(linkElement).toBeInTheDocument();
-// });

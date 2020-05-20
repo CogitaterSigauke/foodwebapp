@@ -1,16 +1,7 @@
 import algoliasearch from 'algoliasearch/lite';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import {
-  InstantSearch,
-  Hits,
-  SearchBox,
-  Pagination,
-  Highlight,
-  ClearRefinements,
-  RefinementList,
-  Configure,
-} from 'react-instantsearch-dom';
+
 
 import { Link } from 'react-router-dom'
 
@@ -22,31 +13,29 @@ const searchClient = algoliasearch(
   '2c9dd00a80a65a207001e057e93e81e5'
 );
 
-const Hit = ({hit}) => 
-  <div className="hit">
-    <div>
-      ${hit.name}
-    </div>
-    <div>
-      ${hit.familyName}
-    </div>
-    <div>
-      ${hit.userNname}
-    </div>
-  </div>
+let index = searchClient.initIndex('recipes');
 
-const Sidebar = () => 
+class Home extends React.Component{
 
-  <div>
+  state = {
+    value: "",
+    Hits: [],
+    query: ""
+  };
 
-  </div>
+  search() {
 
-const UserContent = () => 
+  //  =================QUERY===================
 
-  <div  >
-      <Hits hitComponent={Hit}/>
-  </div>
+  index.search(this.state.query).then(({hits}) => {
+    console.log(hits);
+    this.setState({
+      Hits: hits
+    });
 
+<<<<<<< HEAD
+  });
+=======
 const RecipeContent = () =>
   <div >
  
@@ -78,29 +67,29 @@ const RecipeHit = ({hit}) =>
         </div>
       </div>
   </div>
+>>>>>>> 28b785f404e18a10d88ec4260dca07d29bf06c36
 
+  }
 
-class Home extends React.Component{
+  componentDidMount(){
+  //load hits on start
+  this.search();
+  }
 
-  constructor(props) {
-    super(props);
-    // this.state = {value: ''};
+  handleChange = (e) =>{
 
-    // this.handleChange = this.handleChange.bind(this);
-    // this.handleSubmit = this.handleSubmit.bind(this);
-    
-}
+  this.setState({
+    value: e.target.value,
+    query: e.target.value
+  });
 
+  this.search();
 
-
-
+  }
 
 render() {
   return (
-    <InstantSearch
-    searchClient={searchClient}
-    indexName="recipes"
-    >
+
     <div className="Home">
      
 
@@ -235,11 +224,13 @@ render() {
           </button>
         {/* Search Bar */}
           
-            <header>
-                  <div className="input-group">
-                  < SearchBox translations={{placeholder: 'Search for Recipes'}}  autoFocus defaultRefinement="Salad"/>
-                  </div>
-                </header> 
+              <div className="input-group">
+                <form class="form-inline">
+                  <i class="fas fa-search" aria-hidden="true"></i>
+                  <input class="form-control form-control-sm ml-3 w-75" type="text" placeholder="Search"
+                    aria-label="Search" value={this.state.value} onChange={this.handleChange}/>
+                </form>         
+              </div>
          
           {/* nav bar  */}
         
@@ -406,75 +397,38 @@ render() {
 
         <div className="container-fluid">
           <div className="container">
-                {/* TEST InstantSearch */}
+                {/* HITS Display*/}
 
-            
-            
-
-                <main>
-               
-                  <RecipeContent/>
-              
-                </main>
-            
-
-            {/* END InstantSearch */}
               <div className="row">
-                {/* card one */}
-                <div className="col-lg-4 col-md-6 mb-4">
-                  <div className="card border-0 shadow">
-                    <img src="https://mdbootstrap.com/img/Photos/Horizontal/Food/full%20page/8.jpg" className="card-img-top" alt="..."/>
-                    <div className="card-body text-center">
-                      <h4 className="card-title">
-                          <a href="#">Item One</a>
-                      </h4>
-                      <h6><a className="fas fa-user" href="#">Contact Owner</a></h6>
-                      <p className="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!</p>
-                    </div>
-                    <div className="card-footer">
-                        <small className="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
-                    </div>
-                  </div>
+            
+                {
+                    this.state.Hits.map((hit)=>(
+                      <div className="col-lg-4 col-md-6 mb-4">
+                        <div className="card border-0 shadow">
+                          <Link to={`/recipe/${hit.objectID}`}>
+                            <img src={hit.imageString} className="card-img-top" alt="..."/>
+                          </Link>
+                          <div className="card-body text-center">
+                            <h4 className="card-title">
+                                <a href="#">{hit.mealName}</a>
+                            </h4>
+                    <h6><a className="fas fa-user" href="#">{hit.userName}</a></h6>
+                    <p className="card-text">{hit.dietAndHealth}</p>
+                          </div>
+                          <div className="card-footer">
+                              <small className="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
+                          </div>
+                        </div>
+                      </div> 
+                    ))
+                }
+
                 </div>
-
-
-                <div className="col-lg-4 col-md-6 mb-4">
-                  <div className="card border-0 shadow">
-                    <img src="https://mdbootstrap.com/img/Photos/Horizontal/Food/full%20page/3.jpg" className="card-img-top" alt="..."/>
-                    <div className="card-body text-center">
-                      <h4 className="card-title">
-                          <a href="#">Item One</a>
-                      </h4>
-                      <h6><a className="fas fa-user" href="#">Contact Owner</a></h6>
-                      <p className="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!</p>
-                    </div>
-                    <div className="card-footer">
-                        <small className="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="col-lg-4 col-md-6 mb-4">
-                  <div className="card border-0 shadow">
-                    <img src="https://mdbootstrap.com/img/Photos/Horizontal/Food/full%20page/2.jpg" className="card-img-top" alt="..."/>
-                    <div className="card-body text-center">
-                      <h4 className="card-title">
-                          <a href="#">Item One</a>
-                      </h4>
-                      <h6><a className="fas fa-user" href="#">Contact Owner</a></h6>
-                      <p className="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!</p>
-                    </div>
-                    <div className="card-footer">
-                        <small className="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
-                    </div>
-                  </div>
-                </div>
-
 
               </div>
-            </div>   
-           {/* <h1 className= "-4 text-gray-800">Blank Page</h1> */}
 
+            </div>   
+            
         </div>
 
       </div>
@@ -490,13 +444,7 @@ render() {
     </div>
 
   </div>
-
-
-
-
-
-    </div>
-  </InstantSearch>
+ 
   );
 }
 }
