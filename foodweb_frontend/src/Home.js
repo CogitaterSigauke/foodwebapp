@@ -5,8 +5,6 @@ import PropTypes from 'prop-types';
 
 import { Link } from 'react-router-dom'
 
-// apiKey=""
-//                 appId=""
 
 const searchClient = algoliasearch(
   '2RJQDQ5U0W',
@@ -35,41 +33,7 @@ class Home extends React.Component{
 
 
   });
-
-const RecipeContent = () =>
-  <div >
- 
- 
-   <Hits hitComponent={RecipeHit}/>
-   
-   
- </div>
-
-
-const RecipeHit = ({hit}) => 
-  
-  <div>
-    {/* card one */}
-  
-    <div className="hit col-lg-4 col-md-6 mb-4">
-      <div className="card border-0 shadow">
-          <Link to={`/recipe/${hit.objectID}`}><img src={hit.imageString} className="card-img-top" alt="..."/></Link>
-          <div className="card-body text-center">
-              <h4 className="card-title">
-                <a href="#">{hit.mealName}</a>
-              </h4>
-              <h6><a className="fas fa-user" href="#">{hit.userName}</a></h6>
-              <p className="card-text">{hit.objectID}</p>
-          </div>
-          <div className="card-footer">
-              <small className="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
-          </div>
-        </div>
-      </div>
-  </div>
-
-
-  }
+}
 
   componentDidMount(){
   //load hits on start
@@ -170,12 +134,6 @@ render() {
           </div>
         </div>
       </li>
-
-      {/* <hr className="sidebar-divider"/>
-
-      <div className="sidebar-heading">
-        Main Dish
-      </div> */}
 
       <li className="nav-item active">
         <a className="nav-link" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true" aria-controls="collapsePages">
