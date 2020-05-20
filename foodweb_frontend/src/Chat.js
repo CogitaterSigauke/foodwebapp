@@ -30,7 +30,7 @@ class Chat extends Component{
         state[e.target.name] = e.target.value;
         this.setState(state);
     }
-
+    
     componentDidMount() {
         // console.log('/recipe/5eba3f7efd9c7b27cb32b8fa');
         axios.get('/message/5ec2bdf2eef504193203e329/5ec2c007eef504193203e32a')
