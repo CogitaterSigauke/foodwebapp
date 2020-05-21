@@ -44,7 +44,7 @@ Make a web app that can provide
 *  Pyungkang Hong - Designer
 # Link to where the website is deployed
 ```
-https://frontend-my-recipe-web-app.azurewebsites.net/
+https://my-recipes-web-app.azurewebsites.net/
 
 ```
 # How To Use This Software
