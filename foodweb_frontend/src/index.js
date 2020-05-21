@@ -8,12 +8,14 @@ import * as serviceWorker from './serviceWorker';
 
 import Home from './Home';
 import Login from './Login';
-
+import ChatBox from './ChatBox';
 import AddRecipe from './AddRecipe';
 import Profile from './Profile';
 import RegisterAccount from './RegisterAccount';
 import Block from './Block';
 import EditProfile from './EditProfile';
+import Recipe from './Recipe';
+
 // import Profile from './Components/ProfileComponents/Profile';
 import App from './App';
 
@@ -25,13 +27,15 @@ ReactDOM.render(
     <Switch>
       <Route path="/" exact component={App} />
       <Route path="/Login" component={Login} />
-      <Route path="/Home" component={Home} />
+      <Route path="/Recipe/:id" component={Recipe} />
+      <Route path="/Home/" component={Home} />
       <Route path="/RegisterAccount" component={RegisterAccount} />
       <Route path="/AddRecipe" component={AddRecipe} />
       {/* 여기 블락,프로파일,에딧프로파일,팔로잉 */}
       <Route path="/Block" component={Block} />
       <Route path="/EditProfile/:id" component={EditProfile} />
       <Route path="/Profile/:id" component={Profile} />
+      <Route path="/ChatBox" component={ChatBox}/>
 
 
     </Switch>

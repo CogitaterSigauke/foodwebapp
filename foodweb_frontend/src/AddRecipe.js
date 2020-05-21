@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import ReactDom from 'react-dom';
 import { Link } from 'react-router-dom';
-import FileBase64 from 'react-file-base64';
+// import FileBase64 from 'react-file-base64';
 import axios from 'axios';
 import { useHistory } from "react-router-dom";
 class AddRecipe extends React.Component {
