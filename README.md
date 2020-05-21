@@ -45,8 +45,16 @@ Make a web app that can provide
 # Link to where the website is deployed
 ```
 https://my-recipes-web-app.azurewebsites.net/
-
 ```
+Some important pages
+```
+https://my-recipes-web-app.azurewebsites.net/ChatBox
+https://my-recipes-web-app.azurewebsites.net/Home
+```
+# Detiled explanation of the Beta version that is released:
+
+From the first page, it is not possible to do anything except for searching recipes. After logging in, a user can add a recipe, message another user, click on a recipe card to see recipe detailed descriptions and finally logout. 
+     
 # How To Use This Software
 
 * Clone the repository by using the following command in your terminal:
