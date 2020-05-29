@@ -4,6 +4,9 @@ import { Link } from 'react-router-dom';
 // import FileBase64 from 'react-file-base64';
 import axios from 'axios';
 import { useHistory } from "react-router-dom";
+import { storage } from "./firebase";
+
+
 class AddRecipe extends React.Component {
 
   constructor(props) {
@@ -16,7 +19,12 @@ class AddRecipe extends React.Component {
       mealName: '',
       description: '',
       imageString: 'https://mdbootstrap.com/img/Photos/Horizontal/Food/full%20page/9.jpg', //BASE 64 STRING ENCODED FROM THE CLIENT SIDE
-      videoId: ''
+      videoId: '',
+      image: null,
+      images: [],
+      url: "",
+      urls: [],
+      progress: 0
 
     };
   }
@@ -88,6 +96,68 @@ class AddRecipe extends React.Component {
 
 
   }
+
+  handleFileChange = e => {
+
+    if (e.target.files[0]) {
+    
+      this.setState({
+        image: e.target.files[0]
+      });
+  
+      console.log("handleFileChange \nstate: ", this.state);
+
+    }
+          
+  };
+
+  handleUpload = () => {
+
+    console.log("handleUpload State:", this.state);
+    const uploadTask = storage.ref(`images/${this.state.image.name}`).put(this.state.image);
+    console.log("handleUpload State: ==========================================");
+    uploadTask.on(
+      "state_changed",
+      snapshot => {
+
+        const progress = Math.round(
+          (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+        );
+
+        this.setState({
+          progress: progress
+        });
+        
+        console.log("Inside Handle Upload\n state :", this.state);
+
+      },
+      error => {
+        console.log("Error ==>", error);
+      },
+      () => {
+        this.state.images.push(this.state.image.name);
+       
+        console.log("Before getting image from storage\n state: ", this.state);
+        storage
+          .ref("images")
+          .child(this.state.image.name)
+          .getDownloadURL()
+          .then(imageUrl => {
+            this.setState({
+              url: imageUrl,
+              imageString: imageUrl
+            });
+            this.state.urls.push(imageUrl);
+            
+  
+          });
+      }
+    );
+
+    console.log("After Handle Upload\n state :", this.state);
+
+  };
+
 
 
   render() {
@@ -437,12 +507,34 @@ class AddRecipe extends React.Component {
             <label htmlFor="image">Profile Picture (Sending as FormData):</label>
             <input type="file" onChange={this.fileSelectedHandler}/>
         </div> */}
+                        <div>
+                          <progress value={this.state.progress} max="100" />
+                          <br />
+                          <div>
+                            <input type="file" onChange={this.handleFileChange} />
+                            <br /><br />
+                            <button onClick={this.handleUpload}>Upload Image</button>
+                          
+                          </div>
+                          
+                          <br />
+                        </div>
                         <button type="submit" className="btn btn-success">Submit</button>
 
                       </form>
-                    </div>
+                    
+                      <br />
+      
+                          {this.state.images.map((image)=>(
 
+                            <div>{image}</div>
+
+                          ))}
+
+                    </div>
+                    <br /><br />
                     <div className="column">
+                    <br />
                       <h1 className="h3 mb-4 text-gray-800">OR PICK HERE(coming soon)</h1>
                       {/* card one */}
                       <form>
