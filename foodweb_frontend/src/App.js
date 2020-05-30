@@ -2,12 +2,19 @@ import algoliasearch from 'algoliasearch/lite';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
-
 import { Link } from 'react-router-dom'
 
 
-// axios.defaults.baseURL = "http://localhost:8080/app";
-axios.defaults.baseURL = 'https://new-my-recipes-app-myrecipesapp.azuremicroservices.io/app';
+// axios.defaults.baseURL = 'https://new-my-recipes-app-myrecipesapp.azuremicroservices.io/app';
+
+// apiKey=""
+//                 appId=""
+axios.defaults.baseURL = "http://localhost:8080/app";
+// axios.defaults.baseURL = 'https://my-recipe-web-app-foodweb.azuremicroservices.io/app';
+
+
+// axios.defaults.baseURL = 'https://primary:wUi8KxKin1N8UEplHFd6hltkx4fZEWBwk6T2HsxFNvJlUettM7mJXppQ0cenBrpi@new-my-recipes-app.test.azuremicroservices.io/myrecipesapp/default/app';
+
 
 const searchClient = algoliasearch(
   '2RJQDQ5U0W',
@@ -15,11 +22,11 @@ const searchClient = algoliasearch(
 );
 
 
+
+
 // -----------START CUSTOMIZED SEARCH--------------
 
-
 let index = searchClient.initIndex('recipes');
-
 
 class App extends Component{
   
@@ -192,6 +199,7 @@ class App extends Component{
             <i className="fa fa-bars"></i>
           </button>
 
+
               <div className="input-group">
                 <form class="form-inline">
                   <i class="fas fa-search" aria-hidden="true"></i>
@@ -199,6 +207,7 @@ class App extends Component{
                     aria-label="Search" value={this.state.value} onChange={this.handleChange}/>
                 </form>         
               </div>
+         
 
           <ul className="navbar-nav ml-auto">
 
@@ -238,10 +247,9 @@ class App extends Component{
         <div className="container-fluid">
           <div className="container">
 
-
               <div className="row">
-                {/* card one */}
 
+                {/* card one */}
                 
                 {
                     this.state.Hits.map((hit)=>(
@@ -289,4 +297,11 @@ class App extends Component{
   }
 }
 
+
+
+
 export default App;
+
+
+
+
