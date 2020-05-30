@@ -406,7 +406,7 @@ class AddRecipe extends React.Component {
 
                         <div className="form-group">
                           <label htmlFor="userName">userName:</label>
-                          <input type="text" className="form-control " name="userName" value={userName} onChange={this.onChange} placeholder="Name" />
+                          {/* <input type="text" className="form-control " name="userName" value={userName} onChange={this.onChange} placeholder="Name" /> */}
                         </div>
                         <div className="form-group">
                           <label htmlFor="mealType">mealType:</label>
@@ -453,11 +453,11 @@ class AddRecipe extends React.Component {
                             <span className="icon text-white-50">
                               <i className="fas fa-plus"></i>
                             </span>
-                            <span className="text">Meal Type </span>
+                            <span className="text"   >Meal Type </span>
 
                           </button>
                           <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <a className="dropdown-item" href="#">Breakfast</a>
+                            <input className="dropdown-item" name = "mealType" value={mealType} onChange={this.onChange} />Breakfast
                             <a className="dropdown-item" href="#">Lunch</a>
                             <a className="dropdown-item" href="#">Dinner</a>
                             <a className="dropdown-item" href="#">Drinks</a>
