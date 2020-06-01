@@ -3,6 +3,8 @@ import './ChatBox.css';
 import {Link}  from 'react-router-dom';
 // import Nav from './Nav';
 import axios from 'axios';
+import PropTypes from 'prop-types';
+import {withRouter} from 'react-router-dom';
 
 
 class Chat extends Component{
@@ -33,6 +35,10 @@ class Chat extends Component{
     
     componentDidMount() {
         // console.log('/recipe/5eba3f7efd9c7b27cb32b8fa');
+        console.log("=============START======CHAT===========");
+        console.log(this.props);
+        console.log("=-=-=-=-=-CHAT=-=-=-=-=-=-=-")
+        console.log(this.props.location.state.userId);
         axios.get('/message/5ec2bdf2eef504193203e329/5ec2c007eef504193203e32a')
             .then(messages => {
                 this.setState({ Messages: messages.data });
@@ -163,7 +169,7 @@ class Chat extends Component{
                             this.state.Messages.map((message)=>(
                 
                                 <div className="row no-gutters">
-                                    
+                                    <h1>userID = {this.props.location.state.userId}</h1>
                                     {/* chat box logic */}
                                         {(this.state.currentUser==message.senderUserId)
                                         && (
@@ -221,7 +227,13 @@ class Chat extends Component{
         );
     }
 }
-export default Chat;
+
+// Chat.propTypes = {
+
+//     classes: PropTypes.object.isRequired
+  
+//   }
+export default withRouter(Chat);
 
 
 //  {/* <div className="row no-gutters">

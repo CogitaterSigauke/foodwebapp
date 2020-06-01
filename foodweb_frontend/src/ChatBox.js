@@ -3,8 +3,22 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import Chat from './Chat';
 
-function ChatBox() {
-  
+class ChatBox extends React.Component{
+// function ChatBox() {
+    constructor(props) {
+        super(props);
+      }
+    componentDidMount(){
+        //load hits on start
+        console.log("=============START CHATBOX=================");
+        console.log(this.props);
+        console.log("=-=-=-=-=-=-=-=-=-=-=-=-")
+        console.log(this.props.location.state.userId);
+        
+        
+    }
+
+    render() {
         return(
             <div id="content-wrapper" className="d-flex flex-column">
 
@@ -93,7 +107,7 @@ function ChatBox() {
             </li>
 
             <li className="nav-item dropdown no-arrow mx-1">
-            <Link to="/ChatBox" className="nav-link dropdown-toggle" id="messagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <Link to={{pathname: "/ChatBox", state: {userId: this.props.location.state.userId}}} className="nav-link dropdown-toggle" id="messagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <i className="fas fa-envelope fa-fw"></i>
                 <span className="badge badge-danger badge-counter">7</span>
             </Link>
@@ -101,7 +115,7 @@ function ChatBox() {
                 <h6 className="dropdown-header">
                     Message Center
                 </h6>
-                <Link to="/ChatBox" className="dropdown-item d-flex align-items-center" >
+                <Link to={{pathname: "/ChatBox", state: {userId: this.props.location.state.userId}}} className="dropdown-item d-flex align-items-center" >
                     <div className="dropdown-list-image mr-3">
                     <img className="rounded-circle" src="https://source.unsplash.com/fn_BT9fwg_E/60x60" alt=""/>
                     <div className="status-indicator bg-success"></div>
@@ -185,10 +199,10 @@ function ChatBox() {
 
             </nav>
 
-            <Chat/>
+            <Chat props={this.props}/>
             </div>
             </div>
         );
-    
+    }
 }
 export default ChatBox;
