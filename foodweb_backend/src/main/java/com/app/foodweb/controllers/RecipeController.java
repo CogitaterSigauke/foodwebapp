@@ -128,8 +128,13 @@ public class RecipeController {
     Recipe recipe = recipeRepository.findById(recipe_id).get();
     //A recipe can only be deleted by its owner.
     if(recipe.getUserId().equals(user_id)){
+      //delete comments associated with this recipes
+
+      //delete reviews associated with this recipe
+      
       String objectID = recipe.getId();
       recipeRepository.delete(recipe);
+
       index.deleteObject(objectID);
       return "DELETE: success";
     }
