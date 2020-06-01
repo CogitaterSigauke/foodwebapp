@@ -85,40 +85,42 @@ public class RecipeController {
     return recipe;
   }
   //update recipe info
-  @RequestMapping(method=RequestMethod.PUT, value="app/edit_recipe/{id}")
-  public Recipe updateRecipe(@PathVariable String id, @RequestBody Recipe recipe){
+  @RequestMapping(method=RequestMethod.PUT, value="app/{user_id}/edit_recipe/{id}")
+  public Recipe updateRecipe(@PathVariable String id,@PathVariable String user_id, @RequestBody Recipe recipe){
+    //recipe can be edited only by the recipe creator
     Recipe r = recipeRepository.findById(id).get();
+    if(r.getUserId() == user_id){
+      if(recipe.getMealName() != null){
+        r.setMealName(recipe.getMealName());
+      }
+      if(recipe.getMealType() != null){
+        r.setMealType(recipe.getMealType());
+      }
+      if(recipe.getDietAndHealth() != null){
+        r.setDietAndHealth(recipe.getDietAndHealth());
+      }
+      if(recipe.getWorldCuisine() != null){
+        r.setWorldCuisine(recipe.getWorldCuisine());
+      }
+      if(recipe.getDescription() != null){
+        r.setDescription(recipe.getDescription());
+      }
 
-    if(recipe.getMealName() != null){
-      r.setMealName(recipe.getMealName());
-    }
-    if(recipe.getMealType() != null){
-      r.setMealType(recipe.getMealType());
-    }
-    if(recipe.getDietAndHealth() != null){
-      r.setDietAndHealth(recipe.getDietAndHealth());
-    }
-    if(recipe.getWorldCuisine() != null){
-      r.setWorldCuisine(recipe.getWorldCuisine());
-    }
-    if(recipe.getDescription() != null){
-      r.setDescription(recipe.getDescription());
-    }
+      recipeRepository.save(r);
+      // UPDATE INDEX
+      RecipeImage recipeImage = new RecipeImage(
+      r.getId(),
+      r.getUserName(),
+      r.getMealType(),
+      r.getDietAndHealth(),
+      r.getWorldCuisine(),
+      r.getMealName(),
+      r.getCreatedAt(),
+      r.getImageString());
+      index.saveObject(recipeImage);
 
-    recipeRepository.save(r);
-    // UPDATE INDEX
-    RecipeImage recipeImage = new RecipeImage(
-    r.getId(),
-    r.getUserName(),
-    r.getMealType(),
-    r.getDietAndHealth(),
-    r.getWorldCuisine(),
-    r.getMealName(),
-    r.getCreatedAt(),
-    r.getImageString());
-    index.saveObject(recipeImage);
-    return r;
-
+  }
+     return r;
   }
   //delete a recipe. recipe is deleted only by the owner of the recipe
   @RequestMapping(method=RequestMethod.DELETE, value="app/{user_id}/delete_recipe/{recipe_id}")
@@ -126,7 +128,6 @@ public class RecipeController {
     Recipe recipe = recipeRepository.findById(recipe_id).get();
     //A recipe can only be deleted by its owner.
     if(recipe.getUserId().equals(user_id)){
-
       String objectID = recipe.getId();
       recipeRepository.delete(recipe);
       index.deleteObject(objectID);
@@ -223,7 +224,15 @@ public class RecipeController {
   // find recipe by id
   @RequestMapping(method=RequestMethod.GET, value="app/recipe/{recipe_id}")
   public Recipe getRecipe(@PathVariable String recipe_id){
-    return recipeRepository.findById(recipe_id).get();
+    try{
+       return recipeRepository.findById(recipe_id).get();
+    }
+    catch (Exception e) {
+      System.out.println("No Recipe found with the given id:" + e);
+
+      return null;
+    }
+
   }
   // get all the recipes that are registered
   @RequestMapping(method=RequestMethod.GET, value="app/all_recipes")

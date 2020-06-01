@@ -137,7 +137,13 @@ public class UserController {
 	//finding users by their unique id
 	@RequestMapping(method=RequestMethod.GET, value="app/user/{id}")
 	public User getUser(@PathVariable String id){
-		return userRepository.findById(id).get();
+		try{
+			 return userRepository.findById(id).get();
+		}
+		catch (Exception e) {
+			System.out.println("No user found with the given id:" + e);
+			return null;
+		}
 	}
 
 	//route to find all registered users
