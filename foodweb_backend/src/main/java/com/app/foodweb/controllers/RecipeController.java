@@ -66,24 +66,28 @@ public class RecipeController {
   DefaultSearchClient.create("2RJQDQ5U0W", "d050b5c7676c0b34f05785f1213f6a79");
   SearchIndex<RecipeImage> index = client.initIndex("recipes", RecipeImage.class);
 
-  @RequestMapping(method=RequestMethod.POST, value="app/user/add/recipe")
-  public Recipe saveRecipe(@RequestBody Recipe recipe) {
+  @RequestMapping(method=RequestMethod.POST, value="app/user/{userId}/add/recipe")
+  public Recipe saveRecipe(@PathVariable String userId,@RequestBody Recipe recipe) {
+    Optional<User> optuser = userRepository.findById(recipe.getUserId());
+    if(optuser.isPresent()){
+        recipe.setUserName(optuser.get().getUserName());
+        recipeRepository.save(recipe);
 
-    recipeRepository.save(recipe);
-
-    // UPDATE INDEX
-    RecipeImage recipeImage = new RecipeImage(
-    recipe.getId(),
-    recipe.getUserName(),
-    recipe.getMealType(),
-    recipe.getDietAndHealth(),
-    recipe.getWorldCuisine(),
-    recipe.getMealName(),
-    recipe.getCreatedAt(),
-    recipe.getImageString());
-    index.saveObject(recipeImage);
-    return recipe;
+        // UPDATE INDEX
+        RecipeImage recipeImage = new RecipeImage(
+        recipe.getId(),
+        recipe.getUserName(),
+        recipe.getMealType(),
+        recipe.getDietAndHealth(),
+        recipe.getWorldCuisine(),
+        recipe.getMealName(),
+        recipe.getCreatedAt(),
+        recipe.getImageString());
+        index.saveObject(recipeImage);
+        return recipe;
   }
+  return recipe;
+}
   //update recipe info
   @RequestMapping(method=RequestMethod.PUT, value="app/{user_id}/edit_recipe/{id}")
   public Recipe updateRecipe(@PathVariable String id,@PathVariable String user_id, @RequestBody Recipe recipe){
@@ -128,10 +132,13 @@ public class RecipeController {
     Recipe recipe = recipeRepository.findById(recipe_id).get();
     //A recipe can only be deleted by its owner.
     if(recipe.getUserId().equals(user_id)){
-      //delete comments associated with this recipes
+      //delete reviews associated with this recipes
 
-      //delete reviews associated with this recipe
-      
+
+
+      //delete comments associated with this recipe
+
+
       String objectID = recipe.getId();
       recipeRepository.delete(recipe);
 

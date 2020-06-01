@@ -13,7 +13,7 @@
     "react": "^16.13.0",
     "react-dom": "^16.13.0",
     "react-google-login": "^5.1.2",
-    "react-instantsearch-dom": "^6.4.0",
+    "react-instantsearch-dom": "^6.5.0",
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.0"
   },
