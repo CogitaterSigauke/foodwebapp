@@ -47,7 +47,8 @@ class App extends Component{
         query: "",
         loggedIn: false,
         userId:"",
-        userName: ""
+        userName: "",
+        imageString: ""
 
   };
   search() {
@@ -94,6 +95,7 @@ class App extends Component{
             this.setState({
               userId : response.data.id,
               userName: response.data.userName,
+           
               loggedIn : true,
             })
             if(this.state.loggedIn){
@@ -101,7 +103,9 @@ class App extends Component{
               this.props.history.push({
                 pathname: "/Home",
                 state: {userId: this.state.userId,
-                        userName: this.state.userName}
+                        userName: this.state.userName,
+                        imageString: response.data.imageString
+                      }
             });}
              console.log("++++++++++++++");
  

@@ -43,7 +43,9 @@ function Login() {
         history.push({
           pathname: "/Home",
           state: {userId: response.data.id,
-                  userName: response.data.userName}
+                  userName: response.data.userName,
+                  imageString: response.data.imageString
+                }
           });
         })
       .catch((err) => {

@@ -29,8 +29,9 @@ class AddRecipe extends React.Component {
 
       progress: 0,
       steps: "",
-      ingredients: ""
+      ingredients: "",
 
+      profileImage: ""
 
     };
   }
@@ -43,7 +44,8 @@ class AddRecipe extends React.Component {
     console.log(this.props.location.state.userId);
     this.setState({
       userId: this.props.location.state.userId,
-      userName: this.props.location.state.userName
+      userName: this.props.location.state.userName,
+      profileImage: this.props.location.state.imageString
     });
   }
 
@@ -76,7 +78,9 @@ class AddRecipe extends React.Component {
         this.props.history.push({
           pathname: "/Home",
           state: {userId: this.state.userId,
-                  userName: this.state.userName}
+                  userName: this.state.userName,
+                  imageString: this.state.profileImage
+                }
         });
 
       })

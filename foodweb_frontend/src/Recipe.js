@@ -3,6 +3,7 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 import './recipe.css';
 import Rating from './Rating';
+import { connectScrollTo } from 'react-instantsearch-dom';
 
 
 class Recipe extends Component {
@@ -15,7 +16,8 @@ class Recipe extends Component {
                 comment: '',
                 // rating: '',
             },
-            LoadedComments: {}
+            LoadedComments: {},
+           
         };
     }
 
@@ -35,17 +37,14 @@ class Recipe extends Component {
             this.setState({LoadedComments: commments.data });
             console.log("Loaded Comments");
             console.log(this.state.LoadedComments);
-
         });
-      
-  
     }
-        // delete a recipe
-   
-
-    deleteRecipe() {
+        
+    // delete a recipe
+    deleteRecipe = () => {
         // e.preventDefault(); 
-        axios.delete('app/5eb7c78b12e629445c8f07c2/delete_recipe/5eba3f7efd9c7b27cb32b8fa')
+        console.log("Recipe user ID", this.state.Recipe)
+        axios.delete('/'+this.state.Recipe.userId+'/delete_recipe/'+this.props.match.params.id)
         .then((result) => {
             alert("Successfuly Deleted");
             this.props.history.push("/Home")
@@ -58,21 +57,7 @@ class Recipe extends Component {
         });
     }
 
-    // This will edit a recipe
-    // editRecipe = (e) =>{
-    // e.preventDefault(); 
-    // axios.put('app//delete_recipe/KUGYJAGFVAHYIGSK')
-    // .then((result) => {
-    //     alert("Successfuly Updated");
-    //     this.props.history.push("/Home")
-    //     })
-    //     .catch((err) => {
-    //     console.log(`Errors: {errors}`);
-    //     })
-    //     .catch((err) => {
-    //     console.log(`Errors: {errors}`);
-    //     });
-    // }
+  
 
     onChange = (e) => {
         const state = this.state.Review
@@ -110,14 +95,12 @@ class Recipe extends Component {
             // setErrors(err.result.data);
             console.log(`Errors: {errors}`);
           });
-
-
-    
       }
     
     
     render() {
         const { comment } = this.state.Review;
+        // const { userId, userName, mealType, dietAndHealth, worldCuisine, mealName, description, imageString, videoId, steps, ingredients} = this.state.editRecipe;
 
         return (         
         <div id="wrapper">
@@ -545,13 +528,13 @@ class Recipe extends Component {
                             {/* <textarea  rows="3" cols="30" className="form-control form-control-user" value = {comment} placeholder="Leave a comment"/> */}
                             <Rating/>
                             
-{/*                             
+                            {/*                             
                             <div className="rating">
                             <span>☆</span><span>☆</span><span>☆</span><span>☆</span><span>☆</span>
                             </div> */}
                             <button type="submit" className="btn btn-success">Submit Review</button>
-                            <button type="button" class="btn btn-success">Edit_Recipe</button>
-                            <button type="button" class="btn btn-danger" onClick={this.deleteRecipe}>Delete_Recipe </button>
+                            <button type="button" className="btn btn-success">Edit_Recipe</button>
+                            <button type="button" className="btn btn-danger" onClick={this.deleteRecipe}>Delete_Recipe </button>
 
                             {/* <a className="btn btn-success btn-green" href="#reviews-anchor" id="open-review-box">Leave a Review</a> */}
                         </div>

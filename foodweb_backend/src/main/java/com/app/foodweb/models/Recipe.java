@@ -25,15 +25,15 @@ public class Recipe {
     String createdAt;
     String videoId;
     ArrayList<String> urls;
-    String ingredients;
-    String steps;
+    ArrayList<String> ingredients;
+    ArrayList<String> steps;
     // ArrayList<String> ingredients;
     // ArrayList<String> steps;
     
     public Recipe(String userName, String userId, String mealType,
     String dietHealth, String worldCuisine, String mealName,
     String description, String videoId,String imageString, 
-    String ingredients, String steps, ArrayList<String> urls) {
+    ArrayList<String> ingredients,   ArrayList<String> steps, ArrayList<String> urls) {
         this.userId = userId;
         this.userName = userName;
         this.mealType = mealType;
@@ -162,34 +162,34 @@ public class Recipe {
     public void setCreatedAt(String editedAt) {
         this.createdAt = editedAt;
     }
-    public String getIngredients() {
-        return ingredients;
-    }
-    // public ArrayList<String> getIngredients() {
-    //   return ingredients;
+    // public String getIngredients() {
+    //     return ingredients;
     // }
+    public ArrayList<String> getIngredients() {
+      return ingredients;
+    }
 
-    // public void setIngredients(ArrayList<String> ingredients) {
-    //  this.ingredients = ingredients;
+    public void setIngredients(ArrayList<String> ingredients) {
+     this.ingredients = ingredients;
+    }
+
+    // public void setIngredients(String ingredients) {
+    //     this.ingredients = ingredients;
     // }
-
-    public void setIngredients(String ingredients) {
-        this.ingredients = ingredients;
-    }
-    public String getSteps() {
-        return steps;
-    }
-
-    // public ArrayList<String> getSteps() {
+    // public String getSteps() {
     //     return steps;
     // }
-    // public void setSteps(ArrayList<String> steps) {
-    //     this.steps = steps;
-    // }
 
-    public void setSteps(String steps) {
+    public ArrayList<String> getSteps() {
+        return steps;
+    }
+    public void setSteps(ArrayList<String> steps) {
         this.steps = steps;
     }
+
+    // public void setSteps(String steps) {
+    //     this.steps = steps;
+    // }
 
     public ArrayList<String> getUrls() {
         return urls;

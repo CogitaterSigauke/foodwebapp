@@ -69,7 +69,14 @@ class Profile extends  React.Component{
            <div>
                
                 <nav className="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
-                    <Link to="/Home">
+                    <Link to={{ 
+                        pathname: '/Home',
+                        state: {
+                                userId : this.state.User.userId,
+                                userName: this.state.User.userName,
+                                imageString: this.state.User.imageString
+                            }
+                        }}>
                         <div className="sidebar-brand-icon rotate-n-15">
                             <i className="fas fa-blender">Home</i>
                         </div>

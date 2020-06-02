@@ -22,6 +22,7 @@ class Home extends React.Component{
       Hits: [],
       query: "",
       authenticated: true
+
     };
   }
 
@@ -45,6 +46,7 @@ componentWillMount() {
     console.log(this.props);
     console.log("=-=-=-=-=-=-=-=-=-=-=-=-")
     console.log(this.props.location.state.userId);
+
   }else{
     console.log("=============START==Inside Home===============");
     console.log("=============Not Logged in===============");
@@ -381,7 +383,7 @@ render() {
             <li className="nav-item dropdown no-arrow">
               <a className="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <span className="mr-2 d-none d-lg-inline text-gray-600 small">Redi</span>
-                <img className="img-profile rounded-circle" src={this.state}/>
+                <img className="img-profile rounded-circle" src={this.props.location.state.imageString}/>
               </a>
               <div className="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
                 
