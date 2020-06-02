@@ -5,7 +5,15 @@ import {Link}  from 'react-router-dom';
 import axios from 'axios';
 import PropTypes from 'prop-types';
 import {withRouter} from 'react-router-dom';
+import algoliasearch from 'algoliasearch/lite';
 
+const searchClient = algoliasearch(
+    '2RJQDQ5U0W',
+    '2c9dd00a80a65a207001e057e93e81e5'
+  );
+  
+let index = searchClient.initIndex('users');
+  
 
 class Chat extends Component{
 
@@ -13,6 +21,9 @@ class Chat extends Component{
         super(props);
     
             this.state = {
+                value: "",
+                Hits: [],
+                query: "",
                 currentUser: '5ec2bdf2eef504193203e329',
                 message:{
                     senderUserId: '5ec2bdf2eef504193203e329',
@@ -20,21 +31,46 @@ class Chat extends Component{
                     messageText: '',
                     imageId: '',
                     videoId: '',
+                    
                 },
 
                 Messages: [{  messageText: 'Hi there', },{  messageText: 'Hi Redi'},{  messageText: 'Hi cogi'}]
             };
       }
 
+      search() {
+
+        //  =================QUERY===================
       
+        index.search(this.state.query).then(({hits}) => {
+          console.log(hits);
+          this.setState({
+            Hits: hits
+          });
+      
+      
+        });
+      }
     onChange = (e) => {
         const state = this.state.message;
         state[e.target.name] = e.target.value;
         this.setState(state);
     }
+
+    handleChange = (e) =>{
+
+        this.setState({
+          value: e.target.value,
+          query: e.target.value
+        });
+      
+        this.search();
+      
+    }
     
     componentDidMount() {
         // console.log('/recipe/5eba3f7efd9c7b27cb32b8fa');
+        this.search();
         console.log("=============START======CHAT===========");
         console.log(this.props);
         console.log("=-=-=-=-=-CHAT=-=-=-=-=-=-=-")
@@ -87,21 +123,37 @@ class Chat extends Component{
                             <i className="fas fa-bars"></i>
                             </span>
                         </div>
+                        {/* Search Bar */}
                         <div className="search-box">
+                             
                             <div className="input-wrapper">
                                 <i className="fas fa-search"></i>
                             
-                                <input id = "chat_input" placeholder="Search here" type="text"/>
+                                <input id = "chat_input" placeholder="Search here" type="text" value={this.state.value} onChange={this.handleChange}/>
                             </div>
+                             
                         </div>
-                        <div className="friend-drawer friend-drawer--onhover">
-                            <img className="profile-image" src={require("./profiles/daryl.png")} alt=""/>
-                            <div className="text">
-                                <h6>Robo Cop</h6>
-                                <p className="text-muted">Hey, you're arrested!</p>
-                            </div>
-                            <span className="time text-muted small">13:21</span>
-                        </div>
+                        {/* Search Bar */}
+
+                        {/* HITS Display*/}
+
+                            {
+                                this.state.Hits.map((hit, i)=>(
+                                    <div className="friend-drawer friend-drawer--onhover">
+                                        <img className="profile-image" src={hit.imageString} alt="profile picture"/>
+                                        <div className="text">
+                                            <h6>{hit.userName}</h6>
+                                            <p className="text-muted">{hit.familyName}</p>
+                                        </div>
+                                        <span className="time text-muted small">13:21</span>
+                                    </div>
+                                ))
+                            }                        
+
+
+
+                        {/* HITS Display*/}
+
                         <hr/>
                         <div className="friend-drawer friend-drawer--onhover">
                             <img className="profile-image" src={require("./profiles/douglas.png")}  alt=""/>
