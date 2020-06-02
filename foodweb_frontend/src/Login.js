@@ -48,6 +48,7 @@ function Login() {
 
         localStorage.setItem('loggedin', true);
         localStorage.setItem('user_id', id);
+
         history.push("/Home");
         // window.location.reload(false);
 

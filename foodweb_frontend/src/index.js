@@ -15,7 +15,8 @@ import RegisterAccount from './RegisterAccount';
 import Block from './Block';
 import EditProfile from './EditProfile';
 import Recipe from './Recipe';
-
+import MyRecipes from './MyRecipes';
+import MyRecipeDetail from './MyRecipeDetail';
 // import Profile from './Components/ProfileComponents/Profile';
 import App from './App';
 
@@ -23,7 +24,7 @@ ReactDOM.render(
 
 
   <Router>
-
+ 
     <Switch>
       <Route path="/" exact component={App} />
       <Route path="/Login" component={Login} />
@@ -31,11 +32,14 @@ ReactDOM.render(
       <Route path="/Home/" component={Home} />
       <Route path="/RegisterAccount" component={RegisterAccount} />
       <Route path="/AddRecipe" component={AddRecipe} />
-      {/* 여기 블락,프로파일,에딧프로파일,팔로잉 */}
+   
       <Route path="/Block" component={Block} />
       <Route path="/EditProfile/:id" component={EditProfile} />
       <Route path="/Profile/:id" component={Profile} />
       <Route path="/ChatBox" component={ChatBox}/>
+      <Route path="/MyRecipes" component={MyRecipes}/>
+      {/* <Route path="/MyRecipeDetail/:id" component={MyRecipeDetail}/> */}
+     
 
 
     </Switch>

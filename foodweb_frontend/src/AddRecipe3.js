@@ -1,11 +1,9 @@
 import React, { Component } from 'react';
 import ReactDom from 'react-dom';
 import { Link } from 'react-router-dom';
+// import FileBase64 from 'react-file-base64';
 import axios from 'axios';
 import { useHistory } from "react-router-dom";
-import { storage } from "./firebase";
-
-
 class AddRecipe extends React.Component {
 
   constructor(props) {
@@ -17,15 +15,8 @@ class AddRecipe extends React.Component {
       worldCuisine: '',
       mealName: '',
       description: '',
-      imageString: '' , 
-      videoId: '',
-      image: null,
-      images: [],
-      url: "",
-      urls: [],
-      progress: 0,
-      steps: "",
-      ingredients: ""
+      imageString: 'https://mdbootstrap.com/img/Photos/Horizontal/Food/full%20page/9.jpg', //BASE 64 STRING ENCODED FROM THE CLIENT SIDE
+      videoId: ''
 
     };
   }
@@ -40,97 +31,46 @@ class AddRecipe extends React.Component {
   fileSelectedHandler = (e) => {
     console.log("Selected file of size: " + e.target.files[0].size);
     this.setState({
-      image: e.target.files[0], 
+      image: e.target.files[0],
     })
   }
 
   onSubmit = (e) => {
     e.preventDefault();
-    debugger;
-    const{ mealType, dietAndHealth, worldCuisine, mealName, description, imageString, videoId, steps, ingredients } = this.state;
-    debugger;
-    axios.post('/user/add/recipe/', { mealType, dietAndHealth, worldCuisine, mealName, description, imageString, videoId, steps, ingredients })
+    // id=  localStorage.getItem("id");
+    const { userName, mealType, dietAndHealth, worldCuisine, mealName, description, imageString, videoId } = this.state;
+
+    axios.post('/user/add/recipe/', { userName, mealType, dietAndHealth, worldCuisine, mealName, description, imageString, videoId })
       .then((result) => {
         console.log("After Posting new Contact - returned data: " + result.data);
         const recipeID = result.data.id;
+
         console.log('======response.data======');
         console.log(result.data);
-        // alert("Successfuly saved, Thank you!");
-        // this.props.history.push("/Home")
+        alert("Successfuly saved");
+        this.props.history.push("/Home")
       })
       .catch((err) => {
         console.log(`======response.data=====`);
+        // setErrors(err.result.data);
         console.log(`Errors: {errors}`);
+
+
       })
       .catch((err) => {
+
+        // setErrors(err.result.data);
         console.log(`Errors: {errors}`);
       });
+    ;
+
+
   }
-
-  handleFileChange = e => {
-    if (e.target.files[0]) {
-      this.setState({
-        image: e.target.files[0]
-      });
-      console.log("handleFileChange \nstate: ", this.state);
-    }  
-  };
-
-  handleUpload= () => {
-
-    console.log("handleUpload State:", this.state);
-    const uploadTask = storage.ref(`images/${this.state.image.name}`).put(this.state.image);
-    console.log("handleUpload State: ==========================================");
-    uploadTask.on(
-      "state_changed",
-      snapshot => {
-
-        const progress = Math.round(
-          (snapshot.bytesTransferred / snapshot.totalBytes) * 100
-        );
-
-        this.setState({
-          progress: progress
-        });
-        
-        console.log("Inside Handle Upload\n state :", this.state);
-
-      },
-      error => {
-        console.log("Error ==>", error);
-      },
-      () => {
-        this.state.images.push(this.state.image.name);
-       
-        console.log("Before getting image from storage\n state: ", this.state);
-        storage
-          .ref("images")
-          .child(this.state.image.name)
-          .getDownloadURL()
-          .then(imageUrl => {
-            // this.setState({
-            //   url: imageUrl,
-            //   imageString: imageUrl
-            // });
-            this.state.urls.push(imageUrl);
-            // this.state.imageString = imageUrl;
-            this.setState({
-                url: imageUrl,
-                imageString: imageUrl
-              });
-            
-              console.log("After Handle Upload\n state :", this.state);
-  
-          });
-      }
-    );
-  };
-
 
 
   render() {
 
-    const { mealType, dietAndHealth, worldCuisine, mealName, description, imageString, videoId, steps, ingredients} = this.state;
+    const { userName, mealType, dietAndHealth, worldCuisine, mealName, description, imageString, videoId } = this.state;
 
     return (
       <div className="AddRecipe">
@@ -209,6 +149,12 @@ class AddRecipe extends React.Component {
                 </div>
               </div>
             </li>
+
+            {/* <hr className="sidebar-divider"/>
+
+  <div className="sidebar-heading">
+    Main Dish
+  </div> */}
 
             <li className="nav-item active">
               <a className="nav-link" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true" aria-controls="collapsePages">
@@ -295,7 +241,7 @@ class AddRecipe extends React.Component {
                     <div className="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="alertsDropdown">
                       <h6 className="dropdown-header">
                         Alerts Center
-                    </h6>
+            </h6>
                       <a className="dropdown-item d-flex align-items-center" href="#">
                         <div className="mr-3">
                           <div className="icon-circle bg-primary">
@@ -315,8 +261,8 @@ class AddRecipe extends React.Component {
                         </div>
                         <div>
                           <div className="small text-gray-500">December 7, 2019</div>
-                            $290.29 has been deposited into your account!
-                        </div>
+                $290.29 has been deposited into your account!
+              </div>
                       </a>
                       <a className="dropdown-item d-flex align-items-center" href="#">
                         <div className="mr-3">
@@ -326,8 +272,8 @@ class AddRecipe extends React.Component {
                         </div>
                         <div>
                           <div className="small text-gray-500">December 2, 2019</div>
-                            Spending Alert: We've noticed unusually high spending for your account.
-                        </div>
+                Spending Alert: We've noticed unusually high spending for your account.
+              </div>
                       </a>
                       <a className="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>
                     </div>
@@ -341,7 +287,7 @@ class AddRecipe extends React.Component {
                     <div className="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="messagesDropdown">
                       <h6 className="dropdown-header">
                         Message Center
-                     </h6>
+            </h6>
                       <a className="dropdown-item d-flex align-items-center" href="#">
                         <div className="dropdown-list-image mr-3">
                           <img className="rounded-circle" src="https://source.unsplash.com/fn_BT9fwg_E/60x60" alt="" />
@@ -384,7 +330,7 @@ class AddRecipe extends React.Component {
                       </a>
                       <a className="dropdown-item text-center small text-gray-500" href="#">Read More Messages</a>
                     </div>
-                </li>
+                  </li>
 
                   <div className="topbar-divider d-none d-sm-block"></div>
 
@@ -396,35 +342,35 @@ class AddRecipe extends React.Component {
                     <div className="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
                       <a className="dropdown-item" href="#">
                         <i className="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                        Profile
-                        </a>
+              Profile
+            </a>
                       <a className="dropdown-item" href="#">
                         <i className="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-                          Settings
-                        </a>
+              Settings
+            </a>
                       <a className="dropdown-item" href="#">
                         <i className="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
-                        Activity Log
-                        </a>
+              Activity Log
+            </a>
                       <Link to="/Components/ProfileComponents/AddRecipe">
                         <p className="dropdown-item">
                           <i className="fas fa-glass-cheers fa-sm fa-fw mr-2 text-gray-400"></i>
-                         Add Recipe
-                        </p>
+                Add Recipe
+              </p>
                       </Link>
                       <div className="dropdown-divider"></div>
                       <Link to="/">
                         <p className="dropdown-item" data-toggle="modal" data-target="#logoutModal">
                           <i className="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                            Logout
-                        </p>
+                Logout
+              </p>
                       </Link>
                     </div>
                   </li>
 
                 </ul>
 
-            </nav>
+              </nav>
 
 
 
@@ -434,61 +380,50 @@ class AddRecipe extends React.Component {
                   <h1 className="h3 mb-4 text-gray-800">ADD YOUR RECIPE HERE</h1>
                   <div className="row">
                     <div className="col-sm-6">
-                        <form onSubmit={this.onSubmit}>
-                            <div className="form-group">
-                              <label htmlFor="mealName">Meal Name:</label>
-                              <input type="text" className="form-control" name="mealName" value={mealName} onChange={this.onChange} placeholder="mealName" required />
-                            </div>
-                        
-                            <div className="form-group">
-                              <label htmlFor="mealType">Meal Type:</label>
-                              <input type="text" className="form-control" name="mealType" value={mealType} onChange={this.onChange} placeholder="mealType" required/>
-                            </div>
+                      <form onSubmit={this.onSubmit}>
 
-                            <div className="form-group">
-                              <label htmlFor="dietAndHealth">Diet And Health:</label>
-                              <input type="text" className="form-control" name="dietAndHealth" value={dietAndHealth} onChange={this.onChange} placeholder="dietAndHealth" required/>
-                            </div>
-
-                            <div className="form-group">
-                              <label htmlFor="worldCuisine">World Cuisine:</label>
-                              <input type="text" className="form-control" name="worldCuisine" value={worldCuisine} onChange={this.onChange} placeholder="worldCuisine" required/>
-                            </div>
-                            <div className="form-group">
-                              <label htmlFor="description">Description</label>
-                              <textarea rows="3" cols="20" type="text" className="form-control" name="description" value={description} onChange={this.onChange} placeholder="give a general description about the recipe" required/>
-                            </div>
-                            <div className="form-group">
-                              <label htmlFor="ingredients">Ingredients</label>
-                              <textarea rows="3" cols="30" type="text" className="form-control" name="ingredients" value={ingredients} onChange={this.onChange} placeholder="Write the list of ingredients needed to make this recipe" required/>
-                            </div>
-                            <div className="form-group">
-                              <label htmlFor="Stpes">Steps</label>
-                              <textarea rows="10" cols="50" type="text" className="form-control" name="steps" value={steps} onChange={this.onChange} placeholder="Write a detail description of steps of the recipe" required/>
-                            </div>
-                            <button type="submit" className="btn btn-success">Submit</button>
-                    </form>
-                    <div>
-                        <progress value={this.state.progress} max="100" />
-                        <br />
-                        <div>
-                          <input type="file" onChange={this.handleFileChange} />
-                          <br /><br />
-                          <button onClick={this.handleUpload}>Upload Image</button>
+                        <div className="form-group">
+                          <label htmlFor="userName">userName:</label>
+                          {/* <input type="text" className="form-control " name="userName" value={userName} onChange={this.onChange} placeholder="Name" /> */}
                         </div>
-                        <br />
+                        <div className="form-group">
+                          <label htmlFor="mealType">mealType:</label>
+                          <input type="text" className="form-control" name="mealType" value={mealType} onChange={this.onChange} placeholder="mealType" />
+                        </div>
+                        <div className="form-group">
+                          <label htmlFor="dietAndHealth">dietAndHealth:</label>
+                          <input type="text" className="form-control" name="dietAndHealth" value={dietAndHealth} onChange={this.onChange} placeholder="dietAndHealth" />
+                        </div>
+                        <div className="form-group">
+                          <label htmlFor="worldCuisine">worldCuisine:</label>
+                          <input type="text" className="form-control" name="worldCuisine" value={worldCuisine} onChange={this.onChange} placeholder="worldCuisine" />
+                        </div>
+
+                        <div className="form-group">
+                          <label htmlFor="mealName">mealName:</label>
+                          <input type="text" className="form-control" name="mealName" value={mealName} onChange={this.onChange} placeholder="mealName" />
+                        </div>
+                        <div className="form-group">
+                          <label htmlFor="description">description:</label>
+                          <input type="text" className="form-control" name="description" value={description} onChange={this.onChange} placeholder="description" />
+                        </div>
+                        {/* <div className="form-group">
+            <label htmlFor="imageBase64"></label>
+            <FileBase64 onDone={this.getBase64File.bind(this)}/>
+        </div> */}
+                        {/* <div className="form-group">
+            <label htmlFor="image">Profile Picture (Sending as FormData):</label>
+            <input type="file" onChange={this.fileSelectedHandler}/>
+        </div> */}
+                        <button type="submit" className="btn btn-success">Submit</button>
+
+                      </form>
                     </div>
-                      <br />
-                        {this.state.images.map((image, i )=>(
-                          <div key={i}>{image}</div>
-                        ))}
-                    </div>
-                    <br /><br />
+
                     <div className="column">
-                    <br />
-                      {/* <h1 className="h3 mb-4 text-gray-800">OR PICK HERE(coming soon)</h1> */}
+                      <h1 className="h3 mb-4 text-gray-800">OR PICK HERE(coming soon)</h1>
                       {/* card one */}
-                      {/* <form>
+                      <form>
 
                         <div className="dropdown no-arrow mb-4">
                           <button className="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -496,7 +431,7 @@ class AddRecipe extends React.Component {
                             <span className="icon text-white-50">
                               <i className="fas fa-plus"></i>
                             </span>
-                            <span className="text">Meal Type </span>
+                            <span className="text"  name = "mealType" value={mealType} onChange={this.onChange} >Meal Type </span>
 
                           </button>
                           <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
@@ -581,8 +516,9 @@ class AddRecipe extends React.Component {
                         </div>
                         <textarea rows="10" cols="40" className="form-control form-control-user" id="exampleFirstName" placeholder="Enter the Steps here in detail..." />
                         <input type="file" id="myFile" name="filename" />
-                        <input type="submit" />
-                      </form> */}
+                        
+                        {/* <input type="submit"  /> */}
+                      </form>
                     </div>
                   </div>
                 </div>

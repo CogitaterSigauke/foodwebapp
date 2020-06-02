@@ -104,7 +104,15 @@ public class RecipeController {
     if(recipe.getDescription() != null){
       r.setDescription(recipe.getDescription());
     }
-
+    if(recipe.getIngredients() != null){
+      r.setIngredients(recipe.getIngredients());
+    }
+    if(recipe.getSteps() != null){
+      r.setSteps(recipe.getSteps());
+    }
+    if(recipe.getUrls() != null){
+      r.setUrls(recipe.getUrls());
+    }
     recipeRepository.save(r);
     // UPDATE INDEX
     RecipeImage recipeImage = new RecipeImage(
@@ -126,7 +134,6 @@ public class RecipeController {
     Recipe recipe = recipeRepository.findById(recipe_id).get();
     //A recipe can only be deleted by its owner.
     if(recipe.getUserId().equals(user_id)){
-
       String objectID = recipe.getId();
       recipeRepository.delete(recipe);
       index.deleteObject(objectID);
