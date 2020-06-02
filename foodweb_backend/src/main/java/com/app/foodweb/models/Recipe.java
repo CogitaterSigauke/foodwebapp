@@ -154,7 +154,7 @@ public class Recipe {
         return steps;
     }
 
-    public void setInstructions(String steps) {
+    public void setSteps(String steps) {
         this.steps = steps;
     }
 

@@ -60,6 +60,7 @@ public class RecipeController {
   @Autowired
   VideoRepository videoRepository;
 
+  @Autowired
   ReviewRepository reviewRepository;
 
   SearchClient client =
@@ -110,6 +111,12 @@ public class RecipeController {
       if(recipe.getDescription() != null){
         r.setDescription(recipe.getDescription());
       }
+      if(recipe.getSteps() != null){
+        r.setSteps(recipe.getSteps());
+      }
+      if(recipe.getIngredients() != null){
+        r.setIngredients(recipe.getIngredients());
+      }
 
       recipeRepository.save(r);
       // UPDATE INDEX
@@ -130,12 +137,13 @@ public class RecipeController {
   //delete a recipe. recipe is deleted only by the owner of the recipe
   @RequestMapping(method=RequestMethod.DELETE, value="app/{user_id}/delete_recipe/{recipe_id}")
   public String deleteRecipe(@PathVariable String user_id,@PathVariable String recipe_id){
-    Recipe recipe = recipeRepository.findById(recipe_id).get();
-    //A recipe can only be deleted by its owner.
-    if(recipe.getUserId().equals(user_id)){
-      //delete reviews associated with this recipes
+    Optional<Recipe> optrecipe = recipeRepository.findById(recipe_id);
+    //check if a recipe with the given id exists
+    if(optrecipe.isPresent()){
 
-      //delete comments associated with this recipe
+     Recipe recipe = optrecipe.get();
+     //A recipe can only be deleted by its owner.
+     if(recipe.getUserId().equals(user_id)){
 
       String objectID = recipe.getId();
       recipeRepository.delete(recipe);
@@ -145,6 +153,8 @@ public class RecipeController {
     }
     return "ERROR: authorization";
   }
+   return "ERROR: Recipe with the given id, doesn't exist";
+}
   //these are the meal types users are expected to select from while filing in recipe insertion form
   @RequestMapping(method=RequestMethod.GET, value="app/meal_type")
   public List<String> getAllMealType(){
@@ -239,7 +249,6 @@ public class RecipeController {
     }
     catch (Exception e) {
       System.out.println("No Recipe found with the given id:" + e);
-
       return null;
     }
 
