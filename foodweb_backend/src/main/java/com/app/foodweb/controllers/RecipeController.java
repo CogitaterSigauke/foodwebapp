@@ -13,6 +13,7 @@ import com.app.foodweb.repositories.ImageRepository;
 import com.app.foodweb.repositories.VideoRepository;
 import com.app.foodweb.repositories.ReviewRepository;
 import com.app.foodweb.models.Recipe;
+import com.app.foodweb.models.ErrorMessage;
 import com.app.foodweb.models.RecipeImage;
 import com.app.foodweb.models.User;
 import com.app.foodweb.models.Image;
@@ -32,6 +33,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -243,20 +245,27 @@ public class RecipeController {
 
   // find recipe by id
   @RequestMapping(method=RequestMethod.GET, value="app/recipe/{recipe_id}")
+  @ExceptionHandler({ErrorMessage.class})
   public Recipe getRecipe(@PathVariable String recipe_id){
-    try{
-       return recipeRepository.findById(recipe_id).get();
+    Optional<Recipe> optrecipe = recipeRepository.findById(recipe_id);
+    if(!optrecipe.isPresent()){
+        throw new ErrorMessage("No Recipe exists with this id");
     }
-    catch (Exception e) {
-      System.out.println("No Recipe found with the given id:" + e);
-      return null;
-    }
-
+    return optrecipe.get();
   }
-  // get all the recipes that are registered
+  // get all the recipes
   @RequestMapping(method=RequestMethod.GET, value="app/all_recipes")
-  public Iterable<Recipe> getAllRecipes(){
-    return recipeRepository.findAll();
+  public List<Recipe> getAllRecipes(){
+    //recipes which are filtered according to users account status:active or not
+    List<Recipe> filteredRecipes = new ArrayList<Recipe>();
+    Iterable<Recipe> allRecipes = recipeRepository.findAll();
+    for(Recipe recipe:allRecipes){
+       User user = userRepository.findById(recipe.getUserId()).get();
+       if(user.getActive().equals("true")){
+         filteredRecipes.add(recipe);
+       }
+    }
+    return filteredRecipes;
   }
 
   //find all recipes which are registered under a specific user

@@ -13,7 +13,7 @@ import com.app.foodweb.models.BlockedUser;
 import com.app.foodweb.repositories.UserRepository;
 import com.app.foodweb.repositories.BlockedUserRepository;
 import com.app.foodweb.repositories.FavoriteRepository;
-
+import org.springframework.web.bind.annotation.ExceptionHandler;
 //SPRING BOOT
 
 import org.bson.BsonBinarySubType;
@@ -187,17 +187,18 @@ public class UserController {
 	@RequestMapping(method=RequestMethod.DELETE, value="app/delete_account/{id}")
 	public String deleteAccount(@PathVariable String id){
 		Optional<User> optuser = userRepository.findById(id);
-		User user = optuser.get();
-		System.out.println(user.getUserName());
+
+		if(optuser.isPresent()){
 		//DELETE FROM INDEX IF EXIST
+		User user = optuser.get();
 		if(user.getActive().equals("true")){
-			String objectID = user.getId();
-			index.deleteObject(objectID);
+			  String objectID = user.getId();
+			  index.deleteObject(objectID);
 		}
-
 		userRepository.delete(user);
-		return "";
-
+		return "DELETE: success";
+	}
+	 return "ERROR:No user found with the given id";
 	}
 	//route to find all blocked users by the user
 	@RequestMapping(method=RequestMethod.GET, value="app/{id}/blocked_users")
@@ -243,9 +244,9 @@ public class UserController {
 		List<Favorite> optFavorite = favoriteRepository.findByUserIdAndRecipeId(userId,recipeId);
 		if(!optFavorite.isEmpty()){
 			favoriteRepository.delete(optFavorite.get(0));
-			return "";
+			return "DELETE:success";
 		}
-		return "Error! This recipe is not found under user's favorite list!";
+		return "ERROR! This recipe is not found under user's favorite list!";
 
 
 	}
