@@ -24,6 +24,17 @@ public class Recipe {
     String imageString; // A Base64 encoded string of the profile image that was encoded on the frontend.
     String createdAt;
     String videoId;
+
+  /*
+    String ingredients;
+    String steps;
+
+    public Recipe(String userName, String userId, String mealType,
+    String dietHealth, String worldCuisine, String mealName,
+    String description, String videoId,String imageString,String ingredients
+    ,String steps) {
+    */
+
     ArrayList<String> urls;
     String ingredients;
     String steps;
@@ -34,6 +45,7 @@ public class Recipe {
     String dietHealth, String worldCuisine, String mealName,
     String description, String videoId,String imageString, 
     String ingredients, String steps, ArrayList<String> urls) {
+
         this.userId = userId;
         this.userName = userName;
         this.mealType = mealType;
@@ -49,6 +61,8 @@ public class Recipe {
         DateTimeFormatter dtf = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
         LocalDateTime now = LocalDateTime.now(ZoneOffset.UTC);
         this.createdAt = dtf.format(now);
+        this.ingredients =ingredients;
+        this.steps=steps;
     }
 
     public String getId() {
@@ -153,6 +167,22 @@ public class Recipe {
 
     public void setRating(int rating) {
         this.rating = rating;
+    }
+
+    public String getSteps() {
+        return steps;
+    }
+
+    public void setSteps(String steps) {
+        this.steps = steps;
+    }
+
+    public String getIngredients() {
+        return ingredients;
+    }
+
+    public void setIngredients(String ingredients) {
+        this.ingredients = ingredients;
     }
 
     public String getCreatedAt() {
