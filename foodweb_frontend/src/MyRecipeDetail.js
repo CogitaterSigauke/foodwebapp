@@ -11,7 +11,7 @@ class MyRecipeDetail extends Component {
             .then(res => {
                 this.setState({ Recipe: res.data });
                 console.log(this.state.Recipe);
-            });
+        });
         axios.get('/get_all_comments/'+this.props.match.params.id)
             .then(commments => {
 
@@ -20,8 +20,6 @@ class MyRecipeDetail extends Component {
             console.log(this.state.LoadedComments);
 
         });
-      
-  
     }
         // delete a recipe
     // deleteRecipe = (e) =>{

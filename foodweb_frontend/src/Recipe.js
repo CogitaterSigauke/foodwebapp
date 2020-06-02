@@ -16,7 +16,6 @@ class Recipe extends Component {
                 // rating: '',
             },
             LoadedComments: {}
-
         };
     }
 
@@ -24,7 +23,7 @@ class Recipe extends Component {
         // console.log('/recipe/5eba3f7efd9c7b27cb32b8fa');
        // '+this.props.match.params.id
        console.log("#################################")
-       console.log(this.props)
+       console.log(this)
         axios.get('/recipe/'+this.props.match.params.id)
             .then(res => {
                 this.setState({ Recipe: res.data });
@@ -405,19 +404,19 @@ class Recipe extends Component {
                     </nav>
 
 
-                    <div className= "container">
-                        <h1 className="my-4">RECIPE DESCRIPTION</h1>
-                        <div className = "container">
-                            <header id="videoheader">
+            <div className= "container">
+                <h1 className="my-4">RECIPE DESCRIPTION</h1>
+                    <div className = "container">
+                        <header id="videoheader">
                             <div className="overlay"></div>
-                                <video playsInline="playsInline" autoPlay="autoPlay" muted="muted" loop="loop">
-                              
-                               <source src={require('./img/breakfast.mp4')}/>
-                               {/* <source src= "https://vod-progressive.akamaized.net/exp=1589539650~acl=%2A%2F1447247590.mp4%2A~hmac=9c34bbd02d316c0f2a07cf359ed4779063dea6d57cd491be295ce91bf415e96c/vimeo-prod-skyfire-std-us/01/1071/14/355357132/1447247590.mp4?download=1&filename=video.mp4"/> */}
-                                    {/* <source src="https://vod-progressive.akamaized.net/exp=1589530661~acl=%2A%2F699571361.mp4%2A~hmac=dd3d505e9177ffcb718431534c68dd06eab999e36ddcbc1a68c5d168d39b163b/vimeo-prod-skyfire-std-us/01/1102/8/205512696/699571361.mp4?download=1&filename=Cup+Of+Coffee+On+Top+Of+Coffee+Beans.mp4" type="video/mp4"/> */}
-                                </video>
-                                <div className="container h-100">
-                                    <div className="d-flex h-100 text-center align-items-center">
+                            <video playsInline="playsInline" autoPlay="autoPlay" muted="muted" loop="loop">
+                            
+                            <source src={require('./img/breakfast.mp4')}/>
+                            {/* <source src= "https://vod-progressive.akamaized.net/exp=1589539650~acl=%2A%2F1447247590.mp4%2A~hmac=9c34bbd02d316c0f2a07cf359ed4779063dea6d57cd491be295ce91bf415e96c/vimeo-prod-skyfire-std-us/01/1071/14/355357132/1447247590.mp4?download=1&filename=video.mp4"/> */}
+                                {/* <source src="https://vod-progressive.akamaized.net/exp=1589530661~acl=%2A%2F699571361.mp4%2A~hmac=dd3d505e9177ffcb718431534c68dd06eab999e36ddcbc1a68c5d168d39b163b/vimeo-prod-skyfire-std-us/01/1102/8/205512696/699571361.mp4?download=1&filename=Cup+Of+Coffee+On+Top+Of+Coffee+Beans.mp4" type="video/mp4"/> */}
+                            </video>
+                            <div className="container h-100">
+                                <div className="d-flex h-100 text-center align-items-center">
                                     <div className="w-100 text-white">
                                         <h1 className="display-3">Awesome and Easy Recipe</h1>
                                         <p className="lead mb-0">follow the steps below</p>
@@ -425,7 +424,7 @@ class Recipe extends Component {
                                 </div>
                             </div>
                         </header>
-                        </div>
+                    </div>
                     </div>
                     <section className="my-5">
                         <div className="container">

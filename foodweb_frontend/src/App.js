@@ -46,7 +46,8 @@ class App extends Component{
         Hits: [],
         query: "",
         loggedIn: false,
-        userId:""
+        userId:"",
+        userName: ""
 
   };
   search() {
@@ -92,13 +93,15 @@ class App extends Component{
             // this.state.userId = response.data.id;
             this.setState({
               userId : response.data.id,
-              loggedIn : true
+              userName: response.data.userName,
+              loggedIn : true,
             })
             if(this.state.loggedIn){
               console.log("ready to push");
               this.props.history.push({
                 pathname: "/Home",
-                state: {userId: `ID FROM APP ${this.state.userId}`}
+                state: {userId: this.state.userId,
+                        userName: this.state.userName}
             });}
              console.log("++++++++++++++");
  
@@ -126,7 +129,8 @@ class App extends Component{
       console.log("ready to push");
       this.props.history.push({
         pathname: "/Home",
-        state: {userId: `ID FROM APP ${this.state.userId}`}
+        state: {userId: this.state.userId,
+                userName: this.state.userName}
     });
 
     }
@@ -338,21 +342,21 @@ class App extends Component{
 
 
                 {/* card one */}
-                
-
                 {
                     this.state.Hits.map((hit, i)=>(
                       <div className="col-lg-4 col-md-6 mb-4"  key={i}>
                         <div className="card border-0 shadow">
                           <img src={hit.imageString} className="card-img-top" alt="..." onClick={() => alert('Please Login to unlock the Recipe Card')} />
                           <div className="card-body text-center">
-                            <h4 className="card-title">
+                            <h3 className="card-title">
                                 <a href="#">{hit.mealName}</a>
-                            </h4>
-                    <h6><a className="fas fa-user" href="#">{hit.userName}</a></h6>
-                    <p className="card-text">{hit.dietAndHealth}</p>
+                            </h3>
+                            {/* the user name below needs to be linked to other user profile or the personn's profile  */}
+                          <h6><a className="fas fa-user" href="#">{hit.userName}</a></h6>
+                          <p className="card-text">{hit.mealType}</p>
                           </div>
                           <div className="card-footer">
+                            {/* need to be stars */}
                               <small className="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
                           </div>
                         </div>
