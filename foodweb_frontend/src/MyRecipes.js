@@ -1,7 +1,27 @@
+// see all the recipes that are registered under my id
+// edit recipe
+
+// delete recipe
+
+
+// for displaying all the recipes under a user - get the recipe hits from algolia based on a user id
+// compare the current user id with the one that is saved and bring all the recipes under that id
+// every single recipe hit will have a link to that specific recipe description page
+// when they click edit - they will be able to edit the recipe that they saved 
+// when they click delte the will be able to delte that recipe
+
+
+// To do list:
+// create my recipes page and get all the hits from algolia - if u can do this u will also be able to do the side bars
+// on home page
+// make sure that all the displaed recipe hits link to the specific recipe page that you already have and plus u will have 
+// buttons like edit and delte which leads to a different component - inorder to perform those actions
+// 
+
 import algoliasearch from 'algoliasearch/lite';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { withRouter, Redirect } from "react-router-dom";
+
 
 import { Link } from 'react-router-dom'
 
@@ -13,23 +33,28 @@ const searchClient = algoliasearch(
 
 let index = searchClient.initIndex('recipes');
 
-class Home extends React.Component{
-  _isMounted = false;
-  constructor(props) {
-    super(props);
-    this.state = {
-      value: "",
-      Hits: [],
-      query: "",
-      authenticated: true
-    };
-  }
+class MyRecipes extends React.Component{
+
+  state = {
+    value: "",
+    Hits: [],
+    query: ""
+  };
 
   search() {
-
+    // index.search('query', {
+    //     facetFilters: [
+    //         'mealType: '
+    //     ]
+    // , {  filters: '_tags:"Rediet Negash"'
+  // }
+  
+    //   })
   //  =================QUERY===================
+  
 
-  index.search(this.state.query).then(({hits}) => {
+  index.search(this.state.query)
+  .then(({hits}) => {
     console.log(hits);
     this.setState({
       Hits: hits
@@ -38,50 +63,23 @@ class Home extends React.Component{
 
   });
 }
-componentWillMount() {
-  this._isMounted = false;
-  if(this.props.location.state){
-    console.log("=============START=================");
-    console.log(this.props);
-    console.log("=-=-=-=-=-=-=-=-=-=-=-=-")
-    console.log(this.props.location.state.userId);
-  }else{
-    console.log("=============START==Inside Home===============");
-    console.log("=============Not Logged in===============");
-    console.log(this.props);
-    this.setState({
-      authenticated: false
-    })
-    this.props.history.push('/Login');
-  }
+
+
+filterByDrink = (e) => {
+  debugger;
+  this.setState({
+  
+    query: "Coffee"
+  });
+
+  this.search();
 }
 
+
   componentDidMount(){
-    this._isMounted = true;
   //load hits on start
   this.search();
-
-  // check if user has been redirected from the login or 
- 
-  
-
   }
-
-  handleLogout = () => {
-    console.log("Logout");
-    console.log(this);
-    localStorage.removeItem("tokenId");
-    const token = localStorage.tokenId;
-    console.log("tokenId ==3333333333333333333333333333333333333333333> ", token);
-    // debugger;
-    // window.location.href("/");
-    // this.props.history.push("/");
-    // runder = {<Redirect to='/Home'/>}
-    this.setState({
-      authenticated: false
-    });
-
-  } 
 
   handleChange = (e) =>{
 
@@ -94,18 +92,10 @@ componentWillMount() {
 
   }
 
+  
+
+
 render() {
-
-  const { authenticated } = this.state;
-  if(!authenticated){
-    this.props.history.push('/');
-    // return <Redirect to='/'/>
-  }
-  if(!this.props.location.state){
-    this.props.history.push('/');
-    return <Redirect to='/'/>;
-  }
-
   return (
 
     <div className="Home">
@@ -147,7 +137,7 @@ render() {
           <div className="bg-white py-2 collapse-inner rounded">
             <h6 className="collapse-header">Drinks Menu</h6>
             <a className="collapse-item" href="">Cocktail</a>
-            <a className="collapse-item" href="">Hot Drinks</a>
+            <p className="collapse-item"  value={this.state.value} onClick={this.filterByDrink}>Hot Drinks</p>
             <a className="collapse-item" href="">Smoothies</a>
           </div>
         </div>
@@ -234,7 +224,7 @@ render() {
           <button id="sidebarToggleTop" className="btn btn-link d-md-none rounded-circle mr-3">
             <i className="fa fa-bars"></i>
           </button>
-          {/* Search Bar */}
+            {/* Search Bar */}
           
               <div className="input-group">
                 <form className="form-inline">
@@ -246,85 +236,74 @@ render() {
          
             {/* nav bar  */}
         
-            <ul className="navbar-nav ml-auto">
+          <ul className="navbar-nav ml-auto">
 
-              <li className="nav-item dropdown no-arrow d-sm-none">
-                <a className="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  <i className="fas fa-search fa-fw"></i>
-                </a>
-                <div className="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in" aria-labelledby="searchDropdown">
-                  <form className="form-inline mr-auto w-100 navbar-search">
-                    <div className="input-group">
-                      <input type="text" className="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2"/>
-                      <div className="input-group-append">
-                        <button className="btn btn-primary" type="button">
-                          <i className="fas fa-search fa-sm"></i>
-                        </button>
-                      </div>
+            <li className="nav-item dropdown no-arrow d-sm-none">
+              <a className="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i className="fas fa-search fa-fw"></i>
+              </a>
+              <div className="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in" aria-labelledby="searchDropdown">
+                <form className="form-inline mr-auto w-100 navbar-search">
+                  <div className="input-group">
+                    <input type="text" className="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2"/>
+                    <div className="input-group-append">
+                      <button className="btn btn-primary" type="button">
+                        <i className="fas fa-search fa-sm"></i>
+                      </button>
                     </div>
-                  </form>
-                </div>
-              </li>
+                  </div>
+                </form>
+              </div>
+            </li>
           
-              <li className="nav-item dropdown no-arrow mx-1">
-                <a className="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  <i className="fas fa-bell fa-fw"></i>
-                  <span className="badge badge-danger badge-counter">3+</span>
+            <li className="nav-item dropdown no-arrow mx-1">
+              <a className="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i className="fas fa-bell fa-fw"></i>
+                <span className="badge badge-danger badge-counter">3+</span>
+              </a>
+              <div className="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="alertsDropdown">
+                <h6 className="dropdown-header">
+                  Alerts Center
+                </h6>
+                <a className="dropdown-item d-flex align-items-center" href="#">
+                  <div className="mr-3">
+                    <div className="icon-circle bg-primary">
+                      <i className="fas fa-file-alt text-white"></i>
+                    </div>
+                  </div>
+                  <div>
+                    <div className="small text-gray-500">December 12, 2019</div>
+                    <span className="font-weight-bold">A new monthly report is ready to download!</span>
+                  </div>
                 </a>
-                <div className="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="alertsDropdown">
-                  <h6 className="dropdown-header">
-                    Alerts Center
-                  </h6>
-                  <a className="dropdown-item d-flex align-items-center" href="#">
-                    <div className="mr-3">
-                      <div className="icon-circle bg-primary">
-                        <i className="fas fa-file-alt text-white"></i>
-                      </div>
+                <a className="dropdown-item d-flex align-items-center" href="#">
+                  <div className="mr-3">
+                    <div className="icon-circle bg-success">
+                      <i className="fas fa-donate text-white"></i>
                     </div>
-                    <div>
-                      <div className="small text-gray-500">December 12, 2019</div>
-                      <span className="font-weight-bold">A new monthly report is ready to download!</span>
+                  </div>
+                  <div>
+                    <div className="small text-gray-500">December 7, 2019</div>
+                    $290.29 has been deposited into your account!
+                  </div>
+                </a>
+                <a className="dropdown-item d-flex align-items-center" href="#">
+                  <div className="mr-3">
+                    <div className="icon-circle bg-warning">
+                      <i className="fas fa-exclamation-triangle text-white"></i>
                     </div>
-                  </a>
-                  <a className="dropdown-item d-flex align-items-center" href="#">
-                    <div className="mr-3">
-                      <div className="icon-circle bg-success">
-                        <i className="fas fa-donate text-white"></i>
-                      </div>
-                    </div>
-                    <div>
-                      <div className="small text-gray-500">December 7, 2019</div>
-                      $290.29 has been deposited into your account!
-                    </div>
-                  </a>
-                  <a className="dropdown-item d-flex align-items-center" href="#">
-                    <div className="mr-3">
-                      <div className="icon-circle bg-warning">
-                        <i className="fas fa-exclamation-triangle text-white"></i>
-                      </div>
-                    </div>
-                    <div>
-                      <div className="small text-gray-500">December 2, 2019</div>
-                      Spending Alert: We've noticed unusually high spending for your account.
-                    </div>
-                  </a>
-                  <a className="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>
-                </div>
-              </li>
+                  </div>
+                  <div>
+                    <div className="small text-gray-500">December 2, 2019</div>
+                    Spending Alert: We've noticed unusually high spending for your account.
+                  </div>
+                </a>
+                <a className="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>
+              </div>
+            </li>
 
             <li className="nav-item dropdown no-arrow mx-1">
-            <Link 
-              to={{
-                pathname: "/ChatBox",
-                state: {userId: this.props.location.state.userId,
-                        userName: this.props.location.state.userName}
-              }} 
-              className="nav-link dropdown-toggle" 
-              id="messagesDropdown" 
-              role="button" 
-              data-toggle="dropdown" 
-              aria-haspopup="true" 
-              aria-expanded="false">
+            <Link to="/ChatBox" className="nav-link dropdown-toggle" id="messagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <i className="fas fa-envelope fa-fw"></i>
                 <span className="badge badge-danger badge-counter">7</span>
             </Link>
@@ -332,7 +311,7 @@ render() {
                 <h6 className="dropdown-header">
                   Message Center
                 </h6>
-                <Link to={ {pathname: "/ChatBox",state: {userId: this.props.location.state.userId} }}  className="dropdown-item d-flex align-items-center" >
+                <Link to="/ChatBox" className="dropdown-item d-flex align-items-center" >
                   <div className="dropdown-list-image mr-3">
                     <img className="rounded-circle" src="https://source.unsplash.com/fn_BT9fwg_E/60x60" alt=""/>
                     <div className="status-indicator bg-success"></div>
@@ -380,60 +359,35 @@ render() {
 
             <li className="nav-item dropdown no-arrow">
               <a className="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <span className="mr-2 d-none d-lg-inline text-gray-600 small">Redi</span>
-                <img className="img-profile rounded-circle" src={this.state}/>
+                <span className="mr-2 d-none d-lg-inline text-gray-600 small">Valerie Luna</span>
+                <img className="img-profile rounded-circle" src="https://source.unsplash.com/QAB-WJcbgJk/60x60"/>
               </a>
               <div className="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
                 
-              <Link className="dropdown-item" to = 
-                {{
-                  pathname: "/Profile",
-                  state: {userId: this.props.location.state.userId      
-                  }
-                    }} 
-                  >
-                    <i className="fas fa-utensils fa-sm fa-fw mr-2 text-gray-400"></i>
-                    Profile
-                </Link>
-
-              
-                  
-              
+                <a className="dropdown-item" href="#">
+                  <i className="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                  Profile
+                </a>
                 <a className="dropdown-item" href="#">
                   <i className="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
                   Settings
                 </a>
-               
-                <Link className="dropdown-item" to = 
-                {{
-                  pathname: "/MyRecipes",
-                  state: {userId: this.props.location.state.userId}
-                    }} 
-                  >
-                    <i className="fas fa-utensils fa-sm fa-fw mr-2 text-gray-400"></i>
+                <Link to = "/MyRecipes">
+                  <p className="dropdown-item">
+                    <i className="fas fa-glass-cheers fa-sm fa-fw mr-2 text-gray-400"></i>
                     My Recipe
+                  </p>
                 </Link>
-                <Link className="dropdown-item" to ={{
-                  pathname: "/MyFavorites",
-                  state: {userId: this.props.location.state.userId}
-                    }} 
-                >
-                    <i className="far fa-heart fa-sm fa-fw mr-2 text-gray-400"></i>
-                    My Favorite Recipes
-                </Link>
-                <Link className="dropdown-item" to = {{
-                    pathname: "/AddRecipe",
-                    state: {
-                      userId: this.props.location.state.userId,
-                      userName: this.props.location.state.userName}
-                  }} >
+                <Link to = "/AddRecipe">
+                  <p className="dropdown-item">
                     <i className="fas fa-glass-cheers fa-sm fa-fw mr-2 text-gray-400"></i>
                     Add Recipe
+                  </p>
                 </Link>
                 <div className="dropdown-divider"></div>
-                <Link to= "" >
-                  <p className="dropdown-item"  data-toggle="modal" data-target="#logoutModal" onClick={this.handleLogout}>
-                    <i className="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400" ></i>
+                <Link to= "/">
+                  <p className="dropdown-item"  data-toggle="modal" data-target="#logoutModal">
+                    <i className="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                     Logout
                   </p>
                 </Link>
@@ -449,24 +403,22 @@ render() {
         <div className="container-fluid">
           <div className="container">
                 {/* HITS Display*/}
-            
+
               <div className="row">
             
                 {
                     this.state.Hits.map((hit, i)=>(
                       <div className="col-lg-4 col-md-6 mb-4" key={i}>
                         <div className="card border-0 shadow">
-                          <Link to={`/recipe/${hit.objectID}`}>
+                          <Link to={`/MyRecipeDetail/${hit.objectID}`}>
                             <img src={hit.imageString} className="card-img-top" alt="..."/>
                           </Link>
                           <div className="card-body text-center">
-                            <h5 className="card-title">
-                            <Link to={`/recipe/${hit.objectID}`}>
-                                <p href="#">{hit.mealName}</p>
-                            </Link>
-                            </h5>
-                    <h6><a className="fas fa-user" href="#">by {hit.userName}</a></h6>
-                   
+                            <h4 className="card-title">
+                                <a href="#">{hit.mealName}</a>
+                            </h4>
+                    <h6><a className="fas fa-user" href="#">{hit.userName}</a></h6>
+                    
                     <p className="card-text">{hit.dietAndHealth}</p>
                           </div>
                           <div className="card-footer">
@@ -502,4 +454,4 @@ render() {
   );
 }
 }
-export default withRouter(Home);
+export default MyRecipes;

@@ -5,7 +5,15 @@ import {Link}  from 'react-router-dom';
 import axios from 'axios';
 import PropTypes from 'prop-types';
 import {withRouter} from 'react-router-dom';
+import algoliasearch from 'algoliasearch/lite';
 
+const searchClient = algoliasearch(
+    '2RJQDQ5U0W',
+    '2c9dd00a80a65a207001e057e93e81e5'
+  );
+  
+let index = searchClient.initIndex('users');
+  
 
 class Chat extends Component{
 
@@ -13,6 +21,9 @@ class Chat extends Component{
         super(props);
     
             this.state = {
+                value: "",
+                Hits: [],
+                query: "",
                 currentUser: '5ec2bdf2eef504193203e329',
                 message:{
                     senderUserId: '5ec2bdf2eef504193203e329',
@@ -20,21 +31,51 @@ class Chat extends Component{
                     messageText: '',
                     imageId: '',
                     videoId: '',
+                    
                 },
-
+                secondUser: {
+                    userId: "",
+                    imageString: "",
+                    userName: "",
+                    familyName: ""
+                },
                 Messages: [{  messageText: 'Hi there', },{  messageText: 'Hi Redi'},{  messageText: 'Hi cogi'}]
             };
       }
 
+      search() {
+
+        //  =================QUERY===================
       
+        index.search(this.state.query).then(({hits}) => {
+          console.log(hits);
+          this.setState({
+            Hits: hits
+          });
+      
+      
+        });
+      }
     onChange = (e) => {
         const state = this.state.message;
         state[e.target.name] = e.target.value;
         this.setState(state);
     }
+
+    handleChange = (e) =>{
+
+        this.setState({
+          value: e.target.value,
+          query: e.target.value
+        });
+      
+        this.search();
+      
+    }
     
     componentDidMount() {
         // console.log('/recipe/5eba3f7efd9c7b27cb32b8fa');
+        this.search();
         console.log("=============START======CHAT===========");
         console.log(this.props);
         console.log("=-=-=-=-=-CHAT=-=-=-=-=-=-=-")
@@ -46,6 +87,12 @@ class Chat extends Component{
                 console.log(this.state.message);
                 console.log(this.state.Messages);
             });
+    }
+
+    viewChatBox = (e) => {
+
+        console.log("=======View ChatBox======");
+        console.log("STATE ==> ", this.state);
     }
 
     PostMessage = (e) => {
@@ -87,66 +134,41 @@ class Chat extends Component{
                             <i className="fas fa-bars"></i>
                             </span>
                         </div>
+                        {/* Search Bar */}
                         <div className="search-box">
+                             
                             <div className="input-wrapper">
                                 <i className="fas fa-search"></i>
                             
-                                <input id = "chat_input" placeholder="Search here" type="text"/>
+                                <input id = "chat_input" placeholder="Search here" type="text" value={this.state.value} onChange={this.handleChange}/>
                             </div>
+                             
                         </div>
-                        <div className="friend-drawer friend-drawer--onhover">
-                            <img className="profile-image" src={require("./profiles/daryl.png")} alt=""/>
-                            <div className="text">
-                                <h6>Robo Cop</h6>
-                                <p className="text-muted">Hey, you're arrested!</p>
-                            </div>
-                            <span className="time text-muted small">13:21</span>
-                        </div>
-                        <hr/>
-                        <div className="friend-drawer friend-drawer--onhover">
-                            <img className="profile-image" src={require("./profiles/douglas.png")}  alt=""/>
-                            <div className="text">
-                                <h6>Optimus</h6>
-                                <p className="text-muted">Wanna grab a beer?</p>
-                            </div>
-                            <span className="time text-muted small">00:32</span>
-                        </div>
-                        <hr/>
-                        <div className="friend-drawer friend-drawer--onhover ">
-                            <img className="profile-image" src={require("./profiles/stan.jpeg")} alt=""/>
-                            <div className="text">
-                                <h6>Skynet</h6>
-                                <p className="text-muted">Seen that canned piece of s?</p>
-                            </div>
-                            <span className="time text-muted small">13:21</span>
-                        </div>
-                        <hr/>
-                        <div className="friend-drawer friend-drawer--onhover">
-                            <img className="profile-image" src={require("./profiles/sarah.jpeg")} alt=""/>
-                            <div className="text">
-                                <h6>Termy</h6>
-                                <p className="text-muted">Im studying spanish...</p>
-                            </div>
-                            <span className="time text-muted small">13:21</span>
-                        </div>
-                        <hr/>
-                        <div className="friend-drawer friend-drawer--onhover">
-                            <img className="profile-image" src={require("./profiles/jacob.png")}  alt=""/>
-                            <div className="text">
-                                <h6>Richard</h6>
-                                <p className="text-muted">I'm not sure...</p>
-                            </div>
-                            <span className="time text-muted small">13:21</span>
-                        </div>
-                        <hr/>
-                        <div className="friend-drawer friend-drawer--onhover">
-                            <img className="profile-image" src={require("./profiles/john.jpeg")}  alt=""/>
-                            <div className="text">
-                                <h6>Alex</h6>
-                                <p className="text-muted">Hi, wanna see something?</p>
-                            </div>
-                            <span className="time text-muted small">13:21</span>
-                        </div>
+                        {/* Search Bar */}
+
+                        {/* HITS Display*/}
+
+                            {
+                                this.state.Hits.map((hit, i)=>(
+                                    
+                                    <div className="friend-drawer friend-drawer--onhover" onClick={this.handleClickedUser} id={hit.objectID} name={hit.userName}>
+                                        <img className="profile-image" src={hit.imageString} alt="profile picture"/>
+                                            <div className="text">
+                        
+                                            <h6>{hit.userName}</h6>
+                                            <p className="text-muted">{hit.familyName}</p>
+                                        </div>
+                                        <span className="time text-muted small">13:21</span>
+                                        <hr/>
+                                    </div>
+                                   
+                                ))
+                            }                        
+
+
+
+                        {/* HITS Display*/}
+       
                     </div>
 
                     <div className="col-md-8">
@@ -157,6 +179,8 @@ class Chat extends Component{
                                     <h6>Robo Cop</h6>
                                     <p className="text-muted">Layin' down the law since like before Christ...</p>
                                 </div>
+
+                        <h1>STATE : {console.log(this.state)}</h1>
                                 <span className="settings-tray--right">
                                 <i className="fas fa-envelope-open-text"></i>
                                 <i className="fas fa-bars"></i>

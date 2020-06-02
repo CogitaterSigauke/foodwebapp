@@ -97,6 +97,7 @@ public class RecipeController {
     //recipe can be edited only by the recipe creator
     Recipe r = recipeRepository.findById(id).get();
 
+
     if(user_id.equals(r.getUserId())){
       if(recipe.getMealName() != null){
         r.setMealName(recipe.getMealName());
@@ -133,20 +134,26 @@ public class RecipeController {
       r.getImageString());
       index.saveObject(recipeImage);
 
+
   }
      return r;
   }
   //delete a recipe. recipe is deleted only by the owner of the recipe
   @RequestMapping(method=RequestMethod.DELETE, value="app/{user_id}/delete_recipe/{recipe_id}")
   public String deleteRecipe(@PathVariable String user_id,@PathVariable String recipe_id){
-    Optional<Recipe> optrecipe = recipeRepository.findById(recipe_id);
+
+/*    Optional<Recipe> optrecipe = recipeRepository.findById(recipe_id);
     //check if a recipe with the given id exists
     if(optrecipe.isPresent()){
 
      Recipe recipe = optrecipe.get();
      //A recipe can only be deleted by its owner.
      if(recipe.getUserId().equals(user_id)){
+*/
 
+    Recipe recipe = recipeRepository.findById(recipe_id).get();
+    //A recipe can only be deleted by its owner.
+    if(recipe.getUserId().equals(user_id)){
       String objectID = recipe.getId();
       recipeRepository.delete(recipe);
 

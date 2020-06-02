@@ -16,12 +16,14 @@ class Recipe extends Component {
                 // rating: '',
             },
             LoadedComments: {}
-
         };
     }
 
     componentDidMount() {
         // console.log('/recipe/5eba3f7efd9c7b27cb32b8fa');
+       // '+this.props.match.params.id
+       console.log("#################################")
+       console.log(this)
         axios.get('/recipe/'+this.props.match.params.id)
             .then(res => {
                 this.setState({ Recipe: res.data });
@@ -38,18 +40,40 @@ class Recipe extends Component {
       
   
     }
-    
-    // delete(recipe_id){
-    //     console.log(recipe_id);
-    //     axios.delete('/{user_id}/delete_recipe/'+recipe_id)
-    //         .then((result) => {
-    //             this.props.history.push("/Recipe")
-    //         });
+        // delete a recipe
+   
 
+    deleteRecipe() {
+        // e.preventDefault(); 
+        axios.delete('app/5eb7c78b12e629445c8f07c2/delete_recipe/5eba3f7efd9c7b27cb32b8fa')
+        .then((result) => {
+            alert("Successfuly Deleted");
+            this.props.history.push("/Home")
+        })
+        .catch((err) => {
+            console.log(`Errors: {errors}`);
+        })
+        .catch((err) => {
+            console.log(`Errors: {errors}`);
+        });
+    }
 
+    // This will edit a recipe
+    // editRecipe = (e) =>{
+    // e.preventDefault(); 
+    // axios.put('app//delete_recipe/KUGYJAGFVAHYIGSK')
+    // .then((result) => {
+    //     alert("Successfuly Updated");
+    //     this.props.history.push("/Home")
+    //     })
+    //     .catch((err) => {
+    //     console.log(`Errors: {errors}`);
+    //     })
+    //     .catch((err) => {
+    //     console.log(`Errors: {errors}`);
+    //     });
     // }
 
-    
     onChange = (e) => {
         const state = this.state.Review
         state[e.target.name] = e.target.value;
@@ -380,19 +404,19 @@ class Recipe extends Component {
                     </nav>
 
 
-                    <div className= "container">
-                        <h1 className="my-4">RECIPE DESCRIPTION</h1>
-                        <div className = "container">
-                            <header id="videoheader">
+            <div className= "container">
+                <h1 className="my-4">RECIPE DESCRIPTION</h1>
+                    <div className = "container">
+                        <header id="videoheader">
                             <div className="overlay"></div>
-                                <video playsInline="playsInline" autoPlay="autoPlay" muted="muted" loop="loop">
-                              
-                               <source src={require('./img/breakfast.mp4')}/>
-                               {/* <source src= "https://vod-progressive.akamaized.net/exp=1589539650~acl=%2A%2F1447247590.mp4%2A~hmac=9c34bbd02d316c0f2a07cf359ed4779063dea6d57cd491be295ce91bf415e96c/vimeo-prod-skyfire-std-us/01/1071/14/355357132/1447247590.mp4?download=1&filename=video.mp4"/> */}
-                                    {/* <source src="https://vod-progressive.akamaized.net/exp=1589530661~acl=%2A%2F699571361.mp4%2A~hmac=dd3d505e9177ffcb718431534c68dd06eab999e36ddcbc1a68c5d168d39b163b/vimeo-prod-skyfire-std-us/01/1102/8/205512696/699571361.mp4?download=1&filename=Cup+Of+Coffee+On+Top+Of+Coffee+Beans.mp4" type="video/mp4"/> */}
-                                </video>
-                                <div className="container h-100">
-                                    <div className="d-flex h-100 text-center align-items-center">
+                            <video playsInline="playsInline" autoPlay="autoPlay" muted="muted" loop="loop">
+                            
+                            <source src={require('./img/breakfast.mp4')}/>
+                            {/* <source src= "https://vod-progressive.akamaized.net/exp=1589539650~acl=%2A%2F1447247590.mp4%2A~hmac=9c34bbd02d316c0f2a07cf359ed4779063dea6d57cd491be295ce91bf415e96c/vimeo-prod-skyfire-std-us/01/1071/14/355357132/1447247590.mp4?download=1&filename=video.mp4"/> */}
+                                {/* <source src="https://vod-progressive.akamaized.net/exp=1589530661~acl=%2A%2F699571361.mp4%2A~hmac=dd3d505e9177ffcb718431534c68dd06eab999e36ddcbc1a68c5d168d39b163b/vimeo-prod-skyfire-std-us/01/1102/8/205512696/699571361.mp4?download=1&filename=Cup+Of+Coffee+On+Top+Of+Coffee+Beans.mp4" type="video/mp4"/> */}
+                            </video>
+                            <div className="container h-100">
+                                <div className="d-flex h-100 text-center align-items-center">
                                     <div className="w-100 text-white">
                                         <h1 className="display-3">Awesome and Easy Recipe</h1>
                                         <p className="lead mb-0">follow the steps below</p>
@@ -400,7 +424,7 @@ class Recipe extends Component {
                                 </div>
                             </div>
                         </header>
-                        </div>
+                    </div>
                     </div>
                     <section className="my-5">
                         <div className="container">
@@ -419,10 +443,23 @@ class Recipe extends Component {
                                             <li>Meal Name: {this.state.Recipe.mealName}</li>
                                             <li>Meal Type: {this.state.Recipe.mealType}</li>
                                             <li>Recipe Owner: {this.state.Recipe.userName}</li>
+
+                                            </ul>
+                                        </div>
+                                        <div>
+                                            <h3 className="my-3"> Ingredients</h3>
+                                            <ul>
+                                                <li> {this.state.Recipe.ingredients}</li>
+                                
+                                            </ul>
+                                            <h3 className="my-3"> Steps</h3>
+                                            <ul>
+                                                <li>{this.state.Recipe.steps}</li>
                                             </ul>
                                         </div>
 
                                     </div>
+                                    
 
                                 <h3 className="my-4">Related Recipes</h3>
 
@@ -513,7 +550,9 @@ class Recipe extends Component {
                             <span>☆</span><span>☆</span><span>☆</span><span>☆</span><span>☆</span>
                             </div> */}
                             <button type="submit" className="btn btn-success">Submit Review</button>
-                            
+                            <button type="button" class="btn btn-success">Edit_Recipe</button>
+                            <button type="button" class="btn btn-danger" onClick={this.deleteRecipe}>Delete_Recipe </button>
+
                             {/* <a className="btn btn-success btn-green" href="#reviews-anchor" id="open-review-box">Leave a Review</a> */}
                         </div>
                        
