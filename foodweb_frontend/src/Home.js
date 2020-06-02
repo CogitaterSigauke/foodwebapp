@@ -14,7 +14,7 @@ const searchClient = algoliasearch(
 let index = searchClient.initIndex('recipes');
 
 class Home extends React.Component{
-
+  _isMounted = false;
   constructor(props) {
     super(props);
     this.state = {
@@ -39,16 +39,13 @@ class Home extends React.Component{
   });
 }
 componentWillMount() {
-
+  this._isMounted = false;
   if(this.props.location.state){
-
     console.log("=============START=================");
     console.log(this.props);
     console.log("=-=-=-=-=-=-=-=-=-=-=-=-")
     console.log(this.props.location.state.userId);
-   
   }else{
-
     console.log("=============START==Inside Home===============");
     console.log("=============Not Logged in===============");
     console.log(this.props);
@@ -56,13 +53,11 @@ componentWillMount() {
       authenticated: false
     })
     this.props.history.push('/Login');
-    
-
   }
 }
 
   componentDidMount(){
-
+    this._isMounted = true;
   //load hits on start
   this.search();
 
@@ -77,7 +72,7 @@ componentWillMount() {
     console.log(this);
     localStorage.removeItem("tokenId");
     const token = localStorage.tokenId;
-    console.log("tokenId ==> ", token);
+    console.log("tokenId ==3333333333333333333333333333333333333333333> ", token);
     // debugger;
     // window.location.href("/");
     // this.props.history.push("/");
@@ -386,7 +381,7 @@ render() {
             <li className="nav-item dropdown no-arrow">
               <a className="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <span className="mr-2 d-none d-lg-inline text-gray-600 small">Redi</span>
-                <img className="img-profile rounded-circle" src="https://source.unsplash.com/QAB-WJcbgJk/60x60"/>
+                <img className="img-profile rounded-circle" src={this.state}/>
               </a>
               <div className="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
                 

@@ -9,11 +9,22 @@ class Profile extends  React.Component{
         super(props);
         this.state = {
             User: {},
-            posts: {}
+            posts: {},
+            UpdatedInfo: {
+                aboutMe: "",
+                userName: ""
+            }
         };
-
     }
    
+    
+    onChange = (e) => {
+      
+        const state = this.state.UpdatedInfo
+        state[e.target.name] = e.target.value;
+        this.setState(state);
+    }
+
     componentDidMount() {
         console.log(this)
         console.log(this.props.location.state.userId);
@@ -29,11 +40,40 @@ class Profile extends  React.Component{
             });
     }
 
+    updateProfile = (e) => {
+        debugger;
+        e.preventDefault();
+
+       
+        const{ aboutMe, userName} = this.state.UpdatedInfo;
+       
+        axios.put('app/edit_profile/'+this.props.location.state.userId, {aboutMe, userName})
+          .then((result) => {
+            console.log("After Posting new Contact - returned data: " + result.data);
+            console.log('======response.data======');
+            console.log(result.data);
+            alert("Successfuly saved, Thank you!");
+          })
+          .catch((err) => {
+            console.log(`======response.data=====`);
+            console.log(`Errors: {errors}`);
+          })
+          .catch((err) => {
+            console.log(`Errors: {errors}`);
+          });
+    }
+
     render() {
+        const{ aboutMe, userName} = this.state.UpdatedInfo;
         return (
            <div>
+               
                 <nav className="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
-
+                    <Link to="/Home">
+                        <div className="sidebar-brand-icon rotate-n-15">
+                            <i className="fas fa-blender">Home</i>
+                        </div>
+                    </Link>
                     <button id="sidebarToggleTop" className="btn btn-link d-md-none rounded-circle mr-3">
                     <i className="fa fa-bars"></i>
                     </button>
@@ -176,7 +216,7 @@ class Profile extends  React.Component{
                     <li className="nav-item dropdown no-arrow">
                         <a className="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <span className="mr-2 d-none d-lg-inline text-gray-600 small">Redi</span>
-                        <img className="img-profile rounded-circle" src="https://source.unsplash.com/QAB-WJcbgJk/60x60"/>
+                        <img className="img-profile rounded-circle" src={this.state.User.imageString}/>
                         </a>
                         <div className="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
                         
@@ -239,25 +279,25 @@ class Profile extends  React.Component{
             </nav>
                 
               
-            <div class="container main-secction">
-        <div class="row">
-            <div class="col-md-12 col-sm-12 col-xs-12 image-section">
+            <div className="container main-secction">
+        <div className="row">
+            <div className="col-md-12 col-sm-12 col-xs-12 image-section">
                 <img src="https://images.unsplash.com/photo-1513151233558-d860c5398176?ixlib=rb-1.2.1&w=1000&q=80"/>
             </div>
-            <div class="row user-left-part">
-                <div class="col-md-3 col-sm-3 col-xs-12 user-profil-part pull-left">
-                    <div class="row ">
-                        <div class="col-md-12 col-md-12-sm-12 col-xs-12 user-image text-center">
-                            <img src={this.state.User.imageString} class="rounded-circle"/>
+            <div className="row user-left-part">
+                <div className="col-md-3 col-sm-3 col-xs-12 user-profil-part pull-left">
+                    <div className="row ">
+                        <div className="col-md-12 col-md-12-sm-12 col-xs-12 user-image text-center">
+                            <img src={this.state.User.imageString} className="rounded-circle"/>
                         </div>
-                        <div class="col-md-12 col-sm-12 col-xs-12 user-detail-section1 text-center">
-                           <button id="btn-contact"  data-toggle="modal" data-target="#contact" class="btn btn-success btn-block follow">Edit Profile</button> 
+                        <div className="col-md-12 col-sm-12 col-xs-12 user-detail-section1 text-center">
+                           <button id="btn-contact"  data-toggle="modal" data-target="#editProfile" className="btn btn-success btn-block follow">Edit Profile</button> 
                                                          
                         </div>
                         
-                        <div class="row user-detail-row">
-                            <div class="col-md-12 col-sm-12 user-detail-section2 pull-left">
-                                <div class="border"></div>
+                        <div className="row user-detail-row">
+                            <div className="col-md-12 col-sm-12 user-detail-section2 pull-left">
+                                <div className="border"></div>
                                 <p>FOLLOWER</p>
                                 <span>{this.state.User.numberOfFollowers}</span>
                             </div>                           
@@ -265,52 +305,71 @@ class Profile extends  React.Component{
                        
                     </div>
                 </div>
-                <div class="col-md-9 col-sm-9 col-xs-12 pull-right profile-right-section">
-                    <div class="row profile-right-section-row">
-                        <div class="col-md-12 profile-header">
-                            <div class="row">
-                                <div class="col-md-8 col-sm-6 col-xs-6 profile-header-section1 pull-left">
+                <div className="col-md-9 col-sm-9 col-xs-12 pull-right profile-right-section">
+                    <div className="row profile-right-section-row">
+                        <div className="col-md-12 profile-header">
+                            <div className="row">
+                                <div className="col-md-8 col-sm-6 col-xs-6 profile-header-section1 pull-left">
                                     <h1>{this.state.User.userName}</h1>
                                     <h5>{this.state.User.email}</h5>
                                 </div>
                                
                             </div>
                         </div>
-                        <div class="col-md-12">
-                            <div class="row">
-                                <div class="col-md-8">
-                                    <ul class="nav nav-tabs" role="tablist">
-                                        <li class="nav-item">
-                                            <a class="nav-link active" href="#profile" role="tab" data-toggle="tab"><i class="fas fa-user-circle"></i> Personal Information</a>
+                        <div className="col-md-12">
+                            <div className="row">
+                                <div className="col-md-8">
+                                    <ul className="nav nav-tabs" role="tablist">
+                                        <li className="nav-item">
+                                            <a className="nav-link active" href="#profile" role="tab" data-toggle="tab"><i className="fas fa-user-circle"></i> Personal Information</a>
                                         </li>
                                        
                                             
                                         </ul>
-                                            <div class="tab-content">
-                                            <div role="tabpanel" class="tab-pane fade show active" id="profile">
+                                            <div className="tab-content">
+                                            <div role="tabpanel" className="tab-pane fade show active" id="profile">
                                             
-                                                <div class="row">
-                                                    <div class="col-md-2">
+                                                <div className="row">
+                                                    <div className="col-md-2">
                                                         <label>Name:</label>
                                                     </div>
-                                                    <div class="col-md-6">
+                                                    <div className="col-md-6">
                                                         <p>{this.state.User.name}</p>
                                                     </div>
                                                 </div>
-                                                <div class="row">
-                                                    <div class="col-md-2">
+                                                <div className="row">
+                                                    <div className="col-md-2">
                                                         <label>Profile Created AT:</label>
                                                     </div>
-                                                    <div class="col-md-6">
+                                                    <div className="col-md-6">
                                                         <p>{this.state.User.createdAt}</p>
                                                     </div>
                                                 </div>
-                                                <div class="row">
-                                                    <div class="col-md-2">
+                                                <div></div>
+                                                <div className="row">
+                                                    <div className="col-md-2">
                                                         <label>Email:</label>
                                                     </div>
-                                                    <div class="col-md-6">
+                                                    <div className="col-md-6">
                                                         <p> {this.state.User.email}</p>
+                                                    </div>
+                                                </div>
+                                                <div></div>
+                                                <div className="row">
+                                                    <div className="col-md-2">
+                                                        <label>user Name:  </label>
+                                                    </div>
+                                                    <div className="col-md-6">
+                                                        <p> {this.state.User.userName}</p>
+                                                    </div>
+                                                </div>
+                                                <div></div>
+                                                <div className="row">
+                                                    <div className="col-md-2">
+                                                        <label>About Me:</label>
+                                                    </div>
+                                                    <div className="col-md-6">
+                                                        <p> {this.state.User.aboutMe}</p>
                                                     </div>
                                                 </div>
                                             </div>
@@ -324,36 +383,37 @@ class Profile extends  React.Component{
         </div>
     </div>
 
-    <div class="modal fade" id="contact" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="contact">Contactarme</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div class="form-group">
-                        <p for="msj">Se enviará este mensaje a la persona que desea contactar, indicando que te quieres comunicar con el. Para esto debes de ingresar tu información personal.</p>
+    <div className="modal fade" id="editProfile" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div className="modal-dialog" role="document">
+            <div className="modal-content">
+                <form onSubmit={this.updateProfile}>
+                    <div className="modal-header">
+                        <h5 className="modal-title" id="contact">Edit Profile</h5>
+                        <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true"></span>
+                        </button>
+                    </div>  
+                    <div className="modal-body">
+                        <div className="form-group">
+                            <label htmlFor="txtFullname">About Me</label>
+                            <textarea rows="3" cols="20" type="text" id="txtFullname" className="form-control" name="aboutMe" value={aboutMe} onChange={this.onChange} placeholder={this.state.User.aboutMe}/>
+                           
+                        </div>
+                        <div className="form-group">
+                            <label htmlFor="txtFullname">userName</label>
+                            <input type="text" id="txtFullname" className="form-control" name="userName"  value={userName} onChange={this.onChange} placeholder= {this.state.User.userName}/>
+                        </div>
+                        {/* <div className="form-group">
+                            <label htmlFor="txtEmail"></label>
+                            <input type="text" id="txtEmail" className="form-control"/>
+                        </div> */}
+                    
                     </div>
-                    <div class="form-group">
-                        <label for="txtFullname">Nombre completo</label>
-                        <input type="text" id="txtFullname" class="form-control"/>
+                    <div className="modal-footer">
+                        <button type="button" className="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                        <button type="submit" className="btn btn-primary"  data-dismiss="modal">Submit</button>
                     </div>
-                    <div class="form-group">
-                        <label for="txtEmail">Email</label>
-                        <input type="text" id="txtEmail" class="form-control"/>
-                    </div>
-                    <div class="form-group">
-                        <label for="txtPhone">Teléfono</label>
-                        <input type="text" id="txtPhone" class="form-control"/>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                    <button type="button" class="btn btn-primary"  data-dismiss="modal">Guardar</button>
-                </div>
+                </form>
             </div>
         </div>
     </div>
