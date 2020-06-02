@@ -33,7 +33,12 @@ class Chat extends Component{
                     videoId: '',
                     
                 },
-
+                secondUser: {
+                    userId: "",
+                    imageString: "",
+                    userName: "",
+                    familyName: ""
+                },
                 Messages: [{  messageText: 'Hi there', },{  messageText: 'Hi Redi'},{  messageText: 'Hi cogi'}]
             };
       }
@@ -82,6 +87,12 @@ class Chat extends Component{
                 console.log(this.state.message);
                 console.log(this.state.Messages);
             });
+    }
+
+    viewChatBox = (e) => {
+
+        console.log("=======View ChatBox======");
+        console.log("STATE ==> ", this.state);
     }
 
     PostMessage = (e) => {
@@ -139,66 +150,25 @@ class Chat extends Component{
 
                             {
                                 this.state.Hits.map((hit, i)=>(
-                                    <div className="friend-drawer friend-drawer--onhover">
+                                    
+                                    <div className="friend-drawer friend-drawer--onhover" onClick={this.handleClickedUser} id={hit.objectID} name={hit.userName}>
                                         <img className="profile-image" src={hit.imageString} alt="profile picture"/>
-                                        <div className="text">
+                                            <div className="text">
+                        
                                             <h6>{hit.userName}</h6>
                                             <p className="text-muted">{hit.familyName}</p>
                                         </div>
                                         <span className="time text-muted small">13:21</span>
+                                        <hr/>
                                     </div>
+                                   
                                 ))
                             }                        
 
 
 
                         {/* HITS Display*/}
-
-                        <hr/>
-                        <div className="friend-drawer friend-drawer--onhover">
-                            <img className="profile-image" src={require("./profiles/douglas.png")}  alt=""/>
-                            <div className="text">
-                                <h6>Optimus</h6>
-                                <p className="text-muted">Wanna grab a beer?</p>
-                            </div>
-                            <span className="time text-muted small">00:32</span>
-                        </div>
-                        <hr/>
-                        <div className="friend-drawer friend-drawer--onhover ">
-                            <img className="profile-image" src={require("./profiles/stan.jpeg")} alt=""/>
-                            <div className="text">
-                                <h6>Skynet</h6>
-                                <p className="text-muted">Seen that canned piece of s?</p>
-                            </div>
-                            <span className="time text-muted small">13:21</span>
-                        </div>
-                        <hr/>
-                        <div className="friend-drawer friend-drawer--onhover">
-                            <img className="profile-image" src={require("./profiles/sarah.jpeg")} alt=""/>
-                            <div className="text">
-                                <h6>Termy</h6>
-                                <p className="text-muted">Im studying spanish...</p>
-                            </div>
-                            <span className="time text-muted small">13:21</span>
-                        </div>
-                        <hr/>
-                        <div className="friend-drawer friend-drawer--onhover">
-                            <img className="profile-image" src={require("./profiles/jacob.png")}  alt=""/>
-                            <div className="text">
-                                <h6>Richard</h6>
-                                <p className="text-muted">I'm not sure...</p>
-                            </div>
-                            <span className="time text-muted small">13:21</span>
-                        </div>
-                        <hr/>
-                        <div className="friend-drawer friend-drawer--onhover">
-                            <img className="profile-image" src={require("./profiles/john.jpeg")}  alt=""/>
-                            <div className="text">
-                                <h6>Alex</h6>
-                                <p className="text-muted">Hi, wanna see something?</p>
-                            </div>
-                            <span className="time text-muted small">13:21</span>
-                        </div>
+       
                     </div>
 
                     <div className="col-md-8">
@@ -209,6 +179,8 @@ class Chat extends Component{
                                     <h6>Robo Cop</h6>
                                     <p className="text-muted">Layin' down the law since like before Christ...</p>
                                 </div>
+
+                        <h1>STATE : {console.log(this.state)}</h1>
                                 <span className="settings-tray--right">
                                 <i className="fas fa-envelope-open-text"></i>
                                 <i className="fas fa-bars"></i>
