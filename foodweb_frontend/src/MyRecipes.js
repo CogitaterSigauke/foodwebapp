@@ -1,7 +1,27 @@
+// see all the recipes that are registered under my id
+// edit recipe
+
+// delete recipe
+
+
+// for displaying all the recipes under a user - get the recipe hits from algolia based on a user id
+// compare the current user id with the one that is saved and bring all the recipes under that id
+// every single recipe hit will have a link to that specific recipe description page
+// when they click edit - they will be able to edit the recipe that they saved 
+// when they click delte the will be able to delte that recipe
+
+
+// To do list:
+// create my recipes page and get all the hits from algolia - if u can do this u will also be able to do the side bars
+// on home page
+// make sure that all the displaed recipe hits link to the specific recipe page that you already have and plus u will have 
+// buttons like edit and delte which leads to a different component - inorder to perform those actions
+// 
+
 import algoliasearch from 'algoliasearch/lite';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { withRouter } from "react-router-dom";
+
 
 import { Link } from 'react-router-dom'
 
@@ -13,28 +33,28 @@ const searchClient = algoliasearch(
 
 let index = searchClient.initIndex('recipes');
 
-class Home extends React.Component{
+class MyRecipes extends React.Component{
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      value: "",
-      Hits: [],
-      query: ""
-    };
-  }
-
-  // state = {
-  //   value: "",
-  //   Hits: [],
-  //   query: ""
-  // };
+  state = {
+    value: "",
+    Hits: [],
+    query: ""
+  };
 
   search() {
-
+    // index.search('query', {
+    //     facetFilters: [
+    //         'mealType: '
+    //     ]
+    // , {  filters: '_tags:"Rediet Negash"'
+  // }
+  
+    //   })
   //  =================QUERY===================
+  
 
-  index.search(this.state.query).then(({hits}) => {
+  index.search(this.state.query)
+  .then(({hits}) => {
     console.log(hits);
     this.setState({
       Hits: hits
@@ -43,35 +63,22 @@ class Home extends React.Component{
 
   });
 }
-componentWillMount() {
 
-  if(this.props.location.state.userId){
 
-    console.log("=============START=================");
-    console.log(this.props);
-    console.log("=-=-=-=-=-=-=-=-=-=-=-=-")
-    console.log(this.props.location.state.userId);
-   
-  }else{
+filterByDrink = (e) => {
+  debugger;
+  this.setState({
+  
+    query: "Coffee"
+  });
 
-    console.log("=============START==Inside Home===============");
-    console.log("=============Not Logged in===============");
-    console.log(this.props);
-    this.props.history.push('/Login');
-    
-
-  }
+  this.search();
 }
 
-  componentDidMount(){
 
+  componentDidMount(){
   //load hits on start
   this.search();
-
-  // check if user has been redirected from the login or 
- 
-  
-
   }
 
   handleChange = (e) =>{
@@ -84,6 +91,7 @@ componentWillMount() {
   this.search();
 
   }
+
 
 render() {
   return (
@@ -127,7 +135,7 @@ render() {
           <div className="bg-white py-2 collapse-inner rounded">
             <h6 className="collapse-header">Drinks Menu</h6>
             <a className="collapse-item" href="">Cocktail</a>
-            <a className="collapse-item" href="">Hot Drinks</a>
+            <p className="collapse-item"  value={this.state.value} onClick={this.filterByDrink}>Hot Drinks</p>
             <a className="collapse-item" href="">Smoothies</a>
           </div>
         </div>
@@ -214,7 +222,7 @@ render() {
           <button id="sidebarToggleTop" className="btn btn-link d-md-none rounded-circle mr-3">
             <i className="fa fa-bars"></i>
           </button>
-        {/* Search Bar */}
+            {/* Search Bar */}
           
               <div className="input-group">
                 <form className="form-inline">
@@ -224,7 +232,7 @@ render() {
                 </form>         
               </div>
          
-          {/* nav bar  */}
+            {/* nav bar  */}
         
           <ul className="navbar-nav ml-auto">
 
@@ -293,17 +301,7 @@ render() {
             </li>
 
             <li className="nav-item dropdown no-arrow mx-1">
-            <Link 
-              to={{
-                pathname: "/ChatBox",
-                state: {userId: this.props.location.state.userId}
-              }} 
-              className="nav-link dropdown-toggle" 
-              id="messagesDropdown" 
-              role="button" 
-              data-toggle="dropdown" 
-              aria-haspopup="true" 
-              aria-expanded="false">
+            <Link to="/ChatBox" className="nav-link dropdown-toggle" id="messagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <i className="fas fa-envelope fa-fw"></i>
                 <span className="badge badge-danger badge-counter">7</span>
             </Link>
@@ -311,7 +309,7 @@ render() {
                 <h6 className="dropdown-header">
                   Message Center
                 </h6>
-                <Link to={ {pathname: "/ChatBox",state: {userId: this.props.location.state.userId} }}  className="dropdown-item d-flex align-items-center" >
+                <Link to="/ChatBox" className="dropdown-item d-flex align-items-center" >
                   <div className="dropdown-list-image mr-3">
                     <img className="rounded-circle" src="https://source.unsplash.com/fn_BT9fwg_E/60x60" alt=""/>
                     <div className="status-indicator bg-success"></div>
@@ -359,7 +357,7 @@ render() {
 
             <li className="nav-item dropdown no-arrow">
               <a className="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <span className="mr-2 d-none d-lg-inline text-gray-600 small">Redi</span>
+                <span className="mr-2 d-none d-lg-inline text-gray-600 small">Valerie Luna</span>
                 <img className="img-profile rounded-circle" src="https://source.unsplash.com/QAB-WJcbgJk/60x60"/>
               </a>
               <div className="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
@@ -372,18 +370,17 @@ render() {
                   <i className="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
                   Settings
                 </a>
-               
-                <Link className="dropdown-item" to = "/MyRecipes" >
-                    <i className="fas fa-utensils fa-sm fa-fw mr-2 text-gray-400"></i>
+                <Link to = "/MyRecipes">
+                  <p className="dropdown-item">
+                    <i className="fas fa-glass-cheers fa-sm fa-fw mr-2 text-gray-400"></i>
                     My Recipe
+                  </p>
                 </Link>
-                <Link className="dropdown-item" to = "/MyFavorites">
-                    <i className="far fa-heart fa-sm fa-fw mr-2 text-gray-400"></i>
-                    My Favorite Recipes
-                </Link>
-                <Link className="dropdown-item" to = "/AddRecipe">
+                <Link to = "/AddRecipe">
+                  <p className="dropdown-item">
                     <i className="fas fa-glass-cheers fa-sm fa-fw mr-2 text-gray-400"></i>
                     Add Recipe
+                  </p>
                 </Link>
                 <div className="dropdown-divider"></div>
                 <Link to= "/">
@@ -404,22 +401,22 @@ render() {
         <div className="container-fluid">
           <div className="container">
                 {/* HITS Display*/}
-              <h1>userID = {this.props.location.state.userId}</h1>
+
               <div className="row">
             
                 {
-                    this.state.Hits.map((hit)=>(
-                      <div className="col-lg-4 col-md-6 mb-4">
+                    this.state.Hits.map((hit, i)=>(
+                      <div className="col-lg-4 col-md-6 mb-4" key={i}>
                         <div className="card border-0 shadow">
-                          <Link to={`/recipe/${hit.objectID}`}>
+                          <Link to={`/MyRecipeDetail/${hit.objectID}`}>
                             <img src={hit.imageString} className="card-img-top" alt="..."/>
                           </Link>
                           <div className="card-body text-center">
                             <h4 className="card-title">
-                                <a href="#">{hit.userName}</a>
+                                <a href="#">{hit.mealName}</a>
                             </h4>
                     <h6><a className="fas fa-user" href="#">{hit.userName}</a></h6>
-                   
+                    
                     <p className="card-text">{hit.dietAndHealth}</p>
                           </div>
                           <div className="card-footer">
@@ -455,4 +452,4 @@ render() {
   );
 }
 }
-export default withRouter(Home);
+export default MyRecipes;

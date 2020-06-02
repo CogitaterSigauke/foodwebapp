@@ -22,6 +22,9 @@ class Recipe extends Component {
 
     componentDidMount() {
         // console.log('/recipe/5eba3f7efd9c7b27cb32b8fa');
+       // '+this.props.match.params.id
+       console.log("#################################")
+       console.log(this.props)
         axios.get('/recipe/'+this.props.match.params.id)
             .then(res => {
                 this.setState({ Recipe: res.data });
@@ -38,18 +41,40 @@ class Recipe extends Component {
       
   
     }
-    
-    // delete(recipe_id){
-    //     console.log(recipe_id);
-    //     axios.delete('/{user_id}/delete_recipe/'+recipe_id)
-    //         .then((result) => {
-    //             this.props.history.push("/Recipe")
-    //         });
+        // delete a recipe
+   
 
+    deleteRecipe() {
+        // e.preventDefault(); 
+        axios.delete('app/5eb7c78b12e629445c8f07c2/delete_recipe/5eba3f7efd9c7b27cb32b8fa')
+        .then((result) => {
+            alert("Successfuly Deleted");
+            this.props.history.push("/Home")
+        })
+        .catch((err) => {
+            console.log(`Errors: {errors}`);
+        })
+        .catch((err) => {
+            console.log(`Errors: {errors}`);
+        });
+    }
 
+    // This will edit a recipe
+    // editRecipe = (e) =>{
+    // e.preventDefault(); 
+    // axios.put('app//delete_recipe/KUGYJAGFVAHYIGSK')
+    // .then((result) => {
+    //     alert("Successfuly Updated");
+    //     this.props.history.push("/Home")
+    //     })
+    //     .catch((err) => {
+    //     console.log(`Errors: {errors}`);
+    //     })
+    //     .catch((err) => {
+    //     console.log(`Errors: {errors}`);
+    //     });
     // }
 
-    
     onChange = (e) => {
         const state = this.state.Review
         state[e.target.name] = e.target.value;
@@ -419,10 +444,23 @@ class Recipe extends Component {
                                             <li>Meal Name: {this.state.Recipe.mealName}</li>
                                             <li>Meal Type: {this.state.Recipe.mealType}</li>
                                             <li>Recipe Owner: {this.state.Recipe.userName}</li>
+
+                                            </ul>
+                                        </div>
+                                        <div>
+                                            <h3 className="my-3"> Ingredients</h3>
+                                            <ul>
+                                                <li> {this.state.Recipe.ingredients}</li>
+                                
+                                            </ul>
+                                            <h3 className="my-3"> Steps</h3>
+                                            <ul>
+                                                <li>{this.state.Recipe.steps}</li>
                                             </ul>
                                         </div>
 
                                     </div>
+                                    
 
                                 <h3 className="my-4">Related Recipes</h3>
 
@@ -513,7 +551,9 @@ class Recipe extends Component {
                             <span>☆</span><span>☆</span><span>☆</span><span>☆</span><span>☆</span>
                             </div> */}
                             <button type="submit" className="btn btn-success">Submit Review</button>
-                            
+                            <button type="button" class="btn btn-success">Edit_Recipe</button>
+                            <button type="button" class="btn btn-danger" onClick={this.deleteRecipe}>Delete_Recipe </button>
+
                             {/* <a className="btn btn-success btn-green" href="#reviews-anchor" id="open-review-box">Leave a Review</a> */}
                         </div>
                        
