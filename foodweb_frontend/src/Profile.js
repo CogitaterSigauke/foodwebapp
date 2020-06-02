@@ -239,7 +239,124 @@ class Profile extends  React.Component{
             </nav>
                 
               
-           
+            <div class="container main-secction">
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12 image-section">
+                <img src="https://images.unsplash.com/photo-1513151233558-d860c5398176?ixlib=rb-1.2.1&w=1000&q=80"/>
+            </div>
+            <div class="row user-left-part">
+                <div class="col-md-3 col-sm-3 col-xs-12 user-profil-part pull-left">
+                    <div class="row ">
+                        <div class="col-md-12 col-md-12-sm-12 col-xs-12 user-image text-center">
+                            <img src={this.state.User.imageString} class="rounded-circle"/>
+                        </div>
+                        <div class="col-md-12 col-sm-12 col-xs-12 user-detail-section1 text-center">
+                           <button id="btn-contact"  data-toggle="modal" data-target="#contact" class="btn btn-success btn-block follow">Edit Profile</button> 
+                                                         
+                        </div>
+                        
+                        <div class="row user-detail-row">
+                            <div class="col-md-12 col-sm-12 user-detail-section2 pull-left">
+                                <div class="border"></div>
+                                <p>FOLLOWER</p>
+                                <span>{this.state.User.numberOfFollowers}</span>
+                            </div>                           
+                        </div>
+                       
+                    </div>
+                </div>
+                <div class="col-md-9 col-sm-9 col-xs-12 pull-right profile-right-section">
+                    <div class="row profile-right-section-row">
+                        <div class="col-md-12 profile-header">
+                            <div class="row">
+                                <div class="col-md-8 col-sm-6 col-xs-6 profile-header-section1 pull-left">
+                                    <h1>{this.state.User.userName}</h1>
+                                    <h5>{this.state.User.email}</h5>
+                                </div>
+                               
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <ul class="nav nav-tabs" role="tablist">
+                                        <li class="nav-item">
+                                            <a class="nav-link active" href="#profile" role="tab" data-toggle="tab"><i class="fas fa-user-circle"></i> Personal Information</a>
+                                        </li>
+                                       
+                                            
+                                        </ul>
+                                            <div class="tab-content">
+                                            <div role="tabpanel" class="tab-pane fade show active" id="profile">
+                                            
+                                                <div class="row">
+                                                    <div class="col-md-2">
+                                                        <label>Name:</label>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <p>{this.state.User.name}</p>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-2">
+                                                        <label>Profile Created AT:</label>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <p>{this.state.User.createdAt}</p>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-2">
+                                                        <label>Email:</label>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <p> {this.state.User.email}</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="contact" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="contact">Contactarme</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <p for="msj">Se enviará este mensaje a la persona que desea contactar, indicando que te quieres comunicar con el. Para esto debes de ingresar tu información personal.</p>
+                    </div>
+                    <div class="form-group">
+                        <label for="txtFullname">Nombre completo</label>
+                        <input type="text" id="txtFullname" class="form-control"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="txtEmail">Email</label>
+                        <input type="text" id="txtEmail" class="form-control"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="txtPhone">Teléfono</label>
+                        <input type="text" id="txtPhone" class="form-control"/>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary"  data-dismiss="modal">Guardar</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
            </div>
         );
