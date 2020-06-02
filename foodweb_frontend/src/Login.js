@@ -18,16 +18,6 @@ function Login() {
     console.log("=============FAILURE================");
   }
 
-
-  /*
-    - 호출 성공
-    - Google 호출 (Request)
-    - 호출 -> 응답 (Response) 
-    
-    res = Response, 즉 응답
-
-  */
-
   const handleGoogleResponse = (res) => {
 
     console.log(res)
@@ -42,16 +32,18 @@ function Login() {
       userName: userName
     }
 
+    //Keep the login session on the browser to keep someone logged in even after refreshing the browser
+    localStorage.setItem('tokenId', `Bearer ${res.tokenId}`);
     axios.post('/signup', userData)
       .then(response => {
-        const { id } = response.data
 
-        localStorage.setItem('loggedin', true);
-        localStorage.setItem('user_id', id);
-
-        history.push("/Home");
-        // window.location.reload(false);
-
+        // const { id } = response.data
+        // localStorage.setItem('loggedin', true);
+        // localStorage.setItem('user_id', id);
+        history.push({
+          pathname: "/Home",
+          state: {userId: response.data.id}
+      });
       })
       .catch((err) => {
       })
@@ -77,41 +69,9 @@ function Login() {
                       <div className="text-center">
                         <h1 className="h4 text-gray-900 mb-4">Login Here</h1>
                       </div>
-                      {/* <div className="card align-items-center cad-n">
-        <img className="card-img-top" src={require('./img/no-img.png')} alt="Card image cap"/> */}
                       <form className="user">
-                        {/* <p href="index.html" className="btn btn-google btn-user btn-block">
-            <i className="fab fa-google fa-fw">  </i>
-          </p> */}
                         <p><br /><br /><br />  </p>
-                        {/* <GoogleLogin
-
-              clientId="181796502496-d4n1skjr6tq9trd0mp0dp3gdlaasm3hp.apps.googleusercontent.com"
-              buttonText="Sign in with Google"
-              scope='profile email'
-              width='240'
-              height='50'
-              longtitle='true'
-              theme='dark'
-              onSuccess={handleGoogleResponse}
-              onFailure={handleGoogleResponseFailure}
-              cookiePolicy={"single_host_origin"}
-          /> */}
-                        {/*
-          <GoogleLogin
-              clientId="181796502496-pnorfraij4g9q8re7t52kqttdb3gkkss.apps.googleusercontent.com"
-              buttonText="Sign in with Google"
-              scope='profile email'
-              width='240'
-              height='50'
-              longtitle='true'
-              theme='dark'
-              onSuccess={handleGoogleResponse}
-              onFailure={handleGoogleResponseFailure}
-              cookiePolicy={"single_host_origin"}
-          /> */}
-
-
+               
                         <GoogleLogin
                           clientId="181796502496-ao4ccf9jjp5p5mgfol6ov6cc35dvqe9r.apps.googleusercontent.com"
                           buttonText="Sign in with Google"

@@ -1,7 +1,7 @@
 import algoliasearch from 'algoliasearch/lite';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-
+import { withRouter } from "react-router-dom";
 
 import { Link } from 'react-router-dom'
 
@@ -15,11 +15,20 @@ let index = searchClient.initIndex('recipes');
 
 class Home extends React.Component{
 
-  state = {
-    value: "",
-    Hits: [],
-    query: ""
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      value: "",
+      Hits: [],
+      query: ""
+    };
+  }
+
+  // state = {
+  //   value: "",
+  //   Hits: [],
+  //   query: ""
+  // };
 
   search() {
 
@@ -34,12 +43,35 @@ class Home extends React.Component{
 
   });
 }
+componentWillMount() {
+
+  if(this.props.location.state.userId){
+
+    console.log("=============START=================");
+    console.log(this.props);
+    console.log("=-=-=-=-=-=-=-=-=-=-=-=-")
+    console.log(this.props.location.state.userId);
+   
+  }else{
+
+    console.log("=============START==Inside Home===============");
+    console.log("=============Not Logged in===============");
+    console.log(this.props);
+    this.props.history.push('/Login');
+    
+
+  }
+}
 
   componentDidMount(){
+
   //load hits on start
   this.search();
-  console.log(localStorage.getItem('user_id'));
-   
+
+  // check if user has been redirected from the login or 
+ 
+  
+
   }
 
   handleChange = (e) =>{
@@ -261,7 +293,17 @@ render() {
             </li>
 
             <li className="nav-item dropdown no-arrow mx-1">
-            <Link to="/ChatBox" className="nav-link dropdown-toggle" id="messagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <Link 
+              to={{
+                pathname: "/ChatBox",
+                state: {userId: this.props.location.state.userId}
+              }} 
+              className="nav-link dropdown-toggle" 
+              id="messagesDropdown" 
+              role="button" 
+              data-toggle="dropdown" 
+              aria-haspopup="true" 
+              aria-expanded="false">
                 <i className="fas fa-envelope fa-fw"></i>
                 <span className="badge badge-danger badge-counter">7</span>
             </Link>
@@ -269,7 +311,7 @@ render() {
                 <h6 className="dropdown-header">
                   Message Center
                 </h6>
-                <Link to="/ChatBox" className="dropdown-item d-flex align-items-center" >
+                <Link to={ {pathname: "/ChatBox",state: {userId: this.props.location.state.userId} }}  className="dropdown-item d-flex align-items-center" >
                   <div className="dropdown-list-image mr-3">
                     <img className="rounded-circle" src="https://source.unsplash.com/fn_BT9fwg_E/60x60" alt=""/>
                     <div className="status-indicator bg-success"></div>
@@ -362,7 +404,7 @@ render() {
         <div className="container-fluid">
           <div className="container">
                 {/* HITS Display*/}
-
+              <h1>userID = {this.props.location.state.userId}</h1>
               <div className="row">
             
                 {
@@ -413,4 +455,4 @@ render() {
   );
 }
 }
-export default Home;
+export default withRouter(Home);

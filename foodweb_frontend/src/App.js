@@ -1,11 +1,31 @@
+import { useHistory } from 'react-router-dom';
 import algoliasearch from 'algoliasearch/lite';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
-import { Link } from 'react-router-dom'
 
-axios.defaults.baseURL = "http://localhost:8080/app";
+import { Link } from 'react-router-dom';
+import jwtDecode from 'jwt-decode';
+import { withRouter } from "react-router-dom";
+import history from './History';
+//Check whether user is logged in
+const token = localStorage.tokenId;
+
+console.log("======================");
+console.log(token);
+console.log("===================");
+
 // axios.defaults.baseURL = 'https://new-my-recipes-app-myrecipesapp.azuremicroservices.io/app';
+
+// apiKey=""
+//                 appId=""
+axios.defaults.baseURL = "http://localhost:8080/app";
+// axios.defaults.baseURL = 'https://my-recipe-web-app-foodweb.azuremicroservices.io/app';
+
+
+// axios.defaults.baseURL = 'https://primary:wUi8KxKin1N8UEplHFd6hltkx4fZEWBwk6T2HsxFNvJlUettM7mJXppQ0cenBrpi@new-my-recipes-app.test.azuremicroservices.io/myrecipesapp/default/app';
+
+
 
 const searchClient = algoliasearch(
   '2RJQDQ5U0W',
@@ -13,20 +33,22 @@ const searchClient = algoliasearch(
 );
 
 
+
+
 // -----------START CUSTOMIZED SEARCH--------------
 
-
 let index = searchClient.initIndex('recipes');
-
 
 class App extends Component{
 
   state = {
         value: "",
         Hits: [],
-        query: ""
-  };
+        query: "",
+        loggedIn: false,
+        userId:""
 
+  };
   search() {
 
 //  =================QUERY===================
@@ -41,8 +63,74 @@ class App extends Component{
   
   }
 
+  Auth() {
+
+    if(token){
+ 
+     const decodedToken = jwtDecode(token);
+     console.log(decodedToken);
+     if(decodedToken.exp * 1000 > Date.now()){
+ //       //user is logged in reroute to home
+         console.log("User Loggedin");
+   // const history = useHistory();
+ 
+       const userData = {
+          name: decodedToken.name,
+          email: decodedToken.email,
+          familyName: decodedToken.family_name,
+          imageString: decodedToken.picture,
+          userName: decodedToken.given_name
+        };
+ 
+        axios.post('/signup', userData)
+          .then(response => {
+        const { id } = response.data
+ //           // localStorage.setItem('loggedin', true);
+ //           // localStorage.setItem('user_id', id);
+            console.log("before push");
+            console.log(response.data.id);
+            // this.state.userId = response.data.id;
+            this.setState({
+              userId : response.data.id,
+              loggedIn : true
+            })
+            if(this.state.loggedIn){
+              console.log("ready to push");
+              this.props.history.push({
+                pathname: "/Home",
+                state: {userId: `ID FROM APP ${this.state.userId}`}
+            });}
+             console.log("++++++++++++++");
+ 
+            console.log(this.state);
+          })
+          .catch((err) => {
+            console.log(err, "+++++++ERROR+++++++");
+        })
+        console.log(userData);
+ 
+      }else{
+        console.log("Not Logged in");
+      }
+ 
+  }
+ }
+
   componentDidMount(){
     //load hits on start
+    this.Auth();
+    //const [history]  = useHistory();
+    // this.props.history.push("/some/Path")
+    console.log(this.state.loggedIn);
+    if(this.state.loggedIn){
+      console.log("ready to push");
+      this.props.history.push({
+        pathname: "/Home",
+        state: {userId: `ID FROM APP ${this.state.userId}`}
+    });
+
+    }
+    // this.props.history.push('/Home');
     this.search();
   }
 
@@ -181,9 +269,11 @@ class App extends Component{
 
         <hr className="sidebar-divider d-none d-md-block"/>
 
+
         <div className="text-center d-none d-md-inline">
           <button className="rounded-circle border-0" id="sidebarToggle"></button>
         </div>
+
 
       </ul>
 
@@ -244,9 +334,12 @@ class App extends Component{
         <div className="container-fluid">
           <div className="container">
 
-
               <div className="row">
+
+
                 {/* card one */}
+                
+
                 {
                     this.state.Hits.map((hit, i)=>(
                       <div className="col-lg-4 col-md-6 mb-4"  key={i}>
@@ -293,4 +386,11 @@ class App extends Component{
   }
 }
 
-export default App;
+
+
+
+export default withRouter(App);
+
+
+
+

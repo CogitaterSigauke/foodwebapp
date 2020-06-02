@@ -15,24 +15,27 @@ import RegisterAccount from './RegisterAccount';
 import Block from './Block';
 import EditProfile from './EditProfile';
 import Recipe from './Recipe';
+
 import MyRecipes from './MyRecipes';
 import MyRecipeDetail from './MyRecipeDetail';
+import history from './History';
+
 // import Profile from './Components/ProfileComponents/Profile';
 import App from './App';
 
 ReactDOM.render(
 
+  <Router history={history}>
 
-  <Router>
- 
     <Switch>
       <Route path="/" exact component={App} />
       <Route path="/Login" component={Login} />
       <Route path="/Recipe/:id" component={Recipe} />
-      <Route path="/Home/" component={Home} />
+      <Route path="/Home/:id" component={Home} />
+      <Route path="/Home" component={Home} />
       <Route path="/RegisterAccount" component={RegisterAccount} />
       <Route path="/AddRecipe" component={AddRecipe} />
-   
+
       <Route path="/Block" component={Block} />
       <Route path="/EditProfile/:id" component={EditProfile} />
       <Route path="/Profile/:id" component={Profile} />
@@ -48,7 +51,7 @@ ReactDOM.render(
 
 );
 
-// <Route path= "/" exact component={App}/>
+
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.

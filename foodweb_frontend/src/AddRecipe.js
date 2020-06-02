@@ -17,15 +17,19 @@ class AddRecipe extends React.Component {
       worldCuisine: '',
       mealName: '',
       description: '',
+
       imageString: '' , 
+
       videoId: '',
       image: null,
       images: [],
       url: "",
       urls: [],
+
       progress: 0,
       steps: "",
       ingredients: ""
+
 
     };
   }
@@ -124,6 +128,68 @@ class AddRecipe extends React.Component {
           });
       }
     );
+  };
+
+
+  handleFileChange = e => {
+
+    if (e.target.files[0]) {
+    
+      this.setState({
+        image: e.target.files[0]
+      });
+  
+      console.log("handleFileChange \nstate: ", this.state);
+
+    }
+          
+  };
+
+  handleUpload = () => {
+
+    console.log("handleUpload State:", this.state);
+    const uploadTask = storage.ref(`images/${this.state.image.name}`).put(this.state.image);
+    console.log("handleUpload State: ==========================================");
+    uploadTask.on(
+      "state_changed",
+      snapshot => {
+
+        const progress = Math.round(
+          (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+        );
+
+        this.setState({
+          progress: progress
+        });
+        
+        console.log("Inside Handle Upload\n state :", this.state);
+
+      },
+      error => {
+        console.log("Error ==>", error);
+      },
+      () => {
+        this.state.images.push(this.state.image.name);
+       
+        console.log("Before getting image from storage\n state: ", this.state);
+        storage
+          .ref("images")
+          .child(this.state.image.name)
+          .getDownloadURL()
+          .then(imageUrl => {
+            this.setState({
+              url: imageUrl,
+              imageString: imageUrl
+            });
+            this.state.urls.push(imageUrl);
+            
+  
+          });
+      }
+    );
+
+    console.log("After Handle Upload\n state :", this.state);
+
   };
 
 
@@ -476,17 +542,21 @@ class AddRecipe extends React.Component {
                           <br /><br />
                           <button onClick={this.handleUpload}>Upload Image</button>
                         </div>
+
                         <br />
                     </div>
                       <br />
                         {this.state.images.map((image, i )=>(
                           <div key={i}>{image}</div>
                         ))}
+
                     </div>
                     <br /><br />
                     <div className="column">
                     <br />
+
                       {/* <h1 className="h3 mb-4 text-gray-800">OR PICK HERE(coming soon)</h1> */}
+
                       {/* card one */}
                       {/* <form>
 
