@@ -90,10 +90,11 @@ public class RecipeController {
 }
   //update recipe info
   @RequestMapping(method=RequestMethod.PUT, value="app/{user_id}/edit_recipe/{id}")
-  public Recipe updateRecipe(@PathVariable String id,@PathVariable String user_id, @RequestBody Recipe recipe){
+  public Recipe updateRecipe(@PathVariable String user_id,@PathVariable String id, @RequestBody Recipe recipe){
     //recipe can be edited only by the recipe creator
     Recipe r = recipeRepository.findById(id).get();
-    if(r.getUserId() == user_id){
+
+    if(user_id.equals(r.getUserId())){
       if(recipe.getMealName() != null){
         r.setMealName(recipe.getMealName());
       }
@@ -134,10 +135,7 @@ public class RecipeController {
     if(recipe.getUserId().equals(user_id)){
       //delete reviews associated with this recipes
 
-
-
       //delete comments associated with this recipe
-
 
       String objectID = recipe.getId();
       recipeRepository.delete(recipe);
@@ -258,5 +256,16 @@ public class RecipeController {
     List<Recipe> r = recipeRepository.findByUserId(user_id);
     return r;
   }
+
+  //delete all recipes
+  @RequestMapping(method=RequestMethod.DELETE, value="app/delete_all_recipes")
+  public String deleteAllRecipes(){
+    Iterable<Recipe> recipes = recipeRepository.findAll();
+    for(Recipe recipe: recipes){
+      recipeRepository.delete(recipe);
+    }
+    return "";
+  }
+
 
 }
