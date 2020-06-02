@@ -11,6 +11,7 @@ class AddRecipe extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      userId: '',
       userName: '',
       mealType: '',
       dietAndHealth: '',
@@ -34,6 +35,17 @@ class AddRecipe extends React.Component {
     };
   }
 
+  componentDidMount(){
+    //load hits on start
+    console.log("=============START Add Recipe=================");
+    console.log(this.props);
+    console.log("=-=-=-=-=-=-=-=-=-=-=-=-")
+    console.log(this.props.location.state.userId);
+    this.setState({
+      userId: this.props.location.state.userId,
+      userName: this.props.location.state.userName
+    });
+  }
 
   onChange = (e) => {
     const state = this.state
@@ -51,16 +63,22 @@ class AddRecipe extends React.Component {
   onSubmit = (e) => {
     e.preventDefault();
     debugger;
-    const{ mealType, dietAndHealth, worldCuisine, mealName, description, imageString, videoId, steps, ingredients } = this.state;
+    const{ userId, userName, mealType, dietAndHealth, worldCuisine, mealName, description, imageString, videoId, steps, ingredients } = this.state;
     debugger;
-    axios.post('/user/add/recipe/', { mealType, dietAndHealth, worldCuisine, mealName, description, imageString, videoId, steps, ingredients })
+    axios.post('/user/add/recipe/', { userId, userName,  mealType, dietAndHealth, worldCuisine, mealName, description, imageString, videoId, steps, ingredients })
       .then((result) => {
         console.log("After Posting new Contact - returned data: " + result.data);
         const recipeID = result.data.id;
         console.log('======response.data======');
         console.log(result.data);
-        // alert("Successfuly saved, Thank you!");
-        // this.props.history.push("/Home")
+        alert("Successfuly saved, Thank you!");
+      
+        this.props.history.push({
+          pathname: "/Home",
+          state: {userId: this.state.userId,
+                  userName: this.state.userName}
+        });
+
       })
       .catch((err) => {
         console.log(`======response.data=====`);
@@ -196,7 +214,7 @@ class AddRecipe extends React.Component {
 
   render() {
 
-    const { mealType, dietAndHealth, worldCuisine, mealName, description, imageString, videoId, steps, ingredients} = this.state;
+    const { userId, userName, mealType, dietAndHealth, worldCuisine, mealName, description, imageString, videoId, steps, ingredients} = this.state;
 
     return (
       <div className="AddRecipe">

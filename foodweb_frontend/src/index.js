@@ -36,9 +36,9 @@ ReactDOM.render(
       <Route path="/RegisterAccount" component={RegisterAccount} />
       <Route path="/AddRecipe" component={AddRecipe} />
 
-      <Route path="/Block" component={Block} />
-      <Route path="/EditProfile/:id" component={EditProfile} />
-      <Route path="/Profile/:id" component={Profile} />
+      {/* <Route path="/Block" component={Block} /> */}
+      {/* <Route path="/EditProfile" component={EditProfile} /> */}
+      <Route path="/Profile" component={Profile} />
       <Route path="/ChatBox" component={ChatBox}/>
       <Route path="/MyRecipes" component={MyRecipes}/>
       {/* <Route path="/MyRecipeDetail/:id" component={MyRecipeDetail}/> */}

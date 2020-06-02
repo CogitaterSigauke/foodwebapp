@@ -42,9 +42,10 @@ function Login() {
         // localStorage.setItem('user_id', id);
         history.push({
           pathname: "/Home",
-          state: {userId: response.data.id}
-      });
-      })
+          state: {userId: response.data.id,
+                  userName: response.data.userName}
+          });
+        })
       .catch((err) => {
       })
   };
