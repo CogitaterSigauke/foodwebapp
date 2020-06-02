@@ -1,7 +1,7 @@
 import algoliasearch from 'algoliasearch/lite';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { withRouter } from "react-router-dom";
+import { withRouter, Redirect } from "react-router-dom";
 
 import { Link } from 'react-router-dom'
 
@@ -20,7 +20,8 @@ class Home extends React.Component{
     this.state = {
       value: "",
       Hits: [],
-      query: ""
+      query: "",
+      authenticated: true
     };
   }
 
@@ -51,6 +52,9 @@ componentWillMount() {
     console.log("=============START==Inside Home===============");
     console.log("=============Not Logged in===============");
     console.log(this.props);
+    this.setState({
+      authenticated: false
+    })
     this.props.history.push('/Login');
     
 
@@ -72,9 +76,16 @@ componentWillMount() {
     console.log("Logout");
     console.log(this);
     localStorage.removeItem("tokenId");
-    debugger;
-    window.location.href("/");
+    const token = localStorage.tokenId;
+    console.log("tokenId ==> ", token);
+    // debugger;
+    // window.location.href("/");
     // this.props.history.push("/");
+    // runder = {<Redirect to='/Home'/>}
+    this.setState({
+      authenticated: false
+    });
+
   } 
 
   handleChange = (e) =>{
@@ -89,6 +100,17 @@ componentWillMount() {
   }
 
 render() {
+
+  const { authenticated } = this.state;
+  if(!authenticated){
+    this.props.history.push('/');
+    // return <Redirect to='/'/>
+  }
+  if(!this.props.location.state){
+    this.props.history.push('/');
+    return <Redirect to='/'/>;
+  }
+
   return (
 
     <div className="Home">

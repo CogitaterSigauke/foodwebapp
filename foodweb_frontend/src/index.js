@@ -19,9 +19,10 @@ import Recipe from './Recipe';
 import MyRecipes from './MyRecipes';
 import MyRecipeDetail from './MyRecipeDetail';
 import history from './History';
-
+// import AuthRoute from './AuthRoute';
 // import Profile from './Components/ProfileComponents/Profile';
 import App from './App';
+
 
 ReactDOM.render(
 
@@ -29,9 +30,9 @@ ReactDOM.render(
 
     <Switch>
       <Route path="/" exact component={App} />
-      <Route path="/Login" component={Login} />
+      <Route path="/Login" component={Login}/>
       <Route path="/Recipe/:id" component={Recipe} />
-      <Route path="/Home/:id" component={Home} />
+      <Route path="/Home/:id" component={Home} /> 
       <Route path="/Home" component={Home} />
       <Route path="/RegisterAccount" component={RegisterAccount} />
       <Route path="/AddRecipe" component={AddRecipe} />
