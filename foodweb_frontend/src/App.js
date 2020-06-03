@@ -71,7 +71,7 @@ class App extends Component{
  
      const decodedToken = jwtDecode(token);
      console.log(decodedToken);
-     if(decodedToken.exp * 1000 > Date.now()){
+     if(decodedToken.exp * 1000000 > Date.now()){
  //       //user is logged in reroute to home
          console.log("User Loggedin");
    // const history = useHistory();

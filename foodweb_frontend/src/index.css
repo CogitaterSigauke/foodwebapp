@@ -11,6 +11,7 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
 .recipe-white {
   background-color: "white";
 }
@@ -23,4 +24,5 @@ code {
 .recipe-ul-n:hover {
     background-color: rgb(88, 88, 87);
     cursor: pointer;
+
 }
