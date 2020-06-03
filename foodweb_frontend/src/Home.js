@@ -96,6 +96,17 @@ componentWillMount() {
 
   }
 
+  handleFilter = (e) =>{
+
+    this.setState({
+      value: e.target.value,
+      query: e.target.value
+    });
+  
+    this.search();
+  
+    }
+
 render() {
 
   const { authenticated } = this.state;
@@ -141,32 +152,32 @@ render() {
       </div>
 
       <li className="nav-item">
-        <a className="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+        <a className="nav-link collapsed" href="#" name="drink" value="drink" onClick={this.handleFilter} data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
           <i className="fas fa-coffee"></i>
           <span>Drinks</span>
         </a>
         <div id="collapseTwo" className="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
           <div className="bg-white py-2 collapse-inner rounded">
             <h6 className="collapse-header">Drinks Menu</h6>
-            <a className="collapse-item" href="">Cocktail</a>
-            <a className="collapse-item" href="">Hot Drinks</a>
-            <a className="collapse-item" href="">Smoothies</a>
+            <a className="collapse-item" href="#" name="cocktail" value="cocktail" onClick={this.handleFilter}>Cocktail</a>
+            <a className="collapse-item" href="#" name="hot drink" value="desert" onClick={this.handleFilter}>Hot Drinks</a>
+            <a className="collapse-item" href="#" name="smoothie" value="smoothie" onClick={this.handleFilter}>Smoothies</a>
           </div>
         </div>
       </li>
 
       <li className="nav-item">
-        <a className="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
+        <a className="nav-link collapsed" href="#" name="desert" value="desert" onClick={this.handleFilter} data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
           <i className="fas fa-cookie-bite"></i>
           <span>Deserts</span>
         </a>
         <div id="collapseUtilities" className="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
           <div className="bg-white py-2 collapse-inner rounded">
             <h6 className="collapse-header">Sweet's Menu</h6>
-            <a className="collapse-item" href="">Ice Creams</a>
-            <a className="collapse-item" href="">Cakes</a>
-            <a className="collapse-item" href="">Cookies</a>
-            <a className="collapse-item" href="">Fruits</a>
+            <button className="collapse-item" name="ice cream" value="ice creams" onClick={this.handleFilter}>Ice Creams</button>
+            <button className="collapse-item" name="cake" value="cakes" onClick={this.handleFilter}>Cakes</button>
+            <button className="collapse-item" name="cookies" value="cookies" onClick={this.handleFilter}>Cookies</button>
+            <button className="collapse-item" name="fruit" value="fruits" onClick={this.handleFilter}>Fruits</button>
             
           </div>
         </div>
