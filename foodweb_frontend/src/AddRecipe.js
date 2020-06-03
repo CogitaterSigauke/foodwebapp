@@ -28,24 +28,24 @@ class AddRecipe extends React.Component {
       urls: [],
 
       progress: 0,
-      steps: ['step-0'],
-      ingredients: ['ingredient-0'],
+      // steps: ['step-0'],
+      // ingredients: ['ingredient-0'],
 
       profileImage: "",
-      // step: "",
-      // ingredient: ""
+      step: "",
+      ingredient: ""
 
     };
   }
 
-  appendInput = () => {
-    var newInput = `step-${this.state.steps.length}`;
-    this.setState(prevState => ({ steps: prevState.steps.concat([newInput]) }));
-  }
-  appendIngredients = () => {
-    var newInput = `ingredient-${this.state.ingredients.length}`;
-    this.setState(prevState => ({ ingredients: prevState.ingredients.concat([newInput]) }));
-  }
+  // appendInput = () => {
+  //   var newInput = `step-${this.state.steps.length}`;
+  //   this.setState(prevState => ({ steps: prevState.steps.concat([newInput]) }));
+  // }
+  // appendIngredients = () => {
+  //   var newInput = `ingredient-${this.state.ingredients.length}`;
+  //   this.setState(prevState => ({ ingredients: prevState.ingredients.concat([newInput]) }));
+  // }
   
   componentDidMount(){
     //load hits on start
@@ -67,26 +67,26 @@ class AddRecipe extends React.Component {
     
   }
 
-  handleSteps = (e) => {
-    const state = this.state;
-    // state[e.target.name] = e.target.value;
-    // console.log("Selected file of size: " + e.target.files[0].size);
-    // this.setState({
-    //   step: e.target.value
+  // handleSteps = (e) => {
+  //   const state = this.state;
+  //   // state[e.target.name] = e.target.value;
+  //   // console.log("Selected file of size: " + e.target.files[0].size);
+  //   // this.setState({
+  //   //   step: e.target.value
     
-    // });
-    this.state.steps.push(e.target.value);
-  }
+  //   // });
+  //   this.state.steps.push(e.target.value);
+  // }
 
-  handleIngredients = (e) => {
-    const state = this.state;
-    // state[e.target.name] = e.target.value;
-    // console.log("Selected file of size: " + e.target.files[0].size);
-    // this.setState({
-    //   ingredient:  e.target.value
-    // });
-    this.state.ingredients.push( e.target.value);
-  }
+  // handleIngredients = (e) => {
+  //   const state = this.state;
+  //   // state[e.target.name] = e.target.value;
+  //   // console.log("Selected file of size: " + e.target.files[0].size);
+  //   // this.setState({
+  //   //   ingredient:  e.target.value
+  //   // });
+  //   this.state.ingredients.push( e.target.value);
+  // }
 
   onSubmit = (e) => {
     e.preventDefault();
@@ -513,15 +513,19 @@ class AddRecipe extends React.Component {
 
 
 
-                            {/* <div className="form-group">
+                            <div className="form-group">
                               <label htmlFor="ingredients">Ingredients</label>
                               <textarea rows="3" cols="30" type="text" className="form-control" name="ingredients" value={ingredients} onChange={this.onChange} placeholder="Write the list of ingredients needed to make this recipe" required/>
-                            </div> */}
-
-
+                            </div>
+                            
                             <div className="form-group">
+                              <label htmlFor="steps">Steps</label>
+                              <textarea rows="3" cols="30" type="text" className="form-control" name="steps" value={steps} onChange={this.onChange} placeholder="Write the list of ingredients needed to make this recipe" required/>
+                            </div>
+
+
+                            {/* <div className="form-group">
                               <label htmlFor="Stpes">Ingredients</label>
-                              {/* <textarea rows="10" cols="50" type="text" className="form-control" name="steps" value={steps} onChange={this.onChange} placeholder="Write a detail description of steps of the recipe" required/> */}
                               
                               <div>
                                 debugger;
@@ -540,16 +544,15 @@ class AddRecipe extends React.Component {
                                 </form>
                              </div>
                            
-                            </div>
+                            </div> */}
                          
 
 
 
 
-
+{/* 
                             <div className="form-group">
                               <label htmlFor="Stpes">Steps</label>
-                              {/* <textarea rows="10" cols="50" type="text" className="form-control" name="steps" value={steps} onChange={this.onChange} placeholder="Write a detail description of steps of the recipe" required/> */}
                               
                               <div>
                                 <form onSubmit= {this.appendInput}>
@@ -567,7 +570,7 @@ class AddRecipe extends React.Component {
                                 </form>
                              </div>
                            
-                            </div>
+                            </div> */}
 
 
 
