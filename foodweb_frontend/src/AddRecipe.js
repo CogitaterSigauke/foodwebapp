@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { useHistory } from "react-router-dom";
 import { storage } from "./firebase";
-
+// import { withFormsy } from 'formsy-react';
 
 class AddRecipe extends React.Component {
 
@@ -28,14 +28,25 @@ class AddRecipe extends React.Component {
       urls: [],
 
       progress: 0,
-      steps: "",
-      ingredients: "",
+      steps: ['step-0'],
+      ingredients: ['ingredient-0'],
 
-      profileImage: ""
+      profileImage: "",
+      // step: "",
+      // ingredient: ""
 
     };
   }
 
+  appendInput = () => {
+    var newInput = `step-${this.state.steps.length}`;
+    this.setState(prevState => ({ steps: prevState.steps.concat([newInput]) }));
+  }
+  appendIngredients = () => {
+    var newInput = `ingredient-${this.state.ingredients.length}`;
+    this.setState(prevState => ({ ingredients: prevState.ingredients.concat([newInput]) }));
+  }
+  
   componentDidMount(){
     //load hits on start
     console.log("=============START Add Recipe=================");
@@ -50,16 +61,31 @@ class AddRecipe extends React.Component {
   }
 
   onChange = (e) => {
-    const state = this.state
+    const state = this.state;
     state[e.target.name] = e.target.value;
     this.setState(state);
+    
   }
 
-  fileSelectedHandler = (e) => {
-    console.log("Selected file of size: " + e.target.files[0].size);
-    this.setState({
-      image: e.target.files[0], 
-    })
+  handleSteps = (e) => {
+    const state = this.state;
+    // state[e.target.name] = e.target.value;
+    // console.log("Selected file of size: " + e.target.files[0].size);
+    // this.setState({
+    //   step: e.target.value
+    
+    // });
+    this.state.steps.push(e.target.value);
+  }
+
+  handleIngredients = (e) => {
+    const state = this.state;
+    // state[e.target.name] = e.target.value;
+    // console.log("Selected file of size: " + e.target.files[0].size);
+    // this.setState({
+    //   ingredient:  e.target.value
+    // });
+    this.state.ingredients.push( e.target.value);
   }
 
   onSubmit = (e) => {
@@ -102,70 +128,7 @@ class AddRecipe extends React.Component {
     }  
   };
 
-  handleUpload= () => {
 
-    console.log("handleUpload State:", this.state);
-    const uploadTask = storage.ref(`images/${this.state.image.name}`).put(this.state.image);
-    console.log("handleUpload State: ==========================================");
-    uploadTask.on(
-      "state_changed",
-      snapshot => {
-
-        const progress = Math.round(
-          (snapshot.bytesTransferred / snapshot.totalBytes) * 100
-        );
-
-        this.setState({
-          progress: progress
-        });
-        
-        console.log("Inside Handle Upload\n state :", this.state);
-
-      },
-      error => {
-        console.log("Error ==>", error);
-      },
-      () => {
-        this.state.images.push(this.state.image.name);
-       
-        console.log("Before getting image from storage\n state: ", this.state);
-        storage
-          .ref("images")
-          .child(this.state.image.name)
-          .getDownloadURL()
-          .then(imageUrl => {
-            // this.setState({
-            //   url: imageUrl,
-            //   imageString: imageUrl
-            // });
-            this.state.urls.push(imageUrl);
-            // this.state.imageString = imageUrl;
-            this.setState({
-                url: imageUrl,
-                imageString: imageUrl
-              });
-            
-              console.log("After Handle Upload\n state :", this.state);
-  
-          });
-      }
-    );
-  };
-
-
-  handleFileChange = e => {
-
-    if (e.target.files[0]) {
-    
-      this.setState({
-        image: e.target.files[0]
-      });
-  
-      console.log("handleFileChange \nstate: ", this.state);
-
-    }
-          
-  };
 
   handleUpload = () => {
 
@@ -213,13 +176,14 @@ class AddRecipe extends React.Component {
     console.log("After Handle Upload\n state :", this.state);
 
   };
+  
 
 
 
   render() {
 
     const { userId, userName, mealType, dietAndHealth, worldCuisine, mealName, description, imageString, videoId, steps, ingredients} = this.state;
-
+    // const {step, ingredient}= this.state;
     return (
       <div className="AddRecipe">
         <div id="wrapper">
@@ -546,14 +510,83 @@ class AddRecipe extends React.Component {
                               <label htmlFor="description">Description</label>
                               <textarea rows="3" cols="20" type="text" className="form-control" name="description" value={description} onChange={this.onChange} placeholder="give a general description about the recipe" required/>
                             </div>
-                            <div className="form-group">
+
+
+
+                            {/* <div className="form-group">
                               <label htmlFor="ingredients">Ingredients</label>
                               <textarea rows="3" cols="30" type="text" className="form-control" name="ingredients" value={ingredients} onChange={this.onChange} placeholder="Write the list of ingredients needed to make this recipe" required/>
+                            </div> */}
+
+
+                            <div className="form-group">
+                              <label htmlFor="Stpes">Ingredients</label>
+                              {/* <textarea rows="10" cols="50" type="text" className="form-control" name="steps" value={steps} onChange={this.onChange} placeholder="Write a detail description of steps of the recipe" required/> */}
+                              
+                              <div>
+                                debugger;
+                                <form onSubmit= {this.appendIngredients}>
+                            
+                                    <div id="dynamicInput">
+                                      <div className="form-group">
+                                        {this.state.ingredients.map(ingred => <input type = "text"  className= "form-control"  onChange={this.handleIngredients} key={ingred} />)}
+                                        <br/>
+                                      </div>
+                                    </div>
+                              
+                                <button type="submit"  className="fas fa-plus btn btn-success" >
+                                    CLICK ME TO ADD ingredients
+                                </button>
+                                </form>
+                             </div>
+                           
                             </div>
+                         
+
+
+
+
+
                             <div className="form-group">
                               <label htmlFor="Stpes">Steps</label>
-                              <textarea rows="10" cols="50" type="text" className="form-control" name="steps" value={steps} onChange={this.onChange} placeholder="Write a detail description of steps of the recipe" required/>
+                              {/* <textarea rows="10" cols="50" type="text" className="form-control" name="steps" value={steps} onChange={this.onChange} placeholder="Write a detail description of steps of the recipe" required/> */}
+                              
+                              <div>
+                                <form onSubmit= {this.appendInput}>
+                            
+                                    <div id="dynamicInput">
+                                      <div className="form-group">
+                                        {this.state.steps.map(s => <input type = "text"  className= "form-control"  onChange={this.handleSteps} key={s}/>)}
+                                        <br/>
+                                      </div>
+                                    </div>
+                              
+                                <button type="submit"  className="fas fa-plus">
+                                    CLICK ME TO ADD steps
+                                </button>
+                                </form>
+                             </div>
+                           
                             </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                             <button type="submit" className="btn btn-success">Submit</button>
                     </form>
                     <div>

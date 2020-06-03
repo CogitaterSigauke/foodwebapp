@@ -398,9 +398,6 @@ render() {
                     Profile
                 </Link>
 
-              
-                  
-              
                 <a className="dropdown-item" href="#">
                   <i className="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
                   Settings
