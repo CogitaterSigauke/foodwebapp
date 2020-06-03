@@ -77,10 +77,7 @@ class AddRecipe extends React.Component {
       })
   
     }
-    console.log("=============START Add Recipe=================");
-    console.log(this.props);
-    console.log("=-=-=-=-=-=-=-=-=-=-=-=-")
-    console.log(this.props.location.state.userId);
+    
     this.setState({
       userId: this.props.location.state.userId,
       userName: this.props.location.state.userName,

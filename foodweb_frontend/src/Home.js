@@ -25,11 +25,11 @@ class Home extends React.Component{
     };
   }
 
-  search() {
+  search(query) {
 
   //  =================QUERY===================
 
-  index.search(this.state.query).then(({hits}) => {
+  index.search(query).then(({hits}) => {
     console.log(hits);
     this.setState({
       Hits: hits
@@ -64,7 +64,7 @@ componentWillMount() {
     })
 
   }
-  this.search();
+  this.search("");
 
   // check if user has been redirected from the login or 
  
@@ -92,14 +92,25 @@ componentWillMount() {
 
   handleChange = (e) =>{
 
-  this.setState({
-    value: e.target.value,
-    query: e.target.value
-  });
+  // this.setState({
+  //   value: e.target.value,
+  //   query: e.target.value
+  // });
 
-  this.search();
+  this.search(e.target.value);
 
   }
+  handleFilter = (e) =>{
+
+    this.setState({
+      // value: e.target.value,
+      query: e.target.name
+    });
+  
+    this.search(e.target.value);
+    // this.search(e.target.value);
+  
+    }
 
 render() {
 
@@ -145,81 +156,84 @@ render() {
         Menu
       </div>
 
+
+
       <li className="nav-item">
-        <a className="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+        <a className="nav-link collapsed" href="#" name="drink" value="drink" onClick={this.handleFilter} data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
           <i className="fas fa-coffee"></i>
           <span>Drinks</span>
         </a>
-        <div id="collapseTwo" className="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+        <div id="collapseTwo" className="collapse" href="#"  aria-labelledby="headingTwo" data-parent="#accordionSidebar">
           <div className="bg-white py-2 collapse-inner rounded">
             <h6 className="collapse-header">Drinks Menu</h6>
-            <a className="collapse-item" href="">Cocktail</a>
-            <a className="collapse-item" href="">Hot Drinks</a>
-            <a className="collapse-item" href="">Smoothies</a>
+            <button className="collapse-item" name="cocktail" value="cocktail" onClick={this.handleFilter}>Cocktail</button>
+            <button className="collapse-item" name="hot drink" value="desert" onClick={this.handleFilter}>Hot Drinks</button>
+            <button className="collapse-item" name="smoothie" value="smoothie" onClick={this.handleFilter}>Smoothies</button>
           </div>
         </div>
       </li>
 
       <li className="nav-item">
-        <a className="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
-          <i className="fas fa-cookie-bite"></i>
+        <a className="nav-link collapsed" name="desert" href="#" value="desert" onClick={this.handleFilter} data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseTwo">
+          <i className="fas fa-coffee"></i>
           <span>Deserts</span>
         </a>
         <div id="collapseUtilities" className="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
           <div className="bg-white py-2 collapse-inner rounded">
             <h6 className="collapse-header">Sweet's Menu</h6>
-            <a className="collapse-item" href="">Ice Creams</a>
-            <a className="collapse-item" href="">Cakes</a>
-            <a className="collapse-item" href="">Cookies</a>
-            <a className="collapse-item" href="">Fruits</a>
+            <button className="collapse-item" name="ice cream" value="ice creams" onClick={this.handleFilter}>Ice Creams</button>
+            <button className="collapse-item" name="cake" value="cakes" onClick={this.handleFilter}>Cakes</button>
+            <button className="collapse-item" name="cookies" value="cookies" onClick={this.handleFilter}>Cookies</button>
+            <button className="collapse-item" name="fruit" value="fruits" onClick={this.handleFilter}>Fruits</button>
             
           </div>
         </div>
       </li>
 
       <li className="nav-item">
-        <a className="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
-          <i className="fas fa-globe"></i>
+        <a className="nav-link collapsed" href="#" name="cuisine" value="cuisine" onClick={this.handleFilter} data-toggle="collapse" data-target="#collapseCuisine" aria-expanded="true" aria-controls="collapseTwo">
+          <i className="fas fa-coffee"></i>
           <span>World Cuisine</span>
         </a>
-        <div id="collapseUtilities" className="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+        <div id="collapseCuisine" className="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
           <div className="bg-white py-2 collapse-inner rounded">
             <h6 className="collapse-header">Countries</h6>
-            <a className="collapse-item" href="">Ethiopian</a>
-            <a className="collapse-item" href="">Indian</a>
-            <a className="collapse-item" href="">Chinese</a>
-            <a className="collapse-item" href="">Italian</a>
-            <a className="collapse-item" href="">Mexican</a>
-            <a className="collapse-item" href="">American</a>
+            <button className="collapse-item recipe-button" name="Ethiopian" value="Ethiopian" onClick={this.handleFilter}>Ethiopian</button>
+            <button className="collapse-item recipe-button" name="Indian" value="Indian" onClick={this.handleFilter}>Indian</button>
+            <button className="collapse-item recipe-button" name="Chinese" value="chinese" onClick={this.handleFilter}>Chinese</button>
+            <button className="collapse-item recipe-button" name="Italian" value="Italian" onClick={this.handleFilter}>Italian</button>
+            <button className="collapse-item recipe-button" name="Mexican" value="Mexican" onClick={this.handleFilter}>Mexican</button>
+            <button className="collapse-item recipe-button" name="American" value="American" onClick={this.handleFilter}>American</button>
             
           </div>
         </div>
       </li>
 
       <li className="nav-item active">
-        <a className="nav-link" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true" aria-controls="collapsePages">
+        <a className="nav-link" href="#" data-toggle="collapse" data-target="#collapseMeals" aria-expanded="true" aria-controls="collapsePages">
           <i className="fas fa-fw fas fa-blender"></i>
           <span>Meals</span>
         </a>
-        <div id="collapsePages" className="collapse show" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+        <div id="collapseMeals" className="collapse show" aria-labelledby="headingPages" data-parent="#accordionSidebar">
           <div className="bg-white py-2 collapse-inner rounded">
             <h6 className="collapse-header">Main Dishes</h6>
-            <a className="collapse-item active" href="">Breakfast</a>
-            <a className="collapse-item active" href="">Lunch</a>
-            <a className="collapse-item active" href="">Dinner</a>
+            <button className="collapse-item active recipe-button" name="breakfast" value="breakfast" onClick={this.handleFilter}>Breakfast</button>
+            <button className="collapse-item active recipe-button" name="lunch" value="lunch" onClick={this.handleFilter}>Lunch</button>
+            <button className="collapse-item active recipe-button" name="dinner" value="dinner" onClick={this.handleFilter}>Dinner</button>
             <div className="collapse-divider"></div>
-            <h6 className="collapse-header">Side Dishes</h6>
-            <a className="collapse-item active" href="">Vegetable</a>
-            <a className="collapse-item active" href="">Grain</a>
-            <a className="collapse-item active" href="">Seasonal</a>
+            <h6 className="collapse-header" name="side dish" value="side dish" onClick={this.handleFilter}>Side Dishes</h6>
+            <button className="collapse-item active recipe-button" name="vegitable" value="vegitable" onClick={this.handleFilter}>Vegetable</button>
+            <button className="collapse-item active recipe-button" name="grain" value="grain" onClick={this.handleFilter}>Grain</button>
+            <button className="collapse-item active recipe-button" name="seasonal" value="seasonal" onClick={this.handleFilter}>Seasonal</button>
           </div>
         </div>
       </li>
 
       <li className="nav-item">
-        <a className="nav-link" href="">
+        <p className="nav-link" style={{cursor: "pointer", hover : {
+  backgroundcolor: "yellow" }}} name="dite and healthy" value="dite and healthy" onClick={this.handleFilter}>
           <i className="fas fa-hand-holding-heart"></i>
-          <span>Dite And Health</span></a>
+          <span>Dite And Health</span></p>
       </li>
 
      
