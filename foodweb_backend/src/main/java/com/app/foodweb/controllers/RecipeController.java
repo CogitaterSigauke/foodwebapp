@@ -88,9 +88,9 @@ public class RecipeController {
         recipe.getImageString());
         index.saveObject(recipeImage);
         return recipe;
+    }
+    return recipe;
   }
-  return recipe;
-}
   //update recipe info
   @RequestMapping(method=RequestMethod.PUT, value="app/{user_id}/edit_recipe/{id}")
   public Recipe updateRecipe(@PathVariable String user_id,@PathVariable String id, @RequestBody Recipe recipe){
@@ -135,25 +135,27 @@ public class RecipeController {
       index.saveObject(recipeImage);
 
 
-  }
+  
+    }
+  
      return r;
   }
   //delete a recipe. recipe is deleted only by the owner of the recipe
   @RequestMapping(method=RequestMethod.DELETE, value="app/{user_id}/delete_recipe/{recipe_id}")
   public String deleteRecipe(@PathVariable String user_id,@PathVariable String recipe_id){
 
-/*    Optional<Recipe> optrecipe = recipeRepository.findById(recipe_id);
+    Optional<Recipe> optrecipe = recipeRepository.findById(recipe_id);
     //check if a recipe with the given id exists
     if(optrecipe.isPresent()){
 
      Recipe recipe = optrecipe.get();
      //A recipe can only be deleted by its owner.
      if(recipe.getUserId().equals(user_id)){
-*/
 
-    Recipe recipe = recipeRepository.findById(recipe_id).get();
-    //A recipe can only be deleted by its owner.
-    if(recipe.getUserId().equals(user_id)){
+
+    // Recipe recipe = recipeRepository.findById(recipe_id).get();
+    // //A recipe can only be deleted by its owner.
+    // if(recipe.getUserId().equals(user_id)){
       String objectID = recipe.getId();
       recipeRepository.delete(recipe);
 
@@ -162,8 +164,8 @@ public class RecipeController {
     }
     return "ERROR: authorization";
   }
-   return "ERROR: Recipe with the given id, doesn't exist";
-}
+  return "Error: recipe not found";
+  }
   //these are the meal types users are expected to select from while filing in recipe insertion form
   @RequestMapping(method=RequestMethod.GET, value="app/meal_type")
   public List<String> getAllMealType(){

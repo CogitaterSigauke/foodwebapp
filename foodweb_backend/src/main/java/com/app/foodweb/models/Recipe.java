@@ -192,9 +192,9 @@ public class Recipe {
     public void setCreatedAt(String editedAt) {
         this.createdAt = editedAt;
     }
-    public String getIngredients() {
-        return ingredients;
-    }
+    // public String getIngredients() {
+    //     return ingredients;
+    // }
     // public ArrayList<String> getIngredients() {
     //   return ingredients;
     // }
@@ -203,12 +203,12 @@ public class Recipe {
     //  this.ingredients = ingredients;
     // }
 
-    public void setIngredients(String ingredients) {
-        this.ingredients = ingredients;
-    }
-    public String getSteps() {
-        return steps;
-    }
+    // public void setIngredients(String ingredients) {
+    //     this.ingredients = ingredients;
+    // }
+    // public String getSteps() {
+    //     return steps;
+    // }
 
     // public ArrayList<String> getSteps() {
     //     return steps;
@@ -217,9 +217,9 @@ public class Recipe {
     //     this.steps = steps;
     // }
 
-    public void setSteps(String steps) {
-        this.steps = steps;
-    }
+    // public void setSteps(String steps) {
+    //     this.steps = steps;
+    // }
 
     public ArrayList<String> getUrls() {
         return urls;
