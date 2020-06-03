@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import ReactDom from 'react-dom';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import { useHistory } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 import { storage } from "./firebase";
 // import { withFormsy } from 'formsy-react';
 
@@ -33,7 +33,8 @@ class AddRecipe extends React.Component {
       
       profileImage: "",
       step: "",
-      ingredient: ""
+      ingredient: "",
+      authenticated: true
 
     };
   }
@@ -47,8 +48,35 @@ class AddRecipe extends React.Component {
   //   this.setState(prevState => ({ ingredients: prevState.ingredients.concat([newInput]) }));
   // }
   
+  componentWillMount() {
+    // this._isMounted = false;
+    if(this.props.location.state){
+      console.log("=============START=================");
+      console.log(this.props);
+      console.log("=-=-=-=-=-=-=-=-=-=-=-=-")
+      console.log(this.props.location.state.userId);
+  
+    }else{
+      console.log("=============START==Inside Home===============");
+      console.log("=============Not Logged in===============");
+      console.log(this.props);
+      this.setState({
+        authenticated: false
+      })
+      // this.props.history.push('/Login');
+    }
+  }
+
+
   componentDidMount(){
-    //load hits on start
+    //load hits on start\
+
+    if(!this.props.location.state){
+      this.setState({
+        authenticated: false
+      })
+  
+    }
     console.log("=============START Add Recipe=================");
     console.log(this.props);
     console.log("=-=-=-=-=-=-=-=-=-=-=-=-")
@@ -176,14 +204,41 @@ class AddRecipe extends React.Component {
     console.log("After Handle Upload\n state :", this.state);
 
   };
+
   
+  handleLogout = () => {
+    console.log("Logout");
+    console.log(this);
+    localStorage.removeItem("tokenId");
+    const token = localStorage.tokenId;
+    console.log("tokenId ==3333333333333333333333333333333333333333333> ", token);
+    // debugger;
+    // window.location.href("/");
+    // this.props.history.push("/");
+    // runder = {<Redirect to='/Home'/>}
+    this.setState({
+      authenticated: false
+    });
+    this.props.location.state = null;
+    // this.props.history.push('/');
+
+  } 
 
 
 
   render() {
 
-    const { userId, userName, mealType, dietAndHealth, worldCuisine, mealName, description, imageString, videoId, steps, ingredients} = this.state;
-    // const {step, ingredient}= this.state;
+    const { authenticated, userId, userName, mealType, dietAndHealth, worldCuisine, mealName, description, imageString, videoId, steps, ingredients} = this.state;
+  
+    if(!authenticated){
+      this.props.history.push('/');
+      // return <Redirect to='/'/>
+    }
+    if(!this.props.location.state){
+      this.props.history.push('/');
+      return <Redirect to='/'/>;
+    }
+  
     return (
       <div className="AddRecipe">
         <div id="wrapper">
@@ -199,7 +254,7 @@ class AddRecipe extends React.Component {
                                 }
                     }}
             >
-                      <div className="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+                      <div className="sidebar-brand d-flex align-items-center justify-content-center" href={this.state.profileImage}>
                           <div className="sidebar-brand-icon rotate-n-15">
                             <i className="fas fa-blender"></i>
                           </div>
@@ -464,14 +519,20 @@ class AddRecipe extends React.Component {
 
                   <li className="nav-item dropdown no-arrow">
                     <a className="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                      <span className="mr-2 d-none d-lg-inline text-gray-600 small">Valerie Luna</span>
-                      <img className="img-profile rounded-circle" src="https://source.unsplash.com/QAB-WJcbgJk/60x60" />
+          <span className="mr-2 d-none d-lg-inline text-gray-600 small">{this.state.userName}</span>
+                      <img className="img-profile rounded-circle" src={this.state.profileImage} />
                     </a>
                     <div className="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-                      <a className="dropdown-item" href="#">
+                      <Link to={{
+          pathname: "/Profile",
+          state: {userId: this.state.userId,
+                  userName: this.state.userName,
+                  imageString: this.state.profileImage
+                }
+        }} className="dropdown-item" href="#" >
                         <i className="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                         Profile
-                        </a>
+                        </Link>
                       <a className="dropdown-item" href="#">
                         <i className="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
                           Settings
@@ -480,15 +541,20 @@ class AddRecipe extends React.Component {
                         <i className="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
                         Activity Log
                         </a>
-                      <Link to="/Components/ProfileComponents/AddRecipe">
-                        <p className="dropdown-item">
-                          <i className="fas fa-glass-cheers fa-sm fa-fw mr-2 text-gray-400"></i>
-                         Add Recipe
-                        </p>
-                      </Link>
+                        <Link className="dropdown-item" to = {{
+                    pathname: "/AddRecipe",
+                    state: {
+                      userId: this.state.userId,
+                      userName: this.state.userName,
+                      imageString: this.state.profileImage
+                    }
+                  }} >
+                            <i className="fas fa-glass-cheers fa-sm fa-fw mr-2 text-gray-400"></i>
+                            Add Recipe
+                        </Link>
                       <div className="dropdown-divider"></div>
                       <Link to="/">
-                        <p className="dropdown-item" data-toggle="modal" data-target="#logoutModal">
+                        <p className="dropdown-item" data-toggle="modal" data-target="#logoutModal" onClick={this.handleLogout}>
                           <i className="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                             Logout
                         </p>
