@@ -14,7 +14,7 @@ const searchClient = algoliasearch(
 let index = searchClient.initIndex('recipes');
 
 class Home extends React.Component{
-  _isMounted = false;
+  // _isMounted = false;
   constructor(props) {
     super(props);
     this.state = {
@@ -22,7 +22,6 @@ class Home extends React.Component{
       Hits: [],
       query: "",
       authenticated: true
-
     };
   }
 
@@ -35,12 +34,10 @@ class Home extends React.Component{
     this.setState({
       Hits: hits
     });
-
-
   });
 }
 componentWillMount() {
-  this._isMounted = false;
+  // this._isMounted = false;
   if(this.props.location.state){
     console.log("=============START=================");
     console.log(this.props);
@@ -59,7 +56,7 @@ componentWillMount() {
 }
 
   componentDidMount(){
-    this._isMounted = true;
+    // this._isMounted = true;
   //load hits on start
   this.search();
 
@@ -82,6 +79,7 @@ componentWillMount() {
     this.setState({
       authenticated: false
     });
+    this.props.history.push('/');
 
   } 
 
@@ -424,7 +422,9 @@ render() {
                     pathname: "/AddRecipe",
                     state: {
                       userId: this.props.location.state.userId,
-                      userName: this.props.location.state.userName}
+                      userName: this.props.location.state.userName,
+                      imageString: this.props.location.state.imageString
+                    }
                   }} >
                     <i className="fas fa-glass-cheers fa-sm fa-fw mr-2 text-gray-400"></i>
                     Add Recipe
