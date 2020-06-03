@@ -32,8 +32,8 @@ Make a web app that can provide
 * User registration and authentication
 * ChatBox
 * View  and edit Profiles
-* Live comment and follow users
-* Provide video streaming of cooking sessions
+* ADD Recipe, Edit Recipe, Delete Recipe
+
 
 
 # List of Teammates and their roles
@@ -42,6 +42,7 @@ Make a web app that can provide
 *  CogitaterSigauke - Lead programmer
 *  Merry Mekonnen - Product Owner
 *  Pyungkang Hong - Designer
+
 # Link to where the website is deployed
 ```
 https://my-recipes-web-app.azurewebsites.net/
@@ -51,9 +52,6 @@ Some important pages
 https://my-recipes-web-app.azurewebsites.net/ChatBox
 https://my-recipes-web-app.azurewebsites.net/Home
 ```
-# Detiled explanation of the Beta version that is released:
-
-From the first page, it is not possible to do anything except for searching recipes. After logging in, a user can add a recipe, message another user, click on a recipe card to see recipe detailed descriptions and finally logout. 
      
 # How To Use This Software
 
