@@ -3,20 +3,27 @@ package com.app.foodweb.models;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+import java.util.HashMap;
 
 @Document(collection = "recipeLikes")
 
 public class RecipeLikes {
     @Id
     String id;
-    String recipeId; 
-    String userName; //userName of the user that has liked the recipe
-    String userId;   //same user with the above username
+    int likesCount = 0;
+    String recipeId;
+    String userId;
+    String userName;
 
+    HashMap<String, String> likes;
+ 
     public RecipeLikes(String recipeId, String userId, String userName) {
         this.recipeId = recipeId;
-        this.userName = userName;
+        this.likes = new HashMap<String, String>();
+        likes.put(userId, userName);
+        this.likesCount ++;
         this.userId = userId;
+        this.userName = userName;
     }
 
     public String getId() {
@@ -25,14 +32,6 @@ public class RecipeLikes {
 
     public void setId(String id) {
         this.id = id;
-    }
-
-    public String getRecipeId() {
-        return recipeId;
-    }
-
-    public void setRecipeId(String recipeId) {
-        this.recipeId = recipeId;
     }
 
     public String getUserName() {
@@ -50,5 +49,36 @@ public class RecipeLikes {
     public void setUserId(String userId) {
         this.userId = userId;
     }
-    
+
+    public String getRecipeId() {
+        return recipeId;
+    }
+
+    public void setRecipeId(String recipeId) {
+        this.recipeId = recipeId;
+    }
+
+    public HashMap<String, String> getLikes() {
+        return likes;
+    }
+
+    public int like(String userId, String userName) {
+        if(!this.likes.containsKey(userId)){
+            likes.put(userId, userName);
+            this.likesCount ++;
+        }
+        return this.likesCount;
+    }
+
+    public int unLike(String userId, String userName) {
+        if(this.likes.containsKey(userId)){
+            likes.put(userId, userName);
+            this.likesCount --;
+        }
+        return this.likesCount;
+    }
+
+    public int getLikesCount() {
+        return this.likesCount;
+    }
 }

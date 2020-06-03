@@ -43,6 +43,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+import java.util.Map;
+import java.util.HashMap;
 
 @CrossOrigin
 @RestController
@@ -80,7 +82,9 @@ public class RecipeController {
     recipe.getWorldCuisine(),
     recipe.getMealName(),
     recipe.getCreatedAt(),
-    recipe.getImageString());
+    recipe.getImageString(),
+    recipe.getLikesCount()
+    );
     index.saveObject(recipeImage);
     return recipe;
   }
@@ -123,11 +127,16 @@ public class RecipeController {
     r.getWorldCuisine(),
     r.getMealName(),
     r.getCreatedAt(),
-    r.getImageString());
+    r.getImageString(),
+    r.getLikesCount());
+
     index.saveObject(recipeImage);
     return r;
 
   }
+
+
+
   //delete a recipe. recipe is deleted only by the owner of the recipe
   @RequestMapping(method=RequestMethod.DELETE, value="app/{user_id}/delete_recipe/{recipe_id}")
   public String deleteRecipe(@PathVariable String user_id,@PathVariable String recipe_id){
@@ -207,7 +216,8 @@ public class RecipeController {
         recipe.getWorldCuisine(),
         recipe.getMealName(),
         recipe.getCreatedAt(),
-        recipe.getImageString());
+        recipe.getImageString(),
+        recipe.getLikesCount());
         index.saveObject(recipeImage);
 
         Optional<Recipe> newRecipe = Optional.of(recipe);
@@ -244,5 +254,57 @@ public class RecipeController {
     List<Recipe> r = recipeRepository.findByUserId(user_id);
     return r;
   }
+
+
+  public Recipe getRecipeTrigger(String recipe_id){
+    return recipeRepository.findById(recipe_id).get();
+  }
+
+
+  public Recipe updateRecipeTrigger(String id, Recipe recipe){
+    Recipe r = recipeRepository.findById(id).get();
+
+    if(recipe.getMealName() != null){
+      r.setMealName(recipe.getMealName());
+    }
+    if(recipe.getMealType() != null){
+      r.setMealType(recipe.getMealType());
+    }
+    if(recipe.getDietAndHealth() != null){
+      r.setDietAndHealth(recipe.getDietAndHealth());
+    }
+    if(recipe.getWorldCuisine() != null){
+      r.setWorldCuisine(recipe.getWorldCuisine());
+    }
+    if(recipe.getDescription() != null){
+      r.setDescription(recipe.getDescription());
+    }
+    if(recipe.getIngredients() != null){
+      r.setIngredients(recipe.getIngredients());
+    }
+    if(recipe.getSteps() != null){
+      r.setSteps(recipe.getSteps());
+    }
+    if(recipe.getUrls() != null){
+      r.setUrls(recipe.getUrls());
+    }
+    recipeRepository.save(r);
+    // UPDATE INDEX
+    RecipeImage recipeImage = new RecipeImage(
+    r.getId(),
+    r.getUserName(),
+    r.getMealType(),
+    r.getDietAndHealth(),
+    r.getWorldCuisine(),
+    r.getMealName(),
+    r.getCreatedAt(),
+    r.getImageString(),
+    r.getLikesCount());
+
+    index.saveObject(recipeImage);
+    return r;
+
+  }
+
 
 }

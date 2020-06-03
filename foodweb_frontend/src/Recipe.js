@@ -11,41 +11,87 @@ class Recipe extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            isRecipeOwner: false,
             Recipe: {},
             Review: {
                 comment: '',
                 // rating: '',
             },
             LoadedComments: {},
-            stepsarr: {}
+            stepsarr: {},
+            likes: 0
            
         };
     }
 
     componentDidMount() {
         // console.log('/recipe/5eba3f7efd9c7b27cb32b8fa');
-       // '+this.props.match.params.id
+       // '+this.props.location.state.recipeId
        console.log("#################################")
        console.log(this)
-        axios.get('/recipe/'+this.props.match.params.id)
+        axios.get('/recipe/'+this.props.location.state.recipeId)
             .then(res => {
                 this.setState({ Recipe: res.data });
-                console.log(this.state.Recipe);
+                console.log("recipe =======", res.data);
+
+                if(this.props.location.state.userId ==  res.data.userId) {
+                    this.setState({
+                        isRecipeOwner: true
+                    });
+                }
+                console.log("user vs recipeOwner: ", this.props.location.state.userId ,"**VS*",  res.data.userId);
+
             });
-        axios.get('/get_all_comments/'+this.props.match.params.id)
+        axios.get('/get_all_comments/'+this.props.location.state.recipeId)
             .then(commments => {
 
             this.setState({LoadedComments: commments.data });
             console.log("Loaded Comments");
             console.log(this.state.LoadedComments);
         });
-    }
         
+        console.log("state =======", this.state);
+
+        axios.get(`/recipe/total_likes/${this.props.location.state.recipeId}`)
+        .then(
+            (result)=>{
+                console.log(result.data);
+                this.setState({likes : result.data.likes});
+                console.log(this.state);
+            }
+        ).catch((error)=>{
+            console.log(error);
+        }).catch((err) => {
+            console.log(`Errors: {errors}`, err);
+        });
+    }
+
+    IncrementLikesCount = () => {
+        debugger;
+        let object = {
+            recipeId: this.props.location.state.recipeId,
+            userName: this.props.location.state.userName,
+            userId: this.props.location.state.userId
+        };
+        console.log("obj88888", object);
+        axios.post('/recipe/like/', object)
+        .then(
+            (result)=>{
+                console.log(result.data);
+                this.setState({likes : result.data.likes});
+                console.log(this.state);
+            }
+        ).catch((error)=>{
+            console.log(error);
+        }).catch((err) => {
+            console.log(`Errors: {errors}`, err);
+        });
+    }
     // delete a recipe
     deleteRecipe = () => {
         // e.preventDefault(); 
         console.log("Recipe user ID", this.state.Recipe)
-        axios.delete('/'+this.state.Recipe.userId+'/delete_recipe/'+this.props.match.params.id)
+        axios.delete('/'+this.state.Recipe.userId+'/delete_recipe/'+this.props.location.state.recipeId)
         .then((result) => {
             alert("Successfuly Deleted");
             this.props.history.push("/Home")
@@ -74,37 +120,37 @@ class Recipe extends Component {
         
     // }
 
-    postReview = (e) => {
+    // postReview = (e) => {
 
-        e.preventDefault();
-        // id=  localStorage.getItem("id");
-        const { comment } = this.state.Review;
-        debugger;
+    //     e.preventDefault();
+    //     // id=  localStorage.getItem("id");
+    //     const { comment } = this.state.Review;
+    //     debugger;
 
-       // const recipeId = this.params.props.id;
-        axios.post('/add_comment_to_recipe/'+this.props.match.params.id,  {commentText: comment, recipeId: this.props.match.params.id})
+    //    // const recipeId = this.params.props.id;
+    //     axios.post('/add_comment_to_recipe/'+this.props.location.state.recipeId,  {commentText: comment, recipeId: this.props.location.state.recipeId})
 
-          .then((result) => {
-            console.log("After Posting new Contact - returned data: " + result.data);
-            console.log('======response.data======');
-            console.log(result.data);
+    //       .then((result) => {
+    //         console.log("After Posting new Contact - returned data: " + result.data);
+    //         console.log('======response.data======');
+    //         console.log(result.data);
 
-            console.log(this.props.match.params.id);
+    //         console.log(this.props.location.state.recipeId);
 
-            alert("Successfuly saved");
-            this.props.history.push("/Home")
-          })
-          .catch((err) => {
-            console.log(`======response.data=====`);
-            // setErrors(err.result.data);
-            console.log(`Errors: {errors}`);
-          })
-          .catch((err) => {
+    //         alert("Successfuly saved");
+    //         this.props.history.push("/Home")
+    //       })
+    //       .catch((err) => {
+    //         console.log(`======response.data=====`);
+    //         // setErrors(err.result.data);
+    //         console.log(`Errors: {errors}`);
+    //       })
+    //       .catch((err) => {
     
-            // setErrors(err.result.data);
-            console.log(`Errors: {errors}`);
-          });
-      }
+    //         // setErrors(err.result.data);
+    //         console.log(`Errors: {errors}`);
+    //       });
+    //   }
     
     
     render() {
@@ -361,8 +407,8 @@ class Recipe extends Component {
 
                         <li className="nav-item dropdown no-arrow">
                             <a className="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <span className="mr-2 d-none d-lg-inline text-gray-600 small">Valerie Luna</span>
-                            <img className="img-profile rounded-circle" src="https://source.unsplash.com/QAB-WJcbgJk/60x60"/>
+                            <span className="mr-2 d-none d-lg-inline text-gray-600 small">{this.props.location.state.userName}</span>
+                            <img className="img-profile rounded-circle" src={this.props.location.state.profileImage}/>
                             </a>
                             <div className="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
                             <a className="dropdown-item" href="#">
@@ -426,6 +472,12 @@ class Recipe extends Component {
                                     <div className="row">
                                         <div className="col-md-8">
                                             <img className="img-fluid" src={this.state.Recipe.imageString} alt=""/>
+                                                <div className="row user-detail-row">
+                                                    <div className="col-md-12 col-sm-12 user-detail-section2 pull-left">
+                                                        <button className="float-right btn text-white btn-danger" onClick={this.IncrementLikesCount}> <span>{this.state.likes}</span> <i className="fa fa-heart"></i> Like</button>
+                                                
+                                                    </div>                           
+                                            </div>
                                         </div>
                                         <div className="col-md-4">
                                             <h3 className="my-3">Recipe Description</h3>
@@ -440,12 +492,15 @@ class Recipe extends Component {
                                         </div>
                                         <div>
                                             <h3 className="my-3"> Ingredients</h3>
+                                           
+                                             
                                             <ul>
                                                 <pre> {this.state.Recipe.ingredients}</pre>
                                 
                                             </ul>
                                             <h3 className="my-3"> Steps</h3>
-                                            <ul>
+                                            
+                                            <div className="col-md-8">
                                                 <pre>{this.state.Recipe.steps}</pre>
                                                 {/* <li>{let str = this.state.Recipe.steps}</li> */}
                                                 {/* <li>{
@@ -455,7 +510,7 @@ class Recipe extends Component {
                                                      <p key={i}>{line}</p>
                                                 ))
                                                 } </li> */}
-                                            </ul>
+                                            </div>
                                         </div>
 
                                     </div>
@@ -504,9 +559,9 @@ class Recipe extends Component {
                         <div className="card-body">
                             <div className="row">
                             {/* <div className="row"> */}
-                                {Object.keys(this.state.LoadedComments).map((key) =>
+                                {Object.keys(this.state.LoadedComments).map((key, i) =>
                                     
-                                    <div className="card-card border-0 shadow" style={{padding:"3%"}}> 
+                                    <div className="card-card border-0 shadow" style={{padding:"3%"}} key={i}> 
                                         <div className="col-md-2">
                                             <img src="https://image.ibb.co/jw55Ex/def_face.jpg" className="img img-rounded img-fluid"/>
                                         </div>
@@ -528,7 +583,8 @@ class Recipe extends Component {
                                     
                                             <p>
                                                 <a className="float-right btn btn-outline-primary ml-2"> <i className="fa fa-reply"></i> Reply</a>
-                                                <a className="float-right btn text-white btn-danger"> <i className="fa fa-heart"></i> Like</a>
+                                                {/* <button className="float-right btn text-white btn-danger" onClick={this.IncrementLikesCount}> <span>{this.state.likes}</span> <i className="fa fa-heart"></i> Like</button> */}
+                                               
                                             </p>
                                         </div>
                                     </div>
@@ -541,18 +597,34 @@ class Recipe extends Component {
                                    
                         <div className="text-right">
                             <textarea  rows="3" cols="30" type="text" className="form-control" name="comment" value={comment} onChange={this.onChange} placeholder="Leave a comment" />
-                    
-                            {/* <textarea  rows="3" cols="30" className="form-control form-control-user" value = {comment} placeholder="Leave a comment"/> */}
-                            <Rating/>
                             
-                            {/*                             
-                            <div className="rating">
-                            <span>☆</span><span>☆</span><span>☆</span><span>☆</span><span>☆</span>
-                            </div> */}
-                            <button type="submit" className="btn btn-success">Submit Review</button>
-                            <button type="button" className="btn btn-success">Edit_Recipe</button>
-                            <button type="button" className="btn btn-danger" onClick={this.deleteRecipe}>Delete_Recipe </button>
+                                                        {/* <textarea  rows="3" cols="30" className="form-control form-control-user" value = {comment} placeholder="Leave a comment"/> */}
+                            <div className="row">
+                                <div className="col-md-8">
+                                <Rating/>
+                                </div>
+                                {/*                             
+                                <div className="rating">
+                                <span>☆</span><span>☆</span><span>☆</span><span>☆</span><span>☆</span>
+                                </div> */}
+                                <div className="col-md-4">
+                                    <button type="submit" className="btn btn-success btn-sm">Submit Review</button>
+                                </div>
+                            </div>
+                                {(this.state.isRecipeOwner)
+                                && (<div className="row" >
+                                    <div className="col-md-4">
+                                    <button type="button" className="btn btn-success">Edit_Recipe</button>
+                                    </div><div className="col-md-4"></div>
+                                    <div className="col-md-4"><button type="button" className="btn btn-danger" onClick={this.deleteRecipe}>Delete_Recipe </button>
+                                    </div>
+                                </div>
+                                )
+                                } 
 
+
+                            
+                           
                             {/* <a className="btn btn-success btn-green" href="#reviews-anchor" id="open-review-box">Leave a Review</a> */}
                         </div>
                        

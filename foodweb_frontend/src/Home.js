@@ -36,6 +36,15 @@ class Home extends React.Component{
     });
   });
 }
+
+handleMyRecipe =()=>{
+  // this.setState({
+  //   // value: e.target.value,
+  //   query: this.props.match.params.userName
+  // });
+  console.log("userName  --------", this.props);
+  this.search(this.props.location.state.userName);
+}
 componentWillMount() {
   // this._isMounted = false;
   if(this.props.location.state){
@@ -91,10 +100,10 @@ componentWillMount() {
 
   handleChange = (e) =>{
 
-  // this.setState({
-  //   value: e.target.value,
-  //   query: e.target.value
-  // });
+  this.setState({
+    value: e.target.value,
+    query: e.target.value
+  });
 
   this.search(e.target.value);
 
@@ -166,11 +175,9 @@ render() {
         <div id="collapseTwo" className="collapse" href="#"  aria-labelledby="headingTwo" data-parent="#accordionSidebar">
           <div className="bg-white py-2 collapse-inner rounded">
             <h6 className="collapse-header">Drinks Menu</h6>
-
-            <ul className="collapse-item recipe-ul" for="cocktail" value="cocktail" onClick={this.handleFilter}>Cocktail</ul>
-            <ul className="collapse-item recipe-ul" for="hot drink" value="desert" onClick={this.handleFilter}>Hot Drinks</ul>
-            <ul className="collapse-item recipe-ul" for="smoothie" value="smoothie" onClick={this.handleFilter}>Smoothies</ul>
-
+            <ul className="collapse-item recipe-ul" htmlFor="cocktail" value="cocktail" onClick={this.handleFilter}>Cocktail</ul>
+            <ul className="collapse-item recipe-ul" htmlFor="hot drink" value="desert" onClick={this.handleFilter}>Hot Drinks</ul>
+            <ul className="collapse-item recipe-ul" htmlFor="smoothie" value="smoothie" onClick={this.handleFilter}>Smoothies</ul>
           </div>
         </div>
       </li>
@@ -415,7 +422,7 @@ render() {
                   }
                     }} 
                   >
-                    <i className="fas fa-utensils fa-sm fa-fw mr-2 text-gray-400"></i>
+                    <i className="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                     Profile
                 </Link>
 
@@ -424,15 +431,11 @@ render() {
                   Settings
                 </a>
                
-                <Link className="dropdown-item" to = 
-                {{
-                  pathname: "/MyRecipes",
-                  state: {userId: this.props.location.state.userId}
-                    }} 
-                  >
-                    <i className="fas fa-utensils fa-sm fa-fw mr-2 text-gray-400"></i>
+                <ul className="dropdown-item recipe-ul" onClick={this.handleMyRecipe} >
+                  <i className="fas fa-utensils fa-sm fa-fw mr-2 text-gray-400"></i>
                     My Recipe
-                </Link>
+                </ul>
+
                 <Link className="dropdown-item" to ={{
                   pathname: "/MyFavorites",
                   state: {userId: this.props.location.state.userId}
@@ -478,7 +481,18 @@ render() {
                     this.state.Hits.map((hit, i)=>(
                       <div className="col-lg-4 col-md-6 mb-4" key={i}>
                         <div className="card border-0 shadow">
-                          <Link to={`/recipe/${hit.objectID}`}>
+                          <Link 
+                          to={{ 
+                            pathname: "/Recipe",
+                            state:{
+                              userId: this.props.location.state.userId, 
+                              userName: this.props.location.state.userName,
+                              profileImage: this.props.location.state.imageString,
+                              recipeId: hit.objectID
+                              }
+                        }}
+                          
+                          >
                             <img src={hit.imageString} className="card-img-top" alt="..."/>
                           </Link>
                           <div className="card-body text-center">
