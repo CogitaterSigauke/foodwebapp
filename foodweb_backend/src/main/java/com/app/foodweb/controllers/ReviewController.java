@@ -34,75 +34,47 @@ public class ReviewController {
 
 
   //give a review to a recipe
-  @RequestMapping(method=RequestMethod.POST, value="app/add_review/{recipeId}/{starcount}")
-  public int giveReviewToRecipe(@PathVariable String recipeId,@PathVariable int starcount,@RequestBody Review newReview){
-    //check if a recipe already has one review object associated with it
-    Review review = reviewRepository.findByRecipeId(recipeId);
-    if(review != null){
-      //if the recipe has a review object associated with it, the starcounts will be updated
-      System.out.println("yas");
-      setStarCounts(starcount,review);
-      return review.getMaxCount();
+  @RequestMapping(method=RequestMethod.POST, value="app/user/{userId}/add_review/{recipeId}/{starcount}/{userRating}")
+  public double giveReviewToRecipe(@PathVariable String recipeId,@PathVariable String userId,@PathVariable int userRating){
+    //check if user has reviewed the recipe before
+    Optional<Review> optreview = reviewRepository.findByRecipeIdAndUserId(recipeId,userId);
+
+    if (optreview.isPresent()){
+      //re-reviewing a recipe
+      Review editedReview =optreview.get();
+      editedReview.setUserRating(userRating);
+      reviewRepository.save(editedReview);
     }
-    //if the recipe never received a review in the past, it gets a new review object
-    reviewRepository.save(newReview);
-    //starcount on the new review object will be updated
-    setStarCounts(starcount,newReview);
-    //the new starcount is going to be the maxcount of all the starcount the receipe recieved
-    return starcount;
+    else{
+      //the recipe is being reviewed for the first time
+      Review newReview = new Review(recipeId,userId,userRating);
+      reviewRepository.save(newReview);
+    }
+     return getRecipeReview(recipeId);
 
   }
 
-  public void setStarCounts(int starCount,Review review){
-    if(starCount == 1){ review.setOneStartCount(review.getOneStartCount() + 1);}
-    else if(starCount == 2){review.setTwoStartCount(review.getTwoStartCount() + 1);   }
-    else if(starCount == 3){review.setThreeStartCount(review.getThreeStartCount() + 1);   }
-    else if(starCount == 4){review.setFourStartCount(review.getFourStartCount() + 1); }
-    else if(starCount == 5){review.setFiveStartCount(review.getFiveStartCount() + 1);  }
-    else { System.out.println("Error! no review received");}
-    reviewRepository.save(review);
-  }
-
-
-  // get all the recipe reviews
+  // get all the requested recipe reviews
   @RequestMapping(method=RequestMethod.GET, value="app/get_review/{recipeId}")
-  public int getRecipeReview(@PathVariable String recipeId){
-    //check if the recipe already exists
-    Optional<Recipe> recipe = recipeRepository.findById(recipeId);
-    if(recipe.isPresent()){
-      //if the recipe exists, check if a review object has associated with it
-      Review review = reviewRepository.findByRecipeId(recipeId);
-      if(review != null){
-        //the recipe has a review object associated with it
-        return review.getMaxCount();
-      }
-      else{
-        // the recipe has never received a review
-        return 0;
-      }
-    }
-    //no recipe is found and -1 is returned to inform something went wrong
-    System.out.println("No recipe exists with the given id");
-    return -1;
+  public double getRecipeReview(@PathVariable String recipeId){
+      List<Review> reviewsForThisRecipe = reviewRepository.findByRecipeId(recipeId);
+      double calculatedRating = 0.0;
+      //check if a recipe has reviews
+      if(!reviewsForThisRecipe.isEmpty()){
+        for(Review review:reviewsForThisRecipe){
+           calculatedRating = calculatedRating + review.getUserRating();
+           //System.out.println("hello");
+        }
+        return calculatedRating/reviewsForThisRecipe.size();
+     }
+     //if a recipe has no reviews, 0.0 will be returned
+     return calculatedRating;
   }
 
-
+  // get number of reviews a recipe has received
   @RequestMapping(method=RequestMethod.GET, value="app/number_of_people_reviewed_the_recipe/{recipeId}")
   public int getNumberOfpeopleWhoReviewedTheRecipe(@PathVariable String recipeId){
-    Optional<Recipe> recipe = recipeRepository.findById(recipeId);
-    if(recipe.isPresent()){
-      //if the recipe exists, check if a review object has associated with it
-      Review review = reviewRepository.findByRecipeId(recipeId);
-      if(review != null){
-        //the recipe has a review object associated with it
-        return review.getNumberOfReviews();
-      }
-      return 0;
-    }
-    //no recipe is found and -1 is returned to inform something went wrong
-    System.out.println("No recipe exists with the given id");
-    return -1;
-
+       List<Review> reviewsForThisRecipe = reviewRepository.findByRecipeId(recipeId);
+       return reviewsForThisRecipe.size();
   }
-
 }

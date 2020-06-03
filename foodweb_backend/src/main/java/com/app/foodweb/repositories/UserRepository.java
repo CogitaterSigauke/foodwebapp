@@ -10,7 +10,7 @@ public interface UserRepository extends CrudRepository<User, String> {
     void delete(User deleted);
 
     User findByEmail(String email);
-    
+
     Boolean existsByEmail(String email);
-        
+
     }
