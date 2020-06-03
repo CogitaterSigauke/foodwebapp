@@ -263,11 +263,13 @@ class Profile extends  React.Component{
                             My Favorite Recipes
                         </Link>
                         <Link className="dropdown-item" to = {{
-                            pathname: "/AddRecipe",
-                            state: {
-                                userId: this.props.location.state.userId,
-                                userName: this.props.location.state.userName}
-                            }} >
+                    pathname: "/AddRecipe",
+                    state: {
+                        userId : this.state.User.userId,
+                        userName: this.state.User.userName,
+                        imageString: this.state.User.imageString
+                    }
+                  }} >
                             <i className="fas fa-glass-cheers fa-sm fa-fw mr-2 text-gray-400"></i>
                             Add Recipe
                         </Link>
