@@ -38,11 +38,18 @@ class AddRecipe extends React.Component {
     };
   }
 
-  // appendInput = () => {
+  // appendInput = (e) => {
+  //   e.preventDefault();
+  //   console.log(this.state.step);
+  //   this.state.steps.push(this.state.step);
   //   var newInput = `step-${this.state.steps.length}`;
   //   this.setState(prevState => ({ steps: prevState.steps.concat([newInput]) }));
   // }
+
   // appendIngredients = () => {
+  //   const state = this.state;
+  //   this.state.steps.push(e.target.value);
+  //   this.setState(state);
   //   var newInput = `ingredient-${this.state.ingredients.length}`;
   //   this.setState(prevState => ({ ingredients: prevState.ingredients.concat([newInput]) }));
   // }
@@ -66,16 +73,26 @@ class AddRecipe extends React.Component {
     this.setState(state);
     
   }
-
+  unhideSubmit = (e)=>{
+    // React.document.getElementById('hiddenSubmit').click();
+    this.buttonElement.click();
+  }
   // handleSteps = (e) => {
+  //   debugger;
   //   const state = this.state;
+  //   console.log(this.state);
   //   // state[e.target.name] = e.target.value;
   //   // console.log("Selected file of size: " + e.target.files[0].size);
   //   // this.setState({
   //   //   step: e.target.value
     
   //   // });
-  //   this.state.steps.push(e.target.value);
+  //   // this.state.steps.push(e.target.value);
+  //   this.setState({ step: e.target.value });
+
+  //   console.log(this.state);
+  //   // this.setState(state);
+    
   // }
 
   // handleIngredients = (e) => {
@@ -86,6 +103,8 @@ class AddRecipe extends React.Component {
   //   //   ingredient:  e.target.value
   //   // });
   //   this.state.ingredients.push( e.target.value);
+  //   this.setState(state);
+    
   // }
 
   onSubmit = (e) => {
@@ -182,7 +201,7 @@ class AddRecipe extends React.Component {
 
   render() {
 
-    const { userId, userName, mealType, dietAndHealth, worldCuisine, mealName, description, imageString, videoId, steps, ingredients} = this.state;
+    const { userId, userName, mealType, dietAndHealth, worldCuisine, mealName, description, imageString, videoId, steps, ingredients, ingredient} = this.state;
     // const {step, ingredient}= this.state;
     return (
       <div className="AddRecipe">
@@ -197,15 +216,15 @@ class AddRecipe extends React.Component {
                                 userName: this.state.userName,
                                 imageString: this.state.profileImage
                                 }
-                    }}
-            >
+                        }}
+                        >
                       <div className="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
                           <div className="sidebar-brand-icon rotate-n-15">
                             <i className="fas fa-blender"></i>
                           </div>
                           <div className="sidebar-brand-text mx-3">My Recipes <sup><i className="fas fa-laugh-wink"></i></sup></div>
                       </div>
-            </Link>
+                    </Link>
             {/* <Link to={{
               pathname: "/Home",
               state: {userId: this.state.userId,
@@ -537,25 +556,25 @@ class AddRecipe extends React.Component {
 
                             <div className="form-group">
                               <label htmlFor="ingredients">Ingredients</label>
-                              <textarea rows="3" cols="30" type="text" className="form-control" name="ingredients" value={ingredients} onChange={this.onChange} placeholder="Write the list of ingredients needed to make this recipe" required/>
+                              <textarea rows="4" cols="40" type="text" className="form-control" name="ingredients" value={ingredients} onChange={this.onChange} placeholder="Write the list of ingredients needed to make this recipe" required/>
                             </div>
                             
                             <div className="form-group">
                               <label htmlFor="steps">Steps</label>
-                              <textarea rows="3" cols="30" type="text" className="form-control" name="steps" value={steps} onChange={this.onChange} placeholder="Write the list of ingredients needed to make this recipe" required/>
+                              <textarea rows="15" cols="330000" type="text" className="form-control" name="steps" value={steps} onChange={this.onChange} placeholder="Write the list of ingredients needed to make this recipe" required/>
                             </div>
 
-
-                            {/* <div className="form-group">
+{/* 
+                            <div className="form-group">
                               <label htmlFor="Stpes">Ingredients</label>
                               
                               <div>
-                                debugger;
+                               
                                 <form onSubmit= {this.appendIngredients}>
                             
                                     <div id="dynamicInput">
                                       <div className="form-group">
-                                        {this.state.ingredients.map(ingred => <input type = "text"  className= "form-control"  onChange={this.handleIngredients} key={ingred} />)}
+                                        {this.state.ingredients.map(ingred => <input type = "text"  className= "form-control"  value={ingredient} key={ingred} />)}
                                         <br/>
                                       </div>
                                     </div>
@@ -572,24 +591,22 @@ class AddRecipe extends React.Component {
 
 
 
-{/* 
-                            <div className="form-group">
+
+                            {/* <div className="form-group">
                               <label htmlFor="Stpes">Steps</label>
                               
                               <div>
-                                <form onSubmit= {this.appendInput}>
-                            
-                                    <div id="dynamicInput">
-                                      <div className="form-group">
-                                        {this.state.steps.map(s => <input type = "text"  className= "form-control"  onChange={this.handleSteps} key={s}/>)}
-                                        <br/>
-                                      </div>
+                                <div >
+                                  <div id="dynamicInput">
+                                    <div className="form-group">
+                                      {this.state.steps.map(s => <input type = "text" value={this.state.step}  onChange={this.handleSteps} className= "form-control"  key={s}/>)}
+                                      <br/>
                                     </div>
-                              
-                                <button type="submit"  className="fas fa-plus">
-                                    CLICK ME TO ADD steps
-                                </button>
-                                </form>
+                                  </div>
+                                  <button type="button" className="fas fa-plus" onClick= {this.appendInput}>
+                                      CLICK ME TO ADD steps
+                                  </button>
+                                </div>
                              </div>
                            
                             </div> */}
@@ -612,24 +629,43 @@ class AddRecipe extends React.Component {
 
 
 
-                            <button type="submit" className="btn btn-success">Submit</button>
+                            <button type="submit" ref={button => this.buttonElement = button} id="hiddenSubmit" className="btn btn-success" hidden>Submit</button>
                     </form>
+
+                    <progress value={this.state.progress} max="100" />
+                        <br />
+                    <div className="input-group">
+                      <div className="input-group-prepend">
+                      
+                    </div>
+                         <span className="input-group-text recipe-ul" id="inputGroupFileAddon01" onClick={this.handleUpload} >Upload</span>
+                    
+                      <div className="custom-file">
+                        <input type="file" className="custom-file-input" id="inputGroupFile01"
+                          aria-describedby="inputGroupFileAddon01"  onChange={this.handleFileChange}/>
+                        <label className="custom-file-label" for="inputGroupFile01">Choose file</label>
+                      </div>
+                    </div>
+                            
+                        <br/>
+                      <button type="submit"  className="btn btn-success" onClick={this.unhideSubmit}>Submit</button>
+{/* 
                     <div>
                         <progress value={this.state.progress} max="100" />
                         <br />
                         <div>
-                          <input type="file" onChange={this.handleFileChange} />
+                          <input type="file" onChange={this.handleFileChange}  />
                           <br /><br />
-                          <button onClick={this.handleUpload}>Upload Image</button>
+                          <button className= "btn btn-light" onClick={this.handleUpload}>Upload Image</button>
                         </div>
 
                         <br />
-                    </div>
+                    </div> */}
                       <br />
                         {this.state.images.map((image, i )=>(
                           <div key={i}>{image}</div>
                         ))}
-
+                      
                     </div>
                     <br /><br />
                     <div className="column">

@@ -85,7 +85,6 @@ componentWillMount() {
     this.setState({
       authenticated: false
     });
-    this.props.location.state = null;
     // this.props.history.push('/');
 
   } 
@@ -153,7 +152,7 @@ render() {
         <div id="collapseTwo" className="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
           <div className="bg-white py-2 collapse-inner rounded">
             <h6 className="collapse-header">Drinks Menu</h6>
-            <a className="collapse-item" href="">Cocktail</a>
+            <ul className="collapse-item">Cocktail</ul>
             <a className="collapse-item" href="">Hot Drinks</a>
             <a className="collapse-item" href="">Smoothies</a>
           </div>
