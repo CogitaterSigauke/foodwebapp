@@ -51,13 +51,19 @@ componentWillMount() {
     this.setState({
       authenticated: false
     })
-    this.props.history.push('/Login');
+    // this.props.history.push('/Login');
   }
 }
 
   componentDidMount(){
     // this._isMounted = true;
   //load hits on start
+  if(!this.props.location.state){
+    this.setState({
+      authenticated: false
+    })
+
+  }
   this.search();
 
   // check if user has been redirected from the login or 
@@ -79,7 +85,8 @@ componentWillMount() {
     this.setState({
       authenticated: false
     });
-    this.props.history.push('/');
+    this.props.location.state = null;
+    // this.props.history.push('/');
 
   } 
 
