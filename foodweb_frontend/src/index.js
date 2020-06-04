@@ -31,7 +31,7 @@ ReactDOM.render(
     <Switch>
       <Route path="/" exact component={App} />
       <Route path="/Login" component={Login}/>
-      <Route path="/Recipe/:id" component={Recipe} />
+      <Route path="/Recipe" component={Recipe} />
       <Route path="/Home/:id" component={Home} /> 
       <Route path="/Home" component={Home} />
       <Route path="/RegisterAccount" component={RegisterAccount} />

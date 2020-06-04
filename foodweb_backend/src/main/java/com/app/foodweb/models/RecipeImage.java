@@ -11,9 +11,10 @@ public class RecipeImage {
     String mealName;
     String imageString;
     String createdAt;
+    int likes;
 
     public RecipeImage(String objectID, String userName, String mealType, String dietAndHealth, 
-            String worldCuisine, String mealName, String createdAt, String imageString) {
+            String worldCuisine, String mealName, String createdAt, String imageString, int likes) {
         this.userName = userName;
         this.objectID = objectID;
         this.mealType = mealType;
@@ -22,6 +23,7 @@ public class RecipeImage {
         this.mealName = mealName;
         this.imageString = imageString;
         this.createdAt = createdAt;
+        this.likes = likes;
     }
 
     public String getObjectID() {
@@ -30,6 +32,14 @@ public class RecipeImage {
 
     public void setObjectID(String objectID) {
         this.objectID = objectID;
+    }
+
+    public int getLikes() {
+        return likes;
+    }
+
+    public void setLikes(int likes) {
+        this.likes = likes;
     }
 
     public String getUserName() {
