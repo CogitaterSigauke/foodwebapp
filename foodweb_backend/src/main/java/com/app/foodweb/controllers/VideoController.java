@@ -44,7 +44,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
-@CrossOrigin
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
 public class VideoController {
 
