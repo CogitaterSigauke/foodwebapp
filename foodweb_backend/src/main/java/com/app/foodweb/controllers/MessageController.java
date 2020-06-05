@@ -37,7 +37,7 @@ import java.util.Comparator;
 import java.time.LocalDateTime; 
 
 
-@CrossOrigin
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
 public class MessageController {
 	

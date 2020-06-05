@@ -15,11 +15,11 @@ console.log("======================");
 console.log(token);
 console.log("===================");
 
-// axios.defaults.baseURL = 'https://new-my-recipes-app-myrecipesapp.azuremicroservices.io/app';
+axios.defaults.baseURL = "https://new-my-recipes-app-myrecipes-app.azuremicroservices.io/app";
 
 // apiKey=""
 //                 appId=""
-axios.defaults.baseURL = "http://localhost:8080/app";
+// axios.defaults.baseURL = "http://localhost:8080/app";
 // axios.defaults.baseURL = 'https://my-recipe-web-app-foodweb.azuremicroservices.io/app';
 
 
