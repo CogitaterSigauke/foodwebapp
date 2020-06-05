@@ -46,7 +46,7 @@ import java.util.Optional;
 import java.util.Map;
 import java.util.HashMap;
 
-@CrossOrigin
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
 public class RecipeController {
 

@@ -40,7 +40,7 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.List;
 
-@CrossOrigin
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
 public class UserController {
 

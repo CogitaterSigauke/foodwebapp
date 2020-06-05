@@ -76,7 +76,7 @@ function Login() {
                         <p><br /><br /><br />  </p>
                
                         <GoogleLogin
-                          clientId="181796502496-ao4ccf9jjp5p5mgfol6ov6cc35dvqe9r.apps.googleusercontent.com"
+                          clientId="181796502496-jop5gvuieb2kkc0mijivmnocegukl17c.apps.googleusercontent.com"
                           buttonText="Sign in with Google"
                           scope='profile email'
                           width='240'
