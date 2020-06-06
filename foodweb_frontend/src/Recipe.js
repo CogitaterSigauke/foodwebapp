@@ -94,7 +94,10 @@ class Recipe extends Component {
         axios.delete('/'+this.state.Recipe.userId+'/delete_recipe/'+this.props.location.state.recipeId)
         .then((result) => {
             alert("Successfuly Deleted");
-            this.props.history.push("/Home")
+            this.props.history.push({
+                pathname: "/Home",
+                state: this.props.location.state
+            })
         })
         .catch((err) => {
             console.log(`Errors: {errors}`);
@@ -161,19 +164,25 @@ class Recipe extends Component {
         <div id="wrapper">
             <ul id  = "recipeUl" className="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
-                <a className="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+                <Link 
+                      to={{ 
+                        pathname: "/Home",
+                        state: this.props.location.state
+                    }}
+                    className="sidebar-brand d-flex align-items-center justify-content-center"
+                >
                     <div className="sidebar-brand-icon rotate-n-15">
                     <i className="fas fa-blender"></i>
                     </div>
                     <div className="sidebar-brand-text mx-3">My Recipes <sup><i className="fas fa-laugh-wink"></i></sup></div>
-                </a>
+                </Link>
 
                 <hr className="sidebar-divider my-0"/>
 
                 <li className="nav-item">
-                    <a className="nav-link" href="index.html">
+                    <ul className="nav-link">
                     <i className="fas fa-fw fa-tachometer-alt"></i>
-                    <span>Recipe Cards</span></a>
+                    <span>Recipe Cards</span></ul>
                 </li>
 
                 <hr className="sidebar-divider"/>

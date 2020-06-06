@@ -23,9 +23,7 @@ class Chat extends Component{
             this.state = {
                 value: "",
                 Hits: [],
-                DisplayHits: [
-                    
-                ],
+                DisplayHits: [],
                 query: "",
                 currentUser: "",
                 message:{
@@ -37,7 +35,7 @@ class Chat extends Component{
                     
                 },
 
-                Messages: []
+                Messages: [{  messageText: 'Hi there', },{  messageText: 'Hi Redi'},{  messageText: 'Hi cogi'}]
             };
       }
 
@@ -96,21 +94,8 @@ class Chat extends Component{
         console.log(this.props.location.state.userId);
         console.log(this.props.location.state.userName);
         this.setState({ 
-            currentUser: this.props.location.userId,
-            DisplayHits: [{
-                name: this.props.location.state.userName, 
-                userName: this.props.location.state.userName, 
-                familyName: this.props.location.state.userName, 
-                imageString: this.props.location.state.imageString,
-                objectID: this.props.location.state.userId,
-            }]
+            currentUser: this.props.location.userId
         });
-        let e = {
-            target : {
-                name : this.props.location.state.userId
-            }
-        }
-        this.handleChatBoxClick(e);
      
     }
 
@@ -183,10 +168,9 @@ class Chat extends Component{
         return(
             
         <div id="wrapper">
-            <div className="container" >
-                <div className="row no-gutters edit-color-background" >
-                    <div className="col-md-4 border-right ">
-                        
+            <div className="container" id= "chatContainer">
+                <div className="row no-gutters">
+                    <div className="col-md-4 border-right">
                         <div className="settings-tray">
                             <img className="profile-image" src={this.props.location.state.imageString} alt="./profiles/profileImgAll.png"/>
                             <span className="settings-tray--right">
@@ -207,29 +191,21 @@ class Chat extends Component{
                         {/* Search Bar */}
 
                         {/* HITS Display*/}
-                        <div className="chat-container-2">
 
-
-                        {
-                            
-                            this.state.Hits.map((hit, i)=>(
-                                <div className="friend-drawer friend-drawer--onhover" key= {i} >
-                                    <img className="profile-image" id={"click"+i} onClick={this.handleChatBoxClick} src={hit.imageString} alt={require("./profiles/profileImgAll.png")} name={hit.objectID} />
-                                    <div className="text">
-                                        <h3  hidden>{hit.objectID}</h3>
-                                        <h6>{hit.userName}</h6>
-                                        <p className="text-muted">{hit.familyName }</p>
-                                        
+                            {
+                                this.state.Hits.map((hit, i)=>(
+                                    <div className="friend-drawer friend-drawer--onhover" key= {i} >
+                                        <img className="profile-image" id={"click"+i} onClick={this.handleChatBoxClick} src={hit.imageString} alt={require("./profiles/profileImgAll.png")} name={hit.objectID} />
+                                        <div className="text">
+                                            <h3  hidden>{hit.objectID}</h3>
+                                            <h6>{hit.userName}</h6>
+                                            <p className="text-muted">{hit.familyName }</p>
+                                            
+                                        </div>
+                                        <span className="time text-muted small">13:21</span>
                                     </div>
-                                    <span className="time text-muted small">13:21</span>
-                                </div>
-                            ))
-                        }   
-
-
-                        </div>
-                        
-                                                
+                                ))
+                            }                        
 
 
 
@@ -245,8 +221,8 @@ class Chat extends Component{
                                 <img className="profile-image" src={hit.imageString}  alt=""/>
                                 <div className="text">
                                     <h6>{hit.userName}</h6>
-                                    
-                                 </div>
+                                    <p className="text-muted">Layin' down the law since like before Christ...</p>
+                                </div>
                                 <span className="settings-tray--right">
                                 <i className="fas fa-envelope-open-text"></i>
                                 <i className="fas fa-bars"></i>
@@ -256,8 +232,7 @@ class Chat extends Component{
                         ))
                    }
 
-
-                        <div className="chat-panel new-chat-message-list">
+                        <div className="chat-panel" id = "chat-message-list">
                             {
                             this.state.Messages.map((message, i)=>(
                 
@@ -292,13 +267,6 @@ class Chat extends Component{
                             }
                                 
                         </div>
-
-
-
-
-
-
-                      
                         <div>
                             <form onSubmit={this.PostMessage}>
                                 <div className="row">

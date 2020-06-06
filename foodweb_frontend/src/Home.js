@@ -21,7 +21,8 @@ class Home extends React.Component{
       value: "",
       Hits: [],
       query: "",
-      authenticated: true
+      authenticated: true,
+      filter: ""
     };
   }
 
@@ -43,6 +44,7 @@ handleMyRecipe =()=>{
   //   query: this.props.match.params.userName
   // });
   console.log("userName  --------", this.props);
+
   this.search(this.props.location.state.userName);
 }
 componentWillMount() {
@@ -67,6 +69,14 @@ componentWillMount() {
   componentDidMount(){
     // this._isMounted = true;
   //load hits on start
+  
+  console.log(this.props);
+  console.log("=-=-=-=-=-=-=-=-=-=-=-=-")
+  console.log(this.props.location.state.userId);
+  console.log("=-=-=-=-=-=USER  NAME-=-=-=-=-=-=-")
+  console.log(this.props.location.state.userName);
+  console.log("=-=-=-=-=-=-=-=IMAGE-=-=-=-=-")
+  console.log(this.props.location.state.imageString);
   if(!this.props.location.state){
     this.setState({
       authenticated: false
@@ -102,7 +112,8 @@ componentWillMount() {
 
   this.setState({
     value: e.target.value,
-    query: e.target.value
+    query: e.target.value,
+    filter: ""
   });
 
   this.search(e.target.value);
@@ -112,13 +123,30 @@ componentWillMount() {
   handleFilter = (e) =>{
 
     this.setState({
-      // value: e.target.value,
+      filter: e.target.innerHTML,
       query: e.target.innerHTML
     });
   
     this.search(e.target.innerHTML);
     // this.search(e.target.value);
   
+    }
+    handleMyRecipeFilter = (e) => {
+      this.setState({
+        filter: this.props.location.state.userName,
+        query: this.props.location.state.userName
+      });
+
+      this.search(this.props.location.state.userName);
+
+    }
+    handleFilterAllRecipes = (e) => {
+      this.setState({
+        filter: "",
+        query: ""
+      });
+
+      this.search("");
     }
 
 render() {
@@ -143,22 +171,22 @@ render() {
 
     <ul className="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
-      <Link to="/Home" className="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+      <ul onClick={this.handleMyRecipeFilter}
+        className="sidebar-brand d-flex align-items-center justify-content-center nav-item collapse-item recipe-ul">
         <div className="sidebar-brand-icon rotate-n-15">
           <i className="fas fa-blender"></i>
         </div>
-        <div className="sidebar-brand-text mx-3">My Recipes <sup><i className="fas fa-laugh-wink"></i></sup></div>
-      </Link>
+        <div className="sidebar-brand-text mx-3 nav-item collapse-item recipe-ul">My Recipes <sup><i className="fas fa-laugh-wink"></i></sup></div>
+      </ul>
 
       <hr className="sidebar-divider my-0"/>
-      <Link to="/Home">
       <li className="nav-item">
-        <p className="nav-link" >
-          <i className="fas fa-fw fa-tachometer-alt"></i>
-          <span>Recipe Cards</span>
-        </p>
+          <ul onClick={this.handleFilterAllRecipes}
+            className="nav-link">
+            <i className="fas fa-fw fa-tachometer-alt"></i>
+            <span className="recipe-ul" >Recipe Cards</span>
+          </ul>
       </li>
-      </Link>
       <hr className="sidebar-divider"/>
 
       <div className="sidebar-heading">
@@ -168,7 +196,7 @@ render() {
 
 
       <li className="nav-item">
-        <a className="nav-link collapsed" href="#" name="drink" value="drink" onClick={this.handleFilter} data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+        <a className="nav-link collapsed" href="#" name="drink" value="drink" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
           <i className="fas fa-coffee"></i>
           <span>Drinks</span>
         </a>
@@ -183,8 +211,8 @@ render() {
       </li>
 
       <li className="nav-item">
-        <a className="nav-link collapsed" name="desert" href="#" value="desert" onClick={this.handleFilter} data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseTwo">
-          <i className="fas fa-coffee"></i>
+        <a className="nav-link collapsed" name="desert" href="#" value="desert" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseTwo">
+          <i className="fas fa-cookie-bite"></i>
           <span>Deserts</span>
         </a>
         <div id="collapseUtilities" className="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
@@ -201,8 +229,8 @@ render() {
       </li>
 
       <li className="nav-item">
-        <a className="nav-link collapsed" href="#" name="cuisine" value="cuisine" onClick={this.handleFilter} data-toggle="collapse" data-target="#collapseCuisine" aria-expanded="true" aria-controls="collapseTwo">
-          <i className="fas fa-coffee"></i>
+        <a className="nav-link collapsed" href="#" name="cuisine" value="cuisine" data-toggle="collapse" data-target="#collapseCuisine" aria-expanded="true" aria-controls="collapseTwo">
+          <i className="fas fa-globe"></i>
           <span>World Cuisine</span>
         </a>
         <div id="collapseCuisine" className="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
@@ -264,7 +292,7 @@ render() {
           <button id="sidebarToggleTop" className="btn btn-link d-md-none rounded-circle mr-3">
             <i className="fa fa-bars"></i>
           </button>
-          {/* Search Bar */}
+               {/* Search Bar */}
           
               <div className="input-group">
                 <form className="form-inline">
@@ -273,9 +301,20 @@ render() {
                     aria-label="Search" value={this.state.value} onChange={this.handleChange}/>
                 </form>         
               </div>
+
+              {/* FILTER LABEL */}
+
+              <div>
+            
+                <label> {this.state.filter} </label>
+            
+              </div>
+              
          
             {/* nav bar  */}
+           
         
+
             <ul className="navbar-nav ml-auto">
 
               <li className="nav-item dropdown no-arrow d-sm-none">
@@ -296,58 +335,13 @@ render() {
                 </div>
               </li>
           
-              <li className="nav-item dropdown no-arrow mx-1">
-                <a className="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  <i className="fas fa-bell fa-fw"></i>
-                  <span className="badge badge-danger badge-counter">3+</span>
-                </a>
-                <div className="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="alertsDropdown">
-                  <h6 className="dropdown-header">
-                    Alerts Center
-                  </h6>
-                  <a className="dropdown-item d-flex align-items-center" href="#">
-                    <div className="mr-3">
-                      <div className="icon-circle bg-primary">
-                        <i className="fas fa-file-alt text-white"></i>
-                      </div>
-                    </div>
-                    <div>
-                      <div className="small text-gray-500">December 12, 2019</div>
-                      <span className="font-weight-bold">A new monthly report is ready to download!</span>
-                    </div>
-                  </a>
-                  <a className="dropdown-item d-flex align-items-center" href="#">
-                    <div className="mr-3">
-                      <div className="icon-circle bg-success">
-                        <i className="fas fa-donate text-white"></i>
-                      </div>
-                    </div>
-                    <div>
-                      <div className="small text-gray-500">December 7, 2019</div>
-                      $290.29 has been deposited into your account!
-                    </div>
-                  </a>
-                  <a className="dropdown-item d-flex align-items-center" href="#">
-                    <div className="mr-3">
-                      <div className="icon-circle bg-warning">
-                        <i className="fas fa-exclamation-triangle text-white"></i>
-                      </div>
-                    </div>
-                    <div>
-                      <div className="small text-gray-500">December 2, 2019</div>
-                      Spending Alert: We've noticed unusually high spending for your account.
-                    </div>
-                  </a>
-                  <a className="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>
-                </div>
-              </li>
+          
 
             <li className="nav-item dropdown no-arrow mx-1">
             <Link 
               to={{
                 pathname: "/ChatBox",
-                state: {userId: this.props.location.state.userId,
-                        userName: this.props.location.state.userName}
+                state: this.props.location.state
               }} 
               className="nav-link dropdown-toggle" 
               id="messagesDropdown" 
@@ -358,11 +352,16 @@ render() {
                 <i className="fas fa-envelope fa-fw"></i>
                 <span className="badge badge-danger badge-counter">7</span>
             </Link>
+            {/* <h1>USER NAME {this.props.location.state.userName}</h1> */}
               <div className="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="messagesDropdown">
                 <h6 className="dropdown-header">
                   Message Center
                 </h6>
-                <Link to={ {pathname: "/ChatBox",state: {userId: this.props.location.state.userId} }}  className="dropdown-item d-flex align-items-center" >
+                <Link to={{
+                      pathname: "/ChatBox",
+                      state: this.props.location.state}}  
+                      className="dropdown-item d-flex align-items-center"
+                >
                   <div className="dropdown-list-image mr-3">
                     <img className="rounded-circle" src="https://source.unsplash.com/fn_BT9fwg_E/60x60" alt=""/>
                     <div className="status-indicator bg-success"></div>
@@ -418,8 +417,8 @@ render() {
               <Link className="dropdown-item" to = 
                 {{
                   pathname: "/Profile",
-                  state: {userId: this.props.location.state.userId      
-                  }
+                  state: this.props.location.state     
+                  
                     }} 
                   >
                     <i className="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
@@ -438,7 +437,7 @@ render() {
 
                 <Link className="dropdown-item" to ={{
                   pathname: "/MyFavorites",
-                  state: {userId: this.props.location.state.userId}
+                  state: this.props.location.state
                     }} 
                 >
                     <i className="far fa-heart fa-sm fa-fw mr-2 text-gray-400"></i>
@@ -446,11 +445,7 @@ render() {
                 </Link>
                 <Link className="dropdown-item" to = {{
                     pathname: "/AddRecipe",
-                    state: {
-                      userId: this.props.location.state.userId,
-                      userName: this.props.location.state.userName,
-                      imageString: this.props.location.state.imageString
-                    }
+                    state: this.props.location.state
                   }} >
                     <i className="fas fa-glass-cheers fa-sm fa-fw mr-2 text-gray-400"></i>
                     Add Recipe
@@ -488,6 +483,7 @@ render() {
                               userId: this.props.location.state.userId, 
                               userName: this.props.location.state.userName,
                               profileImage: this.props.location.state.imageString,
+                              imageString: this.props.location.state.imageString,
                               recipeId: hit.objectID
                               }
                         }}
@@ -497,7 +493,17 @@ render() {
                           </Link>
                           <div className="card-body text-center">
                             <h5 className="card-title">
-                            <Link to={`/recipe/${hit.objectID}`}>
+                            <Link to={{
+                                 pathname: "/Recipe",
+                                 state:{
+                                   userId: this.props.location.state.userId, 
+                                   userName: this.props.location.state.userName,
+                                   profileImage: this.props.location.state.imageString,
+                                   imageString: this.props.location.state.imageString,
+                                   recipeId: hit.objectID
+                                   }
+                              }
+                             }>
                                 <p href="#">{hit.mealName}</p>
                             </Link>
                             </h5>
