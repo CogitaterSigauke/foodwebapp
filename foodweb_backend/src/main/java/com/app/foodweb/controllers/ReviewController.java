@@ -34,7 +34,7 @@ public class ReviewController {
 
 
   //give a review to a recipe
-  @RequestMapping(method=RequestMethod.POST, value="app/user/{userId}/add_review/{recipeId}/{starcount}/{userRating}")
+  @RequestMapping(method=RequestMethod.POST, value="app/user/{userId}/add_review/{recipeId}/{userRating}")
   public double giveReviewToRecipe(@PathVariable String recipeId,@PathVariable String userId,@PathVariable int userRating){
     //check if user has reviewed the recipe before
     Optional<Review> optreview = reviewRepository.findByRecipeIdAndUserId(recipeId,userId);
