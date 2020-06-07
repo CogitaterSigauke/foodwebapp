@@ -34,7 +34,8 @@ class Recipe extends Component {
             value: "",
             Hits: [],
             query: "",
-            hitsFound: false
+            hitsFound: false,
+            steps: []
            
         };
     }
@@ -140,13 +141,16 @@ class Recipe extends Component {
     componentDidMount() {
         // console.log('/recipe/5eba3f7efd9c7b27cb32b8fa');
        // '+this.props.location.state.recipeId
-       console.log("#################################")
+      
        console.log(this)
         axios.get('/recipe/'+this.props.location.state.recipeId)
             .then(res => {
-                this.setState({ Recipe: res.data });
-                console.log("recipe =======", res.data);
+                this.setState({ Recipe: res.data,
+                    steps: res.data.steps.split(".")
+                });
 
+                console.log("recipe ======= stepsHJKL;WERTYUIP[", res.data.steps.split("."));
+                console.log("STEPS ARRAY YEAHHHHHHHHHHHHH", this.state.steps);
                 if(this.props.location.state.userId ==  res.data.userId) {
                     this.setState({
                         isRecipeOwner: true
@@ -165,7 +169,9 @@ class Recipe extends Component {
         });
         
         console.log("state =======", this.state);
+        console.log("###########Prinign stepsssss#####################")
 
+        this.printSteps();
         axios.get(`/recipe/total_likes/${this.props.location.state.recipeId}`)
         .then(
             (result)=>{
@@ -178,6 +184,7 @@ class Recipe extends Component {
         }).catch((err) => {
             console.log(`Errors: {errors}`, err);
         });
+        console.log("STEPS ARRAY YEAHHHHHH******************************HHHHHHH", this.state.steps);
     }
 
     IncrementLikesCount = () => {
@@ -270,6 +277,13 @@ class Recipe extends Component {
           });
       }
     
+    printSteps = (e) =>{
+       
+        let string = this.state.Recipe.steps;
+
+        console.log(string);
+
+    }
     
     render() {
         const { comment } = this.state.Review;
@@ -587,7 +601,7 @@ class Recipe extends Component {
                  
                  
 
-            <div className= "container">
+            <div className= "container ">
                 <h1 className="my-4">RECIPE DESCRIPTION</h1>
                     <div className = "container">
                         <header id="videoheader">
@@ -644,17 +658,28 @@ class Recipe extends Component {
                                 
                                             </ul>
                                             <h3 className="my-3"> Steps</h3>
-                                            
-                                            <div className="col-md-8">
-                                                <pre>{this.state.Recipe.steps}</pre>
-                                                {/* <li>{let str = this.state.Recipe.steps}</li> */}
-                                                {/* <li>{
-                                                    // .replace(/[\n\r]/g, '')
+                                            <div className= "row">
+                                                       {this.state.steps.map((step, i)=> (
+                                                            <div key={i}>
+                                                                
+                                                                <div className="topbar-divider d-none d-sm-block"></div>
 
-                                                this.state.Recipe.steps.split('\n').map((line, i)=>(
-                                                     <p key={i}>{line}</p>
-                                                ))
-                                                } </li> */}
+                                                                <br/>{step}<br/>
+                                                                <div className="topbar-divider d-none d-sm-block"></div>
+
+                                                            </div> 
+                                                       ))}
+                                                
+                                                
+                                                    {/* <li>{let str = this.state.Recipe.steps}</li> */}
+                                                    {/* <li>{
+                                                        // .replace(/[\n\r]/g, '')
+
+                                                    this.state.Recipe.steps.split('\n').map((line, i)=>(
+                                                        <p key={i}>{line}</p>
+                                                    ))
+                                                    } </li> */}
+                                               
                                             </div>
                                         </div>
 
@@ -668,7 +693,7 @@ class Recipe extends Component {
                                     {
 
                                         this.state.Hits.map((hit, i)=>(
-                                            <div className="row fixed-row">
+                                            <div className="row fixed-row" key={i}>
                                             
                                                 { 
                                                     (this.state.Recipe.id !== hit.objectID)
@@ -740,12 +765,12 @@ class Recipe extends Component {
 
                     <form onSubmit={this.postReview}>
                         <div className="card-body">
-                            <div className="row">
+                            <div className="row" >
                             {/* <div className="row"> */}
                                 {Object.keys(this.state.LoadedComments).map((key, i) =>
                                     
                                     <div className="card-card border-0 shadow" style={{padding:"3%"}} key={i}> 
-                                        <div className="col-md-2">
+                                        <div className="col-md-2    ">
                                             <img src="https://image.ibb.co/jw55Ex/def_face.jpg" className="img img-rounded img-fluid"/>
                                         </div>
                                         <p className="text-secondary" key={key}>{this.state.LoadedComments[key].createdAt}</p>
@@ -753,19 +778,16 @@ class Recipe extends Component {
                                         <div className="col-md-10">
                                             <p>
                                                 <a className="float-left" href="https://maniruzzaman-akash.blogspot.com/p/contact.html"><strong>Ananonymus</strong></a>
-                                                <span className="float-right"><i className="text-warning fa fa-star"></i></span>
-                                                <span className="float-right"><i className="text-warning fa fa-star"></i></span>
-                                                <span className="float-right"><i className="text-warning fa fa-star"></i></span>
-                                                <span className="float-right"><i className="text-warning fa fa-star"></i></span>
+
 
                                             </p>
-                                            <div className="clearfix"></div>
-                                
+                                            <div className="clearfix float-right">
                                             <p key={key}>{this.state.LoadedComments[key].commentText}</p>
-
+                                            </div>
                                     
+                                           
                                             <p>
-                                                <a className="float-right btn btn-outline-primary ml-2"> <i className="fa fa-reply"></i> Reply</a>
+                                                {/* <a className=" btn btn-outline-primary ml-2"> <i className="fa fa-reply"></i> Reply</a> */}
                                                 {/* <button className="float-right btn text-white btn-danger" onClick={this.IncrementLikesCount}> <span>{this.state.likes}</span> <i className="fa fa-heart"></i> Like</button> */}
                                                
                                             </p>

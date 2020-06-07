@@ -264,6 +264,9 @@ class App extends Component{
                       </form>         
                     </div>
 
+                    <span className="mr-2 d-none d-lg-inline text-gray-600 small text-nowrap">{this.state.filter}</span>
+
+
                 <ul className="navbar-nav ml-auto">
                   {/* <li className="nav-item dropdown no-arrow d-sm-none">
                     <a className="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -295,13 +298,13 @@ class App extends Component{
                       {/* Recipe Cards */}
                     {
                       this.state.Hits.map((hit, i)=>(
-                          <div className="col-lg-4 col-md-6 mb-4"  key={i}>
-                            <div className="card border-0 shadow">
+                          <div className="col-lg-4 col-md-6 mb-10"  key={i}>
+                            <div className="card border-0 shadow"  >
                               <img src={hit.imageString} className="card-img-top" alt="..." onClick={() => alert('Please Login to unlock the Recipe Card')} />
                               <div className="card-body text-center">
-                                <h3 className="card-title">
+                                <h5 className="card-title">
                                     <a href="">{hit.mealName}</a>
-                                </h3>
+                                </h5>
                                 <h6><a className="fas fa-user" href="#">{hit.userName}</a></h6>
                                 <p className="card-text">{hit.mealType}</p>
                               </div>
