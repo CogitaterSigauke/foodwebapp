@@ -78,6 +78,13 @@ public class RecipeLikes {
         return this.likesCount;
     }
 
+    public int hasLiked(String userId, String userName) {
+        if(this.likes.containsKey(userId)){
+            return 1;
+        }
+        return 0;
+    }
+
     public int getLikesCount() {
         return this.likesCount;
     }

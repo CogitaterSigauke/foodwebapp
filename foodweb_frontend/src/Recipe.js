@@ -142,7 +142,15 @@ class Recipe extends Component {
         // console.log('/recipe/5eba3f7efd9c7b27cb32b8fa');
        // '+this.props.location.state.recipeId
       
-       console.log(this)
+        console.log(this);
+        // let object = {
+        //     recipeId: this.props.location.state.recipeId,
+        //     userName: this.props.location.state.userName,
+        //     userId: this.props.location.state.userId
+        // };
+
+
+
         axios.get('/recipe/'+this.props.location.state.recipeId)
             .then(res => {
                 this.setState({ Recipe: res.data,

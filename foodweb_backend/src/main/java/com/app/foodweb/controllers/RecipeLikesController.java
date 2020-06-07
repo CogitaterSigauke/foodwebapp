@@ -62,14 +62,50 @@ public class RecipeLikesController {
 
     }
 
-    // recipe.setLikesCount(likesCount);
-    // recipeController.updateRecipeTrigger(recipeLikes.getRecipeId(), recipe);
-
-
+   
     Map<String, Integer> res = new HashMap<>();
     res.put("likes", likesCount);
     return res;
     }
+
+
+    @RequestMapping(method=RequestMethod.POST, value="app/recipe/unlike")
+    public Map<String, Integer> unLikeRecipe(@RequestBody RecipeLikes recipeLikes) {
+      int likesCount = 0;
+      RecipeLikes likes;
+      if(recipeLikesRepository.existsByRecipeId(recipeLikes.getRecipeId())){
+  
+          likes = recipeLikesRepository.findByRecipeId(recipeLikes.getRecipeId());
+          likesCount = likes.unLike(recipeLikes.getUserId(), recipeLikes.getUserName());
+          recipeLikesRepository.save(likes);         
+  
+      }
+  
+      Map<String, Integer> res = new HashMap<>();
+      res.put("likes", likesCount);
+      return res;
+      
+    }
+
+    @RequestMapping(method=RequestMethod.POST, value="app/recipe/hasliked")
+    public Map<String, Integer> hasLikedRecipe(@RequestBody RecipeLikes recipeLikes) {
+      int hasLiked = 0;
+  
+      if(recipeLikesRepository.existsByRecipeId(recipeLikes.getRecipeId())){
+  
+        RecipeLike likes = recipeLikesRepository.findByRecipeId(recipeLikes.getRecipeId());
+        hasLiked = likes.hasLiked(recipeLikes.getUserId(), recipeLikes.getUserName());     
+        
+      }
+  
+      Map<String, Integer> res = new HashMap<>();
+      res.put("hasLiked", hasLiked);
+      return res;
+      
+    }
+
+
+
 
 
     @RequestMapping(method=RequestMethod.GET, value="app/recipe/total_likes/{recipe_id}")
@@ -90,9 +126,7 @@ public class RecipeLikesController {
 
       }
 
-
-
-
+    
 
 
 
