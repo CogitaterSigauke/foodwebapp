@@ -7,12 +7,8 @@ import com.algolia.search.*;
 //FOODWEB
 
 import com.app.foodweb.models.User;
-import com.app.foodweb.models.Favorite;
 import com.app.foodweb.models.UserImage;
-import com.app.foodweb.models.BlockedUser;
 import com.app.foodweb.repositories.UserRepository;
-import com.app.foodweb.repositories.BlockedUserRepository;
-import com.app.foodweb.repositories.FavoriteRepository;
 
 //SPRING BOOT
 
@@ -50,12 +46,6 @@ public class UserController {
 
 	@Autowired
 	UserRepository userRepository;
-
-	@Autowired
-	BlockedUserRepository blockedUserRepository;
-
-	@Autowired
-	FavoriteRepository favoriteRepository;
 
 
 	//users sign-up route
@@ -114,26 +104,6 @@ public class UserController {
 	}
 
 
-	//when users start following another user, the number of users they follow automatically gets updated
-	@RequestMapping(method=RequestMethod.PUT, value="app/{id}/follow")
-	public User followUser(@PathVariable String id){
-		Optional<User> optuser = userRepository.findById(id);
-		User u = optuser.get();
-		u.setNumberOfFollowing(u.getNumberOfFollowing() + 1);
-		userRepository.save(u);
-		return u;
-	}
-
-	//when users unfollow other users, the number of users they follow automatically gets updated
-	@RequestMapping(method=RequestMethod.PUT, value="app/{id}/unfollow")
-	public User unFollowUser(@PathVariable String id){
-		Optional<User> optuser = userRepository.findById(id);
-		User u = optuser.get();
-		u.setNumberOfFollowing(u.getNumberOfFollowing() - 1);
-		userRepository.save(u);
-		return u;
-	}
-	//한글
 	//finding users by their unique id
 	@RequestMapping(method=RequestMethod.GET, value="app/user/{id}")
 	public User getUser(@PathVariable String id){
@@ -141,136 +111,27 @@ public class UserController {
 	}
 
 	//route to find all registered users
-	//한글
 	@RequestMapping(method=RequestMethod.GET, value="app/all_users")
 	public Iterable<User> getAllUsers(){
 		return userRepository.findAll();
 	}
 
-	//route to deactivate users' account
-	@RequestMapping(method=RequestMethod.PUT, value="app/deactivate_account/{id}")
-	public User deactivateAccount(@PathVariable String id){
-		Optional<User> optuser = userRepository.findById(id);
-		User user = optuser.get();
-		user.setActive("false");
-		userRepository.save(user);
-		String objectID = user.getId();
-		index.deleteObject(objectID);
-		return user;
-	}
-	// activating an account that was deactivated
-	@RequestMapping(method=RequestMethod.PUT, value="app/activate_account/{id}")
-	public User activateAccount(@PathVariable String id){
-		Optional<User> optuser = userRepository.findById(id);
-		User user = optuser.get();
-		user.setActive("true");
-		userRepository.save(user);
-
-		//ADD TO INDEX
-		UserImage userImage = new UserImage(
-		user.getName(),
-		user.getFamilyName(),
-		user.getUserName(),
-		user.getImageString(),
-		user.getId());
-		index.saveObject(userImage);
-		return user;
-	}
 
 	//deleting account
 	@RequestMapping(method=RequestMethod.DELETE, value="app/delete_account/{id}")
 	public String deleteAccount(@PathVariable String id){
 		Optional<User> optuser = userRepository.findById(id);
-		User user = optuser.get();
-		System.out.println(user.getUserName());
-		//DELETE FROM INDEX IF EXIST
-		if(user.getActive().equals("true")){
-			String objectID = user.getId();
-			index.deleteObject(objectID);
-		}
-
-		userRepository.delete(user);
-		return "";
-
-	}
-	//route to find all blocked users by the user
-	@RequestMapping(method=RequestMethod.GET, value="app/{id}/blocked_users")
-	public List<BlockedUser> getBlockedUsers(@PathVariable String id){
-		List<BlockedUser> blockerAndBlocked = blockedUserRepository.findByBlockerUserId(id);
-		return blockerAndBlocked;
-
-
-	}
-
-	//route to block a user. When a user is blocked, user and the blocked user get associated with a new id and stored in BlockedUser repository
-	@RequestMapping(method=RequestMethod.POST, value="app/{user_id}/block/{other_id}")
-	public BlockedUser blockUser(@RequestBody BlockedUser user){
-		blockedUserRepository.save(user);
-		return user;
-
-	}
-	//route to unblock a blocked user. it is removing the association held between the blocker and blocked user.
-	@RequestMapping(method=RequestMethod.DELETE, value="app/{user_id}/unblock/{other_id}")
-	public String unBlockUser(@RequestBody BlockedUser user){
-		blockedUserRepository.delete(user);
-		return "";
-	}
-
-	//add a recipe to myFavorite list
-	@RequestMapping(method=RequestMethod.POST, value="app/add_recipe_to_myfavorite")
-	public Favorite addRecipeToMyFavoriteRecipeList(@RequestBody Favorite favorite){
-		favoriteRepository.save(favorite);
-		return favorite;
-	}
-
-	//get all myfavorite recipes
-	@RequestMapping(method=RequestMethod.GET, value="app/{userId}/get_all_myfavorite_recipes")
-	public List<Favorite> getAllMyFavoriteRecipeList(String userId){
-		return favoriteRepository.findByUserId(userId);
-	}
-
-
-	//remove a recipe from myfavorite recipe List
-	@RequestMapping(method=RequestMethod.DELETE, value="app/{userId}/myFavorite/remove/{recipeId}")
-	public String removeRecipeFromMyFavoriteList(@PathVariable String userId,
-	@PathVariable String recipeId){
-		List<Favorite> optFavorite = favoriteRepository.findByUserIdAndRecipeId(userId,recipeId);
-		if(!optFavorite.isEmpty()){
-			favoriteRepository.delete(optFavorite.get(0));
-			return "";
-		}
-		return "Error! This recipe is not found under user's favorite list!";
-
-
-	}
-
-	//saving user's profile image in database in the form of image-string
-	@RequestMapping(method=RequestMethod.POST, value="app/{id}/image-upload")
-	public Optional<User> saveImageToUser(@PathVariable String id, @RequestParam("file") MultipartFile file) {
-		Optional<User> optuser = userRepository.findById(id);
-		if (optuser.isPresent()) {
+		if(optuser.isPresent()){
+			//DELETE FROM INDEX IF EXIST
 			User user = optuser.get();
-			try {
-				// // Encoding to a Base64 String
-				String imageBase64String = Base64.getEncoder().encodeToString(file.getBytes());
-				// // Now storing it in the format:
-				String imageString = "data:" + file.getContentType() + ";base64," + imageBase64String;
-				user.setImageString(imageString);
-				userRepository.save(user);
-
-				Optional<User> newUser = Optional.of(user);
-				System.out.println("Successfully image updated");
-				return newUser;
-			} catch (Exception e) {
-				System.out.println("saveImage Exception:" + e);
-
-				Optional<User> newUser = Optional.of(user);
-
-				return newUser;
+			if(user.getActive().equals("true")){
+				String objectID = user.getId();
+				index.deleteObject(objectID);
 			}
-		} else {
-			System.out.println("Couldn't find user");
-			return optuser;
-
+			userRepository.delete(user);
+			return "DELETE: success";
 		}
-	}}
+		return "ERROR:No user found with the given id";
+	}
+
+}

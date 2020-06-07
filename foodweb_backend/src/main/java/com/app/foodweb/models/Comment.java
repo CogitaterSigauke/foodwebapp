@@ -2,9 +2,9 @@
 package com.app.foodweb.models;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
-import java.time.format.DateTimeFormatter;  
+import java.time.format.DateTimeFormatter;
 import java.time.LocalDateTime;
-import java.time.ZoneOffset;     
+import java.time.ZoneOffset;
 
 @Document(collection = "comments")
 
@@ -16,18 +16,16 @@ public class Comment {
     String userName;
     String recipeId;
     String commentText;
-    int likesCount = 0;
     //time the comment was created or last edited
     String createdAt;
 
-    public Comment(String senderId, String userName, String recipeId, String commentText, int likesCount) {
+    public Comment(String senderId, String userName, String recipeId, String commentText) {
         this.senderId = senderId;
         this.recipeId = recipeId;
         this.userName = userName;
         this.commentText = commentText;
-        this.likesCount = likesCount;
         DateTimeFormatter dtf = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
-        LocalDateTime now = LocalDateTime.now(ZoneOffset.UTC);  
+        LocalDateTime now = LocalDateTime.now(ZoneOffset.UTC);
         this.createdAt = dtf.format(now);
 
     }
@@ -71,19 +69,11 @@ public class Comment {
         this.commentText = commentText;
     }
 
-    public int getLikesCount() {
-        return likesCount;
-    }
-
-    public void setLikesCount(int likesCount) {
-        this.likesCount = likesCount;
-    }
-
     public String getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(String editedAt) { 
+    public void setCreatedAt(String editedAt) {
         this.createdAt = editedAt;
     }
 }

@@ -29,10 +29,10 @@ public class Recipe {
     String steps;
     // ArrayList<String> ingredients;
     // ArrayList<String> steps;
-    
+
     public Recipe(String userName, String userId, String mealType,
     String dietHealth, String worldCuisine, String mealName,
-    String description, String videoId,String imageString, 
+    String description, String videoId,String imageString,
     String ingredients,  String steps, ArrayList<String> urls) {
         this.userId = userId;
         this.userName = userName;
@@ -165,13 +165,6 @@ public class Recipe {
     public String getIngredients() {
         return ingredients;
     }
-    // public ArrayList<String> getIngredients() {
-    //   return ingredients;
-    // }
-
-    // public void setIngredients(ArrayList<String> ingredients) {
-    //  this.ingredients = ingredients;
-    // }
 
     public void setIngredients(String ingredients) {
         this.ingredients = ingredients;
@@ -180,12 +173,6 @@ public class Recipe {
         return steps;
     }
 
-    // public ArrayList<String> getSteps() {
-    //     return steps;
-    // }
-    // public void setSteps(ArrayList<String> steps) {
-    //     this.steps = steps;
-    // }
 
     public void setSteps(String steps) {
         this.steps = steps;
