@@ -270,3 +270,16 @@ hr {
     overflow-x: hidden;
     text-overflow: ellipsis;
 }
+::-webkit-scrollbar{
+
+    width: 0px;
+    background: transparent;
+    /* flex-direction: column-reverse; */
+    
+}
+
+.message-body{
+    position: fixed;
+    bottom: 0;
+
+}

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, useEffect } from 'react';
 import './ChatBox.css';
 import {Link}  from 'react-router-dom';
 // import Nav from './Nav';
@@ -14,6 +14,10 @@ const searchClient = algoliasearch(
   
 let index = searchClient.initIndex('users');
   
+// useEffect(() => {
+//     var messageBody = document.querySelector('#message-body');
+//     messageBody.scrollTop = messageBody.scrollHeight - messageBody.clientHeight;
+// });
 
 class Chat extends Component{
 
@@ -109,15 +113,14 @@ class Chat extends Component{
             target : {
                 name : this.props.location.state.userId
             }
+
         }
+
         this.handleChatBoxClick(e);
      
     }
 
-    // handleDivClick = (id) => {
-
-        
-    // }
+ 
     handleChatBoxClick = (e) => {
 
         this.searchUser(e.target.name);
@@ -135,6 +138,7 @@ class Chat extends Component{
         // console.log("FRIEND USER ID ==>", e.target.id);
         console.log("FRIEND USER NAME ==>", e.target.name);
         console.log("CURRENT USER VALUE ==>", this.props.location.state.userId);
+        
         axios.get(`/message/${this.props.location.state.userId}/${e.target.name}`)
         .then(messages => {
             this.setState({ Messages: messages.data   
@@ -155,16 +159,29 @@ class Chat extends Component{
 
     PostMessage = (e) => {
         console.log('======response.data=  before message has been posted=====');
+
         e.preventDefault();
         const { senderUserId, receiverUserId, messageText, imageId, videoId } = this.state.message;
-        axios.post('message', { senderUserId, receiverUserId, messageText, imageId, videoId })
+        if(messageText !== ""){
+
+            axios.post('message', { senderUserId, receiverUserId, messageText, imageId, videoId })
             .then((result) => {
             console.log("After Posting new Contact - returned data: " + result.data);
            
             console.log('======response.data= after  message has been posted=====');
             console.log(result.data);
-            alert("Successfuly saved");
-            // this.props.history.push("/Home")
+
+            this.state.Messages.push(this.state.message);
+            this.setState({
+                message:{
+                    senderUserId  : senderUserId,       
+                    receiverUserId: receiverUserId, 
+                    messageText   : "",        
+                    imageId       : "",        
+                    videoId       : "" 
+                }        
+            });
+
             })
             .catch((err) => {
             console.log(`======response.data=====`);
@@ -173,8 +190,15 @@ class Chat extends Component{
             .catch((err) => {
             console.log(`Errors: {errors}`);
             });
-        ;
+        
+
+
+        }
+        
     }
+
+
+    
 
 
 
@@ -322,60 +346,4 @@ class Chat extends Component{
     }
 }
 
-// Chat.propTypes = {
-
-//     classes: PropTypes.object.isRequired
-  
-//   }
 export default withRouter(Chat);
-
-
-//  {/* <div className="row no-gutters">
-//                         <div className="col-md-3 offset-md-9">
-//                             <div className="chat-bubble chat-bubble--right">
-//                                 Hello dude!
-//                             </div>
-//                         </div>
-//                         </div>
-//                         <div className="row no-gutters">
-//                             <div className="col-md-3 offset-md-9">
-//                                 <div className="chat-bubble chat-bubble--right">
-//                                     Hello dude!
-//                                 </div>
-//                             </div>
-//                         </div>
-//                         <div className="row no-gutters">
-//                             <div className="col-md-3">
-//                                 <div className="chat-bubble chat-bubble--left">
-//                                     Hello dude!
-//                                 </div>
-//                             </div>
-//                         </div>
-//                         <div className="row no-gutters">
-//                             <div className="col-md-3">
-//                                 <div className="chat-bubble chat-bubble--left">
-//                                     Hello dude!
-//                                 </div>
-//                             </div>
-//                         </div>
-//                         <div className="row no-gutters">
-//                             <div className="col-md-3">
-//                                 <div className="chat-bubble chat-bubble--left">
-//                                     Hello dude!
-//                                 </div>
-//                             </div>
-//                         </div>
-
-// {this.state.Messages.map(({messageText})=>(
-//     <div className="row no-gutters">
-//         <div className="col-md-3">
-//             <div className="chat-bubble chat-bubble--left">
-//                 {messageText}
-//             </div>  
-            
-//         </div>
-//     </div>
-    
-//     ))
-// }
-
