@@ -34,27 +34,28 @@ public class ReviewController {
 
 
   //give a review to a recipe
-  @RequestMapping(method=RequestMethod.POST, value="app/user/{userId}/add_review/{recipeId}/{userRating}")
+  @RequestMapping(method=RequestMethod.GET, value="app/user/{userId}/add_review/{recipeId}/{userRating}")
   public double giveReviewToRecipe(@PathVariable String recipeId,@PathVariable String userId,@PathVariable int userRating){
     //check if user has reviewed the recipe before
     Optional<Review> optreview = reviewRepository.findByRecipeIdAndUserId(recipeId,userId);
-
-    if (optreview.isPresent()){
-      //re-reviewing a recipe
-      Review editedReview =optreview.get();
-      editedReview.setUserRating(userRating);
-      reviewRepository.save(editedReview);
-    }
-    else{
-      //the recipe is being reviewed for the first time
-      Review newReview = new Review(recipeId,userId,userRating);
-      reviewRepository.save(newReview);
-    }
+    if(userRating > 0 && userRating < 6){
+        if (optreview.isPresent()){
+          //re-reviewing a recipe
+          Review editedReview =optreview.get();
+          editedReview.setUserRating(userRating);
+          reviewRepository.save(editedReview);
+        }
+        else{
+          //the recipe is being reviewed for the first time
+          Review newReview = new Review(recipeId,userId,userRating);
+          reviewRepository.save(newReview);
+        }
+     }
      return getRecipeReview(recipeId);
 
   }
 
-  // get all the requested recipe reviews
+  // get recipe review of a specific recipe
   @RequestMapping(method=RequestMethod.GET, value="app/get_review/{recipeId}")
   public double getRecipeReview(@PathVariable String recipeId){
       List<Review> reviewsForThisRecipe = reviewRepository.findByRecipeId(recipeId);
@@ -77,4 +78,17 @@ public class ReviewController {
        List<Review> reviewsForThisRecipe = reviewRepository.findByRecipeId(recipeId);
        return reviewsForThisRecipe.size();
   }
+
+  @RequestMapping(method=RequestMethod.GET, value="app/user/{userId}/recipe/{recipeId}/get_review")
+  public double getRecipeReviewByUser(@PathVariable String userId,@PathVariable String recipeId){
+       Optional<Review> optreview = reviewRepository.findByRecipeIdAndUserId(recipeId,userId);
+       if(optreview.isPresent()){
+          Review r = optreview.get();
+          return r.getUserRating();
+       }
+       return 0.0;
+  }
+
+
+
 }
