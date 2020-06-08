@@ -4,6 +4,8 @@ import { Link } from 'react-router-dom';
 import './recipe.css';
 import Rating from './Rating';
 import { connectScrollTo } from 'react-instantsearch-dom';
+import Typography from '@material-ui/core/Typography';
+import CardContent from '@material-ui/core/CardContent';
 
 
 import algoliasearch from 'algoliasearch/lite';
@@ -201,7 +203,7 @@ class Recipe extends Component {
         axios.get('/recipe/'+this.props.location.state.recipeId)
             .then(res => {
                 this.setState({ Recipe: res.data,
-                    steps: res.data.steps.split(".")
+                    steps: res.data.steps.split('.')
                 });
 
                 console.log("recipe ======= stepsHJKL;WERTYUIP[", res.data.steps.split("."));
@@ -543,10 +545,10 @@ class Recipe extends Component {
                 <i className="fas fa-hand-holding-heart"></i>
                 <span onClick={this.handleFilter}>Diet And Health</span></ul>
             </li>
-            <hr className="sidebar-divider d-none d-md-block"/>
+            {/* <hr className="sidebar-divider d-none d-md-block"/>
             <div className="text-center d-none d-md-inline">
               <button className="rounded-circle border-0" id="sidebarToggle"></button>
-            </div>
+            </div> */}
             </ul>
 
 
@@ -685,13 +687,7 @@ class Recipe extends Component {
                        <i className="fa fa-bars"></i>
                    </button>
      
-                   <div className="input-group">
-                     <form className="form-inline">
-                       <i className="fas fa-search" aria-hidden="true"></i>
-                       <input className="form-control form-control-sm ml-3 w-75" type="text" placeholder="Search"
-                         aria-label="Search" value={this.state.value} onChange={this.handleChange}/>
-                     </form>         
-                   </div>
+                  
      
                    <span className="mr-2 d-none d-lg-inline text-gray-600 small text-nowrap">{this.state.filter}</span>
      
@@ -721,7 +717,7 @@ class Recipe extends Component {
                                      pathname: "/Profile",
                                      state: this.props.location.state
                                  }}>
-                                 <i className="fas fa-utensils fa-sm fa-fw mr-2 text-gray-400"></i>
+                                 <i className="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                  Profile
                              </Link>
                              
@@ -860,13 +856,13 @@ class Recipe extends Component {
                                                 <pre> {this.state.Recipe.ingredients}</pre>
                                 
                                             </ul>
+
+
                                             <h3 className="my-3"> Steps</h3>
-                                            <div className= "row">
+                                           
                                                        {this.state.steps.map((step, i)=> (
                                                             <div key={i}>
-                                                                
                                                                 <div className="topbar-divider d-none d-sm-block"></div>
-
                                                                 <br/>{step}<br/>
                                                                 <div className="topbar-divider d-none d-sm-block"></div>
 
@@ -875,15 +871,15 @@ class Recipe extends Component {
                                                 
                                                 
                                                     {/* <li>{let str = this.state.Recipe.steps}</li> */}
-                                                    {/* <li>{
+                                                    {/* {/* <li>{
                                                         // .replace(/[\n\r]/g, '')
 
                                                     this.state.Recipe.steps.split('\n').map((line, i)=>(
                                                         <p key={i}>{line}</p>
                                                     ))
                                                     } </li> */}
-                                               
-                                            </div>
+                                              
+                                           
                                         </div>
 
                                     </div>
@@ -956,10 +952,11 @@ class Recipe extends Component {
                     </section>
             </div>
             <div className="container">
-                <h2 className="text-center">Reviews and Comments</h2>
+               
                 
                 <div className="card">
-
+                <h3 className="text-center comment-padding">Comments</h3>            
+             
                     <form onSubmit={this.postReview}>
                         <div className="card-body">
                             <div className="row" >
@@ -994,23 +991,22 @@ class Recipe extends Component {
                              </div>
                         </div>
                      
-                                      
+                       
                                    
                         <div className="text-right">
+
+
+                       
                             <textarea  rows="3" cols="30" type="text" className="form-control" name="comment" value={comment} onChange={this.onChange} placeholder="Leave a comment" />
                             
                                                         {/* <textarea  rows="3" cols="30" className="form-control form-control-user" value = {comment} placeholder="Leave a comment"/> */}
                             <div className="row">
-                                <div className="col-md-8">
-                                <Rating/>
-                                </div>
-                                {/*                             
-                                <div className="rating">
-                                <span>☆</span><span>☆</span><span>☆</span><span>☆</span><span>☆</span>
-                                </div> */}
+                               
+                               <div className="col-md-8"></div>
                                 <div className="col-md-4">
                                     <button type="submit" className="btn btn-success btn-sm">Submit Review</button>
                                 </div>
+                                
                             </div>
                                 {(this.state.isRecipeOwner)
                                 && (<div className="row" >

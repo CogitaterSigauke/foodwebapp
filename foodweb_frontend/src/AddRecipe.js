@@ -137,30 +137,56 @@ class AddRecipe extends React.Component {
     debugger;
     const{ userId, userName, mealType, dietAndHealth, worldCuisine, mealName, description, imageString, videoId, steps, ingredients } = this.state;
     debugger;
-    axios.post('/user/add/recipe/', { userId, userName,  mealType, dietAndHealth, worldCuisine, mealName, description, imageString, videoId, steps, ingredients })
-      .then((result) => {
-        console.log("After Posting new Contact - returned data: " + result.data);
-        const recipeID = result.data.id;
-        console.log('======response.data======');
-        console.log(result.data);
-        alert("Successfuly saved, Thank you!");
+
+    console.log("ON    SUBMIT Handle Upload\n state :", this.state);
+
+    if(this.state.image){
+
+      if(this.state.noImageSelected){
+
+      }else{
+
       
-        this.props.history.push({
-          pathname: "/Home",
-          state: {userId: this.state.userId,
-                  userName: this.state.userName,
-                  imageString: this.state.profileImage
-                }
+      axios.post('/user/add/recipe/', { userId, userName,  mealType, dietAndHealth, worldCuisine, mealName, description, imageString, videoId, steps, ingredients })
+        .then((result) => {
+          console.log("After Posting new Contact - returned data: " + result.data);
+          const recipeID = result.data.id;
+          console.log('======response.data======');
+          console.log(result.data);
+
+          this.setState({
+            noImageSelected: false
+          });
+  
+          // alert("Successfuly saved, Thank you!");
+        
+          this.props.history.push({
+            pathname: "/Home",
+            state: {userId: this.state.userId,
+                    userName: this.state.userName,
+                    imageString: this.state.profileImage
+                  }
+          });
+
+        })
+        .catch((err) => {
+          console.log(`======response.data=====`);
+          console.log(`Errors: {errors}`);
+        })
+        .catch((err) => {
+          console.log(`Errors: {errors}`);
         });
 
-      })
-      .catch((err) => {
-        console.log(`======response.data=====`);
-        console.log(`Errors: {errors}`);
-      })
-      .catch((err) => {
-        console.log(`Errors: {errors}`);
+      }
+
+    }else{
+
+      this.setState({
+        noImageSelected: true
       });
+
+    }
+    
   }
 
   handleFileChange = e => {
@@ -179,10 +205,8 @@ class AddRecipe extends React.Component {
     console.log("handleUpload State:", this.state);
     if(this.state.image){
 
-      this.setState({
-        noImageSelected: false
-      });
-
+      
+       
       const uploadTask = storage.ref(`images/${this.state.image.name}`).put(this.state.image);
       console.log("handleUpload State: ==========================================");
       uploadTask.on(
@@ -235,7 +259,9 @@ class AddRecipe extends React.Component {
                 url: imageUrl,
                 imageString: imageUrl
               });
-              
+              this.setState({
+                noImageSelected: false
+              });
     
             });
         }
@@ -280,12 +306,12 @@ class AddRecipe extends React.Component {
   
     if(!authenticated){
       this.props.history.push('/');
-      // return <Redirect to='/'/>
+      return <Redirect to='/'/>
     }
-    if(!this.props.location.state){
-      this.props.history.push('/');
-      return <Redirect to='/'/>;
-    }
+    // if(!this.props.location.state){
+    //   this.props.history.push('/');
+    //   return <Redirect to='/'/>;
+    // }
   
 
     return (
@@ -301,13 +327,11 @@ class AddRecipe extends React.Component {
                             this.props.location.state
                         
                     }}>
-                    <div className="sidebar-brand-icon rotate-n-15">
+                    <div className="sidebar-brand-icon">
                         <i className="fas fa-blender">Home</i>
                     </div>
                 </Link>
-                <button id="sidebarToggleTop" className="btn btn-link d-md-none rounded-circle mr-3">
-                    <i className="fa fa-bars"></i>
-                </button>
+               
 
                 <div className="topbar-divider d-none d-sm-block"></div>
 
@@ -344,7 +368,7 @@ class AddRecipe extends React.Component {
                                           pathname: "/Profile",
                                           state: this.props.location.state
                                       }}>
-                                      <i className="fas fa-utensils fa-sm fa-fw mr-2 text-gray-400"></i>
+                                      <i className="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                       Profile
                                   </Link>
 
@@ -412,19 +436,19 @@ class AddRecipe extends React.Component {
                             </div>
                             <div className="form-group">
                               <label htmlFor="description">Description</label>
-                              <textarea rows="3" cols="20" type="text" className="form-control" name="description" value={description} onChange={this.onChange} placeholder="give a general description about the recipe" required/>
+                              <textarea rows="5" cols="50" type="text" className="form-control" name="description" value={description} onChange={this.onChange} placeholder="give a general description about the recipe" required/>
                             </div>
 
 
 
                             <div className="form-group">
                               <label htmlFor="ingredients">Ingredients</label>
-                              <textarea rows="4" cols="40" type="text" className="form-control" name="ingredients" value={ingredients} onChange={this.onChange} placeholder="Write the list of ingredients needed to make this recipe" required/>
+                              <textarea rows="10" cols="40" type="text" className="form-control" name="ingredients" value={ingredients} onChange={this.onChange} placeholder="Write the list of ingredients needed to make this recipe" required/>
                             </div>
                             
                             <div className="form-group">
                               <label htmlFor="steps">Steps</label>
-                              <textarea rows="15" cols="330000" type="text" className="form-control" name="steps" value={steps} onChange={this.onChange} placeholder="Write the list of ingredients needed to make this recipe" required/>
+                              <textarea rows="10" cols="50" type="text" className="form-control" name="steps" value={steps} onChange={this.onChange} placeholder="Write the list of ingredients needed to make this recipe" required/>
                             </div>
 
                             {/* 
@@ -506,7 +530,7 @@ class AddRecipe extends React.Component {
                       <div className="custom-file">
                         <input type="file" className="custom-file-input" id="inputGroupFile01"
                           aria-describedby="inputGroupFileAddon01"  onChange={this.handleFileChange}/>
-                        <label className="custom-file-label" for="inputGroupFile01">Choose file</label>
+                        <label className="custom-file-label" htmlFor="inputGroupFile01">Choose file</label>
                       </div>
                     </div>
                             
@@ -526,6 +550,29 @@ class AddRecipe extends React.Component {
 
                         <br />
                     </div> */}
+
+
+                    {
+                    
+                    (this.state.noImageSelected) && 
+                    
+                    
+                    // (
+                    
+                      <div className="card-body text-center alert">
+                        <h5 className="card-title">
+                          Please Select Image
+                        </h5>
+                         {/* <p className="card-text">{hit.dietAndHealth}</p> */}
+                      </div>
+                    // )
+                    
+                    
+                    }
+                    
+
+
+
                       <br />
                         {this.state.images.map((image, i )=>(
                           <div key={i}>{image}</div>
@@ -540,23 +587,6 @@ class AddRecipe extends React.Component {
 
 
 
-                    {
-
-                          (this.state.noImageSelected) && 
-
-
-                          // (
-
-                            <div className="card-body text-center alert">
-                              <h5 className="card-title">
-                                Please Select Image
-                              </h5>
-                               {/* <p className="card-text">{hit.dietAndHealth}</p> */}
-                            </div>
-                          // )
-
-
-                    }
 
 
 

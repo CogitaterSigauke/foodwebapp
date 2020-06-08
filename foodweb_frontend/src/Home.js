@@ -127,16 +127,14 @@ componentWillMount() {
 
 handleLogout = () => {
   localStorage.removeItem("tokenId");
-  // localStorage.setItem("tokenId", null);
+ 
   const token = localStorage.tokenId;
-  // window.location.href("/");
-  // this.props.history.push("/");
-  // runder = {<Redirect to='/Home'/>}
+  
   console.log("INSIDE LOGOUT");
   this.setState({
     authenticated: false
   });
-  // this.props.history.push('/');
+  
 } 
 
   handleChange = (e) =>{
@@ -159,8 +157,7 @@ handleLogout = () => {
     });
   
     this.search(e.target.innerHTML);
-    // this.search(e.target.value);
-  
+   
     }
     handleMyRecipeFilter = (e) => {
       this.setState({
@@ -185,12 +182,9 @@ render() {
   const { authenticated } = this.state;
   if(!authenticated){
     this.props.history.push('/');
-    // return <Redirect to='/'/>
+    return <Redirect to='/'/>
   }
-  // if(!this.props.location.state){
-  //   this.props.history.push('/');
-  //   return <Redirect to='/'/>;
-  // }
+ 
 
   return (
 
@@ -293,12 +287,10 @@ render() {
           <li className="nav-item">
             <ul className="nav-link recipe-ul" name="dite and healthy" value="dite and healthy">
               <i className="fas fa-hand-holding-heart"></i>
-              <span onClick={this.handleFilter}>Dite And Health</span></ul>
+              <span onClick={this.handleFilter}>Diet And Health</span></ul>
           </li>
-          <hr className="sidebar-divider d-none d-md-block"/>
-          <div className="text-center d-none d-md-inline">
-            <button className="rounded-circle border-0" id="sidebarToggle"></button>
-          </div>
+          {/* <hr className="sidebar-divider d-none d-md-block"/>
+          */}
         </ul>
 
 
@@ -316,13 +308,64 @@ render() {
                   <i className="fa fa-bars"></i>
               </button>
 
-              <div className="input-group">
+
+
+
+
+
+
+
+
+
+
+              {/* <div className="input-group">
                 <form className="form-inline">
                   <i className="fas fa-search" aria-hidden="true"></i>
                   <input className="form-control form-control-sm ml-3 w-75" type="text" placeholder="Search"
                     aria-label="Search" value={this.state.value} onChange={this.handleChange}/>
                 </form>         
-              </div>
+              </div> */}
+
+
+
+             <form className="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+                <div className="input-group">
+                  <input type="text"  className="form-control bg-light border-0 small" placeholder="Search"
+                    value={this.state.value} onChange={this.handleChange} aria-label="Search" aria-describedby="basic-addon2"/>
+                  <div className="input-group-append">
+                    <button className="btn btn-primary" type="button">
+                      <i className="fas fa-search fa-sm"></i>
+                    </button>
+                  </div>
+                </div>
+              </form>
+
+{/* 
+              <li className="nav-item dropdown no-arrow d-sm-none">
+                    <a className="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      <i className="fas fa-search fa-fw"></i>
+                    </a>
+                    <div className="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in" aria-labelledby="searchDropdown">
+                      <form className="form-inline mr-auto w-100 navbar-search">
+                        <div className="input-group">
+                          <input type="text" className="form-control bg-light border-0 small" placeholder="Search for..rrrrrrrrr." aria-label="Search" aria-describedby="basic-addon2"/>
+                          <div className="input-group-append">
+                            <button className="btn btn-primary" type="button">
+                              <i className="fas fa-search fa-sm"></i>
+                            </button>
+                          </div>
+                        </div>
+                      </form>
+                    </div>
+                  </li> */}
+
+
+
+
+
+
+
+
 
               <span className="mr-2 d-none d-lg-inline  small text-nowrap nav-item filter-edit">{this.state.filter}</span>
 
@@ -352,7 +395,7 @@ render() {
                                 pathname: "/Profile",
                                 state: this.props.location.state
                             }}>
-                            <i className="fas fa-utensils fa-sm fa-fw mr-2 text-gray-400"></i>
+                            <i className="fas  fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                             Profile
                         </Link>
                         
@@ -413,7 +456,7 @@ render() {
                             <img src={hit.imageString} className="card-img-top" alt="..."/>
                           </Link>
                           <div className="card-body text-center">
-                            <h5 className="card-title">
+                            <h6 className="card-title">
                             <Link to={{
                                  pathname: "/Recipe",
                                  state:{
@@ -427,14 +470,12 @@ render() {
                              }>
                                 <p href="#">{hit.mealName}</p>
                             </Link>
-                            </h5>
-                    <h6><a className="fas fa-user" href="#">by {hit.userName}</a></h6>
+                            </h6>
+                    <h6><a className="fas fa-user" href="#">{hit.userName}</a></h6>
                    
-                    <p className="card-text">{hit.dietAndHealth}</p>
+                    <p className="card-text">{hit.mealType}</p>
                           </div>
-                          <div className="card-footer">
-                              <small className="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
-                          </div>
+                         
                         </div>
                       </div> 
                     )) 

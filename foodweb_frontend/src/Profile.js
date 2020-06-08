@@ -113,7 +113,7 @@ class Profile extends  React.Component{
                                         pathname: "/Profile",
                                         state: this.props.location.state
                                     }}>
-                                    <i className="fas fa-utensils fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    <i className="fas  fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Profile
                                 </Link>
 
@@ -121,7 +121,7 @@ class Profile extends  React.Component{
                                     {{
                                         pathname: "/Home",
                                         state: this.props.location.state,
-                                        filter: true
+                                        filterByMyRecipe: true
                                     }}>
                                     <i className="fas fa-utensils fa-sm fa-fw mr-2 text-gray-400"></i>
                                     My Recipe
@@ -153,7 +153,7 @@ class Profile extends  React.Component{
             <div className="container main-secction">
         <div className="row div-background" >
             <div className="col-md-12 col-sm-12 col-xs-12 image-section">
-                <img src="https://media.wzzm13.com/assets/WZZM/images/040b2e84-8625-458b-a146-760a6311672e/040b2e84-8625-458b-a146-760a6311672e_750x422.jpg"/>
+                <img src="https://steamcdn-a.akamaihd.net/steamcommunity/public/images/items/504400/cd2e6e5aa573e9dc9a6da6f99fa557dc817cb78b.jpg"/>
             </div>
             <div className="col-md-12 col-sm-12 col-xs-12 user-left-part">
                 <div className="col-md-3 col-sm-4 col-xs-12 user-profil-part pull-left">
@@ -161,16 +161,16 @@ class Profile extends  React.Component{
                         <div className="col-md-12 col-md-12-sm-12 col-xs-12 user-image text-center">
                             <img src={this.state.User.imageString} className="rounded-circle"/>
                         </div>
-                        <div className="col-md-12 col-sm-12 col-xs-12 user-detail-section1 text-center">
+                        {/* <div className="col-md-12 col-sm-12 col-xs-12 user-detail-section1 text-center">
                            <button id="btn-contact"  data-toggle="modal" data-target="#editProfile" className="btn btn-success btn-block follow">Edit Profile</button> 
                                                          
-                        </div>
+                        </div> */}
                         
                         <div className="row user-detail-row">
                             <div className="col-md-12 col-sm-12 user-detail-section2 pull-left">
                                 <div className="border"></div>
-                                <p>FOLLOWER</p>
-                                <span>{this.state.User.numberOfFollowers}</span>
+                                {/* // <p>FOLLOWER</p>
+                                // <span>{this.state.User.numberOfFollowers}</span> */}
                             </div>                           
                         </div>
                        
@@ -214,7 +214,9 @@ class Profile extends  React.Component{
                                                     </div>
                                                     <div className="col-md-6 ">
                                                     <div className="topbar-divider d-none "></div>
-
+                                                         <p>
+                                                         {this.state.User.createdAt}
+                                                        </p>     
                                                         {/* <p>{dayjs(this.state.User.createdAt).fromNow()}</p> */}
                                                     </div>
                                                 </div>

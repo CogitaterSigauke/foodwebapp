@@ -78,7 +78,7 @@ class ChatBox extends React.Component{
                                         pathname: "/Profile",
                                         state: this.props.location.state
                                     }}>
-                                    <i className="fas fa-utensils fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    <i className="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Profile
                                 </Link>
 

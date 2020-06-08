@@ -10,7 +10,7 @@ import history from './History';
 
 const token = localStorage.tokenId;
 axios.defaults.baseURL = "https://new-my-recipes-app-myrecipes-app.azuremicroservices.io/app";
-// axios.defaults.baseURL = "http://localhost:8080/app";
+
 
 const searchClient = algoliasearch(
   '2RJQDQ5U0W',
@@ -66,8 +66,6 @@ class App extends Component{
     });
   
     this.search(e.target.innerHTML);
-    // this.search(e.target.value);
-  
     }
 
   Auth() {
@@ -134,13 +132,7 @@ class App extends Component{
     });
     this.search();
   }
-  
-  // filterByDrink = (e) => {
-  //   this.setState({
-  //     query: "Coffee"
-  //   });
-  //   this.search();
-  // }
+ 
 
   render() {
     return (
@@ -161,7 +153,7 @@ class App extends Component{
                 <ul onClick={this.handleFilterAllRecipes}
                   className="nav-link">
                   <i className="fas fa-fw fa-tachometer-alt"></i>
-                  <span className="recipe-ul" >Recipe Cards</span>
+                  <span className="recipe-ul" >All Recipes</span>
                 </ul>
             </li>
             <hr className="sidebar-divider"/>
@@ -240,12 +232,9 @@ class App extends Component{
             <li className="nav-item">
               <ul className="nav-link recipe-ul" name="dite and healthy" value="dite and healthy">
                 <i className="fas fa-hand-holding-heart"></i>
-                <span onClick={this.handleFilter}>Dite And Health</span></ul>
+                <span onClick={this.handleFilter}>Diet And Health</span></ul>
             </li>
-            <hr className="sidebar-divider d-none d-md-block"/>
-            <div className="text-center d-none d-md-inline">
-              <button className="rounded-circle border-0" id="sidebarToggle"></button>
-            </div>
+         
           </ul>
 
           <div id="content-wrapper" className="d-flex flex-column">
@@ -268,23 +257,6 @@ class App extends Component{
 
 
                 <ul className="navbar-nav ml-auto">
-                  {/* <li className="nav-item dropdown no-arrow d-sm-none">
-                    <a className="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                      <i className="fas fa-search fa-fw"></i>
-                    </a>
-                    <div className="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in" aria-labelledby="searchDropdown">
-                      <form className="form-inline mr-auto w-100 navbar-search">
-                        <div className="input-group">
-                          <input type="text" className="form-control bg-light border-0 small" placeholder="Search for..rrrrrrrrr." aria-label="Search" aria-describedby="basic-addon2"/>
-                          <div className="input-group-append">
-                            <button className="btn btn-primary" type="button">
-                              <i className="fas fa-search fa-sm"></i>
-                            </button>
-                          </div>
-                        </div>
-                      </form>
-                    </div>
-                  </li> */}
 
                   <Link  to="/Login">
                     <button type="button" className="btn btn-primary btn-sm">LogIn</button>
@@ -295,7 +267,7 @@ class App extends Component{
               <div className="container-fluid">
                 <div className="container">
                   <div className="row">
-                      {/* Recipe Cards */}
+                   
                     {
                       this.state.Hits.map((hit, i)=>(
                           <div className="col-lg-4 col-md-6 mb-10"  key={i}>
@@ -308,10 +280,7 @@ class App extends Component{
                                 <h6><a className="fas fa-user" href="#">{hit.userName}</a></h6>
                                 <p className="card-text">{hit.mealType}</p>
                               </div>
-                              <div className="card-footer">
-                                {/* need to be stars */}
-                                  <small className="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
-                              </div>
+                             
                             </div>
                           </div> 
                       ))

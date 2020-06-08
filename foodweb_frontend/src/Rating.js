@@ -4,9 +4,12 @@ import "./rating.css";
 
 const Star = ({ starId, rating, onMouseEnter, onMouseLeave, onClick }) => {
   let styleClass = "star-rating-blank";
+  let startCountForReview = onClick;
+ 
   if (rating && rating >= starId) {
     styleClass = "star-rating-filled";
-  
+    console.log("*****rating inside star rating-filled****************",rating);
+
   }
 
   return (

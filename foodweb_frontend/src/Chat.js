@@ -216,8 +216,7 @@ class Chat extends Component{
                         <div className="settings-tray">
                             <img className="profile-image" src={this.props.location.state.imageString} alt="profilPic"/>
                             <span className="settings-tray--right">
-                            <i className="fas fa-envelope-open-text"></i>
-                            <i className="fas fa-bars"></i>
+                          
                             </span>
                         </div>
                         {/* Search Bar */}
@@ -273,10 +272,10 @@ class Chat extends Component{
                                     <h6>{hit.userName}</h6>
                                     
                                  </div>
-                                <span className="settings-tray--right">
+                                {/* <span className="settings-tray--right">
                                 <i className="fas fa-envelope-open-text"></i>
                                 <i className="fas fa-bars"></i>
-                                </span>
+                                </span> */}
                             </div>
                         </div>
                         ))
