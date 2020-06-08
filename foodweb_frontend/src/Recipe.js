@@ -35,7 +35,8 @@ class Recipe extends Component {
             Hits: [],
             query: "",
             hitsFound: false,
-            steps: []
+            steps: [],
+            hasLiked: false
            
         };
     }
@@ -143,12 +144,29 @@ class Recipe extends Component {
        // '+this.props.location.state.recipeId
       
         console.log(this);
-        // let object = {
-        //     recipeId: this.props.location.state.recipeId,
-        //     userName: this.props.location.state.userName,
-        //     userId: this.props.location.state.userId
-        // };
-
+        let object = {
+            recipeId: this.props.location.state.recipeId,
+            userName: this.props.location.state.userName,
+            userId: this.props.location.state.userId
+        };
+        axios.post('/recipe/hasliked/', object)
+        .then((result)=>{
+                console.log(result.data);
+                if(result.data.hasLiked){
+                    this.setState({
+                        hasLiked: true
+                    })
+                }else{
+                    this.setState({
+                        hasLiked: false
+                    })
+                }
+            }
+        ).catch((error)=>{
+            console.log(error);
+        }).catch((err) => {
+            console.log(`Errors: {errors}`, err);
+        });
 
 
         axios.get('/recipe/'+this.props.location.state.recipeId)
@@ -195,6 +213,51 @@ class Recipe extends Component {
         console.log("STEPS ARRAY YEAHHHHHH******************************HHHHHHH", this.state.steps);
     }
 
+    ReduceLikesCount = () => {
+
+        let object = {
+            recipeId: this.props.location.state.recipeId,
+            userName: this.props.location.state.userName,
+            userId: this.props.location.state.userId
+        };
+
+        this.setState({
+            likes : this.state.likes - 1,
+            hasLiked: false
+        });
+
+        axios.post('/recipe/unlike/', object)
+        .then(
+            (result)=>{
+                console.log(result.data);
+                // if(result.data.hasLiked){
+                //     this.setState({
+                //         hasLiked: true,
+                //         likes : result.data.likes
+                //     })
+                // }else{
+                //     this.setState({
+                //         hasLiked: false,
+                //         likes : result.data.likes
+                //     })
+                // }
+
+                // this.setState({
+                    
+                //     hasLiked: result.data.hasLiked
+                // });
+                console.log(this.state);
+            }
+        ).catch((error)=>{
+            console.log(error);
+        }).catch((err) => {
+            console.log(`Errors: {errors}`, err);
+        });
+
+        
+
+    }
+
     IncrementLikesCount = () => {
         debugger;
         let object = {
@@ -202,13 +265,32 @@ class Recipe extends Component {
             userName: this.props.location.state.userName,
             userId: this.props.location.state.userId
         };
+
+        this.setState({
+            likes : this.state.likes + 1,
+            hasLiked: true
+        });
         console.log("obj88888", object);
         axios.post('/recipe/like/', object)
         .then(
             (result)=>{
                 console.log(result.data);
-                this.setState({likes : result.data.likes});
-                console.log(this.state);
+                
+
+
+
+                // if(result.data.hasLiked){
+                //     this.setState({
+                //         hasLiked: true,
+                //         likes : result.data.likes
+                //     })
+                // }else{
+                //     this.setState({
+                //         hasLiked: false,
+                //         likes : result.data.likes
+                //     })
+                // }
+                // console.log(this.state);
             }
         ).catch((error)=>{
             console.log(error);
@@ -404,131 +486,6 @@ class Recipe extends Component {
             </ul>
 
 
-            {/* <ul id  = "recipeUl" className="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
-
-                <Link 
-                      to={{ 
-                        pathname: "/Home",
-                        state: this.props.location.state
-                    }}
-                    className="sidebar-brand d-flex align-items-center justify-content-center"
-                >
-                    <div className="sidebar-brand-icon rotate-n-15">
-                    <i className="fas fa-blender"></i>
-                    </div>
-                    <div className="sidebar-brand-text mx-3">My Recipes <sup><i className="fas fa-laugh-wink"></i></sup></div>
-                </Link>
-
-                <hr className="sidebar-divider my-0"/>
-
-                <li className="nav-item">
-                    <ul className="nav-link">
-                    <i className="fas fa-fw fa-tachometer-alt"></i>
-                    <span>Recipe Cards</span></ul>
-                </li>
-
-                <hr className="sidebar-divider"/>
-
-                <div className="sidebar-heading">
-                    Menu
-                </div>
-
-                <li className="nav-item">
-                    <a className="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
-                    <i className="fas fa-coffee"></i>
-                    <span>Drinks</span>
-                    </a>
-                    <div id="collapseTwo" className="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                    <div className="bg-white py-2 collapse-inner rounded">
-                        <h6 className="collapse-header">Drinks Menu</h6>
-                        <a className="collapse-item" href="">Cocktail</a>
-                        <a className="collapse-item" href="">Hot Drinks</a>
-                        <a className="collapse-item" href="">Smoothies</a>
-                    </div>
-                    </div>
-                </li>
-
-                <li className="nav-item">
-                    <a className="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
-                    <i className="fas fa-cookie-bite"></i>
-                    <span>Deserts</span>
-                    </a>
-                    <div id="collapseUtilities" className="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
-                    <div className="bg-white py-2 collapse-inner rounded">
-                        <h6 className="collapse-header">Sweet's Menu</h6>
-                        <a className="collapse-item" href="">Ice Creams</a>
-                        <a className="collapse-item" href="">Cakes</a>
-                        <a className="collapse-item" href="">Cookies</a>
-                        <a className="collapse-item" href="">Fruits</a>
-                        
-                    </div>
-                    </div>
-                </li>
-
-                <li className="nav-item">
-                    <a className="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
-                    <i className="fas fa-globe"></i>
-                    <span>World Cuisine</span>
-                    </a>
-                    <div id="collapseUtilities" className="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
-                    <div className="bg-white py-2 collapse-inner rounded">
-                        <h6 className="collapse-header">Countries</h6>
-                        <a className="collapse-item" href="">Ethiopian</a>
-                        <a className="collapse-item" href="">Indian</a>
-                        <a className="collapse-item" href="">Chinese</a>
-                        <a className="collapse-item" href="">Italian</a>
-                        <a className="collapse-item" href="">Mexican</a>
-                        <a className="collapse-item" href="">American</a>
-                        
-                    </div>
-                    </div>
-                </li>
-
-
-
-                <li className="nav-item active">
-                    <a className="nav-link" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true" aria-controls="collapsePages">
-                    <i className="fas fa-fw fas fa-blender"></i>
-                    <span>Meals</span>
-                    </a>
-                    <div id="collapsePages" className="collapse show" aria-labelledby="headingPages" data-parent="#accordionSidebar">
-                    <div className="bg-white py-2 collapse-inner rounded">
-                        <h6 className="collapse-header">Main Dishes</h6>
-                        <a className="collapse-item active" href="">Breakfast</a>
-                        <a className="collapse-item active" href="">Lunch</a>
-                        <a className="collapse-item active" href="">Dinner</a>
-                        <div className="collapse-divider"></div>
-                        <h6 className="collapse-header">Side Dishes</h6>
-                        <a className="collapse-item active" href="">Vegetable</a>
-                        <a className="collapse-item active" href="">Grain</a>
-                        <a className="collapse-item active" href="">Seasonal</a>
-                    </div>
-                    </div>
-                </li>
-
-                <li className="nav-item">
-                    <a className="nav-link" href="">
-                    <i className="fas fa-hand-holding-heart"></i>
-                    <span>Dite And Health</span></a>
-                </li>
-
-
-
-                <hr className="sidebar-divider d-none d-md-block"/>
-
-                <div className="text-center d-none d-md-inline">
-                    <button className="rounded-circle border-0" id="sidebarToggle"></button>
-                </div>
-
-            </ul> */}
-
-
-
-
-
-
-
-
 
             <div id="content-wrapper" className="d-flex flex-column">
 
@@ -640,10 +597,34 @@ class Recipe extends Component {
                                         <div className="col-md-8">
                                             <img className="img-fluid" src={this.state.Recipe.imageString} alt=""/>
                                                 <div className="row user-detail-row">
-                                                    <div className="col-md-12 col-sm-12 user-detail-section2 pull-left">
-                                                        <button className="float-right btn text-white btn-danger" onClick={this.IncrementLikesCount}> <span>{this.state.likes}</span> <i className="fa fa-heart"></i> Like</button>
+
+                                                    {
+                                                        (this.state.hasLiked)
+                                                        && (
+                                                            <div className="col-md-12 col-sm-12 user-detail-section2 pull-left">
+                                                                <button className="float-right btn text-white btn-danger" onClick={this.ReduceLikesCount}> <span>{this.state.likes}</span> <i className="fa fa-heart"></i> Unlike</button>
                                                 
-                                                    </div>                           
+                                                            </div>  
+
+                                                        )
+
+                                                     
+                                                    }
+
+                                                    {
+
+                                                        (!this.state.hasLiked)
+                                                        &&(
+                                                        
+                                                            <div className="col-md-12 col-sm-12 user-detail-section2 pull-left">
+                                                                <button className="float-right btn text-white btn-danger" onClick={this.IncrementLikesCount}> <span>{this.state.likes}</span> <i className="fa fa-heart"></i> Like</button>
+                                                        
+                                                            </div>    
+                                                        )
+
+
+                                                    }
+                                                                        
                                             </div>
                                         </div>
                                         <div className="col-md-4">

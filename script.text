@@ -1,0 +1,6 @@
+mvn clean package
+
+az spring-cloud app deploy -n myrecipes-app --jar-path ./target/foodweb-0.0.1-SNAPSHOT.jar
+
+az webapp up --name my-recipes-web-app --plan my-recipe-service-plan --resource-group the-recipe-resource --location centralus --html
+
