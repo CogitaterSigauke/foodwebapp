@@ -266,7 +266,7 @@ class Chat extends Component{
                     {
                         this.state.DisplayHits.map((hit, i)=>(
                             
-                        <div className="settings-tray">
+                        <div className="settings-tray" key={i}>
                             <div className="friend-drawer no-gutters friend-drawer--grey">
                                 <img className="profile-image" src={hit.imageString}  alt=""/>
                                 <div className="text">

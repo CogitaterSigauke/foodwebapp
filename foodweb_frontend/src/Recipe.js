@@ -898,7 +898,7 @@ class Recipe extends Component {
                                                     (this.state.Recipe.id !== hit.objectID)
                                                         && 
                                                     (
-                                                        <div className="col-md-3 col-sm-6 mb-4"> 
+                                                        <div className="col-md-3 col-sm-6 mb-4" key={i}> 
                                                             <ul onClick={this.handleRecipeChange}>
                                                                 <img className="img-fluid recipe-ul" src={hit.imageString} name={(hit.objectID)} alt={`${hit.mealName} image`}/>
                                                             </ul>
@@ -973,10 +973,10 @@ class Recipe extends Component {
                                         <p className="text-secondary" key={key}>{this.state.LoadedComments[key].createdAt}</p>
                                         
                                         <div className="col-md-10">
-                                            <p>
+                                           
                                                 <p className="float-left" ><strong>Ananonymus</strong></p>
 
-                                            </p>
+                                            
                                             <div className="clearfix float-right">
                                             <p key={key}>{this.state.LoadedComments[key].commentText}</p>
                                             </div>

@@ -86,7 +86,7 @@ class ChatBox extends React.Component{
                                     {{
                                         pathname: "/Home",
                                         state: this.props.location.state,
-                                        filter: true
+                                        filterByMyRecipe: true
                                     }}>
                                     <i className="fas fa-utensils fa-sm fa-fw mr-2 text-gray-400"></i>
                                     My Recipe

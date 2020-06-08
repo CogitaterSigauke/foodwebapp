@@ -97,6 +97,17 @@ componentWillMount() {
 
       })
     }
+
+    if(this.props.location.filterByMyRecipe){
+      let e = {
+        target: {
+          innerHTML: this.props.location.filter
+        }
+      }
+      this.handleMyRecipeFilter(e);
+
+    }
+
     if(this.props.location.filter){
       let e = {
         target: {
@@ -104,6 +115,8 @@ componentWillMount() {
         }
       }
       this.handleFilter(e);
+
+    
 
 
     }else{
