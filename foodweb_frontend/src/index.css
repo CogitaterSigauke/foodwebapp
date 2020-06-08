@@ -26,3 +26,16 @@ code {
     cursor: pointer;
 
 }
+.filter-edit{
+  background-color: rgb(74, 123, 216);
+  padding-left: 6px;
+  padding-right: 6px;
+  color: white;
+  border-radius: 2px 6px 2px 6px;
+
+}
+
+.alert{
+
+  background-color: rgb(177, 199, 218);
+}

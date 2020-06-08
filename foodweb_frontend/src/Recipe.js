@@ -35,7 +35,8 @@ class Recipe extends Component {
             Hits: [],
             query: "",
             hitsFound: false,
-            steps: []
+            steps: [],
+            hasLiked: false
            
         };
     }
@@ -151,6 +152,52 @@ class Recipe extends Component {
 
 
 
+
+
+
+
+        let object = {
+            recipeId: this.props.location.state.recipeId,
+            userName: this.props.location.state.userName,
+            userId: this.props.location.state.userId
+        };
+        axios.post('/recipe/hasliked/', object)
+        .then((result)=>{
+                console.log(result.data);
+                if(result.data.hasLiked){
+                    this.setState({
+                        hasLiked: true
+                    })
+                }else{
+                    this.setState({
+                        hasLiked: false
+                    })
+                }
+            }
+        ).catch((error)=>{
+            console.log(error);
+        }).catch((err) => {
+            console.log(`Errors: {errors}`, err);
+        });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         axios.get('/recipe/'+this.props.location.state.recipeId)
             .then(res => {
                 this.setState({ Recipe: res.data,
@@ -195,27 +242,126 @@ class Recipe extends Component {
         console.log("STEPS ARRAY YEAHHHHHH******************************HHHHHHH", this.state.steps);
     }
 
-    IncrementLikesCount = () => {
-        debugger;
-        let object = {
-            recipeId: this.props.location.state.recipeId,
-            userName: this.props.location.state.userName,
-            userId: this.props.location.state.userId
-        };
-        console.log("obj88888", object);
-        axios.post('/recipe/like/', object)
-        .then(
-            (result)=>{
-                console.log(result.data);
-                this.setState({likes : result.data.likes});
-                console.log(this.state);
-            }
-        ).catch((error)=>{
-            console.log(error);
-        }).catch((err) => {
-            console.log(`Errors: {errors}`, err);
-        });
-    }
+    // IncrementLikesCount = () => {
+    //     debugger;
+    //     let object = {
+    //         recipeId: this.props.location.state.recipeId,
+    //         userName: this.props.location.state.userName,
+    //         userId: this.props.location.state.userId
+    //     };
+    //     console.log("obj88888", object);
+    //     axios.post('/recipe/like/', object)
+    //     .then(
+    //         (result)=>{
+    //             console.log(result.data);
+    //             this.setState({likes : result.data.likes});
+    //             console.log(this.state);
+    //         }
+    //     ).catch((error)=>{
+    //         console.log(error);
+    //     }).catch((err) => {
+    //         console.log(`Errors: {errors}`, err);
+    //     });
+    // }
+
+    
+  ReduceLikesCount = () => {
+
+    let object = {
+        recipeId: this.props.location.state.recipeId,
+        userName: this.props.location.state.userName,
+        userId: this.props.location.state.userId
+    };
+
+    this.setState({
+        likes : this.state.likes - 1,
+        hasLiked: false
+    });
+
+    axios.post('/recipe/unlike/', object)
+    .then(
+        (result)=>{
+            console.log(result.data);
+            // if(result.data.hasLiked){
+            //     this.setState({
+            //         hasLiked: true,
+            //         likes : result.data.likes
+            //     })
+            // }else{
+            //     this.setState({
+            //         hasLiked: false,
+            //         likes : result.data.likes
+            //     })
+            // }
+
+            // this.setState({
+                
+            //     hasLiked: result.data.hasLiked
+            // });
+            console.log(this.state);
+        }
+    ).catch((error)=>{
+        console.log(error);
+    }).catch((err) => {
+        console.log(`Errors: {errors}`, err);
+    });
+
+    
+
+  }
+
+  IncrementLikesCount = () => {
+    debugger;
+    let object = {
+        recipeId: this.props.location.state.recipeId,
+        userName: this.props.location.state.userName,
+        userId: this.props.location.state.userId
+    };
+
+    this.setState({
+        likes : this.state.likes + 1,
+        hasLiked: true
+    });
+    console.log("obj88888", object);
+    axios.post('/recipe/like/', object)
+    .then(
+        (result)=>{
+            console.log(result.data);
+            
+
+
+
+            // if(result.data.hasLiked){
+            //     this.setState({
+            //         hasLiked: true,
+            //         likes : result.data.likes
+            //     })
+            // }else{
+            //     this.setState({
+            //         hasLiked: false,
+            //         likes : result.data.likes
+            //     })
+            // }
+            // console.log(this.state);
+        }
+    ).catch((error)=>{
+        console.log(error);
+    }).catch((err) => {
+        console.log(`Errors: {errors}`, err);
+    });
+  }
+
+
+
+
+
+
+
+
+
+
+
+
     // delete a recipe
     deleteRecipe = () => {
         // e.preventDefault(); 
@@ -316,7 +462,7 @@ class Recipe extends Component {
                 <ul onClick={this.handleFilterAllRecipes}
                   className="nav-link">
                   <i className="fas fa-fw fa-tachometer-alt"></i>
-                  <span className="recipe-ul" >Recipe Cards</span>
+                  <span className="recipe-ul" >All Recipes</span>
                 </ul>
             </li>
             <hr className="sidebar-divider"/>
@@ -395,7 +541,7 @@ class Recipe extends Component {
             <li className="nav-item">
               <ul className="nav-link recipe-ul" name="dite and healthy" value="dite and healthy">
                 <i className="fas fa-hand-holding-heart"></i>
-                <span onClick={this.handleFilter}>Dite And Health</span></ul>
+                <span onClick={this.handleFilter}>Diet And Health</span></ul>
             </li>
             <hr className="sidebar-divider d-none d-md-block"/>
             <div className="text-center d-none d-md-inline">
@@ -611,14 +757,14 @@ class Recipe extends Component {
 
             <div className= "container ">
                 <h1 className="my-4">RECIPE DESCRIPTION</h1>
-                    <div className = "container">
+                    {/* <div className = "container">
                         <header id="videoheader">
                             <div className="overlay"></div>
                             <video playsInline="playsInline" autoPlay="autoPlay" muted="muted" loop="loop">
                             
                             <source src={require('./img/breakfast.mp4')}/>
-                            {/* <source src= "https://vod-progressive.akamaized.net/exp=1589539650~acl=%2A%2F1447247590.mp4%2A~hmac=9c34bbd02d316c0f2a07cf359ed4779063dea6d57cd491be295ce91bf415e96c/vimeo-prod-skyfire-std-us/01/1071/14/355357132/1447247590.mp4?download=1&filename=video.mp4"/> */}
-                                {/* <source src="https://vod-progressive.akamaized.net/exp=1589530661~acl=%2A%2F699571361.mp4%2A~hmac=dd3d505e9177ffcb718431534c68dd06eab999e36ddcbc1a68c5d168d39b163b/vimeo-prod-skyfire-std-us/01/1102/8/205512696/699571361.mp4?download=1&filename=Cup+Of+Coffee+On+Top+Of+Coffee+Beans.mp4" type="video/mp4"/> */}
+                            <source src= "https://vod-progressive.akamaized.net/exp=1589539650~acl=%2A%2F1447247590.mp4%2A~hmac=9c34bbd02d316c0f2a07cf359ed4779063dea6d57cd491be295ce91bf415e96c/vimeo-prod-skyfire-std-us/01/1071/14/355357132/1447247590.mp4?download=1&filename=video.mp4"/>
+                                <source src="https://vod-progressive.akamaized.net/exp=1589530661~acl=%2A%2F699571361.mp4%2A~hmac=dd3d505e9177ffcb718431534c68dd06eab999e36ddcbc1a68c5d168d39b163b/vimeo-prod-skyfire-std-us/01/1102/8/205512696/699571361.mp4?download=1&filename=Cup+Of+Coffee+On+Top+Of+Coffee+Beans.mp4" type="video/mp4"/>
                             </video>
                             <div className="container h-100">
                                 <div className="d-flex h-100 text-center align-items-center">
@@ -629,31 +775,80 @@ class Recipe extends Component {
                                 </div>
                             </div>
                         </header>
-                    </div>
+                    </div> */}
                     </div>
                     <section className="my-5">
                         <div className="container">
                             <div className="container">
 
-                                <h1 className="my-4">Setps and Descirption</h1>
+                                <h1 className="my-4"></h1>
                                     <div className="row">
-                                        <div className="col-md-8">
+                                        <div className="col-md-6">
                                             <img className="img-fluid" src={this.state.Recipe.imageString} alt=""/>
                                                 <div className="row user-detail-row">
                                                     <div className="col-md-12 col-sm-12 user-detail-section2 pull-left">
-                                                        <button className="float-right btn text-white btn-danger" onClick={this.IncrementLikesCount}> <span>{this.state.likes}</span> <i className="fa fa-heart"></i> Like</button>
-                                                
+                                                       
+
+
+
+
+
+
+
+
+                                                        {
+                                                        (this.state.hasLiked)
+                                                        && (
+                                                            <div className="col-md-12 col-sm-12 user-detail-section2 pull-left">
+                                                                {/* <button className="float-right btn text-white btn-danger" onClick={this.ReduceLikesCount}> <span>{this.state.likes}</span> <i className="fa fa-heart"></i> Unlike</button> */}
+                                                                <button className="float-right btn text-white btn-danger" onClick={this.ReduceLikesCount}> <span className=" text-white ">{this.state.likes}</span> <i className="fa fa-heart"></i> </button>
+
+                                                            </div>  
+
+                                                        )
+
+                                                     
+                                                    }
+
+                                                    {
+
+                                                        (!this.state.hasLiked)
+                                                        &&(
+                                                        
+                                                            <div className="col-md-12 col-sm-12 user-detail-section2 pull-left">
+                                                                {/* <button className="float-right btn text-white btn-danger" onClick={this.IncrementLikesCount}> <span>{this.state.likes}</span> <i className="fa fa-heart"></i> Like</button> */}
+                                                                <button className="float-right btn text-white recipe-btn" onClick={this.IncrementLikesCount}> <span className=" text-white ">{this.state.likes}</span> <i className="fa fa-heart"></i> </button>
+
+                                                            </div>    
+                                                        )
+
+
+                                                    }
+
+
+
+
+
+
+
+
+
+
+
+
+
                                                     </div>                           
                                             </div>
                                         </div>
-                                        <div className="col-md-4">
+                                        <div className="col-md-6">
                                             <h3 className="my-3">Recipe Description</h3>
+
                                             <p>{this.state.Recipe.description}</p>
                                             <h3 className="my-3">Recipe Details</h3>
                                             <ul>
-                                            <li>Meal Name: {this.state.Recipe.mealName}</li>
-                                            <li>Meal Type: {this.state.Recipe.mealType}</li>
-                                            <li>Recipe Owner: {this.state.Recipe.userName}</li>
+                                            <li><b>Meal Name:    </b> {this.state.Recipe.mealName}</li>
+                                            <li><b>Meal Type:    </b> {this.state.Recipe.mealType}</li>
+                                            <li><b>Recipe Owner: </b> {this.state.Recipe.userName}</li>
 
                                             </ul>
                                         </div>
@@ -695,31 +890,25 @@ class Recipe extends Component {
                                     
 
                                 <h3 className="my-4">Related Recipes</h3>
-
-                                
-                                    
+                                <div className="row">
                                     {
 
                                         this.state.Hits.map((hit, i)=>(
-                                            <div className="row fixed-row" key={i}>
                                             
-                                                { 
                                                     (this.state.Recipe.id !== hit.objectID)
                                                         && 
                                                     (
-                                                        <div className="col-md-3 col-sm-6 mb-4">
+                                                        <div className="col-md-3 col-sm-6 mb-4"> 
                                                             <ul onClick={this.handleRecipeChange}>
                                                                 <img className="img-fluid recipe-ul" src={hit.imageString} name={(hit.objectID)} alt={`${hit.mealName} image`}/>
                                                             </ul>
                                                         </div>
                                                     
                                                     )
-                                                }
-
-                                            </div> 
                                         ))
                                     
                                     }
+                                    </div>
 
                                                     {/* <div className="col-md-3 col-sm-6 mb-4">
                                                         <ul onClick={this.handleRecipeChange}>
@@ -785,8 +974,7 @@ class Recipe extends Component {
                                         
                                         <div className="col-md-10">
                                             <p>
-                                                <a className="float-left" href="https://maniruzzaman-akash.blogspot.com/p/contact.html"><strong>Ananonymus</strong></a>
-
+                                                <p className="float-left" ><strong>Ananonymus</strong></p>
 
                                             </p>
                                             <div className="clearfix float-right">
@@ -827,7 +1015,13 @@ class Recipe extends Component {
                                 {(this.state.isRecipeOwner)
                                 && (<div className="row" >
                                     <div className="col-md-4">
-                                    <button type="button" className="btn btn-success">Edit_Recipe</button>
+                                    <Link to ={{
+                                        pathname: "/EditRecipe",
+                                        state: this.props.location.state,
+                                        Recipe: this.state.Recipe
+                                    }} >
+                                        <button type="button" className="btn btn-success">Edit_Recipe</button>
+                                    </Link>
                                     </div><div className="col-md-4"></div>
                                     <div className="col-md-4"><button type="button" className="btn btn-danger" onClick={this.deleteRecipe}>Delete_Recipe </button>
                                     </div>

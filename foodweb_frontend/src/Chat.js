@@ -6,6 +6,8 @@ import axios from 'axios';
 import PropTypes from 'prop-types';
 import {withRouter} from 'react-router-dom';
 import algoliasearch from 'algoliasearch/lite';
+import noimage from './profiles/noimage.png';
+
 
 const searchClient = algoliasearch(
     '2RJQDQ5U0W',
@@ -212,7 +214,7 @@ class Chat extends Component{
                     <div className="col-md-4 border-right ">
                         
                         <div className="settings-tray">
-                            <img className="profile-image" src={this.props.location.state.imageString} alt="./profiles/profileImgAll.png"/>
+                            <img className="profile-image" src={this.props.location.state.imageString} alt="profilPic"/>
                             <span className="settings-tray--right">
                             <i className="fas fa-envelope-open-text"></i>
                             <i className="fas fa-bars"></i>
@@ -238,7 +240,7 @@ class Chat extends Component{
                             
                             this.state.Hits.map((hit, i)=>(
                                 <div className="friend-drawer friend-drawer--onhover" key= {i} >
-                                    <img className="profile-image" id={"click"+i} onClick={this.handleChatBoxClick} src={hit.imageString} alt={require("./profiles/profileImgAll.png")} name={hit.objectID} />
+                                    <img className="profile-image" id={"click"+i} onClick={this.handleChatBoxClick} src={hit.imageString} alt="profilePic" name={hit.objectID} />
                                     <div className="text">
                                         <h3  hidden>{hit.objectID}</h3>
                                         <h6>{hit.userName}</h6>

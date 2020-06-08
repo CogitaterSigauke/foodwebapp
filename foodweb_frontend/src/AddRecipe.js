@@ -26,7 +26,7 @@ class AddRecipe extends React.Component {
       images: [],
       url: "",
       urls: [],
-
+      noImageSelected: null,
       progress: 0,
       // steps: ['step-0'],
       // ingredients: ['ingredient-0'],
@@ -177,47 +177,78 @@ class AddRecipe extends React.Component {
   handleUpload = () => {
 
     console.log("handleUpload State:", this.state);
-    const uploadTask = storage.ref(`images/${this.state.image.name}`).put(this.state.image);
-    console.log("handleUpload State: ==========================================");
-    uploadTask.on(
-      "state_changed",
-      snapshot => {
+    if(this.state.image){
 
-        const progress = Math.round(
-          (snapshot.bytesTransferred / snapshot.totalBytes) * 100
-        );
+      this.setState({
+        noImageSelected: false
+      });
 
-        this.setState({
-          progress: progress
-        });
-        
-        console.log("Inside Handle Upload\n state :", this.state);
+      const uploadTask = storage.ref(`images/${this.state.image.name}`).put(this.state.image);
+      console.log("handleUpload State: ==========================================");
+      uploadTask.on(
+        "state_changed",
+        snapshot => {
 
-      },
-      error => {
-        console.log("Error ==>", error);
-      },
-      () => {
-        this.state.images.push(this.state.image.name);
-       
-        console.log("Before getting image from storage\n state: ", this.state);
-        storage
-          .ref("images")
-          .child(this.state.image.name)
-          .getDownloadURL()
-          .then(imageUrl => {
-            this.setState({
-              url: imageUrl,
-              imageString: imageUrl
-            });
-            this.state.urls.push(imageUrl);
-            
-  
+          const progress = Math.round(
+            (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+          );
+
+          this.setState({
+            progress: progress
           });
-      }
-    );
+          
+          console.log("Inside Handle Upload\n state :", this.state);
 
-    console.log("After Handle Upload\n state :", this.state);
+        },
+        error => {
+          console.log("Error ==>", error);
+        },
+        () => {
+
+          if(this.state.images){
+            this.state.images.push(this.state.image.name);
+          }else{
+            this.setState({
+              images : [this.state.image.name]
+            })
+          }
+          
+        
+          console.log("Before getting image from storage\n state: ", this.state);
+          storage
+            .ref("images")
+            .child(this.state.image.name)
+            .getDownloadURL()
+            .then(imageUrl => {
+
+              if(this.state.urls){
+                this.state.urls.push(imageUrl)
+              }else{
+                
+                this.setState({
+                  urls: [imageUrl]
+                })
+              }
+              
+
+              this.setState({
+                url: imageUrl,
+                imageString: imageUrl
+              });
+              
+    
+            });
+        }
+      );
+
+      console.log("After Handle Upload\n state :", this.state);
+    }else{
+
+      this.setState({
+        noImageSelected: true
+      });
+    }
+
 
   };
 
@@ -350,7 +381,7 @@ class AddRecipe extends React.Component {
                               </div>
                           </li>
                       </ul>
-                  </nav>
+              </nav>
               
 
               <div className="container-fluid">
@@ -480,6 +511,8 @@ class AddRecipe extends React.Component {
                     </div>
                             
                         <br/>
+
+                      
                       <button type="submit"  className="btn btn-success" onClick={this.unhideSubmit}>Submit</button>
 {/* 
                     <div>
@@ -502,6 +535,30 @@ class AddRecipe extends React.Component {
                     <br /><br />
                     <div className="column">
                     <br />
+
+
+
+
+
+                    {
+
+                          (this.state.noImageSelected) && 
+
+
+                          // (
+
+                            <div className="card-body text-center alert">
+                              <h5 className="card-title">
+                                Please Select Image
+                              </h5>
+                               {/* <p className="card-text">{hit.dietAndHealth}</p> */}
+                            </div>
+                          // )
+
+
+                    }
+
+
 
                       {/* <h1 className="h3 mb-4 text-gray-800">OR PICK HERE(coming soon)</h1> */}
 

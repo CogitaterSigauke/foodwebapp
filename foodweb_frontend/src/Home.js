@@ -151,7 +151,7 @@ handleLogout = () => {
     }
     handleMyRecipeFilter = (e) => {
       this.setState({
-        filter: this.props.location.state.userName,
+        filter: "My Recipes",
         query: this.props.location.state.userName
       });
 
@@ -174,10 +174,10 @@ render() {
     this.props.history.push('/');
     // return <Redirect to='/'/>
   }
-  if(!this.props.location.state){
-    this.props.history.push('/');
-    return <Redirect to='/'/>;
-  }
+  // if(!this.props.location.state){
+  //   this.props.history.push('/');
+  //   return <Redirect to='/'/>;
+  // }
 
   return (
 
@@ -201,7 +201,7 @@ render() {
               <ul onClick={this.handleFilterAllRecipes}
                 className="nav-link">
                 <i className="fas fa-fw fa-tachometer-alt"></i>
-                <span className="recipe-ul" >Recipe Cards</span>
+                <span className="recipe-ul" >All Recipes</span>
               </ul>
           </li>
           <hr className="sidebar-divider"/>
@@ -311,7 +311,7 @@ render() {
                 </form>         
               </div>
 
-              <span className="mr-2 d-none d-lg-inline text-gray-600 small text-nowrap">{this.state.filter}</span>
+              <span className="mr-2 d-none d-lg-inline  small text-nowrap nav-item filter-edit">{this.state.filter}</span>
 
               <Link className="nav-item"
                 to={{

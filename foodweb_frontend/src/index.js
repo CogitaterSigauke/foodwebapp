@@ -12,6 +12,7 @@ import EditProfile from './EditProfile';
 import Recipe from './Recipe';
 import history from './History';
 import App from './App';
+import EditRecipe from './EditRecipe';
 
 
 ReactDOM.render(
@@ -25,6 +26,7 @@ ReactDOM.render(
       <Route path="/AddRecipe" component={AddRecipe} />
       <Route path="/Profile" component={Profile} />
       <Route path="/ChatBox" component={ChatBox}/>
+      <Route path="/EditRecipe" component={EditRecipe}/>
     </Switch>
   </Router>, document.getElementById('root')
 );
