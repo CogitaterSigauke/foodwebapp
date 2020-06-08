@@ -21,7 +21,7 @@ Make a web app that can provide
 
 * Recipes that are easy to follow, that uses easily accessible ingredients and that helps the user prepare delicious and healthy meal
 
-* A platform where a user is able to enter their own signature for food recipes providing an opportunity to benefit the communit, follow food experts and hobbyists and build relationships with them and also an apportunity to be followed by others and create a fame.
+* A platform where a user is able to enter their own signature for food recipes providing an opportunity to benefit the community, follow food experts and hobbyists and build relationships with them and also an apportunity to be followed by others and create a fame.
 
            
            
