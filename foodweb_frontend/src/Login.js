@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
 import GoogleLogin from "react-google-login";
-
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-
 import { useHistory } from "react-router-dom";
 
 
@@ -13,9 +11,9 @@ function Login() {
   const history = useHistory();
 
   const handleGoogleResponseFailure = (res) => {
-    console.log("=============FAILURE================");
+   
     console.log(res);
-    console.log("=============FAILURE================");
+  
   }
 
   const handleGoogleResponse = (res) => {
@@ -37,10 +35,7 @@ function Login() {
     axios.post('/signup', userData)
       .then(response => {
 
-        // const { id } = response.data
-        // localStorage.setItem('loggedin', true);
-        // localStorage.setItem('user_id', id);
-        history.push({
+       history.push({
           pathname: "/Home",
           state: {userId: response.data.id,
                   userName: response.data.userName,
