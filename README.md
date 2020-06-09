@@ -2,56 +2,48 @@
 
 # Problem
 
-As a college student, getting a healthy but delicious meal at an affordable price has always been a problem.
-However, the most possible healthy meal is found by cooking the meal by yourself which also reduces the cost used for buying meals by a significant amount.
-
-# Problems Related to Cooking
-
-* Most students don’t have the time to cook
-* Most students don’t know how to cook
-* Some also find it boring and lonely when they do it
-* Most chefs are also eager to share their cooking culinary expertise
-* Marketing firms are looking for a media platform to advertise food products
-
+As a college student, getting a healthy but delicious meal at an affordable price has always been a problem. In order to tackle this problem, most students prefer to prepare their own meals.
+However, 
+* most students don’t have the time to cook big meals.
+* most students don’t know how to cook.
+* some also find it boring and lonely when they do it.
 
 
 # Solution
+Make a webapp that
 
-Make a web app that can provide
+* provides Recipes that are easy to follow, that uses easily accessible ingredients and that helps the user prepare delicious and healthy meal in small amount of time.
 
-* Recipes that are easy to follow, that uses easily accessible ingredients and that helps the user prepare delicious and healthy meal
+* provides a platform where a user can enter their own signature for food recipes providing an opportunity to benefit the community, message other users if they want to ask specific question about their recipes which also helps in building  a relationship.
 
-* A platform where a user is able to enter their own signature for food recipes providing an opportunity to benefit the community, follow food experts and hobbyists and build relationships with them and also an apportunity to be followed by others and create a fame.
 
            
            
 # Key Features of the Web App
 
-* Search bar - to allow users to enter ingredients and provide with the list of possible recipes for making different dishes.
-* Feedbacks and rating - to give users a change to review the recipes that they used.
-* User registration and authentication
-* ChatBox
-* View  and edit Profiles
-* ADD Recipe, Edit Recipe, Delete Recipe
+
+* Add, View,  Edit, Delete  Recipes
+* Instant Search For Recipes
+* Social Networking (Messaging)
+* Feedback on Recipes (Comments, Likes, Unlikes)
+* Filtering recipes in different categories 
+* Suggesting related recipes 
+
 
 
 
 # List of Teammates and their roles
 
-*  Rediet Negash - Project Manager
+*  Rediet Negash - Project Manager and Designer
 *  CogitaterSigauke - Lead programmer
 *  Merry Mekonnen - Product Owner
-*  Pyungkang Hong - Designer
+
 
 # Link to where the website is deployed
 ```
 https://my-recipes-web-app.azurewebsites.net/
 ```
-Some important pages
-```
-https://my-recipes-web-app.azurewebsites.net/ChatBox
-https://my-recipes-web-app.azurewebsites.net/Home
-```
+
      
 # How To Use This Software
 
