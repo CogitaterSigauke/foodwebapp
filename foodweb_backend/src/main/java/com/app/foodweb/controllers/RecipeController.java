@@ -117,6 +117,9 @@ public class RecipeController {
     if(recipe.getUrls() != null){
       r.setUrls(recipe.getUrls());
     }
+    if(recipe.getImageString() != null){
+      r.setImageString(recipe.getImageString());
+    }
     recipeRepository.save(r);
     // UPDATE INDEX
     RecipeImage recipeImage = new RecipeImage(
