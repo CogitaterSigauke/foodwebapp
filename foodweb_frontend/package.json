@@ -40,5 +40,5 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "https://new-my-recipes-app-myrecipes-app.azuremicroservices.io/app"
+  "proxy": "http://localhost:8080/app"
 }

@@ -9,8 +9,8 @@ import { withRouter } from "react-router-dom";
 import history from './History';
 
 const token = localStorage.tokenId;
-axios.defaults.baseURL = "https://new-my-recipes-app-myrecipes-app.azuremicroservices.io/app";
-
+// axios.defaults.baseURL = "https://new-my-recipes-app-myrecipes-app.azuremicroservices.io/app";
+axios.defaults.baseURL = "http://localhost:8080/app"
 
 const searchClient = algoliasearch(
   '2RJQDQ5U0W',

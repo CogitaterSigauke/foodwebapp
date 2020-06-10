@@ -365,9 +365,7 @@ class AddRecipe extends React.Component {
                                     <i className="fas fa-utensils fa-sm fa-fw mr-2 text-gray-400"></i>
                                     My Recipe
                                 </Link>
-
-                                 
-
+                                
                                   <Link className="dropdown-item" to = {{
                                       pathname: "/AddRecipe",
                                       state: {

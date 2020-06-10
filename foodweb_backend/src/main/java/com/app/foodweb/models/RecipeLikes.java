@@ -72,10 +72,17 @@ public class RecipeLikes {
 
     public int unLike(String userId, String userName) {
         if(this.likes.containsKey(userId)){
-            likes.put(userId, userName);
+            likes.remove(userId, userName);
             this.likesCount --;
         }
         return this.likesCount;
+    }
+
+    public int hasLiked(String userId, String userName) {
+        if(this.likes.containsKey(userId)){
+            return 1;
+        }
+        return 0;
     }
 
     public int getLikesCount() {
