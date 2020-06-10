@@ -6,7 +6,7 @@ import { Redirect } from "react-router-dom";
 import { storage } from "./firebase";
 
 
-class AddRecipe extends React.Component {
+class TestEditEndpoints extends React.Component {
 
   constructor(props) {
     super(props);
@@ -451,4 +451,4 @@ class AddRecipe extends React.Component {
     );
   }
 }
-export default AddRecipe;
+export default TestEditEndpoints;
