@@ -1,0 +1,41 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+.recipe-white {
+  background-color: "white";
+}
+
+.recipe-ul {
+
+  cursor: pointer;
+
+}
+.recipe-ul-n:hover {
+    background-color: rgb(88, 88, 87);
+    cursor: pointer;
+
+}
+.filter-edit{
+  background-color: rgb(74, 123, 216);
+  padding-left: 6px;
+  padding-right: 6px;
+  color: white;
+  border-radius: 2px 6px 2px 6px;
+
+}
+
+.alert{
+
+  background-color: rgb(177, 199, 218);
+}
